@@ -1,8 +1,12 @@
 // import React from 'react'
 
+import Footer from "../Footer"
+import CustomNavbar from "../Navbar"
+
 function About() {
   return (
     <div>
+      <CustomNavbar/>
       <div className='flex items-center justify-center w-full p-8 text-center iten h-60 bg-primary'>
             <h3 className='text-3xl font-semibold text-neutral-50 w-full lg:w-[65%] leading-0'>Empowering Learners Everywhere with Innovative, World-Class Education.</h3>
       </div>
@@ -35,6 +39,8 @@ function About() {
             <p className='text-[#717171]'>Be part of a community that is committed to your success. Whether you’re a student aiming to excel academically or an educator looking to make a difference, Al Mohandes Educational Institution is here to support you every step of the way.</p>
           </div>
       </div>
+
+      <Footer/>
     </div>
   )
 }

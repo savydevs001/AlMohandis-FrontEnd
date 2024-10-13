@@ -5,7 +5,7 @@ import video from '../../../assets/dumyVideo.mp4'
 function PromotionalVideo() {
   return (
     <div className='mt-12 '>
-    <div className='bg-[#F7F7F7] p-4 rounded-lg w-full lg:w-64'>
+    <div className='w-full p-4 rounded-lg bg-cardBg lg:w-64'>
       <video controls loop autoFocus className=''>
       <source src={video} type='video/mp4' />
       </video>

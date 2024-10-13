@@ -2,11 +2,15 @@
 import { PiPhoneCallFill } from "react-icons/pi";
 import { MdEmail } from "react-icons/md";
 import { FaLocationDot } from "react-icons/fa6";
+import CustomNavbar from "../../components/Navbar";
+import Footer from "../../components/Footer";
 
 
 function Contact() {
   return (
     <div className='w-full h-fit '>
+<CustomNavbar/>
+      
      <center className='mt-12'>
      <h1 className='text-3xl font-bold'>Contact Us</h1>
      <p className='text-paraColor'>Any question or remarks? Just write us a message!</p>
@@ -90,6 +94,8 @@ function Contact() {
   </form>
 </div>
      </div>
+
+     <Footer/>
     </div>
   )
 }

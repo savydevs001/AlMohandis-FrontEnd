@@ -2,10 +2,15 @@
 import { NavLink } from 'react-router-dom'
 // import logo from '../../assets/FooterLogo.png'
 import frame from '../../assets/Frame 106.png'
+import CustomNavbar from '../Navbar'
+import Footer from '../Footer'
 
 function CreateAccount() {
   return (
+<>
+<CustomNavbar/>
     <div className='flex flex-col justify-between w-full gap-3 lg:gap-0 p-7 h-fit lg:flex-row'>
+      
       <div className='form-data w-full lg:w-[45%] h-fit p-6 bg-[#F7EFE2] rounded-lg '>
           <form  className='flex flex-col space-y-6'>
             <div className='flex flex-col items-center justify-between w-full gap-3 lg:flex-row'>
@@ -56,8 +61,9 @@ function CreateAccount() {
       <div className='form-data w-full  lg:w-[45%] h-[40%] '>
            <img src={frame} alt="logo" />
       </div>
-      
     </div>
+      <Footer/>
+</>
   )
 }
 

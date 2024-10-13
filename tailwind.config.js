@@ -10,11 +10,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        'primary': '#3E8982',
+        'primary': '#3E8992',
         'secondary': '#FEB705',
         'tertiary': '#333',
         'txtColor': '#fff',
-        'paraColor': '#717171'
+        'paraColor': '#717171',
+        'cardBg': '#efededca',
       }
     },
     noScrollBar: {
