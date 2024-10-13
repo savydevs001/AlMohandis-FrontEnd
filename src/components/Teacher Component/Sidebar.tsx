@@ -12,6 +12,7 @@ import { GrSupport } from "react-icons/gr";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import logo from '../../assets/dashboardlogo.png';
 
+// Define the Sidebar component
 const Sidebar: React.FC = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
 
@@ -22,24 +23,27 @@ const Sidebar: React.FC = () => {
   // Close the sidebar when clicking outside of it
   const handleBodyClick = (e: MouseEvent) => {
     const sidebarElement = document.querySelector('.sidebar') as HTMLElement;
-    
+
+    // Ensure e.target is an EventTarget and then check if it's an Element
+    const target = e.target as EventTarget;
+
     // Check if sidebar is open, sidebarElement exists, and clicked target is not in the sidebar or menu button
     if (
-      isSidebarOpen && 
-      sidebarElement && 
-      !sidebarElement.contains(e.target as Node) && 
-      !e.target.closest('.menu-button')
+      isSidebarOpen &&
+      sidebarElement &&
+      !(target instanceof Element && 
+        (sidebarElement.contains(target) || target.closest('.menu-button')))
     ) {
       setIsSidebarOpen(false);
     }
-  };
+};
 
   useEffect(() => {
     // Add event listener when sidebar is open
     if (isSidebarOpen) {
       document.body.addEventListener('click', handleBodyClick);
     }
-    
+
     return () => {
       // Remove event listener when component unmounts or sidebar closes
       document.body.removeEventListener('click', handleBodyClick);
@@ -49,8 +53,8 @@ const Sidebar: React.FC = () => {
   return (
     <>
       {/* Menu Icon */}
-      <div className="sticky top-0 left-0 w-full p-4 h-fit md:hidden">
-        <button onClick={toggleSidebar} className="p-2 text-black bg-teal-200 rounded-md menu-button">
+      <div className="sticky top-0 left-0 w-full bg-teal-100 lg:p-4 h-fit md:hidden">
+        <button onClick={toggleSidebar} className="p-2 text-black rounded-md menu-button">
           <AiOutlineMenu size={30} />
         </button>
       </div>
@@ -84,12 +88,14 @@ const Sidebar: React.FC = () => {
   );
 };
 
+// Sidebar Item Interface
 interface SidebarItemProps {
   to: string;
   icon: JSX.Element;
   label: string;
 }
 
+// Sidebar Item Component
 const SidebarItem: React.FC<SidebarItemProps> = ({ to, icon, label }) => {
   return (
     <li className="flex items-center gap-4 p-2 text-sm rounded hover:bg-teal-600">

@@ -4,6 +4,8 @@ import { GiGraduateCap } from "react-icons/gi";
 import { FcApproval } from "react-icons/fc";
 import { MdAssignment } from "react-icons/md";
 
+import { NavLink } from 'react-router-dom';
+
 import { FaMessage } from "react-icons/fa6";
 import CoursesTable from './CoursesTable'; // Assuming this is your custom table component
 import DashBoardHeader from './DashBoardHeader';
@@ -17,8 +19,8 @@ function CardContent() {
      </div>
       {/* Cards Section */}
       <div className="grid grid-cols-1 gap-4 mt-6 mb-6 md:grid-cols-2 lg:grid-cols-4">
-        <Card icon={<GiGraduateCap />} title="Active Courses" description="7 Lessons Active" />
-        <Card icon={<FcApproval />} title="Course Approval" description="3 Lesson Approvals pending" />
+        <NavLink to={'/courses'}><Card icon={<GiGraduateCap />} title="Active Courses" description="7 Lessons Active" /></NavLink>
+        <NavLink to={'/pending'}><Card icon={<FcApproval />} title="Course Approval" description="3 Lesson Approvals pending" /></NavLink>
         <Card icon={<MdAssignment />} title="Ungraded Assignments" description="2 Assignments to grade" />
         <Card icon={<FaMessage />} title="Unread Messages" description="3 Unread Messages" />
       </div>

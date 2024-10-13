@@ -2,19 +2,15 @@
 
 import Sidebar from "../Sidebar"
 import CoursesByMeCard from "./CoursesByMeCard"
-import DashBoardHeader from "./DashBoardHeader"
-import DashboardNav from "./DashboardNav"
+
+import CoursesNav from "./CoursesNav"
 
 function Draft() {
   return (
       <div className="flex flex-col w-full min-h-screen lg:flex-row">
       <Sidebar />
       <div className="items-start justify-between flex-1 p-6">
-        <div className="flex items-center justify-between gap-3">
-          <h1 className="text-2xl font-bold">Courses</h1>
-          <DashBoardHeader />
-        </div>
-        <DashboardNav />
+       <CoursesNav/>
 
         <div className="mt-6">
           <h1 className="text-2xl font-semibold">Draft</h1>

@@ -11,8 +11,8 @@ import Subjects from '../pages/Teacher Page/Subjects'
 import Support from '../pages/Teacher Page/Support'
 import PromotionalContent from '../pages/Teacher Page/PromotionalContent'
 import Schudle from '../pages/Teacher Page/Schudle'
-import Draft from '../components/Teacher Component/Dashboard Component/Draft'
-import PendingCourse from '../components/Teacher Component/Dashboard Component/PendingCourse'
+import Draft from '../components/Teacher Component/Courses Component/Draft'
+import PendingCourse from '../components/Teacher Component/Courses Component/PendingCourse'
 
 function TeacherRoutes() {
   return (

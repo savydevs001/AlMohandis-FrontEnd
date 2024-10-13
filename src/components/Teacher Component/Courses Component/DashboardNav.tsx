@@ -17,7 +17,7 @@ function DashboardNav() {
 </li>
       </ul>
       <div>
-<NavLink to={'/createCourse'} className='px-6 py-3 font-semibold text-white rounded-md bg-primary '>Create New Course  <span className="px-2 text-2xl">+</span></NavLink>
+<NavLink to={'/createCourse'} className='px-3 py-3 font-semibold text-white rounded-md bg-primary '>Create New Course  <span className="px-2 text-2xl">+</span></NavLink>
       </div>
     </div>
   )
