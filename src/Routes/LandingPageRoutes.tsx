@@ -1,8 +1,7 @@
 
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import Home from '../pages/Landing Page/Home'
-import Navbar from '../components/Navbar'
-import Footer from '../components/Footer'
+
 import About from '../components/LandingPage Component/About'
 import TermCondition from '../components/LandingPage Component/TermCondition'
 import PrivacyPolicy from '../components/LandingPage Component/PrivacyPolicy'
@@ -15,7 +14,6 @@ import PromotionContent from '../pages/Landing Page/PromotionContent'
 function LandingPageRoutes() {
   return (
     <div>
-      <BrowserRouter>
 {/* <Navbar/> */}
 <Routes>
   <Route path="/" element={<Home />} />
@@ -29,7 +27,6 @@ function LandingPageRoutes() {
   <Route path="/PromotionalContent" element={<PromotionContent />} />
 </Routes>
 {/* <Footer/> */}
-</BrowserRouter>
     </div>
   )
 }

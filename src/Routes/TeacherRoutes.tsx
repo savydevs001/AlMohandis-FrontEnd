@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import DashBoard from '../pages/Teacher Page/DashBoard'
 import LiveLectures from '../pages/Teacher Page/LiveLectures'
 import Courses from '../pages/Teacher Page/Courses'
@@ -13,11 +13,12 @@ import PromotionalContent from '../pages/Teacher Page/PromotionalContent'
 import Schudle from '../pages/Teacher Page/Schudle'
 import Draft from '../components/Teacher Component/Courses Component/Draft'
 import PendingCourse from '../components/Teacher Component/Courses Component/PendingCourse'
+import CreateCourse from '../components/Teacher Component/Courses Component/Create Course Component/CreateCourse'
+import AudioEditor from '../components/Teacher Component/Courses Component/Create Course Component/AudioEditor'
 
-function TeacherRoutes() {
+const TeacherRoutes: React.FC = () => {
   return (
   <>
-  <BrowserRouter>
   <Routes>
     <Route path="/dashboard" element={<DashBoard />} />
     <Route path="/liveLectures" element={<LiveLectures />} />
@@ -33,9 +34,10 @@ function TeacherRoutes() {
     <Route path="/schedule" element={<Schudle />} />
     <Route path="/draft" element={<Draft />} />
     <Route path="/pending" element={<PendingCourse />} />
-    
+    <Route path="/createCourse" element={<CreateCourse />} />
+    <Route path="/AudioEditor" element={<AudioEditor />} />
+
   </Routes>
-  </BrowserRouter>
   </>
   )
 }
