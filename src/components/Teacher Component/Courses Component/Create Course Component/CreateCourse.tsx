@@ -7,6 +7,8 @@ import Step4 from './Step4';
 import Step5 from './Step5';
 import Step6 from './Step6';
 import Step7 from './Step7'; // Import Step7
+import Step8 from './Step8'; // Import Step8
+import Step9 from './Step9';
 import DashBoardHeader from '../../Dashboard Component/DashBoardHeader';
 
 interface FormData {
@@ -15,6 +17,7 @@ interface FormData {
   accessibility: string;
   additionalField1: string;
   additionalField2: string;
+  additionalField3: string; // New field for Step 8
   finalComments: string;
 }
 
@@ -26,6 +29,7 @@ const CreateCourse: React.FC = () => {
     accessibility: '',
     additionalField1: '',
     additionalField2: '',
+    additionalField3: '', // Initialize new field
     finalComments: '',
   });
 
@@ -38,7 +42,7 @@ const CreateCourse: React.FC = () => {
   };
 
   const handleNext = () => {
-    if (step < 7) {
+    if (step < 9) {
       setStep((prevStep) => prevStep + 1);
     }
   };
@@ -49,6 +53,10 @@ const CreateCourse: React.FC = () => {
     }
   };
 
+  const handleSubmit = () => {
+    // Submit logic here
+    console.log('Submitting form data:', formData);
+  };
 
   return (
     <div className='flex flex-col min-h-screen lg:flex-row'>
@@ -103,16 +111,30 @@ const CreateCourse: React.FC = () => {
           <Step6
             formData={formData}
             handleInputChange={handleInputChange}
+            handleNext={handleNext}
             handleBack={handleBack}
-            handleNext={handleNext} // Pass handleNext to Step6
           />
         )}
         {step === 7 && (
           <Step7
-            // formData={formData}
-            // handleInputChange={handleInputChange}
-            // handleBack={handleBack}
-            // handleSubmit={handleSubmit}
+            handleNext={handleNext}
+            handleBack={handleBack}
+          />
+        )}
+        {step === 8 && (
+          <Step8
+            formData={formData}
+            handleInputChange={handleInputChange}
+            handleNext={handleNext}
+            handleBack={handleBack}
+          />
+        )}
+        {step === 9 && (
+          <Step9
+            formData={formData}
+            handleInputChange={handleInputChange}
+            handleBack={handleBack}
+            handleSubmit={handleSubmit}
           />
         )}
       </div>

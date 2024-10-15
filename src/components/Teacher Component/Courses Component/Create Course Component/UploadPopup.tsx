@@ -7,7 +7,7 @@ interface UploadPopupProps {
 
 const UploadPopup: React.FC<UploadPopupProps> = ({ onClose }) => {
   return (
-      <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50'>
+      <div className='fixed inset-0 z-10 flex items-center justify-center bg-black bg-opacity-50'>
       <div className='flex flex-col bg-white items-center p-6 mt-6 space-y-6 border rounded-lg shadow-md w-[30%]'>
        <div className='flex justify-end w-full text-xl ' onClick={onClose}>
        <AiOutlineCloseCircle className='text-red-500' />
