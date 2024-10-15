@@ -5,8 +5,6 @@ import { MdAudiotrack } from "react-icons/md";
 import { IoIosVideocam } from "react-icons/io";
 import ModulePopUp from './AddModulePopUp'; 
 import SeasonPopUp from './SeasonPopUp';
-import { RiPagesLine } from "react-icons/ri";
-import { GrAttachment } from "react-icons/gr";
 import { useState } from 'react';
 
 function Step7Season1Module() {
@@ -44,20 +42,6 @@ function Step7Season1Module() {
                 <div className='flex items-center gap-1'>
                   <IoIosVideocam />
                   <p className='text-[#7C7C7C]'>Lesson2</p>
-                </div>
-                <AiOutlineCloseCircle className='text-red-500' />
-              </div>
-              <div className='flex items-center justify-between gap-3 px-4 mt-2'>
-                <div className='flex items-center gap-1'>
-                  <RiPagesLine />
-                  <p className='text-[#7C7C7C]'>Assignment</p>
-                </div>
-                <AiOutlineCloseCircle className='text-red-500' />
-              </div>
-              <div className='flex items-center justify-between gap-3 px-4 mt-2'>
-                <div className='flex items-center gap-1'>
-                  <GrAttachment />
-                  <p className='text-[#7C7C7C]'>Attachment</p>
                 </div>
                 <AiOutlineCloseCircle className='text-red-500' />
               </div>

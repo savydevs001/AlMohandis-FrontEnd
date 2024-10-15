@@ -13,3 +13,24 @@
       -ms-overflow-style: none;  /* IE and Edge */
       scrollbar-width: none;     /* Firefox */
     }
+
+    /* styles.css or global.css */
+
+/* WebKit browsers (Chrome, Safari, Edge) */
+input[type='range']::-webkit-slider-thumb {
+  appearance: none;
+  width: 4px; /* Thumb width (line thickness) */
+  height: 35px; /* Thumb height (line height) */
+  background: #FEB705; /* Thumb color */
+  border-radius: 0; /* No rounding for a straight line */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+/* Firefox */
+input[type='range']::-moz-range-thumb {
+  width: 6px; /* Thumb width (line thickness) */
+  height: 30px; /* Thumb height (line height) */
+  background: #4a90e2; /* Thumb color */
+  border-radius: 0; /* No rounding for a straight line */
+  cursor: pointer; /* Pointer cursor on hover */
+}

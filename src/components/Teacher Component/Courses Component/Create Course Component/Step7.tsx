@@ -1,89 +1,112 @@
 import React, { useState } from 'react';
-import AudioEditor from './AudioEditor';
-import Step7RightModule from './Step7RigthModule';
 import Step7Season1Module from './Step7Season1Module';
-import video from '../../../../assets/dumyVideo.mp4'
-// import NewModule from './NewModule'; // The new module component to show full screen
-// import Step7RigthModule from './Step7RigthModule';
 
-interface Step7Props {
-  handleBack: () => void;
-  handleNext: () => void;
+interface Step9Props {
+  formData: any; // Define your FormData type if needed
+  handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  handleSubmit: () => void; // Assuming the last step will submit the form
 }
 
-const Step7: React.FC<Step7Props> = ({ handleNext }) => {
-  // State to track the active step, this will switch between the initial and new components
-  const [activeStep, setActiveStep] = useState<'initial' | 'new'>('initial');
+const Step7: React.FC<Step9Props> = ({ handleSubmit }) => {
+  // State to manage options
+  const [options, setOptions] = useState([{ id: Date.now(), value: '' }]); // Start with one option
 
-  const handleNextModule = () => {
-    handleNext();
+  // Function to handle adding a new option
+  const handleAddOption = () => {
+    setOptions([...options, { id: Date.now(), value: '' }]); // Add a new empty option
   };
 
-  // Function to switch to new content when "Add Another" is clicked
-  const handleAddAnother = () => {
-    setActiveStep('new'); // Switch to the new components, full page
-  };
-
-  // Function to switch back to the initial content
-  const handleBackToInitial = () => {
-    setActiveStep('initial'); // Switch back to the initial components
+  // Function to handle change in option input
+  const handleOptionChange = (index: number, value: string) => {
+    const updatedOptions = [...options];
+    updatedOptions[index].value = value; // Update the specific option's value
+    setOptions(updatedOptions);
   };
 
   return (
     <div className='h-screen mt-12'>
-      {activeStep === 'initial' ? (
-        <div className='flex max-w-4xl gap-3 mx-auto shadow-2xl h-fit bg-cardBg'>
-          {/* Left Section */}
-          <div className='w-[30%] bg-cardBg py-4 px-6 border border-neutral-300'>
-            <Step7Season1Module /> {/* Initial left module */}
+      <div className='flex max-w-4xl gap-3 mx-auto shadow-2xl h-fit bg-cardBg'>
+        <div className='w-[30%] bg-cardBg py-4 px-6 border border-neutral-300'>
+          <Step7Season1Module />
+        </div>
+        <div className='flex-1 p-4 border border-neutral-300'>
+          <div className="space-y-1">
+            <label className="font-semibold" htmlFor="">Title</label>
+            <input className='w-full py-2 rounded-md' type="text" placeholder='Exam 1' />
           </div>
+          <div className='space-y-4'>
+            <div className='mt-3 space-y-2'>
+          
+              <div className='flex items-center gap-3'>
+                <input className='w-3 h-3 rounded-sm text-primary' type="checkBox" />
+                <p className='text-sm text-[#7C7C7C]'>Available for Free</p>
+              </div>
+            </div>
+            {/* <div className='space-y-1'>
+              <h5>Content type</h5>
+              <select className='w-full border-none rounded-md outline-none' name="" id="">
+                <option value="">Audio Lesson</option>
+                <option value="">Video Lesson</option>
+                <option value="">Assignment</option>
+                <option value="">Attachment</option>
+              </select>
+            </div> */}
+            <div className='flex flex-col gap-1'>
+              <div className='flex items-center gap-4'>
+                <div className="space-y-1">
+                  <label className="font-semibold" htmlFor="">Question 1</label>
+                  <input className='w-full py-2 rounded-md' type="text" placeholder='Write Question 1 Statement' />
+                </div>
 
-          {/* Right Section */}
-          <div className='flex-1 p-4 border border-neutral-300'>
-            {/* Initial right modules */}
-            <Step7RightModule title="Description" />
-            <AudioEditor />
+                <div className="space-y-1">
+                  <label className="font-semibold" htmlFor="">Question 1 description</label>
+                  <input className='w-full py-2 rounded-md' type="text" placeholder='Write short question description' />
+                </div>
+              </div>
+            </div>
+            <div className='mt-2 space-y-1'>
+              <h5>Answer type</h5>
+              <select className='w-full border-none rounded-md outline-none' name="" id="">
+                <option value="">MCQS</option>
+                <option value="">True & False</option>
+                <option value="">Short Question</option>
+              </select>
+            </div>
 
-            {/* Buttons */}
-            <div className='flex items-center gap-2 mt-4'>
-              <button
-                className='flex items-center gap-2 px-6 py-2 font-semibold text-white border rounded-lg bg-primary'
-                onClick={handleAddAnother} // Switch to new content
-              >
-                Add Another +
-              </button>
-              <button
-                className='flex items-center gap-2 px-6 py-2 font-semibold text-white border-2 rounded-lg bg-primary'
-                onClick={handleNextModule}
-              >
-                Next Module
-              </button>
+            {/* Dynamic options rendering */}
+            <div className='flex items-center'>
+            <div className='flex flex-wrap gap-2'>
+              {options.map((option, index) => (
+                <div className='flex gap-2' key={option.id}>
+                  <input
+                    className='w-[70%] rounded-md outline-none bg-cardBg'
+                    type="text"
+                    placeholder={`Enter Option ${index + 1}`}
+                    value={option.value}
+                    onChange={(e) => handleOptionChange(index, e.target.value)} // Handle option change
+                  />
+                </div>
+              ))}
+            </div>
+
+            <button className='px-2 py-0 mt-3 text-2xl font-semibold text-white border rounded-md bg-primary' onClick={handleAddOption}>
+              +
+            </button>
             </div>
           </div>
+          <button className='px-4 py-2 mt-3 border rounded-md text-primary border-primary'>Add Question +</button>
+          <div>
+          </div>
+          <div className='flex items-center gap-2 mt-4'>
+            <button
+              className='flex items-center gap-2 px-6 py-2 font-semibold text-white border-2 rounded-lg bg-primary'
+              onClick={handleSubmit}
+            >
+              Finish Module
+            </button>
+          </div>
         </div>
-      ) : (
-        // Full page content for the new module
-        <div className='flex flex-col justify-center p-4 bg-gray-100'>
-        {/* <NewModule /> Full page content */}
-        <div className='flex gap-4'><Step7Season1Module/>
-        <div>
-        <Step7RightModule title="Description" />
-<div className='mt-3 w-[70%] h-[30%] rounded-2xl overflow-hidden'>
-  <h5 className='mb-3 font-semibold'>Clip</h5>
-<video controls  className='overflow-hidden rounded-md h-fit w-fit' src={video}></video>
-</div>
-
-        <button className='px-4 py-2 mt-4 font-semibold border rounded-md text-primary w-fit border-primary'>Add Video</button>
-        </div>
-        </div>
-        <button
-          className='px-4 py-2 mt-4 text-white rounded-md w-fit bg-primary'
-          onClick={handleBackToInitial} // Go back to initial content
-        >
-          Back
-        </button>
       </div>
-      )}
     </div>
   );
 };

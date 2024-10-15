@@ -1,14 +1,19 @@
-import React, { useState, useRef, useEffect } from 'react';
+// AudioEditor.tsx
+import { useState, useRef, useEffect } from 'react';
 import WaveSurfer from 'wavesurfer.js';
-import { FaPlay, FaPause } from 'react-icons/fa';
+import { FaPlay, FaPause } from "react-icons/fa6";
+import SplitControl from './AudioSplitter'; 
+import FileUpload from './FileUpload'; 
 
-const AudioEditor: React.FC = () => {
+const AudioEditor = () => {
   const [audioFile, setAudioFile] = useState<File | null>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTime, setCurrentTime] = useState('00:00');
-  const [duration, setDuration] = useState('00:00');
   const waveformRef = useRef<HTMLDivElement | null>(null);
   const waveSurfer = useRef<WaveSurfer | null>(null);
+  const [rangeValues, setRangeValues] = useState<[number, number]>([0, 5]); // [start, end]
+  const [splitClips, setSplitClips] = useState<{ start: number; end: number; name: string }[]>([]);
+  const [isPlaying, setIsPlaying] = useState(false); 
+  const [currentTime, setCurrentTime] = useState(0); 
+  const [duration, setDuration] = useState(0); 
 
   useEffect(() => {
     if (waveformRef.current) {
@@ -16,28 +21,21 @@ const AudioEditor: React.FC = () => {
         container: waveformRef.current,
         waveColor: '#ccc',
         progressColor: '#000',
-        height: 50,
-      });
-
-      // Set up event listeners
-      waveSurfer.current.on('ready', () => {
-        const totalDuration = waveSurfer.current?.getDuration();
-        if (totalDuration) {
-          setDuration(formatTime(totalDuration));
-        }
+        height: 40,
       });
 
       waveSurfer.current.on('audioprocess', () => {
-        const current = waveSurfer.current?.getCurrentTime();
-        if (current) {
-          setCurrentTime(formatTime(current));
-        }
+        setCurrentTime(waveSurfer.current?.getCurrentTime() || 0);
       });
-    }
 
-    return () => {
-      waveSurfer.current?.destroy();
-    };
+      waveSurfer.current.on('ready', () => {
+        setDuration(waveSurfer.current?.getDuration() || 0);
+      });
+
+      return () => {
+        waveSurfer.current?.destroy();
+      };
+    }
   }, []);
 
   useEffect(() => {
@@ -48,18 +46,8 @@ const AudioEditor: React.FC = () => {
     }
   }, [audioFile]);
 
-  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-  };
-
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    const file = e.dataTransfer.files[0];
-    if (file && file.type.startsWith('audio/')) {
-      setAudioFile(file);
-    } else {
-      console.error('Invalid file type. Please drop an audio file.');
-    }
+  const handleAudioUpload = (file: File | null) => {
+    setAudioFile(file);
   };
 
   const handlePlayPause = () => {
@@ -73,54 +61,85 @@ const AudioEditor: React.FC = () => {
     }
   };
 
-  const formatTime = (time: number) => {
-    const minutes = Math.floor(time / 60);
-    const seconds = Math.floor(time % 60);
-    return `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  const handleSplit = () => {
+    const [start, end] = rangeValues;
+    if (start < end) {
+      const newClip = { start, end, name: `Clip ${splitClips.length + 1}` };
+      setSplitClips([...splitClips, newClip]);
+    }
+  };
+
+  const formatTime = (seconds: number) => {
+    const minutes = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
   };
 
   return (
-    <div className='flex items-center gap-2 mt-4' style={{ padding: '10px', maxWidth: '800px', margin: '0 auto' }}>
-      {/* Waveform Display */}
+    <div style={{ padding: '10px', maxWidth: '800px', margin: '0 auto' }}>
+      <FileUpload onFileSelect={handleAudioUpload} />
 
-      <div className='flex flex-col gap-1'>
-       <button
-          onClick={handlePlayPause}
-          style={{
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            fontSize: '15px',
-            // position: 'absolute',
-            // left: '-30px',
-            // top: '14px',
-            zIndex: 1, // Ensure the button is on top of other elements
-          }}
-        >
-          {isPlaying ? <FaPause /> : <FaPlay />}
-        </button>
-        <div style={{ fontFamily: 'monospace', marginTop: '10px', marginBottom: '0px' ,fontSize: '7px'}}>
-        <span>{currentTime} / {duration}</span>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }}>
+        <div className='flex flex-col'>
+          <button
+            onClick={handlePlayPause}
+            style={{
+              padding: '10px',
+              color: '#000',
+              borderRadius: '50%',
+              border: 'none',
+              marginRight: '10px',
+              fontSize: '24px',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            {isPlaying ? <FaPause /> : <FaPlay />}
+          </button>
+          <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+            <p className='text-[.9vw]'>
+              {formatTime(currentTime)} / {formatTime(duration)}
+            </p>
+          </div>
+        </div>
+
+        <div ref={waveformRef} style={{ width: '100%', height: '70px', background: '#f3f3f3' }}></div>
       </div>
-       </div>
-      
-      <div
-        ref={waveformRef}
-        style={{
-          width: '80%',
-          height: '50px',
-          background: '#f3f3f3',
-          // border: '1px dashed #4a90e2',
-          borderRadius: '5px',
-          position: 'relative',
-        }}
-        onDragOver={handleDragOver}
-        onDrop={handleDrop}
-      >
-         </div>
-        {/* Play/Pause Icon */}
-    
-    
+
+      {/* <p style={{ textAlign: 'center' }}>{formatTime(currentTime)} / {formatTime(duration)}</p> */}
+
+      <SplitControl
+        rangeValues={rangeValues}
+        setRangeValues={setRangeValues}
+        duration={duration}
+        handleSplit={handleSplit}
+      />
+
+      {splitClips.length > 0 && (
+        <div>
+          <h3>Split Clips</h3>
+          {splitClips.map((clip, index) => (
+            <div key={index} style={{ marginBottom: '10px' }}>
+              <label>Clip Name:</label>
+              <input
+                type="text"
+                value={clip.name}
+                onChange={(e) => {
+                  const updatedClips = [...splitClips];
+                  updatedClips[index].name = e.target.value;
+                  setSplitClips(updatedClips);
+                }}
+                style={{ padding: '10px', width: '200px', marginRight: '10px' }}
+              />
+              <p>
+                Start: {clip.start.toFixed(2)} sec | End: {clip.end.toFixed(2)} sec
+              </p>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

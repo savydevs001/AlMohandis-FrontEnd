@@ -7,8 +7,8 @@ import Step4 from './Step4';
 import Step5 from './Step5';
 import Step6 from './Step6';
 import Step7 from './Step7'; // Import Step7
-import Step8 from './Step8'; // Import Step8
-import Step9 from './Step9';
+// import Step8 from './Step8'; // Import Step8
+// import Step9 from './Step9';
 import DashBoardHeader from '../../Dashboard Component/DashBoardHeader';
 
 interface FormData {
@@ -101,8 +101,8 @@ const CreateCourse: React.FC = () => {
         )}
         {step === 5 && (
           <Step5
-            formData={formData}
-            handleInputChange={handleInputChange}
+            // formData={formData}
+            // handleInputChange={handleInputChange}
             handleNext={handleNext}
             handleBack={handleBack}
           />
@@ -112,31 +112,34 @@ const CreateCourse: React.FC = () => {
             formData={formData}
             handleInputChange={handleInputChange}
             handleNext={handleNext}
-            handleBack={handleBack}
+            // handleBack={handleBack}
           />
         )}
         {step === 7 && (
           <Step7
-            handleNext={handleNext}
-            handleBack={handleBack}
+            formData={formData}
+            handleInputChange={handleInputChange}
+            handleSubmit={handleSubmit}
+            // handleNext={handleNext}
+            // handleBack={handleBack}
           />
         )}
-        {step === 8 && (
+        {/* {step === 8 && (
           <Step8
             formData={formData}
             handleInputChange={handleInputChange}
             handleNext={handleNext}
-            handleBack={handleBack}
+            // handleBack={handleBack}
           />
-        )}
-        {step === 9 && (
+        )} */}
+        {/* {step === 9 && (
           <Step9
             formData={formData}
             handleInputChange={handleInputChange}
-            handleBack={handleBack}
+            // handleBack={handleBack}
             handleSubmit={handleSubmit}
           />
-        )}
+        )} */}
       </div>
     </div>
   );
