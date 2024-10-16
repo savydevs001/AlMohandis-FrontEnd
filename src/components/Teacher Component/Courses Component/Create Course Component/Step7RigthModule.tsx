@@ -1,27 +1,12 @@
-// Step7RigthModule.tsx
-import React, { useState, useEffect, useRef } from "react";
-import FileUpload from "./FileUpload"; 
+// // Step7RigthModule.tsx
+// import React, { useState, useEffect, useRef } from "react";
+// import FileUpload from "./FileUpload"; 
 
 interface Step7RigthModuleProps {
   title: string; // New prop for title
 }
 
 const Step7RigthModule: React.FC<Step7RigthModuleProps> = ({ title }) => {
-  const [audioFile, setAudioFile] = useState<File | null>(null);
-  const waveSurfer = useRef<any>(null); // Adjust the type as per your waveSurfer instance
-
-  // Load the audio file when it changes
-  useEffect(() => {
-    if (audioFile && waveSurfer.current) {
-      const objectUrl = URL.createObjectURL(audioFile);
-      waveSurfer.current.load(objectUrl);
-      return () => URL.revokeObjectURL(objectUrl); // Clean up the URL
-    }
-  }, [audioFile]);
-
-  const handleAudioUpload = (file: File | null) => {
-    setAudioFile(file); // Set the uploaded audio file
-  };
 
   return (
     <div>
