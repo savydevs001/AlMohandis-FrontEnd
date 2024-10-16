@@ -2,6 +2,7 @@ import React from 'react';
 import book from '../../../assets/book.webp';
 import { GrEdit } from "react-icons/gr";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { NavLink } from 'react-router-dom';
 
 // Define the props type
 interface CoursesByMeCardProps {
@@ -43,7 +44,7 @@ const CoursesByMeCard: React.FC<CoursesByMeCardProps> = ({ name, published, stud
             </button>
           )}
 
-          <GrEdit className="p-1 text-2xl text-green-800 border border-green-800 rounded-md" />
+        <NavLink to={'/editCourse'}>  <GrEdit className="p-1 text-2xl text-green-800 border border-green-800 rounded-md" /></NavLink>
           <RiDeleteBin6Line className="p-1 text-2xl text-red-600 border border-red-600 rounded-md" />
         </div>
       </div>
