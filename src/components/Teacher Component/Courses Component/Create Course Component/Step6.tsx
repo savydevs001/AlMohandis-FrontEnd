@@ -1,7 +1,7 @@
 // Step8.tsx
 import React from 'react';
-import Step7Season1Module from './Step7Season1Module';
-import Step7RigthModule from './Step7RigthModule';
+import Step7Season1Module from './MainModules_Step_Season1Module';
+import Step7RigthModule from './MainModules_Step_RigthModule';
 
 interface Step6Props {
   formData: any; // Define your FormData type if needed

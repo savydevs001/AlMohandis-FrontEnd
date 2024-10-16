@@ -2,7 +2,7 @@ import React from 'react';
 import { RiContractLeftLine } from "react-icons/ri";
 import { RxPinRight } from "react-icons/rx";
 
-interface Step3Props {
+interface ObjectivesGoals_StepProps {
   formData: { 
     title: string; 
     description: string; 
@@ -16,7 +16,7 @@ interface Step3Props {
   handleNext: () => void; // Add handleNext prop
 }
 
-const Step3: React.FC<Step3Props> = ({ formData, handleInputChange, handleBack, handleNext }) => {
+const ObjectivesGoals_Step: React.FC<ObjectivesGoals_StepProps> = ({ formData, handleInputChange, handleBack, handleNext }) => {
   return (
     <div className='mt-12 h-fit'>
       <div className='max-w-4xl p-8 mx-auto space-y-6 shadow-2xl h-fit bg-cardBg'>
@@ -62,4 +62,4 @@ const Step3: React.FC<Step3Props> = ({ formData, handleInputChange, handleBack, 
   );
 };
 
-export default Step3;
+export default ObjectivesGoals_Step;

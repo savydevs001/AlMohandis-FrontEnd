@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import Sidebar from '../../Sidebar';
-import Step1 from './Step1';
-import Step2 from './Step2';
-import Step3 from './Step3';
-import Step4 from './Step4';
-import Step5 from './Step5';
+import BasicInfo_Step from './BasicInfo_Step';
+import AccessibilitySettings_Step from './AccessibilitySettings_Step';
+import ObjectivesGoals_Step from './ObjectivesGoals_Step';
+import Part_Step from './Part_Step';
+import MainModules_Step from './MainModules_Step';
 import Step6 from './Step6';
 import Step7 from './Step7'; // Import Step7
 // import Step8 from './Step8'; // Import Step8
@@ -69,14 +69,14 @@ const CreateCourse: React.FC = () => {
           </div>
         </div>
         {step === 1 && (
-          <Step1
+          <BasicInfo_Step
             formData={formData}
             handleInputChange={handleInputChange}
             handleNext={handleNext}
           />
         )}
         {step === 2 && (
-          <Step2
+          <AccessibilitySettings_Step
             formData={formData}
             handleInputChange={handleInputChange}
             handleNext={handleNext}
@@ -84,7 +84,7 @@ const CreateCourse: React.FC = () => {
           />
         )}
         {step === 3 && (
-          <Step3
+          <ObjectivesGoals_Step
             formData={formData}
             handleInputChange={handleInputChange}
             handleNext={handleNext}
@@ -92,7 +92,7 @@ const CreateCourse: React.FC = () => {
           />
         )}
         {step === 4 && (
-          <Step4
+          <Part_Step
             formData={formData}
             handleInputChange={handleInputChange}
             handleNext={handleNext}
@@ -100,7 +100,7 @@ const CreateCourse: React.FC = () => {
           />
         )}
         {step === 5 && (
-          <Step5
+          <MainModules_Step
             // formData={formData}
             // handleInputChange={handleInputChange}
             handleNext={handleNext}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Step7Season1Module from './Step7Season1Module';
+import Step7Season1Module from './MainModules_Step_Season1Module';
 
 interface Step9Props {
   formData: any; // Define your FormData type if needed

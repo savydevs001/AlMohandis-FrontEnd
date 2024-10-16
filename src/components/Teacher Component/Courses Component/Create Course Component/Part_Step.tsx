@@ -1,7 +1,8 @@
 import React from 'react';
 import { RiContractLeftLine } from "react-icons/ri";
 import { RxPinRight } from "react-icons/rx";
-interface Step4Props {
+
+interface Part_StepProps {
   formData: {
     title: string;
     description: string;
@@ -14,11 +15,11 @@ interface Step4Props {
   handleBack: () => void;
 }
 
-const Step4: React.FC<Step4Props> = ({ formData, handleInputChange, handleNext, handleBack }) => {
+const Part_Step: React.FC<Part_StepProps> = ({ formData, handleInputChange, handleNext, handleBack }) => {
   return (
       <div className='mt-12 h-fit'>
       <div className='max-w-4xl p-8 mx-auto space-y-6 shadow-2xl h-fit bg-cardBg'>
-<h2 className='text-2xl font-semibold'>Season 1</h2>
+<h2 className='text-2xl font-semibold'>Part 1</h2>
 <div className='flex flex-col'>
       <label className='font-medium rounded-md' htmlFor="">Title</label>
       <input
@@ -95,4 +96,4 @@ const Step4: React.FC<Step4Props> = ({ formData, handleInputChange, handleNext, 
   );
 };
 
-export default Step4;
+export default Part_Step;

@@ -7,7 +7,7 @@ import ModulePopUp from './AddModulePopUp';
 import SeasonPopUp from './SeasonPopUp';
 import { useState } from 'react';
 
-function Step7Season1Module() {
+const MainModules_Step_Season1Module = () => {
       const [isModulePopUpOpen, setIsModulePopUpOpen] = useState(false);
       const [isSeasonPopUpOpen, setIsSeasonPopUpOpen] = useState(false);
 
@@ -74,4 +74,4 @@ function Step7Season1Module() {
   )
 }
 
-export default Step7Season1Module
+export default MainModules_Step_Season1Module

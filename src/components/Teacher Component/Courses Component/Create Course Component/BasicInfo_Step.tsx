@@ -3,13 +3,13 @@ import { NavLink } from 'react-router-dom';
 import { RiContractLeftLine } from "react-icons/ri";
 // import { RxPinRight } from "react-icons/rx";
 
-interface Step1Props {
+interface BasicInfo_StepProps {
   formData: { title: string; description: string };
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   handleNext: () => void;
 }
 
-const Step1: React.FC<Step1Props> = ({ formData, handleInputChange, handleNext }) => {
+const BasicInfo_Step: React.FC<BasicInfo_StepProps> = ({ formData, handleInputChange, handleNext }) => {
   return (
     <div className='mt-12 h-fit'>
       <div className='max-w-4xl shadow-2xl p-8 space-y-6 h-[80%] mx-auto bg-cardBg'>
@@ -50,4 +50,4 @@ className='rounded-md bg-cardBg border-[#6666]'
   );
 };
 
-export default Step1;
+export default BasicInfo_Step;

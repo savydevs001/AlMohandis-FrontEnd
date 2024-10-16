@@ -3,8 +3,6 @@ import { FaPlus } from 'react-icons/fa';
 
 interface FileUploadProps {
   onFileSelect: (file: File | null) => void;
-  top?: string;
-  left?: string;
 }
 
 const FileUpload: React.FC<FileUploadProps> = ({ onFileSelect,}) => {

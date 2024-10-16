@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { RiContractLeftLine } from "react-icons/ri";
 import { RxPinRight } from "react-icons/rx";
 
-interface Step2Props {
+interface AccessibilitySettings_StepProps {
   formData: { accessibility: string };
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleNext: () => void;
   handleBack: () => void;
 }
 
-const Step2: React.FC<Step2Props> = ({ handleNext, handleBack }) => {
+const AccessibilitySettings_Step: React.FC<AccessibilitySettings_StepProps> = ({ handleNext, handleBack }) => {
   const [isFree, setIsFree] = useState(false);
   const [boughtFromAnotherTeacher, setBoughtFromAnotherTeacher] = useState(false);
   
@@ -161,4 +161,4 @@ const Step2: React.FC<Step2Props> = ({ handleNext, handleBack }) => {
   );
 };
 
-export default Step2;
+export default AccessibilitySettings_Step;

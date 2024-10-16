@@ -3,10 +3,14 @@ import { useState, useRef, useEffect } from 'react';
 import WaveSurfer from 'wavesurfer.js';
 import { FaPlay, FaPause } from "react-icons/fa6";
 import SplitControl from './AudioSplitter'; 
-import FileUpload from './FileUpload'; 
+// import FileUpload from './FileUpload'; 
 
-const AudioEditor = () => {
-  const [mediaFile, setMediaFile] = useState<File | null>(null);
+interface AudioEditorProps {
+  mediaFile: File | null;
+}
+
+const AudioEditor: React.FC<AudioEditorProps> = ({mediaFile}) => {
+  // const [mediaFile, setMediaFile] = useState<File | null>(null);
   const [isVideo, setIsVideo] = useState(false); // Track if the file is a video
   const waveformRef = useRef<HTMLDivElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -24,6 +28,7 @@ const AudioEditor = () => {
         waveColor: '#ccc',
         progressColor: '#000',
         height: 40,
+        barGap: 2,
       });
 
       waveSurfer.current.on('audioprocess', () => {
@@ -55,9 +60,9 @@ const AudioEditor = () => {
     }
   }, [mediaFile]);
 
-  const handleMediaUpload = (file: File | null) => {
-    setMediaFile(file);
-  };
+  // const handleMediaUpload = (file: File | null) => {
+  //   setMediaFile(file);
+  // };
 
   const handlePlayPause = () => {
     if (isVideo && videoRef.current) {
@@ -93,9 +98,6 @@ const AudioEditor = () => {
   return (
     <div className='flex flex-col' style={{ padding: '10px', maxWidth: '800px', margin: '0 auto' }}>
      <div className='flex flex-col gap-2'>
-     <div className=''>
-      <FileUpload onFileSelect={handleMediaUpload} />
-      </div>
 
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }}>
         {/* Conditionally render the play/pause button and time display for audio only */}

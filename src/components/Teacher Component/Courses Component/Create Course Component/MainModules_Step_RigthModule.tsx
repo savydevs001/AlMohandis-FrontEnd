@@ -1,14 +1,12 @@
 
 import FileUpload from "./FileUpload";
 
-interface Step7RigthModuleProps {
+interface MainModules_Step_RigthModuleProps {
   title: string; // New prop for title
+  handleFileUpload: (file: File | null) => void;
 }
 
-const Step7RigthModule: React.FC<Step7RigthModuleProps> = ({ title }) => {
-
-
-  
+const MainModules_Step_RigthModule: React.FC<MainModules_Step_RigthModuleProps> = ({ title, handleFileUpload }) => {
   return (
     <div>
       <div className='flex justify-between w-full gap-4'>
@@ -48,7 +46,7 @@ const Step7RigthModule: React.FC<Step7RigthModuleProps> = ({ title }) => {
             <label className='font-semibold'>Lesson File</label>
             <div className='w-[100%] border border-dashed border-primary p-2 text-center text-primary space-y-4'>
               <p className="">Browse and choose the files you want to upload from your computer</p>
-            <FileUpload onFileSelect={() => {}} />
+            <FileUpload onFileSelect={handleFileUpload} />
             </div>
           </div>
         </div>
@@ -57,4 +55,4 @@ const Step7RigthModule: React.FC<Step7RigthModuleProps> = ({ title }) => {
   );
 };
 
-export default Step7RigthModule;
+export default MainModules_Step_RigthModule;
