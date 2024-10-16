@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { FaPlus } from 'react-icons/fa';
 
 interface FileUploadProps {
-  onFileSelect: (file: File | null) => void;
+  onFileSelect?: (file: File | null) => void;
 }
 
 const FileUpload: React.FC<FileUploadProps> = ({ onFileSelect,}) => {
@@ -10,7 +10,7 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFileSelect,}) => {
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0] || null;
-    onFileSelect(file); // Pass the selected file back to the parent component
+    onFileSelect?.(file); // Pass the selected file back to the parent component
   };
 
   const handleButtonClick = () => {

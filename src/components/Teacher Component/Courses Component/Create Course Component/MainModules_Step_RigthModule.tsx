@@ -3,7 +3,7 @@ import FileUpload from "./FileUpload";
 
 interface MainModules_Step_RigthModuleProps {
   title: string; // New prop for title
-  handleFileUpload: (file: File | null) => void;
+  handleFileUpload?: (file: File | null) => void;
 }
 
 const MainModules_Step_RigthModule: React.FC<MainModules_Step_RigthModuleProps> = ({ title, handleFileUpload }) => {
