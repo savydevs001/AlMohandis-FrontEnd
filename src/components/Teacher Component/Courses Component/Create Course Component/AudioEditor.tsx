@@ -6,17 +6,19 @@ import SplitControl from './AudioSplitter';
 import FileUpload from './FileUpload'; 
 
 const AudioEditor = () => {
-  const [audioFile, setAudioFile] = useState<File | null>(null);
+  const [mediaFile, setMediaFile] = useState<File | null>(null);
+  const [isVideo, setIsVideo] = useState(false); // Track if the file is a video
   const waveformRef = useRef<HTMLDivElement | null>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
   const waveSurfer = useRef<WaveSurfer | null>(null);
-  const [rangeValues, setRangeValues] = useState<[number, number]>([0, 5]); // [start, end]
+  const [rangeValues, setRangeValues] = useState<[number, number]>([0, 5]);
   const [splitClips, setSplitClips] = useState<{ start: number; end: number; name: string }[]>([]);
-  const [isPlaying, setIsPlaying] = useState(false); 
+  const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0); 
   const [duration, setDuration] = useState(0); 
 
   useEffect(() => {
-    if (waveformRef.current) {
+    if (waveformRef.current && !isVideo) {
       waveSurfer.current = WaveSurfer.create({
         container: waveformRef.current,
         waveColor: '#ccc',
@@ -36,29 +38,42 @@ const AudioEditor = () => {
         waveSurfer.current?.destroy();
       };
     }
-  }, []);
+  }, [isVideo]);
 
   useEffect(() => {
-    if (audioFile && waveSurfer.current) {
-      const objectUrl = URL.createObjectURL(audioFile);
-      waveSurfer.current.load(objectUrl);
+    if (mediaFile) {
+      const fileType = mediaFile.type.split('/')[0]; // Check if the file is audio or video
+      setIsVideo(fileType === 'video');
+
+      const objectUrl = URL.createObjectURL(mediaFile);
+
+      if (!isVideo && waveSurfer.current) {
+        waveSurfer.current.load(objectUrl);
+      }
+
       return () => URL.revokeObjectURL(objectUrl);
     }
-  }, [audioFile]);
+  }, [mediaFile]);
 
-  const handleAudioUpload = (file: File | null) => {
-    setAudioFile(file);
+  const handleMediaUpload = (file: File | null) => {
+    setMediaFile(file);
   };
 
   const handlePlayPause = () => {
-    if (waveSurfer.current) {
+    if (isVideo && videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause();
+      } else {
+        videoRef.current.play();
+      }
+    } else if (waveSurfer.current) {
       if (isPlaying) {
         waveSurfer.current.pause();
       } else {
         waveSurfer.current.play();
       }
-      setIsPlaying(!isPlaying);
     }
+    setIsPlaying(!isPlaying);
   };
 
   const handleSplit = () => {
@@ -76,39 +91,58 @@ const AudioEditor = () => {
   };
 
   return (
-    <div style={{ padding: '10px', maxWidth: '800px', margin: '0 auto' }}>
-      <FileUpload onFileSelect={handleAudioUpload} />
-
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }}>
-        <div className='flex flex-col'>
-          <button
-            onClick={handlePlayPause}
-            style={{
-              padding: '10px',
-              color: '#000',
-              borderRadius: '50%',
-              border: 'none',
-              marginRight: '10px',
-              fontSize: '24px',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            {isPlaying ? <FaPause /> : <FaPlay />}
-          </button>
-          <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-            <p className='text-[.9vw]'>
-              {formatTime(currentTime)} / {formatTime(duration)}
-            </p>
-          </div>
-        </div>
-
-        <div ref={waveformRef} style={{ width: '100%', height: '70px', background: '#f3f3f3' }}></div>
+    <div className='flex flex-col' style={{ padding: '10px', maxWidth: '800px', margin: '0 auto' }}>
+     <div className='flex flex-col gap-2'>
+     <div className=''>
+      <FileUpload onFileSelect={handleMediaUpload} />
       </div>
 
-      {/* <p style={{ textAlign: 'center' }}>{formatTime(currentTime)} / {formatTime(duration)}</p> */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }}>
+        {/* Conditionally render the play/pause button and time display for audio only */}
+        {!isVideo && (
+          <div className='flex flex-col'>
+            <button
+              onClick={handlePlayPause}
+              style={{
+                padding: '10px',
+                color: '#000',
+                borderRadius: '50%',
+                border: 'none',
+                marginRight: '10px',
+                fontSize: '24px',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              {isPlaying ? <FaPause /> : <FaPlay />}
+            </button>
+            <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+              <p className='text-[.9vw]'>
+                {formatTime(currentTime)} / {formatTime(duration)}
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* Render audio waveform if not a video, else render video player */}
+        {!isVideo ? (
+          <div ref={waveformRef} style={{ width: '100%', height: '70px', background: '#f3f3f3' }}></div>
+        ) : (
+        <div className='video-container w-[70%] h-[10%] rounded-lg'>
+            <video
+            ref={videoRef}
+            controls={false}
+            onTimeUpdate={() => setCurrentTime(videoRef.current?.currentTime || 0)}
+            onLoadedMetadata={() => setDuration(videoRef.current?.duration || 0)}
+            style={{ width: '100%', height: '100%', borderRadius: '10px' }}
+            src={mediaFile ? URL.createObjectURL(mediaFile) : ''}
+          />
+        </div>
+        )}
+      </div>
+     </div>
 
       <SplitControl
         rangeValues={rangeValues}

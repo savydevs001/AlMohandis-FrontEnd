@@ -34,3 +34,5 @@ input[type='range']::-moz-range-thumb {
   border-radius: 0; /* No rounding for a straight line */
   cursor: pointer; /* Pointer cursor on hover */
 }
+
+

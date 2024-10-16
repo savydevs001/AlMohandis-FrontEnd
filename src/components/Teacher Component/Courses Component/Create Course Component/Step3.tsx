@@ -18,7 +18,7 @@ interface Step3Props {
 
 const Step3: React.FC<Step3Props> = ({ formData, handleInputChange, handleBack, handleNext }) => {
   return (
-    <div className='h-screen mt-12'>
+    <div className='mt-12 h-fit'>
       <div className='max-w-4xl p-8 mx-auto space-y-6 shadow-2xl h-fit bg-cardBg'>
         <h2 className='text-2xl font-semibold'>Objectives and Goals</h2>
         <div className='flex flex-col'>

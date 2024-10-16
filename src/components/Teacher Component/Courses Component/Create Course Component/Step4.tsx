@@ -16,7 +16,7 @@ interface Step4Props {
 
 const Step4: React.FC<Step4Props> = ({ formData, handleInputChange, handleNext, handleBack }) => {
   return (
-      <div className='h-screen mt-12'>
+      <div className='mt-12 h-fit'>
       <div className='max-w-4xl p-8 mx-auto space-y-6 shadow-2xl h-fit bg-cardBg'>
 <h2 className='text-2xl font-semibold'>Season 1</h2>
 <div className='flex flex-col'>
@@ -63,33 +63,12 @@ const Step4: React.FC<Step4Props> = ({ formData, handleInputChange, handleNext, 
   type="text"
   className='rounded-md bg-cardBg border-[#6666]'
   name="title"
-  placeholder="4 Weeks"
+  placeholder="4 days"
   value={formData.title}
   onChange={handleInputChange}
 />
 </div>
-      <div className='flex flex-col gap-1'>
-      <div className='flex items-center gap-3'>
-            <input className='w-3 h-3 rounded-full text-primary' type="checkBox" />
-            <p>No Expiration</p>
-      </div>
-      <div className='flex items-center gap-3'>
-            <input className='w-3 h-3 rounded-full text-primary' type="checkBox" />
-            <p>No Expiration</p>
-      </div>
-      <input
-  type="date"
-  className='rounded-md bg-cardBg border-[#6666]'
-  name="title"
-  placeholder="4 Weeks"
-  value={formData.title}
-  onChange={handleInputChange}
-/>
-<div className='flex items-center gap-3'>
-            <input className='w-3 h-3 rounded-full text-primary' type="checkBox" />
-            <p>Avialable Days</p>
-      </div>
-</div>
+    
       </div>
       
       <div className='flex items-center justify-end'>

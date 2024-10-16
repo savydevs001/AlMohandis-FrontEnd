@@ -18,15 +18,8 @@ const Step7: React.FC<Step7Props> = ({ handleNext }) => {
   const handleNextModule = () => {
     handleNext();
   };
-
-  // Function to switch to new content when "Add Another" is clicked
-
-
-  // Function to switch back to the initial content
-
-
   return (
-    <div className='mt-12 '>
+    <div className='mt-12 h-fit'>
         <div className='flex max-w-4xl gap-3 mx-auto shadow-2xl h-fit bg-cardBg'>
           {/* Left Section */}
           <div className='w-[30%] bg-cardBg py-4 px-6 border border-neutral-300'>

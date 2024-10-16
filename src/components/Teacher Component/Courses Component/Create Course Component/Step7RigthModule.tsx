@@ -1,6 +1,5 @@
-// // Step7RigthModule.tsx
-// import React, { useState, useEffect, useRef } from "react";
-// import FileUpload from "./FileUpload"; 
+
+import FileUpload from "./FileUpload";
 
 interface Step7RigthModuleProps {
   title: string; // New prop for title
@@ -8,6 +7,8 @@ interface Step7RigthModuleProps {
 
 const Step7RigthModule: React.FC<Step7RigthModuleProps> = ({ title }) => {
 
+
+  
   return (
     <div>
       <div className='flex justify-between w-full gap-4'>
@@ -46,16 +47,12 @@ const Step7RigthModule: React.FC<Step7RigthModuleProps> = ({ title }) => {
           <div className='w-[100%]'>
             <label className='font-semibold'>Lesson File</label>
             <div className='w-[100%] border border-dashed border-primary p-2 text-center text-primary space-y-4'>
-              <p className="mb-14">Browse and choose the files you want to upload from your computer</p>
-              
-              {/* <FileUpload onFileSelect={handleAudioUpload} /> */}
+              <p className="">Browse and choose the files you want to upload from your computer</p>
+            <FileUpload onFileSelect={() => {}} />
             </div>
           </div>
         </div>
       </div>
-      {/* Uncomment these lines if you need the popups */}
-      {/* {isLessonFilePopUpOpen && <UploadPopUp onClose={handleCloseLessonFilePopUp} />}
-      {isAttachmentPopUpOpen && <UploadPopUp onClose={handleCloseAttachmentPopUp} />} */}
     </div>
   );
 };

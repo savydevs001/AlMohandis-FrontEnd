@@ -11,7 +11,7 @@ interface Step1Props {
 
 const Step1: React.FC<Step1Props> = ({ formData, handleInputChange, handleNext }) => {
   return (
-    <div className='h-screen mt-12'>
+    <div className='mt-12 h-fit'>
       <div className='max-w-4xl shadow-2xl p-8 space-y-6 h-[80%] mx-auto bg-cardBg'>
 <h2 className='text-2xl font-semibold'>Basic Information</h2>
 <div className='flex flex-col'>

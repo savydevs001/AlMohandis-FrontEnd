@@ -16,7 +16,7 @@ const Step6: React.FC<Step6Props> = ({ handleNext }) => {
   };
   
   return (
-    <div className='h-screen mt-12'>
+    <div className='mt-12 h-fit'>
       <div className='flex max-w-4xl gap-3 mx-auto shadow-2xl h-fit bg-cardBg'>
         <div className='w-[30%] bg-cardBg py-4 px-6 border border-neutral-300'>
           <Step7Season1Module />

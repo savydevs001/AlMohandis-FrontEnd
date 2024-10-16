@@ -2,7 +2,7 @@
 import book from '../../../assets/book.webp';
 function PendingCard() {
   return (
-    <div className='flex flex-col items-center p-5 mt-8 rounded-lg lg:w-56 w-72 bg-cardBg'>
+    <div className='flex flex-col items-center w-full p-5 mt-8 rounded-lg lg:w-56 bg-cardBg'>
        <img className="rounded-md" src={book} alt="" />
       <h1 className="mt-2 mb-1 text-2xl font-semibold">Course Name</h1>
       <p className="text-sm text-[#666]">

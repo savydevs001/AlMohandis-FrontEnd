@@ -23,11 +23,7 @@ const Sidebar: React.FC = () => {
   // Close the sidebar when clicking outside of it
   const handleBodyClick = (e: MouseEvent) => {
     const sidebarElement = document.querySelector('.sidebar') as HTMLElement;
-
-    // Ensure e.target is an EventTarget and then check if it's an Element
     const target = e.target as EventTarget;
-
-    // Check if sidebar is open, sidebarElement exists, and clicked target is not in the sidebar or menu button
     if (
       isSidebarOpen &&
       sidebarElement &&
@@ -98,7 +94,7 @@ interface SidebarItemProps {
 // Sidebar Item Component
 const SidebarItem: React.FC<SidebarItemProps> = ({ to, icon, label }) => {
   return (
-    <li className="flex items-center gap-4 p-2 text-sm rounded hover:bg-teal-600">
+    <li className="flex items-center gap-4 p-2 text-base rounded hover:bg-teal-600">
       <NavLink 
         to={to} 
         className={({ isActive }) => 
