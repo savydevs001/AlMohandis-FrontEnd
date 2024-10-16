@@ -37,7 +37,7 @@ function CustomNavbar() {
 
 				{/* Login and Create Account Buttons */}
 				<div className='items-center hidden space-x-4 lg:flex'>
-					<NavLink to={'/Login'}>
+					<NavLink to={'/dashboard'}>
 					<button className='text-primary'>Login</button>
 					</NavLink>
 					<NavLink to={'/signup'}>
@@ -56,7 +56,7 @@ function CustomNavbar() {
 						<li><NavLink to="/About" className={({ isActive }) => isActive ? 'text-primary font-semibold border-b-2 border-primary' : 'text-tertiary'}>About</NavLink></li>
 					</ul>
 					<div className='mt-4 space-y-2'>
-						<NavLink to={"/Login"}>
+						<NavLink to={"/dashboard"}>
 						<button className='block w-full text-left text-primary'>Login</button>
 						</NavLink>
 						<NavLink to={"/signup"}>
