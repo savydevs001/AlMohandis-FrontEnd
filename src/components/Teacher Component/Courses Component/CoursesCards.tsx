@@ -1,4 +1,9 @@
 import CoursesByMeCard from "./CoursesByMeCard";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+
+
 
 function CoursesNav() {
   return (
@@ -6,7 +11,7 @@ function CoursesNav() {
       {/* Section 1: Courses By Me */}
       <div className="w-[100%] mt-6">
         <h1 className="text-2xl font-semibold text-primary">Course By Me</h1>
-        <div className="overflow-x-auto scrollbar-hide max-w-[100%]">
+        <div className="overflow-x-auto scrollbar-hide">
           <div className="flex items-center gap-5 w-[600px]"> {/* Set a fixed width */}
             <CoursesByMeCard name="Course Name" published="Published On" students="Students" button="Publish" showButton={false} />
             <CoursesByMeCard name="Course Name" published="Published On" students="Students" button="Publish" showButton={false} />

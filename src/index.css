@@ -36,3 +36,6 @@ input[type='range']::-moz-range-thumb {
 }
 
 
+.slick-slide > div{
+  margin: 0 10px;
+}

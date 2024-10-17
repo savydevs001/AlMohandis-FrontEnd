@@ -16,7 +16,7 @@ const SeasonPopUp: React.FC<SeasonPopUpProps> = ({ onClose }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="w-1/3 p-8 bg-white rounded-lg">
+      <div className="w-[90%] p-8 bg-white rounded-lg lg:w-1/3">
         <div className="flex justify-between mb-4">
           <h3 className="text-lg font-semibold">Add Season</h3>
           <AiOutlineCloseCircle onClick={onClose} className="text-2xl text-red-500 cursor-pointer" />

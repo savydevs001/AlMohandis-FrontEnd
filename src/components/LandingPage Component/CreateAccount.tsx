@@ -9,7 +9,7 @@ function CreateAccount() {
   return (
 <>
 <CustomNavbar/>
-    <div className='flex flex-col justify-between w-full gap-3 lg:gap-0 p-7 h-fit lg:flex-row'>
+    <div className='flex flex-col justify-between w-full gap-3 p-4 lg:gap-0 lg:p-7 h-fit lg:flex-row'>
       
       <div className='form-data w-full lg:w-[45%] h-fit p-6 bg-[#F7EFE2] rounded-lg '>
           <form  className='flex flex-col space-y-6'>

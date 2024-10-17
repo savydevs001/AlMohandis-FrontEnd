@@ -10,8 +10,7 @@ function PromotionContent() {
     <Navbar/>
     <div className='px-4 py-4 lg:px-10'>
       <h1 className='text-3xl font-bold text-center'>Promotional Content</h1>
-
-      <div className='flex flex-wrap items-center w-full mx-auto lg:gap-6'>
+      <div className='flex flex-wrap items-center mx-auto lg:gap-6'>
       <PromotionalVideo/>
       <PromotionalVideo/>
       <PromotionalVideo/>

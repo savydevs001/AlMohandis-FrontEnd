@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom"
 
 function EditCourseBtns() {
   return (
-    <div className="mt-4 space-x-4">
+    <div className="mt-4 space-x-4 space-y-3">
      <NavLink to={'/courses'} >
      <button className="px-4 py-2 font-semibold text-white rounded-md bg-primary">Send for Review</button>
      </NavLink>

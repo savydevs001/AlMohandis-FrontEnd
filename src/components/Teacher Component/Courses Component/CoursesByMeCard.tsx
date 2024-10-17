@@ -32,9 +32,9 @@ const CoursesByMeCard: React.FC<CoursesByMeCardProps> = ({ name, published, stud
   };
 
   return (
-    <div className=''>
-      <div className="p-5 mt-8 rounded-lg lg:w-56 bg-cardBg">
-        <img className="rounded-md" src={book} alt="" />
+    <div className='py-2'>
+      <div className="p-5 mt-8  lg:w-[17.5vw] transition-shadow duration-200 bg-white rounded-lg shadow-md hover:shadow-lg">
+        <img className="rounded-lg" src={book} alt="" />
         <h1 className="mt-2 mb-1 text-2xl font-semibold">{name}</h1>
         
         { published && (

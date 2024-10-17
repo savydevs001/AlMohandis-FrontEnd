@@ -5,7 +5,7 @@ import { IoStar } from "react-icons/io5";
 function InstructorCard() {
   return (
     <div className='max-w-6xl mx-auto mt-6 text-txtColor'>
-      <div className="w-64 p-2 text-black rounded-lg shadow-xl bg-txtColor max-h-fit card">
+      <div className="w-full p-2 text-black rounded-lg shadow-xl lg:w-64 bg-txtColor max-h-fit card">
   <figure className="px-4 pt-4">
     <img
       src="https://i0.wp.com/apeejay.news/wp-content/uploads/2023/10/281023-10-most-read-books-Blog.jpg?resize=740%2C524&ssl=1"
@@ -25,7 +25,7 @@ function InstructorCard() {
     <h5 className='text-md' >Instructor</h5>
     <h3 className='text-xl font-bold text-primary' >Free</h3>
     </div>
-    <div className="w-[90%] m-auto mt-3 p-2 border-2 card-actions border-primary rounded-lg">
+    <div className="w-[90%] m-auto mt-3 p-2 border-2 card-actions border-primary rounded-lg mb-3">
       <button className="font-medium btn btn-primary">Buy Now</button>
     </div>
   </div>

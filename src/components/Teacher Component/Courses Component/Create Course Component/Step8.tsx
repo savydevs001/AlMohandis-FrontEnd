@@ -3,7 +3,7 @@ import React from 'react';
 
 
 interface Step8Props {
-  formData: any; // Define your FormData type if needed
+  formData: any;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   handleNext: () => void;
 }

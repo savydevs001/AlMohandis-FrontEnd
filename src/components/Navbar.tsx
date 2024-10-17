@@ -29,7 +29,7 @@ function CustomNavbar() {
 				<div className='items-center justify-center flex-grow hidden lg:flex'>
 					<ul className='flex space-x-8 text-md'>
 						<li><NavLink to="/" className={({ isActive }) => isActive ? 'text-primary font-semibold border-b-2 border-primary' : 'text-tertiary'}>Home</NavLink></li>
-						<li><NavLink to="/PromotionalContent" className={({ isActive }) => isActive ? 'text-primary font-semibold border-b-2 border-primary' : 'text-tertiary'}>Promotional Content</NavLink></li>
+						<li><NavLink to="/PromotionContent" className={({ isActive }) => isActive ? 'text-primary font-semibold border-b-2 border-primary' : 'text-tertiary'}>Promotional Content</NavLink></li>
 						<li><NavLink to="/contact" className={({ isActive }) => isActive ? 'text-primary font-semibold border-b-2 border-primary' : 'text-tertiary'}>Contact Us</NavLink></li>
 						<li><NavLink to="/About" className={({ isActive }) => isActive ? 'text-primary font-semibold border-b-2 border-primary' : 'text-tertiary'}>About Us</NavLink></li>
 					</ul>
@@ -51,7 +51,7 @@ function CustomNavbar() {
 				<div className='mt-4 lg:hidden'>
 					<ul className='flex flex-col space-y-4 text-md'>
 						<li><NavLink to="/" className={({ isActive }) => isActive ? 'text-primary font-semibold border-b-2 border-primary' : 'text-tertiary'}>Home</NavLink></li>
-						<li><NavLink to="/PromotionalContent" className={({ isActive }) => isActive ? 'text-primary font-semibold border-b-2 border-primary' : 'text-tertiary'}>Promotional Content</NavLink></li>
+						<li><NavLink to="/PromotionContent" className={({ isActive }) => isActive ? 'text-primary font-semibold border-b-2 border-primary' : 'text-tertiary'}>Promotional Content</NavLink></li>
 						<li><NavLink to="/contact" className={({ isActive }) => isActive ? 'text-primary font-semibold border-b-2 border-primary' : 'text-tertiary'}>Contact Us</NavLink></li>
 						<li><NavLink to="/About" className={({ isActive }) => isActive ? 'text-primary font-semibold border-b-2 border-primary' : 'text-tertiary'}>About</NavLink></li>
 					</ul>

@@ -9,7 +9,7 @@ interface EditCourseDescriptionProps {
 // Use the defined props interface in the function
 const EditCourseDescription: React.FC<EditCourseDescriptionProps> = ({ placeholder, title }) => {
   return (
-    <div className='flex flex-col w-[85%] space-y-1'>
+    <div className='flex flex-col lg:w-[85%] w-full space-y-1'>
       <label className='flex flex-col gap-1 font-medium text-md'>{title}</label>
      <textarea name="" id="" placeholder={placeholder} cols={40} rows={3} className='rounded-md bg-white border-[#6666]'></textarea>
     </div>

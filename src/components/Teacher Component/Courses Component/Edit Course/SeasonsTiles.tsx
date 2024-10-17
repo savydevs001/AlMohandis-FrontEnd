@@ -19,7 +19,7 @@ function SeasonsTiles() {
   };
 
   return (
-    <div className="w-[70%] mt-6 space-y-2">
+    <div className="lg:w-[70%] w-full mt-6 space-y-2">
       <div className="flex items-center justify-between">
         <h5 className="font-semibold">Season 1 : Season 1 Title</h5>
         <RiDeleteBin6Line className="p-1 text-2xl text-red-600 border border-red-600 rounded-md" />

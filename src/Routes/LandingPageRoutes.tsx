@@ -25,7 +25,7 @@ function LandingPageRoutes() {
   <Route path="/signup" element={<CreateAccount />} />
   <Route path="/dashboard" element={<DashBoard />} />
   <Route path="/contact" element={<Contact />} />
-  <Route path="/PromotionalContent" element={<PromotionContent />} />
+  <Route path="/PromotionContent" element={<PromotionContent />} />
 </Routes>
 {/* <Footer/> */}
     </div>
