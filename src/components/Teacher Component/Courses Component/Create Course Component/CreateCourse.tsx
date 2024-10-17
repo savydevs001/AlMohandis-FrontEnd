@@ -7,9 +7,8 @@ import Part_Step from './Part_Step';
 import MainModules_Step from './MainModules_Step';
 import Step6 from './Step6';
 import Step7 from './Step7'; // Import Step7
-// import Step8 from './Step8'; // Import Step8
-// import Step9 from './Step9';
 import DashBoardHeader from '../../Dashboard Component/DashBoardHeader';
+import Step8 from './Step8';
 
 interface FormData {
   title: string;
@@ -53,10 +52,6 @@ const CreateCourse: React.FC = () => {
     }
   };
 
-  const handleSubmit = () => {
-    // Submit logic here
-    console.log('Submitting form data:', formData);
-  };
 
   return (
     <div className='flex flex-col min-h-screen lg:flex-row'>
@@ -101,8 +96,6 @@ const CreateCourse: React.FC = () => {
         )}
         {step === 5 && (
           <MainModules_Step
-            // formData={formData}
-            // handleInputChange={handleInputChange}
             handleNext={handleNext}
             handleBack={handleBack}
           />
@@ -112,34 +105,23 @@ const CreateCourse: React.FC = () => {
             formData={formData}
             handleInputChange={handleInputChange}
             handleNext={handleNext}
-            // handleBack={handleBack}
           />
         )}
         {step === 7 && (
           <Step7
             formData={formData}
             handleInputChange={handleInputChange}
-            handleSubmit={handleSubmit}
-            // handleNext={handleNext}
-            // handleBack={handleBack}
+            // handleSubmit={handleSubmit}
+            handleNext={handleNext} // Pass handleNext to Step 7
           />
         )}
-        {/* {step === 8 && (
+        {step === 8 && (
           <Step8
             formData={formData}
             handleInputChange={handleInputChange}
             handleNext={handleNext}
-            // handleBack={handleBack}
           />
-        )} */}
-        {/* {step === 9 && (
-          <Step9
-            formData={formData}
-            handleInputChange={handleInputChange}
-            // handleBack={handleBack}
-            handleSubmit={handleSubmit}
-          />
-        )} */}
+        )}
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import React from 'react';
 // import Step7RigthModule from '../../Create Course Component/Step7RigthModule';
-import AudioEditor from '../../Create Course Component/AudioEditor';
+// import AudioEditor from '../../Create Course Component/AudioEditor';
 
 
 
@@ -60,7 +60,7 @@ export const AudioLessonPopup: React.FC<{ onClose: () => void }> = ({ onClose })
       {/* {isLessonFilePopUpOpen && <UploadPopUp onClose={handleCloseLessonFilePopUp} />}
       {isAttachmentPopUpOpen && <UploadPopUp onClose={handleCloseAttachmentPopUp} />} */}
     </div>
-      <AudioEditor/>
+      {/* <AudioEditor/> */}
       </div>
     <div className='mt-4 space-x-4'>
       <button className='px-4 py-2 text-white transition rounded bg-primary hover:bg-primary-dark'>Save Change</button>

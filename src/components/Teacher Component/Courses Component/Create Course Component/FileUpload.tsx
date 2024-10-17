@@ -18,8 +18,8 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFileSelect,}) => {
   };
 
   return (
-  <div className='flex items-end justify-end bg-red-800'>
-      <div className='flex items-end justify-end w-[30%] bg-red-200 '>
+  <div className='flex items-center justify-center'>
+      <div className='flex items-end justify-end '>
       <input
         type="file"
         accept="audio/*,video/*" // Accept both audio and video files

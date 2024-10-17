@@ -6,7 +6,7 @@ import SplitControl from './AudioSplitter';
 // import FileUpload from './FileUpload'; 
 
 interface AudioEditorProps {
-  mediaFile: File | null;
+  mediaFile?: File | null; // Make it optional
 }
 
 const AudioEditor: React.FC<AudioEditorProps> = ({mediaFile}) => {
