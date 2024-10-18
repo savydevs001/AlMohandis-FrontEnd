@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import Step7Season1Module from './MainModules_Step_Season1Module';
 
-interface Step7Props {
-  formData: any; // Define your FormData type if needed
-  handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  handleNext: () => void;
+interface Exam_StepProps {
+  // formData: any; // Define your FormData type if needed
+  // handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  // handleNext: () => void;
+  handleNextModule: () => void;
+  handleFinish: () => void;
+  isLastModule: boolean;
 }
 
-const Step7: React.FC<Step7Props> = ({ handleNext }) => {
+const Exam_Step: React.FC<Exam_StepProps> = ({ handleNextModule, isLastModule, handleFinish }) => {
   // State to manage options for answers
   const [options, setOptions] = useState([{ id: Date.now(), value: '' }]);
 
@@ -34,11 +36,11 @@ const Step7: React.FC<Step7Props> = ({ handleNext }) => {
     setOptions([...options, { id: Date.now(), value: '' }]); // Add a new empty option
   };
 
-  const handleNextModule = () => {
-    handleNext(); // Call the handleNext prop to move to the next step
+  const handleNext = () => {
+    handleNextModule(); // Call the handleNext prop to move to the next step
   };
 
-  
+
   // Function to handle change in option input
   const handleOptionChange = (index: number, value: string) => {
     const updatedOptions = [...options];
@@ -54,9 +56,6 @@ const Step7: React.FC<Step7Props> = ({ handleNext }) => {
   return (
     <div className='mt-12 h-fit'>
       <div className='flex max-w-4xl gap-3 mx-auto shadow-2xl h-fit bg-cardBg'>
-        <div className='w-[30%] bg-cardBg py-4 px-6 border border-neutral-300'>
-          <Step7Season1Module />
-        </div>
         <div className='flex-1 p-4 border border-neutral-300'>
           <div className="space-y-1">
             <label className="font-semibold" htmlFor="">Title</label>
@@ -146,12 +145,22 @@ const Step7: React.FC<Step7Props> = ({ handleNext }) => {
           </button>
 
           <div className='flex items-center gap-2 mt-4'>
-            <button
-              className='flex items-center gap-2 px-6 py-2 font-semibold text-white border-2 rounded-lg bg-primary'
-              onClick={handleNextModule}
-            >
-              Finish Module
-            </button>
+            {!isLastModule && (
+              <button
+                className='flex items-center gap-2 px-6 py-2 font-semibold text-white border-2 rounded-lg bg-primary'
+                onClick={handleNext}
+              >
+                Next Module
+              </button>
+            )}
+            {isLastModule && (
+              <button
+                className='flex items-center gap-2 px-6 py-2 font-semibold text-white border-2 rounded-lg bg-primary'
+                onClick={handleFinish}
+              >
+                Finish Module
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -159,4 +168,4 @@ const Step7: React.FC<Step7Props> = ({ handleNext }) => {
   );
 };
 
-export default Step7;
+export default Exam_Step;

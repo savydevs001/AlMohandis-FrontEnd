@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { FaPlus } from 'react-icons/fa';
 
 interface FileUploadProps {
@@ -6,10 +6,14 @@ interface FileUploadProps {
 }
 
 const FileUpload: React.FC<FileUploadProps> = ({ onFileSelect,}) => {
+
+  const [File, setFile] = useState<string>('');
+
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0] || null;
+    setFile(file?.name || '');
     onFileSelect?.(file); // Pass the selected file back to the parent component
   };
 
@@ -42,6 +46,7 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFileSelect,}) => {
         <FaPlus style={{ marginRight: '0px' }} />
       </button>
     </div>
+    <div>{File}</div>
   </div>
   );
 };

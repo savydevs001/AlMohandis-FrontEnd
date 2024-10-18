@@ -26,13 +26,6 @@ const MainModules_Step_RigthModule: React.FC<MainModules_Step_RigthModuleProps> 
                 <p className='text-sm text-[#7C7C7C]'>Available for Free</p>
               </div>
             </div>
-            <div className='space-y-1'>
-              <h5>Content type</h5>
-              <select className='w-full border-none rounded-md outline-none'>
-                <option value="">Audio Lesson</option>
-                <option value="">Video Lesson</option>
-              </select>
-            </div>
             <div className='flex flex-col gap-1'>
               <label>{title}</label> {/* Use the title prop here */}
               <textarea className='w-full border rounded-md'></textarea>
