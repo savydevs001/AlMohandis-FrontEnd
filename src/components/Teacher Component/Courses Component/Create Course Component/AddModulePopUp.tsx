@@ -43,7 +43,7 @@ const AddModulePopup: React.FC<AddModulePopupProps> = ({ onClose, partContainer,
         console.log("Part found");
         return {
           ...part,
-          modules: [...part.modules, { name: selectedModule, number: newModuleNumber}] // Add the new module
+          modules: [...part.modules, { name: selectedModule, number: newModuleNumber, lessons: []}] // Add the new module
         };
       }
       console.log("Part not found");

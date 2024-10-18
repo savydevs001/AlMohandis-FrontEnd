@@ -5,8 +5,8 @@ import AccessibilitySettings_Step from './AccessibilitySettings_Step';
 import ObjectivesGoals_Step from './ObjectivesGoals_Step';
 import Part_Step from './Part_Step';
 import MainModules_Step from './MainModules_Step';
-import Step6 from './Assignment_Step';
-import Step7 from './Exam_Step'; // Import Step7
+// import Step6 from './Assignment_Step';
+// import Step7 from './Exam_Step'; // Import Step7
 import DashBoardHeader from '../../Dashboard Component/DashBoardHeader';
 import Step8 from './Step8';
 
@@ -28,7 +28,6 @@ interface Lesson {
 export interface Modules {
   name: string;
   number: number;
-  content: string;
   lessons: Lesson[];
 }
 
