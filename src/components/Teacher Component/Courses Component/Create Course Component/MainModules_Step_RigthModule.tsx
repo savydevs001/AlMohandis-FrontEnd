@@ -9,7 +9,7 @@ interface MainModules_Step_RigthModuleProps {
 const MainModules_Step_RigthModule: React.FC<MainModules_Step_RigthModuleProps> = ({ title, handleFileUpload }) => {
   return (
     <div>
-      <div className='flex justify-between w-full gap-4'>
+      <div className='flex flex-col justify-between w-full gap-4 lg:flex-row'>
         <div className='space-y-4 w-[90%]'>
           <div>
             <label className="font-semibold">Title</label>
@@ -39,8 +39,6 @@ const MainModules_Step_RigthModule: React.FC<MainModules_Step_RigthModuleProps> 
             </div>
           </div>
         </div>
-
-        {/* Lesson File and Attachment Upload Sections */}
         <div className='space-y-4'>
           <div className='w-[100%]'>
             <label className='font-semibold'>Lesson File</label>

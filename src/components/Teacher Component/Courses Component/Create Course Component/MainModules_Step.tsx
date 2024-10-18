@@ -12,8 +12,7 @@ interface MainModules_StepProps {
 
 const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleNext }) => {
   const [mediaFile, setmediaFile] = useState<File | null>(null);
-  const [isPopupOpen, setIsPopupOpen] = useState(false); // State to manage popup visibility
-
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const handleFileUpload = (file: File | null) => {
     setmediaFile(file);
   };
@@ -32,9 +31,9 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleNext }) => {
 
   return (
     <div className='mt-12 h-fit'>
-      <div className='flex max-w-4xl gap-3 mx-auto shadow-2xl h-fit bg-cardBg'>
+      <div className='flex flex-col max-w-4xl gap-8 mx-auto shadow-2xl lg:gap-3 lg:flex-row h-fit bg-cardBg'>
         {/* Left Section */}
-        <div className='w-[30%] bg-cardBg py-4 px-6 border border-neutral-300'>
+        <div className='lg:w-[30%] w-full bg-cardBg py-4 px-6 border border-neutral-300'>
           <MainModules_Step_Season1Module /> {/* Initial left module */}
         </div>
 

@@ -8,7 +8,7 @@ interface AddAnotherPopUpProps {
 const AddAnotherPopUp: React.FC<AddAnotherPopUpProps> = ({ onClose }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="p-6 bg-white rounded-md shadow-lg w-[30%] space-y-4">
+      <div className="p-6 bg-white rounded-md shadow-lg lg:w-[30%] w-[90%] space-y-4">
       <div className='space-y-2'>
               <h5 className='font-semibold'>Chapters </h5>
               <select className='w-full border-none rounded-md outline-none bg-cardBg'>

@@ -31,13 +31,13 @@ const Step6: React.FC<Step6Props> = ({ handleNext, handleFileUpload  }) => {
 
   return (
     <div className='mt-12 h-fit'>
-      <div className='flex max-w-4xl gap-3 mx-auto shadow-2xl h-fit bg-cardBg'>
-        <div className='w-[30%] bg-cardBg py-4 px-6 border border-neutral-300'>
+      <div className='flex flex-col max-w-4xl gap-3 mx-auto shadow-2xl h-fit bg-cardBg lg:flex-row'>
+        <div className='lg:w-[30%] w-full bg-cardBg py-4 px-6 border border-neutral-300'>
           <MainModules_Step_Season1Module />
         </div>
         <div className='flex-1 p-4 border border-neutral-300'>
           <div>
-            <div className='flex justify-between w-full gap-4'>
+            <div className='flex flex-col justify-between w-full gap-4 lg:flex-row'>
               <div className='space-y-4 w-[90%]'>
                 <div>
                   <label className="font-semibold">Title</label>

@@ -8,7 +8,7 @@ interface AddModulePopupProps {
 const AddModulePopup: React.FC<AddModulePopupProps> = ({ onClose }) => {
   return (
     <div className="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full bg-black bg-opacity-50">
-      <div className="w-1/3 p-5 bg-white rounded-lg shadow-lg">
+      <div className="w-[90%] p-5 bg-white rounded-lg shadow-lg lg:w-1/3">
         <div className="flex items-center justify-end mb-4">
           <AiOutlineCloseCircle className="text-2xl text-red-600 cursor-pointer" onClick={onClose} />
         </div>

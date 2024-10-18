@@ -64,7 +64,7 @@ const SplitControl: React.FC<SplitControlProps> = ({
       <button className='px-4 py-1 font-semibold border rounded-lg border-primary text-primary' onClick={handleSplit}>
         Split
       </button>
-      <div className='flex items-center gap-2'>
+      <div className='flex flex-col items-start gap-2 mt-6 lg:mt-0 lg:items-center lg:flex-row'>
             <div className='flex flex-col space-y-1'>
                   <label className='text-sm font-semibold' htmlFor="">Clip 1 Title</label>
                   <input className='rounded-md w-36 bg-cardBg' type="text" placeholder='Title of Clip' />
