@@ -1,30 +1,47 @@
 import React, { useState } from 'react';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
+import { Modules } from './CreateCourse';
 
 interface SeasonPopUpProps {
   onClose: () => void;
+  setPartContainer: React.Dispatch<React.SetStateAction<{ name: string; value: string; modules: Modules[]}[]>>;
+  partNumber: number;
+  setPartNumber: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const SeasonPopUp: React.FC<SeasonPopUpProps> = ({ onClose }) => {
-  const [seasonName, setSeasonName] = useState('');
-  const [price, setPrice] = useState('');
-  const [openingDate, setOpeningDate] = useState('');
-  const [completionTime, setCompletionTime] = useState('');
-  const [expirationType, setExpirationType] = useState('noExpiration');
-  const [expirationDate, setExpirationDate] = useState('');
-  const [hideSeason, setHideSeason] = useState(false);
+const SeasonPopUp: React.FC<SeasonPopUpProps> = ({ onClose, setPartContainer, partNumber, setPartNumber }) => {
+  const [seasonName, setSeasonName] = useState<string>('');
+  const [price, setPrice] = useState<string>('');
+  const [openingDate, setOpeningDate] = useState<string>('');
+  const [completionTime, setCompletionTime] = useState<string>('');
+  const [expirationType, setExpirationType] = useState<string>('noExpiration');
+  const [expirationDate, setExpirationDate] = useState<string>('');
+
+  const handleAdd = () => {
+    const partName = `Part ${partNumber + 1}`;
+    setPartContainer((prev) => [
+      ...prev,
+      {
+        name: partName,
+        value: seasonName,
+        modules: [],
+      },
+    ]);
+    setPartNumber((prev) => prev + 1);
+    onClose();
+  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="w-[90%] p-8 bg-white rounded-lg lg:w-1/3">
+      <div className="w-1/3 p-8 bg-white rounded-lg">
         <div className="flex justify-between mb-4">
-          <h3 className="text-lg font-semibold">Add Season</h3>
+          <h3 className="text-lg font-semibold">Add Part</h3>
           <AiOutlineCloseCircle onClick={onClose} className="text-2xl text-red-500 cursor-pointer" />
         </div>
 
         <div className="space-y-4">
           <div className='space-y-1'>
-          <label htmlFor="">Season Name</label>
+          <label htmlFor="">Part Name</label>
           <input
             type="text"
             value={seasonName}
@@ -105,19 +122,9 @@ const SeasonPopUp: React.FC<SeasonPopUpProps> = ({ onClose }) => {
             />
           )}
 
-          <div className="flex items-center">
-            <label className="mr-2">Hide Season</label>
-            <input
-              type="checkbox"
-              checked={hideSeason}
-              onChange={(e) => setHideSeason(e.target.checked)}
-              className="toggle-switch"
-            />
-          </div>
-
           <div className="flex justify-start space-x-2">
             <button onClick={onClose} className="px-4 py-2 text-white rounded bg-primary">Cancel</button>
-            <button className="px-4 py-2 text-white rounded bg-primary">Add</button>
+            <button onClick={handleAdd} className="px-4 py-2 text-white rounded bg-primary">Add</button>
           </div>
         </div>
       </div>

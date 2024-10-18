@@ -9,7 +9,7 @@ interface MainModules_Step_RigthModuleProps {
 const MainModules_Step_RigthModule: React.FC<MainModules_Step_RigthModuleProps> = ({ title, handleFileUpload }) => {
   return (
     <div>
-      <div className='flex flex-col justify-between w-full gap-4 lg:flex-row'>
+      <div className='flex justify-between w-full gap-4'>
         <div className='space-y-4 w-[90%]'>
           <div>
             <label className="font-semibold">Title</label>
@@ -26,19 +26,14 @@ const MainModules_Step_RigthModule: React.FC<MainModules_Step_RigthModuleProps> 
                 <p className='text-sm text-[#7C7C7C]'>Available for Free</p>
               </div>
             </div>
-            <div className='space-y-1'>
-              <h5>Content type</h5>
-              <select className='w-full border-none rounded-md outline-none'>
-                <option value="">Audio Lesson</option>
-                <option value="">Video Lesson</option>
-              </select>
-            </div>
             <div className='flex flex-col gap-1'>
               <label>{title}</label> {/* Use the title prop here */}
               <textarea className='w-full border rounded-md'></textarea>
             </div>
           </div>
         </div>
+
+        {/* Lesson File and Attachment Upload Sections */}
         <div className='space-y-4'>
           <div className='w-[100%]'>
             <label className='font-semibold'>Lesson File</label>

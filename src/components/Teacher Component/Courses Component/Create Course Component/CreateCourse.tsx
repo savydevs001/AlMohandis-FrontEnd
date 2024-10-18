@@ -5,8 +5,8 @@ import AccessibilitySettings_Step from './AccessibilitySettings_Step';
 import ObjectivesGoals_Step from './ObjectivesGoals_Step';
 import Part_Step from './Part_Step';
 import MainModules_Step from './MainModules_Step';
-import Step6 from './Step6';
-import Step7 from './Step7'; // Import Step7
+// import Step6 from './Assignment_Step';
+// import Step7 from './Exam_Step'; // Import Step7
 import DashBoardHeader from '../../Dashboard Component/DashBoardHeader';
 import Step8 from './Step8';
 
@@ -20,7 +20,25 @@ interface FormData {
   finalComments: string;
 }
 
+interface Lesson {
+  type: string;
+  number: number;
+}
+
+export interface Modules {
+  name: string;
+  number: number;
+  lessons: Lesson[];
+}
+
 const CreateCourse: React.FC = () => {
+
+  const [partContainer, setPartContainer] = useState<{name: string, value: string, modules: Modules[]}[]>([{
+    name: 'Part 1',
+    value: 'Chapter 1',
+    modules: [],
+  }]); // State to store the parts
+
   const [step, setStep] = useState<number>(1);
   const [formData, setFormData] = useState<FormData>({
     title: '',
@@ -50,6 +68,10 @@ const CreateCourse: React.FC = () => {
     if (step > 1) {
       setStep((prevStep) => prevStep - 1);
     }
+  };
+
+  const handleFinish = () => {
+    setStep(8);
   };
 
 
@@ -96,25 +118,27 @@ const CreateCourse: React.FC = () => {
         )}
         {step === 5 && (
           <MainModules_Step
-            handleNext={handleNext}
+            handleFinish={handleFinish}
             handleBack={handleBack}
+            setPartContainer={setPartContainer}
+            partContainer={partContainer}
           />
         )}
-        {step === 6 && (
+        {/* {step === 6 && (
           <Step6
             formData={formData}
             handleInputChange={handleInputChange}
             handleNext={handleNext}
           />
-        )}
-        {step === 7 && (
+        )} */}
+        {/* {step === 7 && (
           <Step7
             formData={formData}
             handleInputChange={handleInputChange}
             // handleSubmit={handleSubmit}
             handleNext={handleNext} // Pass handleNext to Step 7
           />
-        )}
+        )} */}
         {step === 8 && (
           <Step8
             formData={formData}

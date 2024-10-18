@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import MainModules_Step_Season1Module from './MainModules_Step_Season1Module';
 import FileUpload from './FileUpload';
 
-interface Step6Props {
-  formData: any; // Define your FormData type if needed
-  handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  handleNext: () => void;
+interface Assignment_StepProps {
+  // formData: any; // Define your FormData type if needed
+  // handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  handleNextModule: () => void;
+  handleFinish: () => void;
+  isLastModule: boolean;
   handleFileUpload?: (file: File | null) => void;
 }
 
-const Step6: React.FC<Step6Props> = ({ handleNext, handleFileUpload  }) => {
+const Assignment_Step: React.FC<Assignment_StepProps> = ({ handleNextModule, isLastModule, handleFinish, handleFileUpload }) => {
   // State to manage questions
   const [questions, setQuestions] = useState([{ id: Date.now(), question: '' }]);
 
@@ -25,25 +26,22 @@ const Step6: React.FC<Step6Props> = ({ handleNext, handleFileUpload  }) => {
     setQuestions(updatedQuestions);
   };
 
-  const handleNextModule = () => {
-    handleNext(); // Call the handleNext prop to move to the next step
+  const handleNext = () => {
+    handleNextModule(); // Call the handleNext prop to move to the next step
   };
 
   return (
     <div className='mt-12 h-fit'>
-      <div className='flex flex-col max-w-4xl gap-3 mx-auto shadow-2xl h-fit bg-cardBg lg:flex-row'>
-        <div className='lg:w-[30%] w-full bg-cardBg py-4 px-6 border border-neutral-300'>
-          <MainModules_Step_Season1Module />
-        </div>
+      <div className='flex max-w-4xl gap-3 mx-auto shadow-2xl h-fit bg-cardBg'>
         <div className='flex-1 p-4 border border-neutral-300'>
           <div>
-            <div className='flex flex-col justify-between w-full gap-4 lg:flex-row'>
+            <div className='flex justify-between w-full gap-4'>
               <div className='space-y-4 w-[90%]'>
                 <div>
                   <label className="font-semibold">Title</label>
                   <input className='w-full py-2 rounded-md' type="text" placeholder='Lesson 1 Title' />
                 </div>
-                
+
                 <div className='space-y-4'>
                   {/* Dynamically render questions */}
                   {questions.map((question, index) => (
@@ -84,12 +82,22 @@ const Step6: React.FC<Step6Props> = ({ handleNext, handleFileUpload  }) => {
 
           {/* Button to go to next module */}
           <div className='flex items-center gap-2 mt-4'>
-            <button
-              className='flex items-center gap-2 px-6 py-2 font-semibold text-white border-2 rounded-lg bg-primary'
-              onClick={handleNextModule}
-            >
-              Next Module
-            </button>
+            {!isLastModule && (
+              <button
+                className='flex items-center gap-2 px-6 py-2 font-semibold text-white border-2 rounded-lg bg-primary'
+                onClick={handleNext}
+              >
+                Next Module
+              </button>
+            )}
+            {isLastModule && (
+              <button
+                className='flex items-center gap-2 px-6 py-2 font-semibold text-white border-2 rounded-lg bg-primary'
+                onClick={handleFinish}
+              >
+                Finish Module
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -97,4 +105,4 @@ const Step6: React.FC<Step6Props> = ({ handleNext, handleFileUpload  }) => {
   );
 };
 
-export default Step6;
+export default Assignment_Step;
