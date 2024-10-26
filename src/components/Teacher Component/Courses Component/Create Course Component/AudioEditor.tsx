@@ -1,16 +1,13 @@
-// AudioEditor.tsx
 import { useState, useRef, useEffect } from 'react';
 import WaveSurfer from 'wavesurfer.js';
 import { FaPlay, FaPause } from "react-icons/fa6";
-import SplitControl from './AudioSplitter'; 
-// import FileUpload from './FileUpload'; 
+import AudioSplitter from './AudioSplitter';
 
 interface AudioEditorProps {
   mediaFile?: File | null; // Make it optional
 }
 
-const AudioEditor: React.FC<AudioEditorProps> = ({mediaFile}) => {
-  // const [mediaFile, setMediaFile] = useState<File | null>(null);
+const AudioEditor: React.FC<AudioEditorProps> = ({ mediaFile }) => {
   const [isVideo, setIsVideo] = useState(false); // Track if the file is a video
   const waveformRef = useRef<HTMLDivElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -18,8 +15,8 @@ const AudioEditor: React.FC<AudioEditorProps> = ({mediaFile}) => {
   const [rangeValues, setRangeValues] = useState<[number, number]>([0, 5]);
   const [splitClips, setSplitClips] = useState<{ start: number; end: number; name: string }[]>([]);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTime, setCurrentTime] = useState(0); 
-  const [duration, setDuration] = useState(0); 
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
 
   useEffect(() => {
     if (waveformRef.current && !isVideo) {
@@ -39,11 +36,18 @@ const AudioEditor: React.FC<AudioEditorProps> = ({mediaFile}) => {
         setDuration(waveSurfer.current?.getDuration() || 0);
       });
 
+      waveSurfer.current.on('finish', () => {
+        setIsPlaying(false);
+      });
+
       return () => {
-        waveSurfer.current?.destroy();
+        if (waveSurfer.current) {
+          waveSurfer.current.destroy();
+          waveSurfer.current = null;
+        }
       };
     }
-  }, [isVideo]);
+  }, [isVideo, mediaFile]);
 
   useEffect(() => {
     if (mediaFile) {
@@ -60,22 +64,37 @@ const AudioEditor: React.FC<AudioEditorProps> = ({mediaFile}) => {
     }
   }, [mediaFile]);
 
-  // const handleMediaUpload = (file: File | null) => {
-  //   setMediaFile(file);
+  // const handlePlayPause = () => {
+  //   if (isVideo && videoRef.current) {
+  //     if (isPlaying) {
+  //       videoRef.current.pause();
+  //     } else {
+  //       videoRef.current.play();
+  //     }
+  //   } else if (waveSurfer.current) {
+  //     if (isPlaying) {
+  //       waveSurfer.current.pause();
+  //     } else {
+  //       waveSurfer.current.play();
+  //     }
+  //   }
+  //   setIsPlaying(!isPlaying);
   // };
 
   const handlePlayPause = () => {
-    if (isVideo && videoRef.current) {
-      if (isPlaying) {
-        videoRef.current.pause();
-      } else {
-        videoRef.current.play();
-      }
-    } else if (waveSurfer.current) {
-      if (isPlaying) {
+    if (isPlaying) {
+      if (waveSurfer.current) {
         waveSurfer.current.pause();
-      } else {
+      }
+      if (videoRef.current) {
+        videoRef.current.pause();
+      }
+    } else {
+      if (waveSurfer.current) {
         waveSurfer.current.play();
+      }
+      if (videoRef.current) {
+        videoRef.current.play();
       }
     }
     setIsPlaying(!isPlaying);
@@ -89,6 +108,10 @@ const AudioEditor: React.FC<AudioEditorProps> = ({mediaFile}) => {
     }
   };
 
+  const removeClip = (index: number) => {
+    setSplitClips((prevClips) => prevClips.filter((_, i) => i !== index));
+  };
+
   const formatTime = (seconds: number) => {
     const minutes = Math.floor(seconds / 60);
     const secs = Math.floor(seconds % 60);
@@ -97,85 +120,65 @@ const AudioEditor: React.FC<AudioEditorProps> = ({mediaFile}) => {
 
   return (
     <div className='flex flex-col' style={{ padding: '10px', maxWidth: '800px', margin: '0 auto' }}>
-     <div className='flex flex-col gap-2'>
+      <div className='flex flex-col gap-2'>
 
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }}>
-        {/* Conditionally render the play/pause button and time display for audio only */}
-        {!isVideo && (
-          <div className='flex flex-col'>
-            <button
-              onClick={handlePlayPause}
-              style={{
-                padding: '10px',
-                color: '#000',
-                borderRadius: '50%',
-                border: 'none',
-                marginRight: '10px',
-                fontSize: '24px',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              {isPlaying ? <FaPause /> : <FaPlay />}
-            </button>
-            <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-              <p className='text-[.9vw]'>
-                {formatTime(currentTime)} / {formatTime(duration)}
-              </p>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }}>
+          {/* Conditionally render the play/pause button and time display for audio only */}
+          {!isVideo && mediaFile && (
+            <div className='flex flex-col'>
+              <button
+                onClick={handlePlayPause}
+                style={{
+                  padding: '10px',
+                  color: '#000',
+                  borderRadius: '50%',
+                  border: 'none',
+                  marginRight: '10px',
+                  fontSize: '24px',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                {isPlaying ? <FaPause /> : <FaPlay />}
+              </button>
+              <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+                <p className='text-[.9vw]'>
+                  {formatTime(currentTime)} / {formatTime(duration)}
+                </p>
+              </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* Render audio waveform if not a video, else render video player */}
-        {!isVideo ? (
-          <div ref={waveformRef} style={{ width: '100%', height: '70px', background: '#f3f3f3' }}></div>
-        ) : (
-        <div className='video-container w-[70%] h-[10%] rounded-lg'>
-            <video
-            ref={videoRef}
-            controls={false}
-            onTimeUpdate={() => setCurrentTime(videoRef.current?.currentTime || 0)}
-            onLoadedMetadata={() => setDuration(videoRef.current?.duration || 0)}
-            style={{ width: '100%', height: '100%', borderRadius: '10px' }}
-            src={mediaFile ? URL.createObjectURL(mediaFile) : ''}
-          />
+          {/* Render audio waveform if not a video, else render video player */}
+          {!isVideo ? (
+            <div ref={waveformRef} style={{ width: '100%', height: '70px', background: '#f3f3f3' }}></div>
+          ) : (
+            <div className='video-container w-[70%] h-[10%] rounded-lg'>
+              <video
+                ref={videoRef}
+                controls={false}
+                onTimeUpdate={() => setCurrentTime(videoRef.current?.currentTime || 0)}
+                onLoadedMetadata={() => setDuration(videoRef.current?.duration || 0)}
+                style={{ width: '100%', height: '100%', borderRadius: '10px' }}
+                src={mediaFile ? URL.createObjectURL(mediaFile) : ''}
+              />
+            </div>
+          )}
         </div>
-        )}
       </div>
-     </div>
 
-      <SplitControl
+      <AudioSplitter
         rangeValues={rangeValues}
         setRangeValues={setRangeValues}
         duration={duration}
         handleSplit={handleSplit}
+        splitClips={splitClips}
+        setSplitClips={setSplitClips}
+        removeClip={removeClip}
+        mediaFile={mediaFile}
       />
-
-      {splitClips.length > 0 && (
-        <div>
-          <h3>Split Clips</h3>
-          {splitClips.map((clip, index) => (
-            <div key={index} style={{ marginBottom: '10px' }}>
-              <label>Clip Name:</label>
-              <input
-                type="text"
-                value={clip.name}
-                onChange={(e) => {
-                  const updatedClips = [...splitClips];
-                  updatedClips[index].name = e.target.value;
-                  setSplitClips(updatedClips);
-                }}
-                style={{ padding: '10px', width: '200px', marginRight: '10px' }}
-              />
-              <p>
-                Start: {clip.start.toFixed(2)} sec | End: {clip.end.toFixed(2)} sec
-              </p>
-            </div>
-          ))}
-        </div>
-      )}
     </div>
   );
 };
