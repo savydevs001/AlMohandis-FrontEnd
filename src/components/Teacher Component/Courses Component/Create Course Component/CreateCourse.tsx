@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Sidebar from '../../Sidebar';
 import BasicInfo_Step from './BasicInfo_Step';
 import AccessibilitySettings_Step from './AccessibilitySettings_Step';
 import ObjectivesGoals_Step from './ObjectivesGoals_Step';
@@ -75,12 +76,12 @@ const CreateCourse: React.FC = () => {
 
 
   return (
-    <div className='flex flex-col min-h-fit lg:flex-row'>
-      {/* <Sidebar /> */}
-      <div className='flex-1 w-full p-2 mx-auto lg:w-full lg:p-0'>
+    <div className='flex flex-col min-h-screen lg:flex-row'>
+      <Sidebar />
+      <div className='flex-1 w-full p-2 mx-auto lg:w-full lg:p-6'>
         <div>
-          <div className="flex items-center justify-between gap-4">
-            <h1 className="font-bold  text-md lg:text-2xl w-[30%]">New Courses</h1>
+          <div className="flex items-center justify-between gap-1">
+            <h1 className="text-sm font-bold lg:text-2xl">New Courses</h1>
             <DashBoardHeader />
           </div>
         </div>

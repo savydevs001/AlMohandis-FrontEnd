@@ -2,10 +2,11 @@ import { useState } from 'react';
 import AudioEditor from './AudioEditor';
 import MainModules_Step_RigthModule from './MainModules_Step_RigthModule';
 import MainModules_Step_Season1Module from './MainModules_Step_Season1Module';
-import AddModulePopUp from './AddAnotherPopUp'; // Import the popup component
+import AddModulePopUp from './AddAnotherPopUp';
 import { Modules } from './CreateCourse';
 import Assignment_Step from './Assignment_Step';
 import Exam_Step from './Exam_Step';
+
 
 interface MainModules_StepProps {
   handleBack: () => void;

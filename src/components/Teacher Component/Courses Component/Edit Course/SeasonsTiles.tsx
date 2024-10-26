@@ -66,7 +66,7 @@ function SeasonsTiles() {
       <AssignementsFields />
 
       {/* Conditionally render popups */}
-      {activePopup === 'audio' && <AudioLessonPopup title='Edit Audio Lesson' onClose={handleClosePopup} />}
+      {activePopup === 'audio' && <AudioLessonPopup onClose={handleClosePopup} />}
       {activePopup === 'video' && <VideoLessonPopup onClose={handleClosePopup} />}
       {/* Add more conditions for other popups like Assignment, Exam, etc. */}
     </div>

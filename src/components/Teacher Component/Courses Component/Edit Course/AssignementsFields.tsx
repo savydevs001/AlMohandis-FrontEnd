@@ -7,11 +7,6 @@ import { AttachmentPopup } from './EditCoursePopUps/AttachmentPopUp';
 function AssignementsFields() {
   const [activePopup, setActivePopup] = useState<string | null>(null);
 
-  const handleFileUpload = (file: File | null) => {
-    // Handle file upload logic here
-    console.log(file);
-  };
-
   const closePopup = () => {
     setActivePopup(null);
   };
@@ -23,7 +18,7 @@ function AssignementsFields() {
         <h4>Assignment 1</h4>
         <div className="flex items-center gap-2">
           <p
-            className="text-sm bg-[#546AFA42] text-[#0022FF] py-1 px-2 rounded-lg cursor-pointer"
+            className="text-sm bg-[#FF47AC4F] text-[#FF008C] py-1 px-2 rounded-lg cursor-pointer"
             onClick={() => setActivePopup('assignment')}
           >
             Edit
@@ -37,7 +32,7 @@ function AssignementsFields() {
         <h4>Exam 1</h4>
         <div className="flex items-center gap-2">
           <p
-            className="text-sm bg-[#546AFA42] text-[#0022FF] py-1 px-2 rounded-lg cursor-pointer"
+            className="text-sm bg-[#FF47AC4F] text-[#FF008C] py-1 px-2 rounded-lg cursor-pointer"
             onClick={() => setActivePopup('exam')}
           >
             Edit
@@ -51,7 +46,7 @@ function AssignementsFields() {
         <h4>Attachment 1</h4>
         <div className="flex items-center gap-2">
           <p
-            className="text-sm bg-[#546AFA42] text-[#0022FF] py-1 px-2 rounded-lg cursor-pointer"
+            className="text-sm bg-[#FF47AC4F] text-[#FF008C] py-1 px-2 rounded-lg cursor-pointer"
             onClick={() => setActivePopup('attachment')}
           >
             Edit
@@ -65,7 +60,7 @@ function AssignementsFields() {
       </button>
 
       {/* Popups */}
-      {activePopup === 'assignment' && <AssignmentPopup handleFileUpload={handleFileUpload} onClose={closePopup} />}
+      {activePopup === 'assignment' && <AssignmentPopup onClose={closePopup} />}
       {activePopup === 'exam' && <ExamPopup onClose={closePopup} />}
       {activePopup === 'attachment' && <AttachmentPopup onClose={closePopup} />}
     </div>

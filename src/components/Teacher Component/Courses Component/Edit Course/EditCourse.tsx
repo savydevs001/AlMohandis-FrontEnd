@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import DashBoardHeader from "../../Dashboard Component/DashBoardHeader";
+import Sidebar from "../../Sidebar";
 import EditCourseForm from "./EditCourseForm";
 import SeasonsTiles from "./SeasonsTiles";
 import AccessibilityPopup from './EditCoursePopUps/AccessibilitySettingpopUp';
@@ -18,8 +19,8 @@ function EditCourse() {
 
   return (
     <div className="flex flex-col w-full lg:flex-row">
-      {/* <Sidebar /> */}
-      <div className="flex-1 w-full p-3">
+      <Sidebar />
+      <div className="flex-1 w-full p-6">
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-bold">Edit</h1>
           <DashBoardHeader />
