@@ -1,8 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 
+body{
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  /* font-family: "Inter", sans-serif; */
+  font-weight: 400;
+}
 
 .scrollbar-hide::-webkit-scrollbar {
       display: none;
@@ -38,4 +48,8 @@ input[type='range']::-moz-range-thumb {
 
 .slick-slide > div{
   margin: 0 10px;
+}
+
+.dropdown-content {
+  font-size: 0.875rem; /* 14px */
 }
