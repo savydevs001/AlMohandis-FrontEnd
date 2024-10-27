@@ -11,7 +11,6 @@ interface AddModulePopupProps {
 const AddModulePopup: React.FC<AddModulePopupProps> = ({ onClose, partContainer, setPartContainer }) => {
   const [selectedModule, setSelectedModule] = useState('Chapter');
   const [selectedSeason, setSelectedSeason] = useState(partContainer.length > 0 ? partContainer[0].name : '');
-  console.log(selectedSeason);
   
   useEffect(() => {
     if (partContainer.length > 0 && !selectedSeason) {
@@ -21,15 +20,10 @@ const AddModulePopup: React.FC<AddModulePopupProps> = ({ onClose, partContainer,
 
   const handleModuleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedModule(event.target.value);
-    console.log(event.target.value);
-    console.log(selectedModule);
-    
   };
 
   const handleSeasonChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedSeason(event.target.value);
-    console.log(selectedSeason);
-    
   };
 
   const handleSubmit = (event: React.FormEvent) => {
@@ -40,13 +34,11 @@ const AddModulePopup: React.FC<AddModulePopupProps> = ({ onClose, partContainer,
         // Calculate the next number for the module type
         const moduleCount = part.modules.filter(module => module.name === selectedModule).length;
         const newModuleNumber = moduleCount + 1;
-        console.log("Part found");
         return {
           ...part,
           modules: [...part.modules, { name: selectedModule, number: newModuleNumber, lessons: []}] // Add the new module
         };
       }
-      console.log("Part not found");
       return part;
     });
 

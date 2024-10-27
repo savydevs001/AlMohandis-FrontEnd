@@ -2,21 +2,24 @@ import { useState, useRef, useEffect } from 'react';
 import WaveSurfer from 'wavesurfer.js';
 import { FaPlay, FaPause } from "react-icons/fa6";
 import AudioSplitter from './AudioSplitter';
+import { Clip } from './MainModules_Step';
 
 interface AudioEditorProps {
   mediaFile?: File | null; // Make it optional
+  setLesson: React.Dispatch<React.SetStateAction<{ lessonTitle: string; lessonDescription: string; srcUrl: File | null | string; isPromoted: boolean; isFree: boolean, lessonType: string, clips: Clip[] }>>;
 }
 
-const AudioEditor: React.FC<AudioEditorProps> = ({ mediaFile }) => {
+const AudioEditor: React.FC<AudioEditorProps> = ({ mediaFile, setLesson }) => {
   const [isVideo, setIsVideo] = useState(false); // Track if the file is a video
   const waveformRef = useRef<HTMLDivElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const waveSurfer = useRef<WaveSurfer | null>(null);
   const [rangeValues, setRangeValues] = useState<[number, number]>([0, 5]);
-  const [splitClips, setSplitClips] = useState<{ start: number; end: number; name: string }[]>([]);
+  const [splitClips, setSplitClips] = useState<{ start: number; end: number; title: string }[]>([]);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+
 
   useEffect(() => {
     if (waveformRef.current && !isVideo) {
@@ -103,7 +106,7 @@ const AudioEditor: React.FC<AudioEditorProps> = ({ mediaFile }) => {
   const handleSplit = () => {
     const [start, end] = rangeValues;
     if (start < end) {
-      const newClip = { start, end, name: `Clip ${splitClips.length + 1}` };
+      const newClip = { start, end, title: `Clip ${splitClips.length + 1}` };
       setSplitClips([...splitClips, newClip]);
     }
   };
@@ -178,6 +181,7 @@ const AudioEditor: React.FC<AudioEditorProps> = ({ mediaFile }) => {
         setSplitClips={setSplitClips}
         removeClip={removeClip}
         mediaFile={mediaFile}
+        setLesson={setLesson}
       />
     </div>
   );

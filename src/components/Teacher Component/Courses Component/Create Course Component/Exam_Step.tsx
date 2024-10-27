@@ -1,56 +1,110 @@
+import axios from 'axios';
 import React, { useState } from 'react';
+import Cookies from 'js-cookie';
+import { AssignmentOrExamResponse } from '../../../../types/courses/createCourse';
 
 interface Exam_StepProps {
-  // formData: any; // Define your FormData type if needed
-  // handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  // handleNext: () => void;
   handleNextModule: () => void;
   handleFinish: () => void;
   isLastModule: boolean;
+  partId: string | null;
 }
 
-const Exam_Step: React.FC<Exam_StepProps> = ({ handleNextModule, isLastModule, handleFinish }) => {
-  // State to manage options for answers
-  const [options, setOptions] = useState([{ id: Date.now(), value: '' }]);
+const Exam_Step: React.FC<Exam_StepProps> = ({ handleNextModule, isLastModule, handleFinish, partId }) => {
+  const [title, setTitle] = useState<string>('Math Exam');
+  const [questions, setQuestions] = useState([
+    {
+      questionText: '',
+      answerType: 'MCQ',
+      options: [''],
+      correctAnswer: ''
+    }
+  ]);
+  const [loading, setLoading] = useState<boolean>(false);
 
-  // State to manage questions
-  const [questions, setQuestions] = useState([{ id: Date.now(), title: '', description: '' }]);
-
-  // State to manage selected answer type
-  const [selectedAnswerType, setSelectedAnswerType] = useState<string>('MCQS');
-
-  // Function to handle adding a new question
   const handleAddQuestion = () => {
-    setQuestions([...questions, { id: Date.now(), title: '', description: '' }]); // Add a new empty question
+    setQuestions([...questions, {
+      questionText: '',
+      answerType: 'MCQ',
+      options: [''],
+      correctAnswer: ''
+    }]);
   };
 
-  // Function to handle change in question input
   const handleQuestionChange = (index: number, field: string, value: string) => {
     const updatedQuestions = [...questions];
-    updatedQuestions[index] = { ...updatedQuestions[index], [field]: value }; // Update the specific field of the question (title/description)
+    updatedQuestions[index] = { ...updatedQuestions[index], [field]: value };
     setQuestions(updatedQuestions);
   };
 
-  // Function to handle adding a new option for answers
-  const handleAddOption = () => {
-    setOptions([...options, { id: Date.now(), value: '' }]); // Add a new empty option
+  const handleOptionChange = (qIndex: number, oIndex: number, value: string) => {
+    const updatedQuestions = [...questions];
+    updatedQuestions[qIndex].options[oIndex] = value;
+    setQuestions(updatedQuestions);
   };
 
-  const handleNext = () => {
-    handleNextModule(); // Call the handleNext prop to move to the next step
+  const handleAddOption = (qIndex: number) => {
+    const updatedQuestions = [...questions];
+    updatedQuestions[qIndex].options.push('');
+    setQuestions(updatedQuestions);
   };
 
-
-  // Function to handle change in option input
-  const handleOptionChange = (index: number, value: string) => {
-    const updatedOptions = [...options];
-    updatedOptions[index].value = value; // Update the specific option's value
-    setOptions(updatedOptions);
+  const handleAnswerTypeChange = (qIndex: number, value: string) => {
+    const updatedQuestions = [...questions];
+    updatedQuestions[qIndex].answerType = value;
+    setQuestions(updatedQuestions);
   };
 
-  // Function to handle change in selected answer type
-  const handleAnswerTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedAnswerType(e.target.value); // Update the selected answer type
+  const handleNext = async () => {
+    const res = await ApiCall();
+    if (res?.data.id) {
+      alert('Exam created successfully');
+      setQuestions([{ questionText: '', answerType: 'SHORT_ANSWER', options: [], correctAnswer: '' }]); // Reset questions
+      setTitle(''); // Reset title
+      handleNextModule(); // Call the handleNext prop to move to the next step
+    } else {
+      alert('An error occurred. Please try again.');
+    }
+ };
+
+ const handlefinish = async () => {
+    const res = await ApiCall();
+    if (res?.data.id) {
+      alert('Exam created successfully');
+      setQuestions([{ questionText: '', answerType: 'SHORT_ANSWER', options: [], correctAnswer: '' }]); // Reset questions
+      setTitle(''); // Reset title
+      handleFinish(); // Call the handleFinish prop to finish the process
+    } else {
+      alert('An error occurred. Please try again.');
+    }
+ };
+
+  const validateForm = () => {
+    return title.length > 0 && questions.every(question => question.questionText.length > 0); // Validate if the title and all questions are filled
+  };
+
+  const ApiCall = async () => {
+    if (!validateForm()) {
+      alert('Please fill all the fields');
+      return;
+    }
+    try {
+      setLoading(true);
+      const courseId = localStorage.getItem('courseId');
+      const res: AssignmentOrExamResponse = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/courses/${courseId}/parts/${partId}/modules/exam`, {
+        title,
+        questions
+      }, {
+        headers: {
+          Authorization: `Bearer ${Cookies.get('token')}`
+        }
+      });
+      return res;
+    } catch (error) {
+      alert('An error occurred. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -59,89 +113,79 @@ const Exam_Step: React.FC<Exam_StepProps> = ({ handleNextModule, isLastModule, h
         <div className='flex-1 p-4 border border-neutral-300'>
           <div className="space-y-1">
             <label className="font-semibold" htmlFor="">Title</label>
-            <input className='w-full py-2 rounded-md' type="text" placeholder='Exam 1' />
+            <input
+              className='w-full py-2 rounded-md'
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="Exam Title"
+            />
           </div>
-          <div className='mt-4 space-y-4'>
 
-            {/* Conditionally render questions only if answer type is NOT MCQS */}
-            {selectedAnswerType !== 'MCQS' && selectedAnswerType !== 'True & False' && (
-              questions.map((question, index) => (
-                <div key={question.id} className='flex flex-col gap-1'>
-                  <div className='flex items-center gap-4'>
-                    <div className="space-y-1">
-                      <label className="font-semibold" htmlFor="">{`Question ${index + 1}`}</label>
-                      <input
-                        className='w-full py-2 rounded-md'
-                        type="text"
-                        placeholder={`Write Question ${index + 1} Statement`}
-                        value={question.title}
-                        onChange={(e) => handleQuestionChange(index, 'title', e.target.value)} // Handle question title change
-                      />
-                    </div>
-
-                    {/* Conditionally render description based on selected answer type */}
-                    {selectedAnswerType === 'Short Question' && (
-                      <div className="mt-0 space-y-1">
-                        <label className="font-semibold" htmlFor="">{`Question ${index + 1} Description`}</label>
-                        <input
-                          className='w-full py-2 rounded-md'
-                          type="text"
-                          placeholder={`Write short description for Question ${index + 1}`}
-                          value={question.description}
-                          onChange={(e) => handleQuestionChange(index, 'description', e.target.value)} // Handle question description change
-                        />
-                      </div>
-                    )}
-                  </div>
-                </div>
-              ))
-            )}
-
-            <div className='mt-2 space-y-1'>
-              <h5>Answer type</h5>
+          {questions.map((question, qIndex) => (
+            <div key={qIndex} className='mt-4'>
+              <input
+                className='w-full py-2 rounded-md'
+                type="text"
+                value={question.questionText}
+                onChange={(e) => handleQuestionChange(qIndex, 'questionText', e.target.value)}
+                placeholder={`Question ${qIndex + 1}`}
+              />
               <select
-                className='w-full border-none rounded-md outline-none'
-                value={selectedAnswerType}
-                onChange={handleAnswerTypeChange} // Handle answer type change
+                className='w-full py-2 mt-2 rounded-md'
+                value={question.answerType}
+                onChange={(e) => handleAnswerTypeChange(qIndex, e.target.value)}
               >
-                <option value="MCQS">MCQS</option>
-                <option value="True & False">True & False</option>
+                <option value="MCQ">MCQ</option>
                 <option value="Short Question">Short Question</option>
               </select>
-            </div>
-
-            {/* Conditionally render options for MCQs and True & False */}
-            {(selectedAnswerType === 'MCQS' || selectedAnswerType === 'True & False') && (
-              <div className='flex items-center'>
-                <div className='flex flex-wrap gap-2'>
-                  {options.map((option, index) => (
-                    <div className='flex gap-2' key={option.id}>
-                      <input
-                        className='w-[70%] rounded-md outline-none bg-cardBg'
-                        type="text"
-                        placeholder={`Enter Option ${index + 1}`}
-                        value={option.value}
-                        onChange={(e) => handleOptionChange(index, e.target.value)} // Handle option change
-                      />
-                    </div>
+              {question.answerType === 'MCQ' && (
+                <div className='mt-2'>
+                  {question.options.map((option, oIndex) => (
+                    <input
+                      key={oIndex}
+                      className='w-full py-2 rounded-md mt-1'
+                      type="text"
+                      value={option}
+                      onChange={(e) => handleOptionChange(qIndex, oIndex, e.target.value)}
+                      placeholder={`Option ${oIndex + 1}`}
+                    />
                   ))}
+                  <button
+                    className='px-2 py-1 mt-2 text-white bg-blue-500 rounded'
+                    onClick={() => handleAddOption(qIndex)}
+                  >
+                    Add Option
+                  </button>
+                  <input
+                    className='w-full py-2 rounded-md mt-2'
+                    type="text"
+                    value={question.correctAnswer}
+                    onChange={(e) => handleQuestionChange(qIndex, 'correctAnswer', e.target.value)}
+                    placeholder="Correct Answer"
+                  />
                 </div>
+              )}
+              {question.answerType === 'Short Question' && (
+                <div className='mt-2'>
+                  <input
+                    className='w-full py-2 rounded-md'
+                    type="text"
+                    value={question.correctAnswer}
+                    onChange={(e) => handleQuestionChange(qIndex, 'correctAnswer', e.target.value)}
+                    placeholder="Correct Answer"
+                  />
+                </div>
+              )}
+            </div>
+          ))}
 
-                <button className='px-2 py-0 mt-3 text-2xl font-semibold text-white border rounded-md bg-primary' onClick={handleAddOption}>
-                  +
-                </button>
-              </div>
-            )}
-
-            {selectedAnswerType === 'MCQS' && (
-              <div>
-                <input className='w-[25%] rounded-md outline-none bg-cardBg' type="text" placeholder='Correct Option' />
-              </div>
-            )}
-          </div>
-
-          <button className='px-4 py-2 mt-3 border rounded-md text-primary border-primary' onClick={handleAddQuestion}>
-            Add Question +
+          <button
+            className='px-4 py-2 mt-4 text-white bg-green-500 rounded'
+            onClick={handleAddQuestion}
+            disabled={loading}
+          >
+            Add Question
           </button>
 
           <div className='flex items-center gap-2 mt-4'>
@@ -149,6 +193,7 @@ const Exam_Step: React.FC<Exam_StepProps> = ({ handleNextModule, isLastModule, h
               <button
                 className='flex items-center gap-2 px-6 py-2 font-semibold text-white border-2 rounded-lg bg-primary'
                 onClick={handleNext}
+                disabled={loading}
               >
                 Next Module
               </button>
@@ -156,7 +201,8 @@ const Exam_Step: React.FC<Exam_StepProps> = ({ handleNextModule, isLastModule, h
             {isLastModule && (
               <button
                 className='flex items-center gap-2 px-6 py-2 font-semibold text-white border-2 rounded-lg bg-primary'
-                onClick={handleFinish}
+                onClick={handlefinish}
+                disabled={loading}
               >
                 Finish Module
               </button>

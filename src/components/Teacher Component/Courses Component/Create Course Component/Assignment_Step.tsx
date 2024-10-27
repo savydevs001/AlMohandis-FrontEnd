@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import FileUpload from './FileUpload';
+import axios from 'axios';
+import { AssignmentOrExamResponse } from '../../../../types/courses/createCourse';
+import Cookies from 'js-cookie';  
 
 interface Assignment_StepProps {
   // formData: any; // Define your FormData type if needed
@@ -8,28 +11,75 @@ interface Assignment_StepProps {
   handleFinish: () => void;
   isLastModule: boolean;
   handleFileUpload?: (file: File | null) => void;
+  partId: string | null;
 }
 
-const Assignment_Step: React.FC<Assignment_StepProps> = ({ handleNextModule, isLastModule, handleFinish, handleFileUpload }) => {
-  // State to manage questions
-  const [questions, setQuestions] = useState([{ id: Date.now(), question: '' }]);
+const Assignment_Step: React.FC<Assignment_StepProps> = ({ handleNextModule, isLastModule, handleFinish, handleFileUpload, partId }) => {
 
-  // Function to handle adding a new question
-  const handleAddQuestion = () => {
-    setQuestions([...questions, { id: Date.now(), question: '' }]); // Add a new empty question
-  };
+ // State to manage questions
+ const [questions, setQuestions] = useState<{questionText: string, answerType: string, options: string[], correctAnswer: string}[]>([{ questionText: '', answerType: 'SHORT_ANSWER', options: [], correctAnswer: '' }]);
+ const [title, setTitle] = useState<string>(''); // State to manage title
+ const [loading, setLoading] = useState<boolean>(false); // State to manage loading
 
-  // Function to handle change in question input
-  const handleQuestionChange = (index: number, value: string) => {
-    const updatedQuestions = [...questions];
-    updatedQuestions[index].question = value; // Update the specific question's value
-    setQuestions(updatedQuestions);
-  };
+ // Function to handle adding a new question
+ const handleAddQuestion = () => {
+   setQuestions([...questions, { questionText: '', answerType: 'SHORT_ANSWER', options: [], correctAnswer: '' }]); // Add a new empty question
+ };
 
-  const handleNext = () => {
-    handleNextModule(); // Call the handleNext prop to move to the next step
-  };
+ // Function to handle change in question input
+ const handleQuestionChange = (index: number, value: string) => {
+   const updatedQuestions = [...questions];
+   updatedQuestions[index].questionText = value; // Update the specific question's text
+   setQuestions(updatedQuestions);
+ };
 
+ const handleNext = async () => {
+    const res = await ApiCall();
+    if (res?.data.id) {
+      alert('Assignment created successfully');
+      setQuestions([{ questionText: '', answerType: 'SHORT_ANSWER', options: [], correctAnswer: '' }]); // Reset questions
+      setTitle(''); // Reset title
+      handleNextModule(); // Call the handleNext prop to move to the next step
+    }
+ };
+
+ const handlefinish = async () => {
+    const res = await ApiCall();
+    if (res?.data.id) {
+      alert('Assignment created successfully');
+      setQuestions([{ questionText: '', answerType: 'SHORT_ANSWER', options: [], correctAnswer: '' }]); // Reset questions
+      setTitle(''); // Reset title
+      handleFinish(); // Call the handleFinish prop to finish the process
+    }
+ };
+
+ const validateForm = () => {
+    return title.length > 0 && questions.every(question => question.questionText.length > 0); // Validate if the title and all questions are filled
+ };
+
+ const ApiCall = async () => {
+  if (!validateForm()) {
+    alert('Please fill all the fields');
+    return;
+  }
+  try {
+    setLoading(true);
+    const courseId = localStorage.getItem('courseId');
+    const res: AssignmentOrExamResponse = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/courses/${courseId}/parts/${partId}/modules/assignment`, {
+      title,
+     questions
+    }, {
+      headers: {
+        Authorization: `Bearer ${Cookies.get('token')}`
+      }
+    });
+    return res;
+  } catch (error) {
+    alert('An error occurred. Please try again.');
+  } finally {
+    setLoading(false);
+  }
+ };
   return (
     <div className='mt-12 h-fit'>
       <div className='flex max-w-4xl gap-3 mx-auto shadow-2xl h-fit bg-cardBg'>
@@ -39,19 +89,19 @@ const Assignment_Step: React.FC<Assignment_StepProps> = ({ handleNextModule, isL
               <div className='space-y-4 w-[90%]'>
                 <div>
                   <label className="font-semibold">Title</label>
-                  <input className='w-full py-2 rounded-md' type="text" placeholder='Lesson 1 Title' />
+                  <input className='w-full py-2 rounded-md' type="text" placeholder='Enter The Assignment Title' value={title} onChange={(e) => setTitle(e.target.value)} />
                 </div>
 
                 <div className='space-y-4'>
                   {/* Dynamically render questions */}
                   {questions.map((question, index) => (
-                    <div key={question.id} className='flex flex-col gap-1'>
+                    <div key={index} className='flex flex-col gap-1'>
                       <label>{`Question ${index + 1}`}</label>
                       <input
                         className='w-full border rounded-md'
                         type="text"
                         placeholder={`Add Question ${index + 1}`}
-                        value={question.question}
+                        value={question.questionText}
                         onChange={(e) => handleQuestionChange(index, e.target.value)} // Handle question change
                       />
                     </div>
@@ -76,6 +126,7 @@ const Assignment_Step: React.FC<Assignment_StepProps> = ({ handleNextModule, isL
           <button
             className='px-4 py-2 mt-3 border rounded-md text-primary border-primary'
             onClick={handleAddQuestion}
+            disabled={loading}
           >
             Add Question +
           </button>
@@ -86,6 +137,7 @@ const Assignment_Step: React.FC<Assignment_StepProps> = ({ handleNextModule, isL
               <button
                 className='flex items-center gap-2 px-6 py-2 font-semibold text-white border-2 rounded-lg bg-primary'
                 onClick={handleNext}
+                disabled={loading}
               >
                 Next Module
               </button>
@@ -93,7 +145,9 @@ const Assignment_Step: React.FC<Assignment_StepProps> = ({ handleNextModule, isL
             {isLastModule && (
               <button
                 className='flex items-center gap-2 px-6 py-2 font-semibold text-white border-2 rounded-lg bg-primary'
-                onClick={handleFinish}
+                // onClick={handleFinish}
+                onClick={handlefinish}
+                disabled={loading}
               >
                 Finish Module
               </button>

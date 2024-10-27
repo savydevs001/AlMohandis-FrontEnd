@@ -33,7 +33,7 @@ export interface Modules {
 
 const CreateCourse: React.FC = () => {
 
-  const [partContainer, setPartContainer] = useState<{name: string, value: string, modules: Modules[]}[]>([{
+  const [partContainer, setPartContainer] = useState<{ name: string, value: string, modules: Modules[] }[]>([{
     name: 'Part 1',
     value: 'Chapter 1',
     modules: [],
@@ -87,31 +87,31 @@ const CreateCourse: React.FC = () => {
         </div>
         {step === 1 && (
           <BasicInfo_Step
-            formData={formData}
-            handleInputChange={handleInputChange}
+            // formData={formData}
+            // handleInputChange={handleInputChange}
             handleNext={handleNext}
           />
         )}
         {step === 2 && (
           <AccessibilitySettings_Step
-            formData={formData}
-            handleInputChange={handleInputChange}
+            // formData={formData}
+            // handleInputChange={handleInputChange}
             handleNext={handleNext}
             handleBack={handleBack}
           />
         )}
         {step === 3 && (
           <ObjectivesGoals_Step
-            formData={formData}
-            handleInputChange={handleInputChange}
+            // formData={formData}
+            // handleInputChange={handleInputChange}
             handleNext={handleNext}
             handleBack={handleBack}
           />
         )}
         {step === 4 && (
           <Part_Step
-            formData={formData}
-            handleInputChange={handleInputChange}
+            // formData={formData}
+            // handleInputChange={handleInputChange}
             handleNext={handleNext}
             handleBack={handleBack}
           />
