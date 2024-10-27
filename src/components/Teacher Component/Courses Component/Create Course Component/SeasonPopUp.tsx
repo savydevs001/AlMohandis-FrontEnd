@@ -1,34 +1,69 @@
 import React, { useState } from 'react';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { Modules } from './CreateCourse';
+import { CreatePartResponse } from '../../../../types/courses/createCourse';
+import axios from 'axios';
+import Cookies from 'js-cookie';
 
 interface SeasonPopUpProps {
   onClose: () => void;
-  setPartContainer: React.Dispatch<React.SetStateAction<{ name: string; value: string; modules: Modules[]}[]>>;
+  setPartContainer: React.Dispatch<React.SetStateAction<{ name: string; value: string; modules: Modules[] }[]>>;
   partNumber: number;
   setPartNumber: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const SeasonPopUp: React.FC<SeasonPopUpProps> = ({ onClose, setPartContainer, partNumber, setPartNumber }) => {
-  const [seasonName, setSeasonName] = useState<string>('');
-  const [price, setPrice] = useState<string>('');
-  const [openingDate, setOpeningDate] = useState<string>('');
-  const [completionTime, setCompletionTime] = useState<string>('');
-  const [expirationType, setExpirationType] = useState<string>('noExpiration');
-  const [expirationDate, setExpirationDate] = useState<string>('');
 
-  const handleAdd = () => {
-    const partName = `Part ${partNumber + 1}`;
-    setPartContainer((prev) => [
-      ...prev,
-      {
-        name: partName,
-        value: seasonName,
-        modules: [],
-      },
-    ]);
-    setPartNumber((prev) => prev + 1);
-    onClose();
+  const [title, setPartTitle] = useState<string>("");
+  const [price, setPrice] = useState<number>(0);
+  const [openingDate, setOpeningDate] = useState<string>("");
+  const [completionTime, setCourseCompletionTime] = useState<number>(0);
+  const [loading, setloading] = useState<boolean>(false);
+
+  const validateForm = () => {
+    return title.length > 0 && price > 0 && openingDate.length > 0 && completionTime > 0;
+  };
+
+  const handleAdd = async () => {
+    if (!validateForm()) {
+      alert('Please fill all the fields');
+      return;
+    }
+    //MAKE API CALL HERE
+    try {
+      setloading(true);
+      const courseId = localStorage.getItem('courseId');
+      const res: CreatePartResponse = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/courses/${courseId}/createPart`, {
+        title,
+        price,
+        openingDate,
+        completionTime
+      }, {
+        headers: {
+          Authorization: `Bearer ${Cookies.get('token')}`
+        }
+      });
+      if (res.data.id) {
+        alert('Part created successfully');
+        const partName = `Part ${partNumber + 1}`;
+        const partId = res.data.id;
+        localStorage.setItem(partName, partId);
+        setPartContainer((prev) => [
+          ...prev,
+          {
+            name: partName,
+            value: title,
+            modules: [],
+          },
+        ]);
+        setPartNumber((prev) => prev + 1);
+        onClose();
+      }
+    } catch (error) {
+      alert('Failed to create part');
+    } finally {
+      setloading(false);
+    }
   };
 
   return (
@@ -36,95 +71,54 @@ const SeasonPopUp: React.FC<SeasonPopUpProps> = ({ onClose, setPartContainer, pa
       <div className="w-1/3 p-8 bg-white rounded-lg">
         <div className="flex justify-between mb-4">
           <h3 className="text-lg font-semibold">Add Part</h3>
-          <AiOutlineCloseCircle onClick={onClose} className="text-2xl text-red-500 cursor-pointer" />
+          <button disabled={loading} onClick={onClose}>
+          <AiOutlineCloseCircle className="text-2xl text-red-500 cursor-pointer" />
+          </button>
         </div>
-
         <div className="space-y-4">
           <div className='space-y-1'>
-          <label htmlFor="">Part Name</label>
-          <input
-            type="text"
-            value={seasonName}
-            onChange={(e) => setSeasonName(e.target.value)}
-            placeholder="Enter your title"
-            className="w-full px-2 py-1 border rounded"
-          />
-          </div>
-
-        <div className='space-y-1'>
-            <label htmlFor="">Price</label>
-        <input
-            type="text"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-            placeholder="Price"
-            className="w-full px-2 py-1 border rounded"
-          />
-        </div>
-
-          <div className='space-y-1'>
-          <label htmlFor="">Opening Date</label>
-          <input
-            type="date"
-            value={openingDate}
-            onChange={(e) => setOpeningDate(e.target.value)}
-            placeholder="Opening Date"
-            className="w-full px-2 py-1 border rounded"
-          />
-          </div>
-
-        <div className='space-y-1'>
-            <label htmlFor="">Expected Course Completion Time</label>
-        <input
-            type="text"
-            value={completionTime}
-            onChange={(e) => setCompletionTime(e.target.value)}
-            placeholder="Expected Course Completion Time"
-            className="w-full px-2 py-1 border rounded"
-          />
-        </div>
-
-          <div className="flex flex-col space-x-0 space-y-2">
-            <label>
-              <input
-               className='w-3 h-3 mr-2 text-primary'
-                type="radio"
-                checked={expirationType === 'noExpiration'}
-                onChange={() => setExpirationType('noExpiration')}
-              /> No Expiration
-           </label>
-          <div className='flex space-x-4'>
-          <label>
-              <input
-              className='w-3 h-3 mr-2 text-primary'
-                type="radio"
-                checked={expirationType === 'expirationDate'}
-                onChange={() => setExpirationType('expirationDate')}
-              /> Expiration Date
-            </label>
-            <label>
-              <input
-              className='w-3 h-3 mr-2 text-primary'
-                type="radio"
-                checked={expirationType === 'availableDays'}
-                onChange={() => setExpirationType('availableDays')}
-              /> Available Days
-            </label>
-          </div>
-          </div>
-
-          {expirationType === 'expirationDate' && (
+            <label htmlFor="">Part Name</label>
             <input
-              type="date"
-              value={expirationDate}
-              onChange={(e) => setExpirationDate(e.target.value)}
+              type="text"
+              value={title}
+              onChange={(e) => setPartTitle(e.target.value)}
+              placeholder="Enter your title"
               className="w-full px-2 py-1 border rounded"
             />
-          )}
-
+          </div>
+          <div className='space-y-1'>
+            <label htmlFor="">Price</label>
+            <input
+              type="text"
+              value={price}
+              onChange={(e) => setPrice(parseInt(e.target.value))}
+              placeholder="Price"
+              className="w-full px-2 py-1 border rounded"
+            />
+          </div>
+          <div className='space-y-1'>
+            <label htmlFor="">Opening Date</label>
+            <input
+              type="date"
+              value={openingDate}
+              onChange={(e) => setOpeningDate(e.target.value)}
+              placeholder="Opening Date"
+              className="w-full px-2 py-1 border rounded"
+            />
+          </div>
+          <div className='space-y-1'>
+            <label htmlFor="">Expected Course Completion Time</label>
+            <input
+              type="text"
+              value={completionTime}
+              onChange={(e) => setCourseCompletionTime(parseInt(e.target.value))}
+              placeholder="Expected Course Completion Time"
+              className="w-full px-2 py-1 border rounded"
+            />
+          </div>
           <div className="flex justify-start space-x-2">
-            <button onClick={onClose} className="px-4 py-2 text-white rounded bg-primary">Cancel</button>
-            <button onClick={handleAdd} className="px-4 py-2 text-white rounded bg-primary">Add</button>
+            <button onClick={onClose} disabled={loading} className="px-4 py-2 text-white rounded bg-primary">Cancel</button>
+            <button onClick={handleAdd} disabled={loading} className="px-4 py-2 text-white rounded bg-primary">Add</button>
           </div>
         </div>
       </div>
