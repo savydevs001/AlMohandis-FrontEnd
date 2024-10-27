@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { RiContractLeftLine } from "react-icons/ri";
+// import { RiContractLeftLine } from "react-icons/ri";
 import { RxPinRight } from "react-icons/rx";
 import { CreateCourseResponse } from '../../../../types/courses/createCourse';
 
@@ -14,11 +14,11 @@ interface ObjectivesGoals_StepProps {
   //   finalComments: string; 
   // };
   // handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  handleBack: () => void;
+  // handleBack: () => void;
   handleNext: () => void; // Add handleNext prop
 }
 
-const ObjectivesGoals_Step: React.FC<ObjectivesGoals_StepProps> = ({ handleBack, handleNext }) => {
+const ObjectivesGoals_Step: React.FC<ObjectivesGoals_StepProps> = ({ handleNext }) => {
 
   const [Objectives, setObjectives] = useState<string>("");
   const [StudentLearning, setStudentLearning] = useState<string>("");
@@ -95,10 +95,10 @@ const ObjectivesGoals_Step: React.FC<ObjectivesGoals_StepProps> = ({ handleBack,
           />
         </div>
         <div className='flex items-center gap-2'>
-          <button className='flex items-center gap-2 px-6 py-2 font-semibold border rounded-lg border-primary text-primary' onClick={handleBack}>
+          {/* <button className='flex items-center gap-2 px-6 py-2 font-semibold border rounded-lg border-primary text-primary' onClick={handleBack}>
             <RiContractLeftLine />
             Back
-          </button>
+          </button> */}
           <button className='flex items-center gap-2 px-6 py-2 font-semibold text-white border-2 rounded-lg bg-primary' disabled={loading} onClick={handleSubmit}>Next
             <RxPinRight />
           </button>

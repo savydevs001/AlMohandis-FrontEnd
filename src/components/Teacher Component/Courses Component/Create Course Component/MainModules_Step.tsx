@@ -12,7 +12,7 @@ import Cookies from 'js-cookie';
 
 
 interface MainModules_StepProps {
-  handleBack: () => void;
+  // handleBack: () => void;
   handleFinish: () => void;
   setPartContainer: React.Dispatch<React.SetStateAction<{ name: string; value: string; modules: Modules[] }[]>>;
   partContainer: { name: string; value: string; modules: Modules[] }[];
@@ -143,7 +143,8 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
           break;
         }
       }
-
+      resetLessonState();
+      setLesson(lesson)
       return newPartContainer;
     });
   };
@@ -272,6 +273,7 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
       alert('An error occurred. Please try again.');
     } finally {
       setLoading(false);
+      resetLessonState();
     }
     
   }
@@ -317,9 +319,14 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
       alert('An error occurred. Please try again.');
     } finally {
       setLoading(false);
+      resetLessonState();
     }
     console.log(chapterId);
     
+  };
+  const resetLessonState = () => {
+    setLesson(lesson);
+    setmediaFile(null);
   };
 
   const handleAddAnother = () => {
@@ -331,9 +338,9 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
   };
   return (
     <div className='mt-12 h-fit'>
-      <div className='flex max-w-4xl gap-3 mx-auto shadow-2xl h-fit bg-cardBg'>
+      <div className='flex flex-col max-w-4xl gap-3 mx-auto shadow-2xl h-fit bg-cardBg lg:flex-row'>
         {/* Left Section */}
-        <div className='w-[30%] bg-cardBg py-4 px-6 border border-neutral-300'>
+        <div className='lg:w-[30%] bg-cardBg py-4 px-6 border border-neutral-300 w-full'>
           <MainModules_Step_Season1Module setPartContainer={setPartContainer} partContainer={partContainer} partNumber={partNumber} setPartNumber={setPartNumber} activeModule={activeModule} 
             // handleFinish={handleFinish}
             // setActiveModule={setActiveModule} 

@@ -108,9 +108,9 @@ const Exam_Step: React.FC<Exam_StepProps> = ({ handleNextModule, isLastModule, h
   };
 
   return (
-    <div className='mt-12 h-fit'>
-      <div className='flex max-w-4xl gap-3 mx-auto shadow-2xl h-fit bg-cardBg'>
-        <div className='flex-1 p-4 border border-neutral-300'>
+    <div className='h-fit'>
+      <div className='flex flex-col max-w-4xl gap-3 mx-auto h-fit lg:flex-row'>
+        <div className='flex-1 p-4 '>
           <div className="space-y-1">
             <label className="font-semibold" htmlFor="">Title</label>
             <input
@@ -140,25 +140,27 @@ const Exam_Step: React.FC<Exam_StepProps> = ({ handleNextModule, isLastModule, h
                 <option value="Short Question">Short Question</option>
               </select>
               {question.answerType === 'MCQ' && (
-                <div className='mt-2'>
+                <div className='flex flex-wrap gap-2 mt-2'>
                   {question.options.map((option, oIndex) => (
-                    <input
+                   <div className='flex items-center gap-2'>
+                     <input
                       key={oIndex}
-                      className='w-full py-2 rounded-md mt-1'
+                      className='w-full py-2 mt-1 rounded-md'
                       type="text"
                       value={option}
                       onChange={(e) => handleOptionChange(qIndex, oIndex, e.target.value)}
                       placeholder={`Option ${oIndex + 1}`}
                     />
+                   </div>
                   ))}
                   <button
-                    className='px-2 py-1 mt-2 text-white bg-blue-500 rounded'
+                    className='px-2 py-1 text-white rounded bg-primary'
                     onClick={() => handleAddOption(qIndex)}
                   >
                     Add Option
                   </button>
                   <input
-                    className='w-full py-2 rounded-md mt-2'
+                    className='w-full py-2 mt-2 rounded-md'
                     type="text"
                     value={question.correctAnswer}
                     onChange={(e) => handleQuestionChange(qIndex, 'correctAnswer', e.target.value)}
@@ -167,9 +169,9 @@ const Exam_Step: React.FC<Exam_StepProps> = ({ handleNextModule, isLastModule, h
                 </div>
               )}
               {question.answerType === 'Short Question' && (
-                <div className='mt-2'>
+                <div className='mt-2 w-[20%]'>
                   <input
-                    className='w-full py-2 rounded-md'
+                    className='py-2 rounded-md '
                     type="text"
                     value={question.correctAnswer}
                     onChange={(e) => handleQuestionChange(qIndex, 'correctAnswer', e.target.value)}
@@ -181,7 +183,7 @@ const Exam_Step: React.FC<Exam_StepProps> = ({ handleNextModule, isLastModule, h
           ))}
 
           <button
-            className='px-4 py-2 mt-4 text-white bg-green-500 rounded'
+            className='px-4 py-2 mt-4 text-white rounded bg-primary'
             onClick={handleAddQuestion}
             disabled={loading}
           >

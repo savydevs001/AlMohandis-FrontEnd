@@ -169,21 +169,21 @@ const MainModules_Step_Season1Module: React.FC<MainModules_Step_Season1ModulePro
                   {part.modules.map((module, moduleIndex) => (
                     <div key={moduleIndex}>
                       <div
-                        className={`mb-2 p-2 ${activeModule?.partIndex === partIndex && activeModule?.moduleIndex === moduleIndex ? 'bg-blue-100' : ''}`}
+                        className={`mb-2 p-2 ${activeModule?.partIndex === partIndex && activeModule?.moduleIndex === moduleIndex ? 'bg-primary text-white' : ''}`}
                       >
                         <div className='flex items-center justify-between'>
                           <p>{module.name} {module.number}</p>
                           {module.name === 'Chapter' && (
                             <span className='cursor-pointer' onClick={() => toggleChapterExpansion(`${partIndex}-${moduleIndex}`)}>
                               {expandedChapters[`${partIndex}-${moduleIndex}`] ? (
-                                <IoIosArrowUp className='text-[#7C7C7C] text-lg' />
+                                <IoIosArrowUp className='text-lg text-white' />
                               ) : (
-                                <IoIosArrowDown className='text-[#7C7C7C] text-lg' />
+                                <IoIosArrowDown className='text-lg text-white' />
                               )}
                             </span>
                           )}
                           {/* <RiDeleteBin6Line
-                            className="p-1 text-2xl text-red-600 border border-red-600 rounded-sm ml-2"
+                            className="p-1 ml-2 text-2xl text-red-600 border border-red-600 rounded-sm"
                             onClick={(e) => {
                               e.stopPropagation();
                               handleDeleteModule(partIndex, moduleIndex);
@@ -195,7 +195,7 @@ const MainModules_Step_Season1Module: React.FC<MainModules_Step_Season1ModulePro
                           {module.lessons.map((lesson, lessonIndex) => (
                             <div
                               key={lessonIndex}
-                              className={`mb-2 p-2 cursor-pointer ${activeModule?.partIndex === partIndex && activeModule?.moduleIndex === moduleIndex && activeModule?.lessonIndex === lessonIndex ? 'bg-blue-100' : ''}`}
+                              className={`mb-2 p-2 cursor-pointer ${activeModule?.partIndex === partIndex && activeModule?.moduleIndex === moduleIndex && activeModule?.lessonIndex === lessonIndex ? 'bg-primary' : ''}`}
                             >
                               <div className='flex items-center justify-between'>
                                 <div className='flex items-center'>
@@ -204,7 +204,7 @@ const MainModules_Step_Season1Module: React.FC<MainModules_Step_Season1ModulePro
                                   <p>{lesson.type} {lesson.number}</p>
                                 </div>
                                 {/* <RiDeleteBin6Line
-                                  className="p-1 text-2xl text-red-600 border border-red-600 rounded-sm ml-2"
+                                  className="p-1 ml-2 text-2xl text-red-600 border border-red-600 rounded-sm"
                                   onClick={(e) => {
                                     e.stopPropagation();
                                     handleDeleteLesson(partIndex, moduleIndex, lessonIndex);

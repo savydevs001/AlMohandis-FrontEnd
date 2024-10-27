@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { RiContractLeftLine } from "react-icons/ri";
+// import { RiContractLeftLine } from "react-icons/ri";
 import { RxPinRight } from "react-icons/rx";
 import Cookies from 'js-cookie';
 import { CreatePartResponse } from '../../../../types/courses/createCourse';
@@ -15,10 +15,10 @@ interface Part_StepProps {
   // };
   // handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   handleNext: () => void;
-  handleBack: () => void;
+  // handleBack: () => void;
 }
 
-const Part_Step: React.FC<Part_StepProps> = ({ handleNext, handleBack }) => {
+const Part_Step: React.FC<Part_StepProps> = ({ handleNext }) => {
 
   const [title, setPartTitle] = useState<string>("");
   const [price, setPrice] = useState<number>(0);
@@ -141,10 +141,10 @@ const Part_Step: React.FC<Part_StepProps> = ({ handleNext, handleBack }) => {
           </div>
         </div>
         <div className='flex items-center gap-2'>
-          <button className='flex items-center gap-2 px-6 py-2 font-semibold border rounded-lg border-primary text-primary' onClick={handleBack}>
+          {/* <button className='flex items-center gap-2 px-6 py-2 font-semibold border rounded-lg border-primary text-primary' onClick={handleBack}>
             <RiContractLeftLine />
             Back
-          </button>
+          </button> */}
           <button className='flex items-center gap-2 px-6 py-2 font-semibold text-white border-2 rounded-lg bg-primary' disabled={loading} onClick={handleSubmit}>Next
             <RxPinRight />
           </button>
