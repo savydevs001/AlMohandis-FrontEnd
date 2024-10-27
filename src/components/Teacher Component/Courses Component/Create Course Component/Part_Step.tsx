@@ -145,7 +145,7 @@ const Part_Step: React.FC<Part_StepProps> = ({ handleNext, handleBack }) => {
             <RiContractLeftLine />
             Back
           </button>
-          <button className='flex items-center gap-2 px-6 py-2 font-semibold text-white border-2 rounded-lg bg-primary' onClick={handleSubmit}>Next
+          <button className='flex items-center gap-2 px-6 py-2 font-semibold text-white border-2 rounded-lg bg-primary' disabled={loading} onClick={handleSubmit}>Next
             <RxPinRight />
           </button>
         </div>

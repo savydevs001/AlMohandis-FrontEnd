@@ -14,7 +14,7 @@ import Schudle from '../pages/Teacher Page/Schudle'
 import Draft from '../components/Teacher Component/Courses Component/Draft'
 import PendingCourse from '../components/Teacher Component/Courses Component/PendingCourse'
 import CreateCourse from '../components/Teacher Component/Courses Component/Create Course Component/CreateCourse'
-import AudioEditor from '../components/Teacher Component/Courses Component/Create Course Component/AudioEditor'
+// import AudioEditor from '../components/Teacher Component/Courses Component/Create Course Component/AudioEditor'
 import EditCourse from '../components/Teacher Component/Courses Component/Edit Course/EditCourse'
 
 const TeacherRoutes: React.FC = () => {
@@ -36,7 +36,7 @@ const TeacherRoutes: React.FC = () => {
     <Route path="/draft" element={<Draft />} />
     <Route path="/pending" element={<PendingCourse />} />
     <Route path="/createCourse" element={<CreateCourse />} />
-    <Route path="/AudioEditor" element={<AudioEditor />} />
+    {/* <Route path="/AudioEditor" element={<AudioEditor />} /> */}
     <Route path="/editCourse" element={<EditCourse />} />
 
   </Routes>
