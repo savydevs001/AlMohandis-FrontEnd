@@ -26,7 +26,6 @@ const SeasonPopUp: React.FC<SeasonPopUpProps> = ({ onClose, setPartContainer, pa
 
   const handleAdd = async () => {
     if (!validateForm()) {
-      alert('Please fill all the fields');
       return;
     }
     //MAKE API CALL HERE
@@ -44,10 +43,8 @@ const SeasonPopUp: React.FC<SeasonPopUpProps> = ({ onClose, setPartContainer, pa
         }
       });
       if (res.data.id) {
-        alert('Part created successfully');
         const partName = `Part ${partNumber + 1}`;
-        const partId = res.data.id;
-        localStorage.setItem(partName, partId);
+        localStorage.setItem(partName, res.data.id);
         setPartContainer((prev) => [
           ...prev,
           {
@@ -60,7 +57,7 @@ const SeasonPopUp: React.FC<SeasonPopUpProps> = ({ onClose, setPartContainer, pa
         onClose();
       }
     } catch (error) {
-      alert('Failed to create part');
+      console.error(error);
     } finally {
       setloading(false);
     }

@@ -7,9 +7,10 @@ import { Clip } from './MainModules_Step';
 interface AudioEditorProps {
   mediaFile?: File | null; // Make it optional
   setLesson: React.Dispatch<React.SetStateAction<{ lessonTitle: string; lessonDescription: string; srcUrl: File | null | string; isPromoted: boolean; isFree: boolean, lessonType: string, clips: Clip[] }>>;
+  lessonClips: { start: number; end: number; title: string }[];
 }
 
-const AudioEditor: React.FC<AudioEditorProps> = ({ mediaFile, setLesson }) => {
+const AudioEditor: React.FC<AudioEditorProps> = ({ mediaFile, setLesson,lessonClips }) => {
   const [isVideo, setIsVideo] = useState(false); // Track if the file is a video
   const waveformRef = useRef<HTMLDivElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -20,6 +21,12 @@ const AudioEditor: React.FC<AudioEditorProps> = ({ mediaFile, setLesson }) => {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
 
+  useEffect(() => {
+    if (lessonClips?.length > 0) {
+      console.log('Setting lesson clips', lessonClips);
+      setSplitClips(lessonClips);
+    }
+  }, [lessonClips]);
 
   useEffect(() => {
     if (waveformRef.current && !isVideo) {
@@ -115,6 +122,12 @@ const AudioEditor: React.FC<AudioEditorProps> = ({ mediaFile, setLesson }) => {
     setSplitClips((prevClips) => prevClips.filter((_, i) => i !== index));
   };
 
+  const onSliderChange = (newTime: number) => {
+    if (videoRef.current) {
+      videoRef.current.currentTime = newTime;
+    }
+  };
+
   const formatTime = (seconds: number) => {
     const minutes = Math.floor(seconds / 60);
     const secs = Math.floor(seconds % 60);
@@ -182,6 +195,7 @@ const AudioEditor: React.FC<AudioEditorProps> = ({ mediaFile, setLesson }) => {
         removeClip={removeClip}
         mediaFile={mediaFile}
         setLesson={setLesson}
+        onSliderChange={onSliderChange}
       />
     </div>
   );

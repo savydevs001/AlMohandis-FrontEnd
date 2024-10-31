@@ -17,16 +17,28 @@ interface AudioSplitterProps {
   removeClip: (index: number) => void;
   mediaFile: File | null | undefined;
   setLesson: React.Dispatch<React.SetStateAction<{ lessonTitle: string; lessonDescription: string; srcUrl: File | null | string; isPromoted: boolean; isFree: boolean, lessonType: string, clips: Clip[] }>>;
+  onSliderChange: (value: number) => void;
 }
 
-const AudioSplitter: React.FC<AudioSplitterProps> = ({ rangeValues, setRangeValues, duration, handleSplit, splitClips, setSplitClips, removeClip, mediaFile, setLesson }) => {
-  // Handle range slider changes (Start and End times)
-  const handleRangeChange = (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
-    const value = parseFloat(event.target.value);
-    const updatedRange = [...rangeValues] as [number, number];
-    updatedRange[index] = value;
-    setRangeValues(updatedRange);
-  };
+const AudioSplitter: React.FC<AudioSplitterProps> = ({ rangeValues, setRangeValues, duration, handleSplit, splitClips, setSplitClips, removeClip, mediaFile, setLesson, onSliderChange }) => {
+ // Handle range slider changes (Start and End times)
+  // const handleRangeChange = (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
+  //   const value = parseFloat(event.target.value);
+  //   const updatedRange = [...rangeValues] as [number, number];
+  //   updatedRange[index] = value;
+  //   setRangeValues(updatedRange);
+  // };
+  // Inside AudioSplitter component
+const handleRangeChange = (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
+  const value = parseFloat(event.target.value);
+  const updatedRange = [...rangeValues] as [number, number];
+  updatedRange[index] = value;
+  setRangeValues(updatedRange);
+
+  // Update video preview
+  if (index === 0) onSliderChange(value); // Start range slider
+  else onSliderChange(updatedRange[1]); // End range slider
+};
 
   return (
     <div style={{ marginBottom: '20px' }}>

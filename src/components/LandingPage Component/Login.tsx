@@ -22,8 +22,8 @@ const Login = () => {
                   const res = await login({ phone, password });
                   if (res.data?.token) {
                         Cookies.set('token', res.data.token, { expires: 1/24 }); // Set cookie with 7 days expiration;
+                        navigate('/dashboard');
                   }
-                  navigate('/dashboard');
             } catch (error) {
                   console.log(error);
             } finally {

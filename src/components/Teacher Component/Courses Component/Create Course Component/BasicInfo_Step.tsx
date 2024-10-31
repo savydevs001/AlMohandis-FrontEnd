@@ -17,6 +17,7 @@ const BasicInfo_Step: React.FC<BasicInfo_StepProps> = ({ handleNext }) => {
   const [title, settitle] = useState<string>("");
   const [description, setdescription] = useState<string>("");
   const [loading, setloading] = useState<boolean>(false);
+  // const [imageSrc, setimageSrc] = useState<string>('dsdsdsd');
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     settitle(e.target.value);
@@ -35,16 +36,18 @@ const BasicInfo_Step: React.FC<BasicInfo_StepProps> = ({ handleNext }) => {
 
   const handleSubmit = async () => {
     if (!validate()) {
-      alert("Please fill all the fields");
       return;
     }
     // make the api call here
     setloading(true);
     const token = Cookies.get('token');
+    console.log(token);
+    
     try {
       const res : CreateCourseResponse = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/courses/create`, {
         title,
-        description
+        description,
+        imageSrc: 'dadasdasd'
       }, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -55,13 +58,12 @@ const BasicInfo_Step: React.FC<BasicInfo_StepProps> = ({ handleNext }) => {
         console.log(res.data.id);
 
         localStorage.setItem("courseId", res.data.id);
-        alert("Succesfull");
         handleNext();
       } else {
-        alert("Failed");
+        console.error("Failed");
       }
     } catch (error) {
-     alert("Failed"); 
+      console.error("Failed to create course");
     } finally {
       setloading(false);
     }

@@ -1,24 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Sidebar from '../../Sidebar';
 import BasicInfo_Step from './BasicInfo_Step';
 import AccessibilitySettings_Step from './AccessibilitySettings_Step';
 import ObjectivesGoals_Step from './ObjectivesGoals_Step';
 import Part_Step from './Part_Step';
 import MainModules_Step from './MainModules_Step';
-// import Step6 from './Assignment_Step';
-// import Step7 from './Exam_Step'; // Import Step7
 import DashBoardHeader from '../../Dashboard Component/DashBoardHeader';
 import Step8 from './Step8';
-
-interface FormData {
-  title: string;
-  description: string;
-  accessibility: string;
-  additionalField1: string;
-  additionalField2: string;
-  additionalField3: string; // New field for Step 8
-  finalComments: string;
-}
 
 interface Lesson {
   type: string;
@@ -32,36 +20,43 @@ export interface Modules {
 }
 
 const CreateCourse: React.FC = () => {
-
+  
+  const [step, setStep] = useState<number>(1);
   const [partContainer, setPartContainer] = useState<{ name: string, value: string, modules: Modules[] }[]>([{
     name: 'Part 1',
     value: 'Chapter 1',
     modules: [],
   }]); // State to store the parts
 
-  const [step, setStep] = useState<number>(1);
-  const [formData, setFormData] = useState<FormData>({
-    title: '',
-    description: '',
-    accessibility: '',
-    additionalField1: '',
-    additionalField2: '',
-    additionalField3: '', // Initialize new field
-    finalComments: '',
-  });
+  useEffect(() => {
+    const savedStep = localStorage.getItem('currentStep');
+    if (savedStep) {
+      const stepNumber = parseInt(savedStep, 10);
+      if (stepNumber === 5) {
+        console.log('Clearing local storage');
+        
+        localStorage.clear();
+      } else {
+        console.log('Setting step');
+        
+        setStep(stepNumber);
+      }
+    }
+  }, []);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+  useEffect(() => {
+    if (step !== 6) {
+      localStorage.setItem('currentStep', step.toString());
+    }
+  }, [step]);
+
 
   const handleNext = () => {
     if (step < 9) {
       setStep((prevStep) => prevStep + 1);
     }
+    console.log(step);
+    
   };
 
   // const handleBack = () => {
@@ -73,7 +68,6 @@ const CreateCourse: React.FC = () => {
   const handleFinish = () => {
     setStep(8);
   };
-
 
   return (
     <div className='flex flex-col min-h-screen lg:flex-row'>
@@ -141,8 +135,6 @@ const CreateCourse: React.FC = () => {
         )} */}
         {step === 8 && (
           <Step8
-            formData={formData}
-            handleInputChange={handleInputChange}
             handleNext={handleNext}
           />
         )}
