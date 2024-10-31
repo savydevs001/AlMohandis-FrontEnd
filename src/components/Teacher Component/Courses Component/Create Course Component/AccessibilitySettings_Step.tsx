@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import { RiContractLeftLine } from "react-icons/ri";
 import { RxPinRight } from "react-icons/rx";
 import { AccessibilitySettingsResponse } from '../../../../types/courses/createCourse';
 import Cookies from 'js-cookie';

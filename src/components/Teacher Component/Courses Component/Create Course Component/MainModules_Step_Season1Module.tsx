@@ -49,7 +49,7 @@ const MainModules_Step_Season1Module: React.FC<MainModules_Step_Season1ModulePro
         }));
         setExpandedChapters(prev => ({
           ...prev,
-          [${partContainer.length - 1}-${lastModuleIndex}]: true // Expand the chapter
+          [`${partContainer.length - 1}-${lastModuleIndex}`]: true // Expand the chapter
         }));
 
         // Check if the newly added module is a Chapter and expand its lessons
@@ -57,7 +57,7 @@ const MainModules_Step_Season1Module: React.FC<MainModules_Step_Season1ModulePro
         if (lastModule.name === 'Chapter') {
           setExpandedChapters(prev => ({
             ...prev,
-            [${partContainer.length - 1}-${lastModuleIndex}]: true // Expand the chapter
+            [`${partContainer.length - 1}-${lastModuleIndex}`]: true // Expand the chapter
           }));
         }
       }
@@ -90,7 +90,7 @@ const MainModules_Step_Season1Module: React.FC<MainModules_Step_Season1ModulePro
       if (lastModuleIndex >= 0) {
         setExpandedChapters(prev => ({
           ...prev,
-          [${partContainer.length - 1}-${lastModuleIndex}]: true // Expand the chapter
+          [`${partContainer.length - 1}-${lastModuleIndex}`]: true // Expand the chapter
         }));
       }
     }
@@ -140,11 +140,11 @@ const MainModules_Step_Season1Module: React.FC<MainModules_Step_Season1ModulePro
   const handleDeleteModule = async (partIndex: number, moduleIndex: number) => {
     const selectedModule = partContainer[partIndex].modules[moduleIndex];
     if (selectedModule.name === 'Exam') {
-      const moduleId = localStorage.getItem(examId_${partIndex}_${moduleIndex});
+      const moduleId = localStorage.getItem(`examId_${partIndex}_${moduleIndex}`);
       if (moduleId) {
-        const res: DeleteResponse = await axios.delete(${import.meta.env.VITE_BACKEND_URL}/api/courses/modules/${moduleId}/EXAM, {
+        const res: DeleteResponse = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/courses/modules/${moduleId}/EXAM`, {
           headers: {
-            Authorization: Bearer ${Cookies.get('token')}
+            Authorization: `Bearer ${Cookies.get('token')}`
           }
         });
         if (res.data.message) {
@@ -189,9 +189,9 @@ const MainModules_Step_Season1Module: React.FC<MainModules_Step_Season1ModulePro
 
             return newPartContainer;
           });
-          localStorage.removeItem(examId_${partIndex}_${moduleIndex});
-          const examCount = localStorage.getItem(examCount) || '0';
-          localStorage.setItem(examCount, ${parseInt(examCount) - 1});
+          localStorage.removeItem(`examId_${partIndex}_${moduleIndex}`);
+          const examCount = localStorage.getItem(`examCount`) || '0';
+          localStorage.setItem(`examCount`, `${parseInt(examCount) - 1}`);
         }
       } else {
         setPartContainer(prevState => {
@@ -237,13 +237,13 @@ const MainModules_Step_Season1Module: React.FC<MainModules_Step_Season1ModulePro
         });
       }
     } else if (selectedModule.name === 'Assignment') {
-        const moduleId = localStorage.getItem(assignmentId_${partIndex}_${moduleIndex});
+        const moduleId = localStorage.getItem(`assignmentId_${partIndex}_${moduleIndex}`);
         if (moduleId) {
           console.log('Delete Assignment', moduleId);
           
-          const res: DeleteResponse = await axios.delete(${import.meta.env.VITE_BACKEND_URL}/api/courses/modules/${moduleId}/ASSIGNMENT, {
+          const res: DeleteResponse = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/courses/modules/${moduleId}/ASSIGNMENT`, {
             headers: {
-              Authorization: Bearer ${Cookies.get('token')}
+              Authorization: `Bearer ${Cookies.get('token')}`
             }
           });
           if (res.data.message) {
@@ -288,9 +288,9 @@ const MainModules_Step_Season1Module: React.FC<MainModules_Step_Season1ModulePro
 
               return newPartContainer;
             });
-            localStorage.removeItem(assignmentId_${partIndex}_${moduleIndex});
-            const assignmentCount = localStorage.getItem(assignmentCount) || '0';
-            localStorage.setItem(assignmentCount, ${parseInt(assignmentCount) - 1});
+            localStorage.removeItem(`assignmentId_${partIndex}_${moduleIndex}`);
+            const assignmentCount = localStorage.getItem(`assignmentCount`) || '0';
+            localStorage.setItem(`assignmentCount`, `${parseInt(assignmentCount) - 1}`);
           }
         } else {
           setPartContainer(prevState => {
@@ -336,13 +336,13 @@ const MainModules_Step_Season1Module: React.FC<MainModules_Step_Season1ModulePro
           });
         }
     } else {
-      const moduleId = localStorage.getItem(chapterModule_${partIndex}_${moduleIndex});
+      const moduleId = localStorage.getItem(`chapterModule_${partIndex}_${moduleIndex}`);
       if (moduleId) {
         console.log('Delete Chapter', moduleId);
         
-        const res: DeleteResponse = await axios.delete(${import.meta.env.VITE_BACKEND_URL}/api/courses/modules/${moduleId}/CHAPTER, {
+        const res: DeleteResponse = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/courses/modules/${moduleId}/CHAPTER`, {
           headers: {
-            Authorization: Bearer ${Cookies.get('token')}
+            Authorization: `Bearer ${Cookies.get('token')}`
           }
         });
         if (res.data.message) {
@@ -387,9 +387,9 @@ const MainModules_Step_Season1Module: React.FC<MainModules_Step_Season1ModulePro
 
             return newPartContainer;
           });
-          localStorage.removeItem(chapterModule_${partIndex}_${moduleIndex});
-          const moduleCount = localStorage.getItem(moduleCount) || '0';
-          localStorage.setItem(moduleCount, ${parseInt(moduleCount) - 1});
+          localStorage.removeItem(`chapterModule_${partIndex}_${moduleIndex}`);
+          const moduleCount = localStorage.getItem(`moduleCount`) || '0';
+          localStorage.setItem(`moduleCount`, `${parseInt(moduleCount) - 1}`);
         }
       } else {
         setPartContainer(prevState => {
@@ -438,11 +438,11 @@ const MainModules_Step_Season1Module: React.FC<MainModules_Step_Season1ModulePro
   }
 
   const handleDeleteLesson = async (partIndex: number, moduleIndex: number, lessonIndex: number) => {
-      const lessonId = localStorage.getItem(lessonId_${partIndex}_${moduleIndex}_${lessonIndex});
+      const lessonId = localStorage.getItem(`lessonId_${partIndex}_${moduleIndex}_${lessonIndex}`);
       if (lessonId) {
-        const res: DeleteResponse = await axios.delete(${import.meta.env.VITE_BACKEND_URL}/api/courses/lessons/${lessonId}, {
+        const res: DeleteResponse = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/courses/lessons/${lessonId}`, {
           headers: {
-            Authorization: Bearer ${Cookies.get('token')}
+            Authorization: `Bearer ${Cookies.get('token')}`
           }
         });
         if (res.data.message) {
@@ -497,9 +497,9 @@ const MainModules_Step_Season1Module: React.FC<MainModules_Step_Season1ModulePro
       
             return newPartContainer;
           });
-          localStorage.removeItem(lessonId_${partIndex}_${moduleIndex}_${lessonIndex});
-          const lessonCount = localStorage.getItem(lessonCount) || '0';
-          localStorage.setItem(lessonCount, ${parseInt(lessonCount) - 1});
+          localStorage.removeItem(`lessonId_${partIndex}_${moduleIndex}_${lessonIndex}`);
+          const lessonCount = localStorage.getItem(`lessonCount`) || '0';
+          localStorage.setItem(`lessonCount`, `${parseInt(lessonCount) - 1}`);
         }
       } else {
         setPartContainer(prevState => {
@@ -613,16 +613,16 @@ const MainModules_Step_Season1Module: React.FC<MainModules_Step_Season1ModulePro
     try {
       setloading(true);
       const courseId = localStorage.getItem('courseId');
-      const partId = localStorage.getItem(Part ${partIndexToDelete + 1});
-      const res: DeleteResponse = await axios.delete(${import.meta.env.VITE_BACKEND_URL}/api/courses/${courseId}/parts/${partId}, {
+      const partId = localStorage.getItem(`Part ${partIndexToDelete + 1}`);
+      const res: DeleteResponse = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/courses/${courseId}/parts/${partId}`, {
         headers: {
-          Authorization: Bearer ${Cookies.get('token')}
+          Authorization: `Bearer ${Cookies.get('token')}`
         }
       });
       console.log(res);
       
       if (res.data.message) {
-        const partName = Part ${partIndexToDelete + 1};
+        const partName = `Part ${partIndexToDelete + 1}`;
         localStorage.removeItem(partName);
         setPartContainer((prev) => prev.filter((_, index) => index !== partIndexToDelete));
         setPartNumber((prev) => prev - 1);
@@ -679,14 +679,14 @@ const MainModules_Step_Season1Module: React.FC<MainModules_Step_Season1ModulePro
                   {part.modules.map((module, moduleIndex) => (
                     <div key={moduleIndex}>
                       <div
-                        className={mb-2 p-2 cursor-pointer ${activeModule?.partIndex === partIndex && activeModule?.moduleIndex === moduleIndex ? 'bg-blue-100' : ''}}
+                        className={`mb-2 p-2 cursor-pointer ${activeModule?.partIndex === partIndex && activeModule?.moduleIndex === moduleIndex ? 'bg-blue-100' : ''}`}
                         onClick={() => handleModuleClick(partIndex, moduleIndex)}
                       >
                         <div className='flex items-center justify-between'>
                           <p>{module.name} {module.number}</p>
                           {module.name === 'Chapter' && (
-                           <span className='cursor-pointer' onClick={(e) => { e.stopPropagation(); toggleChapterExpansion(${partIndex}-${moduleIndex}); }}>
-                              {expandedChapters[${partIndex}-${moduleIndex}] ? (
+                           <span className='cursor-pointer' onClick={(e) => { e.stopPropagation(); toggleChapterExpansion(`${partIndex}-${moduleIndex}`); }}>
+                              {expandedChapters[`${partIndex}-${moduleIndex}`] ? (
                                 <IoIosArrowUp className='text-[#7C7C7C] text-lg' />
                               ) : (
                                 <IoIosArrowDown className='text-[#7C7C7C] text-lg' />
@@ -701,12 +701,12 @@ const MainModules_Step_Season1Module: React.FC<MainModules_Step_Season1ModulePro
                             }} />
                         </div>
                       </div>
-                      {expandedChapters[${partIndex}-${moduleIndex}] && module.lessons && (
+                      {expandedChapters[`${partIndex}-${moduleIndex}`] && module.lessons && (
                         <div className='ml-4'>
                           {module.lessons.map((lesson, lessonIndex) => (
                             <div
                               key={lessonIndex}
-                              className={mb-2 p-2 cursor-pointer ${activeModule?.partIndex === partIndex && activeModule?.moduleIndex === moduleIndex && activeModule?.lessonIndex === lessonIndex ? 'bg-blue-100' : ''}}
+                              className={`mb-2 p-2 cursor-pointer ${activeModule?.partIndex === partIndex && activeModule?.moduleIndex === moduleIndex && activeModule?.lessonIndex === lessonIndex ? 'bg-blue-100' : ''}`}
                               onClick={() => handleLessonClick(partIndex, moduleIndex, lessonIndex)}
                             >
                               <div className='flex items-center justify-between'>

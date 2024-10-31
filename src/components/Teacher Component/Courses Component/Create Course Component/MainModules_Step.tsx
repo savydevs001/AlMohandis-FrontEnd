@@ -68,7 +68,7 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
 
   useEffect(() => {
     console.log('useEffect');
-    console.log(Module Id: ${chapterModule});
+    console.log(`Module Id: ${chapterModule}`);
     console.log(assignmentId, examId, lessonId);
     
     const fetchData = async () => {
@@ -78,22 +78,22 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
   }, [activeModule]);
 
   const fetchAssignment = async () => {
-    const moduleKey = chapterModule_${activeModule.partIndex}_${activeModule.moduleIndex};
+    const moduleKey = `chapterModule_${activeModule.partIndex}_${activeModule.moduleIndex}`;
     const moduleId = localStorage.getItem(moduleKey);
-    console.log(Module ID: ${moduleId});
+    console.log(`Module ID: ${moduleId}`);
 
     if (moduleId) {
       setChapterModule(moduleId);
       console.log('hello');
 
-      const res: CHAPTERResponse = await axios.get(${import.meta.env.VITE_BACKEND_URL}/api/courses/modules/${moduleId}, {
+      const res: CHAPTERResponse = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/courses/modules/${moduleId}`, {
         headers: {
-          Authorization: Bearer ${Cookies.get('token')}
+          Authorization: `Bearer ${Cookies.get('token')}`
         }
       });
       console.log(res.data.chapters);
       const lessonData = res.data.chapters[0].lessons;
-      const activeLesson = localStorage.getItem(lessonId_${activeModule.partIndex}_${activeModule.moduleIndex}_${activeModule.lessonIndex});
+      const activeLesson = localStorage.getItem(`lessonId_${activeModule.partIndex}_${activeModule.moduleIndex}_${activeModule.lessonIndex}`);
       const actualLesson = lessonData.find((lesson) => lesson.id === activeLesson);
       console.log("ACUTAL LESSON", actualLesson);
 
@@ -116,7 +116,7 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
   useEffect(() => {
     if (activeModule) {
       const { partIndex } = activeModule;
-      const storedPartId = localStorage.getItem(Part ${partIndex + 1});
+      const storedPartId = localStorage.getItem(`Part ${partIndex + 1}`);
       setPartId(storedPartId);
     }
   }, []);
@@ -124,8 +124,8 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
   useEffect(() => {
     if (activeModule) {
       const { partIndex } = activeModule;
-      const partId = localStorage.getItem(Part ${partIndex + 1});
-      console.log(Part ID: ${partId});
+      const partId = localStorage.getItem(`Part ${partIndex + 1}`);
+      console.log(`Part ID: ${partId}`);
       setPartId(partId);
     }
   }, [activeModule]);
@@ -135,7 +135,7 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
   //   const { partIndex, moduleIndex } = activeModule;
   //   const currentPart = partContainer[partIndex];
   //   // setLoading(true);
-  //   setPartId(localStorage.getItem(Part ${partIndex + 1}));
+  //   setPartId(localStorage.getItem(`Part ${partIndex + 1}`));
   //   if (moduleIndex < currentPart.modules.length - 1) {
   //     // Move to the next module in the current part
   //     setActiveModule({ partIndex, moduleIndex: moduleIndex + 1 });
@@ -148,7 +148,7 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
     if (!activeModule) return;
     const { partIndex, moduleIndex } = activeModule;
     const currentPart = partContainer[partIndex];
-    setPartId(localStorage.getItem(Part ${partIndex + 1}));
+    setPartId(localStorage.getItem(`Part ${partIndex + 1}`));
 
     if (moduleIndex < currentPart.modules.length - 1) {
       const nextModule = currentPart.modules[moduleIndex + 1];
@@ -179,7 +179,7 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
     const currentModule = partContainer[partIndex].modules[moduleIndex];
 
 
-    setPartId(localStorage.getItem(Part ${partIndex + 1}));
+    setPartId(localStorage.getItem(`Part ${partIndex + 1}`));
 
     if (lessonIndex !== undefined && lessonIndex < currentModule.lessons!.length - 1) {
       // Move to the next lesson in the current module
@@ -202,7 +202,7 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
 
       for (const module of activePart.modules) {
         // Ensure the module is a chapter and matches the given chapterName
-        if (module.name === 'Chapter' && ${module.name} ${module.number} === chapterName) {
+        if (module.name === 'Chapter' && `${module.name} ${module.number}` === chapterName) {
           if (!module.lessons) {
             module.lessons = [];
           }
@@ -258,7 +258,7 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
   const activePartChapters = activeModule
     ? partContainer[activeModule.partIndex].modules
       .filter((_, index) => index === activeModule.moduleIndex && getActiveModule()?.name === 'Chapter')
-      .map(module => ${module.name} ${module.number})
+      .map(module => `${module.name} ${module.number}`)
     : [];
 
 
@@ -267,20 +267,20 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
       setLoading(true);
       const chapterCount = localStorage.getItem('chapterCount') ? parseInt(localStorage.getItem('chapterCount')!) : 0;
       const moduleCount = localStorage.getItem('moduleCount') ? parseInt(localStorage.getItem('moduleCount')!) : 0;
-      const newChapterName = Chapter ${chapterCount + 1};
+      const newChapterName = `Chapter ${chapterCount + 1}`;
 
       const courseId = localStorage.getItem('courseId');
 
-      const res: ChapterResponse = await axios.post(${import.meta.env.VITE_BACKEND_URL}/api/courses/${courseId}/parts/${partId}/modules/chapter, {}, {
+      const res: ChapterResponse = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/courses/${courseId}/parts/${partId}/modules/chapter`, {}, {
         headers: {
           'Content-Type': 'application/json',
         },
       });
 
       if (res.data.id) {
-        console.log(Created ${newChapterName} with ID: ${res.data.id});
-        const chapterKey = chapterId_${partIndex}_${moduleIndex};
-        const chapModuleKey = chapterModule_${partIndex}_${moduleIndex};
+        console.log(`Created ${newChapterName} with ID: ${res.data.id}`);
+        const chapterKey = `chapterId_${partIndex}_${moduleIndex}`;
+        const chapModuleKey = `chapterModule_${partIndex}_${moduleIndex}`;
         localStorage.setItem(chapModuleKey, res.data.moduleId);
         localStorage.setItem('moduleCount', (moduleCount + 1).toString());
         localStorage.setItem(chapterKey, res.data.id);
@@ -296,10 +296,10 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
     }
     // const randomString = Math.random().toString(36).substring(2, 8);
     // const chapterCount = localStorage.getItem('chapterCount') ? parseInt(localStorage.getItem('chapterCount')!) : 0;
-    // const newChapterName = Chapter ${chapterCount + 1};
-    // const chapterKey = chapterId_${partIndex}_${moduleIndex};
+    // const newChapterName = `Chapter ${chapterCount + 1}`;
+    // const chapterKey = `chapterId_${partIndex}_${moduleIndex}`;
 
-    // console.log(Created ${newChapterName} with ID: ${randomString});
+    // console.log(`Created ${newChapterName} with ID: ${randomString}`);
     // localStorage.setItem(chapterKey, randomString);
     // localStorage.setItem('chapterCount', (chapterCount + 1).toString());
     // setChapterId(randomString);
@@ -314,22 +314,22 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
 
   const setChapterIdForSelectedModule = (partIndex: number, moduleIndex: number, lessonIndex?: number) => {
     const selectedModule = partContainer[partIndex].modules[moduleIndex];
-    console.log(Selected Module: ${selectedModule?.name}, ${selectedModule?.number});
+    console.log(`Selected Module: ${selectedModule?.name}, ${selectedModule?.number}`);
 
     if (selectedModule?.name === 'Chapter') {
-      const chapterKey = chapterId_${partIndex}_${moduleIndex};
+      const chapterKey = `chapterId_${partIndex}_${moduleIndex}`;
       const chapterId = localStorage.getItem(chapterKey);
       setChapterId(chapterId);
     } else if (selectedModule?.name === 'Assignment') {
-      const assignmentKey = assignmentId_${partIndex}_${moduleIndex};
+      const assignmentKey = `assignmentId_${partIndex}_${moduleIndex}`;
       const assignmentId = localStorage.getItem(assignmentKey);
       setAssignmentId(assignmentId);
     } else if (selectedModule?.name === 'Exam') {
-      const examKey = examId_${partIndex}_${moduleIndex};
+      const examKey = `examId_${partIndex}_${moduleIndex}`;
       const examId = localStorage.getItem(examKey);
       setExamId(examId);
     } else {
-      const lessonKey = lessonId_${partIndex}_${moduleIndex}_${lessonIndex};
+      const lessonKey = `lessonId_${partIndex}_${moduleIndex}_${lessonIndex}`;
       const lessonId = localStorage.getItem(lessonKey);
       setLessonId(lessonId);
     }
@@ -339,13 +339,13 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
     // if (activeModuleType === 'Chapter') {
     //   const chapterCount = localStorage.getItem('chapterCount') ? parseInt(localStorage.getItem('chapterCount')!) : 0;
     //   for (let i = 1; i <= chapterCount; i++) {
-    //     setChapterId(localStorage.getItem(chapterId_Chapter ${i}));
-    //     console.log(Chapter ID: ${localStorage.getItem(`chapterId_Chapter ${i})}`);
+    //     setChapterId(localStorage.getItem(`chapterId_Chapter ${i}`));
+    //     console.log(`Chapter ID: ${localStorage.getItem(`chapterId_Chapter ${i}`)}`);
 
     //   }
     // }
     if (activeModule) {
-      console.log(if);
+      console.log(`if`);
 
       const { partIndex, moduleIndex, lessonIndex } = activeModule;
       setChapterIdForSelectedModule(partIndex, moduleIndex, lessonIndex);
@@ -365,11 +365,11 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
     try {
       setLoading(true);
       const courseId = localStorage.getItem('courseId');
-      const lessonId = localStorage.getItem(lessonId_${activeModule.partIndex}_${activeModule.moduleIndex}_${activeModule.lessonIndex});
+      const lessonId = localStorage.getItem(`lessonId_${activeModule.partIndex}_${activeModule.moduleIndex}_${activeModule.lessonIndex}`);
       if (lessonId) {
         console.log(lesson);
 
-        await axios.patch(${import.meta.env.VITE_BACKEND_URL}/api/courses/lesson/${lessonId}, {
+        await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/courses/lesson/${lessonId}`, {
           title: lesson.lessonTitle,
           description: lesson.lessonDescription,
           srcUrl: 'https://example.com/leson1.mp4',
@@ -379,11 +379,11 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
           clips: lesson.clips
         }, {
           headers: {
-            Authorization: Bearer ${Cookies.get('token')}
+            Authorization: `Bearer ${Cookies.get('token')}`
           }
         });
       } else {
-        const res = await axios.post(${import.meta.env.VITE_BACKEND_URL}/api/courses/${courseId}/parts/${partId}/modules/chapter/${chapterId}/lesson, {
+        const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/courses/${courseId}/parts/${partId}/modules/chapter/${chapterId}/lesson`, {
           title: lesson.lessonTitle,
           description: lesson.lessonDescription,
           srcUrl: "https://example.com/leson1.mp4",
@@ -393,19 +393,19 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
           clips: lesson.clips
         }, {
           headers: {
-            Authorization: Bearer ${Cookies.get('token')}
+            Authorization: `Bearer ${Cookies.get('token')}`
           }
         });
 
         if (res.data.id) {
-          console.log(Chapter ID: ${chapterId}. Part Id: ${partId});
+          console.log(`Chapter ID: ${chapterId}. Part Id: ${partId}`);
           const { partIndex, moduleIndex, lessonIndex } = activeModule;
-          console.log(Part Id in Lesson Step: ${partId});
+          console.log(`Part Id in Lesson Step: ${partId}`);
           const lessonCount = localStorage.getItem('lessonCount') ? parseInt(localStorage.getItem('lessonCount')!) : 0;
-          const newLessonName = Lesson ${lessonCount + 1};
-          const lessonKey = lessonId_${partIndex}_${moduleIndex}_${lessonIndex};
+          const newLessonName = `Lesson ${lessonCount + 1}`;
+          const lessonKey = `lessonId_${partIndex}_${moduleIndex}_${lessonIndex}`;
 
-          console.log(Created ${newLessonName} with ID: ${res.data.id});
+          console.log(`Created ${newLessonName} with ID: ${res.data.id}`);
           localStorage.setItem(lessonKey, res.data.id);
           localStorage.setItem('lessonCount', (lessonCount + 1).toString());
           setLessonId(res.data.id);
@@ -418,15 +418,15 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
     } finally {
       setLoading(false);
     }
-    // console.log(Chapter ID: ${chapterId}. Part Id: ${partId});
+    // console.log(`Chapter ID: ${chapterId}. Part Id: ${partId}`);
     // const { partIndex, moduleIndex, lessonIndex } = activeModule;
-    // console.log(Part Id in Lesson Step: ${partId});
+    // console.log(`Part Id in Lesson Step: ${partId}`);
     // const randomString = Math.random().toString(36).substring(2, 8);
     // const lessonCount = localStorage.getItem('lessonCount') ? parseInt(localStorage.getItem('lessonCount')!) : 0;
-    // const newLessonName = Lesson ${lessonCount + 1};
-    // const lessonKey = lessonId_${partIndex}_${moduleIndex}_${lessonIndex};
+    // const newLessonName = `Lesson ${lessonCount + 1}`;
+    // const lessonKey = `lessonId_${partIndex}_${moduleIndex}_${lessonIndex}`;
 
-    // console.log(Created ${newLessonName} with ID: ${randomString});
+    // console.log(`Created ${newLessonName} with ID: ${randomString}`);
     // localStorage.setItem(lessonKey, randomString);
     // localStorage.setItem('lessonCount', (lessonCount + 1).toString());
     // setLessonId(randomString);
@@ -439,9 +439,9 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
     try {
       setLoading(true);
       const courseId = localStorage.getItem('courseId');
-      const lessonId = localStorage.getItem(lessonId_${activeModule.partIndex}_${activeModule.moduleIndex}_${activeModule.lessonIndex});
+      const lessonId = localStorage.getItem(`lessonId_${activeModule.partIndex}_${activeModule.moduleIndex}_${activeModule.lessonIndex}`);
       if (lessonId) {
-        await axios.patch(${import.meta.env.VITE_BACKEND_URL}/api/courses/lesson/${lessonId}, {
+        await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/courses/lesson/${lessonId}`, {
           title: lesson.lessonTitle,
           description: lesson.lessonDescription,
           srcUrl: 'https://example.com/leson1.mp4',
@@ -451,11 +451,11 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
           clips: lesson.clips
         }, {
           headers: {
-            Authorization: Bearer ${Cookies.get('token')}
+            Authorization: `Bearer ${Cookies.get('token')}`
           }
         });
       } else {
-        const res = await axios.post(${import.meta.env.VITE_BACKEND_URL}/api/courses/${courseId}/parts/${partId}/modules/chapter/${chapterId}/lesson, {
+        const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/courses/${courseId}/parts/${partId}/modules/chapter/${chapterId}/lesson`, {
           title: lesson.lessonTitle,
           description: lesson.lessonDescription,
           srcUrl: 'https://example.com/leson1.mp4',
@@ -465,7 +465,7 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
           clips: lesson.clips
         }, {
           headers: {
-            Authorization: Bearer ${Cookies.get('token')}
+            Authorization: `Bearer ${Cookies.get('token')}`
           }
         });
 

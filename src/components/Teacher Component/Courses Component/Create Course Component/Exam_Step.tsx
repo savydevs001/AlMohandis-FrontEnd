@@ -34,13 +34,13 @@ const Exam_Step: React.FC<Exam_StepProps> = ({ handleNextModule, isLastModule, h
   }, []);
 
   const fetchExam = async () => {
-    const examKey = examId_${activeModule.partIndex}_${activeModule.moduleIndex};
+    const examKey = `examId_${activeModule.partIndex}_${activeModule.moduleIndex}`;
     const examId = localStorage.getItem(examKey);
     if (examId) {
       setExamId(examId);
-      const res: EXAMResponse = await axios.get(${import.meta.env.VITE_BACKEND_URL}/api/courses/modules/${examId}, {
+      const res: EXAMResponse = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/courses/modules/${examId}`, {
         headers: {
-          Authorization: Bearer ${Cookies.get('token')}
+          Authorization: `Bearer ${Cookies.get('token')}`
         }
       });
       console.log(res.data.exams[0].questions[0].options);
@@ -122,23 +122,23 @@ const Exam_Step: React.FC<Exam_StepProps> = ({ handleNextModule, isLastModule, h
     try {
       setLoading(true);
       const courseId = localStorage.getItem('courseId');
-      const examId = localStorage.getItem(examId_${activeModule.partIndex}_${activeModule.moduleIndex});
+      const examId = localStorage.getItem(`examId_${activeModule.partIndex}_${activeModule.moduleIndex}`);
       if (examId) {
-        await axios.patch(${import.meta.env.VITE_BACKEND_URL}/api/courses/${courseId}/parts/${partId}/modules/${examId}/exam, {
+        await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/courses/${courseId}/parts/${partId}/modules/${examId}/exam`, {
           title,
           questions
         }, {
           headers: {
-            Authorization: Bearer ${Cookies.get('token')}
+            Authorization: `Bearer ${Cookies.get('token')}`
           }
         });
       } else {
-        const res: AssignmentOrExamResponse = await axios.post(${import.meta.env.VITE_BACKEND_URL}/api/courses/${courseId}/parts/${partId}/modules/exam, {
+        const res: AssignmentOrExamResponse = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/courses/${courseId}/parts/${partId}/modules/exam`, {
           title,
           questions
         }, {
           headers: {
-            Authorization: Bearer ${Cookies.get('token')}
+            Authorization: `Bearer ${Cookies.get('token')}`
           }
         });
         return res;
@@ -153,14 +153,14 @@ const Exam_Step: React.FC<Exam_StepProps> = ({ handleNextModule, isLastModule, h
   const handleSave = async () => {
     const res = await ApiCall();
     if (res?.data.id) {
-      console.log(Part Id in Exam Step: ${partId});
+      console.log(`Part Id in Exam Step: ${partId}`);
       const { partIndex, moduleIndex } = activeModule;
-      console.log(Part Id in Exam Step: ${partId});
+      console.log(`Part Id in Exam Step: ${partId}`);
       const examCount = localStorage.getItem('examCount') ? parseInt(localStorage.getItem('examCount')!) : 0;
-      const newExamName = Exam ${examCount + 1};
-      const examKey = examId_${partIndex}_${moduleIndex};
+      const newExamName = `Exam ${examCount + 1}`;
+      const examKey = `examId_${partIndex}_${moduleIndex}`;
 
-      console.log(Created ${newExamName} with ID: ${res?.data.id});
+      console.log(`Created ${newExamName} with ID: ${res?.data.id}`);
       localStorage.setItem(examKey, res?.data.id);
       localStorage.setItem('examCount', (examCount + 1).toString());
       setExamId(res?.data.id);
@@ -191,7 +191,7 @@ const Exam_Step: React.FC<Exam_StepProps> = ({ handleNextModule, isLastModule, h
                 type="text"
                 value={question.questionText}
                 onChange={(e) => handleQuestionChange(qIndex, 'questionText', e.target.value)}
-                placeholder={Question ${qIndex + 1}}
+                placeholder={`Question ${qIndex + 1}`}
               />
               <select
                 className='w-full py-2 mt-2 rounded-md'
@@ -210,7 +210,7 @@ const Exam_Step: React.FC<Exam_StepProps> = ({ handleNextModule, isLastModule, h
                       type="text"
                       value={option}
                       onChange={(e) => handleOptionChange(qIndex, oIndex, e.target.value)}
-                      placeholder={Option ${oIndex + 1}}
+                      placeholder={`Option ${oIndex + 1}`}
                     />
                   ))}
                   <button
