@@ -69,7 +69,8 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
   useEffect(() => {
     console.log('useEffect');
     console.log(`Module Id: ${chapterModule}`);
-
+    console.log(assignmentId, examId, lessonId);
+    
     const fetchData = async () => {
       await fetchAssignment();
     };

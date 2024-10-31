@@ -17,7 +17,7 @@ const BasicInfo_Step: React.FC<BasicInfo_StepProps> = ({ handleNext }) => {
   const [title, settitle] = useState<string>("");
   const [description, setdescription] = useState<string>("");
   const [loading, setloading] = useState<boolean>(false);
-  const [imageSrc, setimageSrc] = useState<string>('dsdsdsd');
+  // const [imageSrc, setimageSrc] = useState<string>('dsdsdsd');
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     settitle(e.target.value);
@@ -47,7 +47,7 @@ const BasicInfo_Step: React.FC<BasicInfo_StepProps> = ({ handleNext }) => {
       const res : CreateCourseResponse = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/courses/create`, {
         title,
         description,
-        imageSrc
+        imageSrc: 'dadasdasd'
       }, {
         headers: {
           Authorization: `Bearer ${token}`,

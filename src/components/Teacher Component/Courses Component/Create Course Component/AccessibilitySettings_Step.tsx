@@ -22,7 +22,7 @@ const AccessibilitySettings_Step: React.FC<AccessibilitySettings_StepProps> = ({
   // State to track selected academic stages
   const [selectedStages, setSelectedStages] = useState<number[]>([]);
 
-  const [selectedTeacher, setSelectedTeacher] = useState<string>('');
+  // const [selectedTeacher, setSelectedTeacher] = useState<string>('');
 
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 
@@ -99,9 +99,9 @@ const AccessibilitySettings_Step: React.FC<AccessibilitySettings_StepProps> = ({
     });
   };
 
-  const handleTeacherChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedTeacher(e.target.value);
-  };
+  // const handleTeacherChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  //   setSelectedTeacher(e.target.value);
+  // };
 
   const handleSubmit = async () => {
 
