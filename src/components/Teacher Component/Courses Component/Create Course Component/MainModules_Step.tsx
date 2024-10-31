@@ -11,7 +11,6 @@ import { CHAPTERResponse, ChapterResponse } from '../../../../types/courses/crea
 import Cookies from 'js-cookie';
 
 interface MainModules_StepProps {
-  handleBack: () => void;
   handleFinish: () => void;
   setPartContainer: React.Dispatch<React.SetStateAction<{ name: string; value: string; modules: Modules[] }[]>>;
   partContainer: { name: string; value: string; modules: Modules[] }[];
