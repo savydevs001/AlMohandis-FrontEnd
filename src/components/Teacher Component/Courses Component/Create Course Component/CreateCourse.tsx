@@ -59,11 +59,11 @@ const CreateCourse: React.FC = () => {
     
   };
 
-  const handleBack = () => {
-    if (step > 1) {
-      setStep((prevStep) => prevStep - 1);
-    }
-  };
+  // const handleBack = () => {
+  //   if (step > 1) {
+  //     setStep((prevStep) => prevStep - 1);
+  //   }
+  // };
 
   const handleFinish = () => {
     setStep(8);
@@ -91,7 +91,7 @@ const CreateCourse: React.FC = () => {
             // formData={formData}
             // handleInputChange={handleInputChange}
             handleNext={handleNext}
-            handleBack={handleBack}
+            // handleBack={handleBack}
           />
         )}
         {step === 3 && (
@@ -99,7 +99,7 @@ const CreateCourse: React.FC = () => {
             // formData={formData}
             // handleInputChange={handleInputChange}
             handleNext={handleNext}
-            handleBack={handleBack}
+            // handleBack={handleBack}
           />
         )}
         {step === 4 && (
@@ -107,13 +107,13 @@ const CreateCourse: React.FC = () => {
             // formData={formData}
             // handleInputChange={handleInputChange}
             handleNext={handleNext}
-            handleBack={handleBack}
+            // handleBack={handleBack}
           />
         )}
         {step === 5 && (
           <MainModules_Step
             handleFinish={handleFinish}
-            handleBack={handleBack}
+            // handleBack={handleBack}
             setPartContainer={setPartContainer}
             partContainer={partContainer}
           />

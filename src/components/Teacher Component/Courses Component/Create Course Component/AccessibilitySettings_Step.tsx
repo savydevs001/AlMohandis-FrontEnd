@@ -9,10 +9,10 @@ interface AccessibilitySettings_StepProps {
   // formData: { accessibility: string };
   // handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleNext: () => void;
-  handleBack: () => void;
+  // handleBack: () => void;
 }
 
-const AccessibilitySettings_Step: React.FC<AccessibilitySettings_StepProps> = ({ handleNext, handleBack }) => {
+const AccessibilitySettings_Step: React.FC<AccessibilitySettings_StepProps> = ({ handleNext, }) => {
   const [isFree, setIsFree] = useState(false);
   const [boughtFromAnotherTeacher, setBoughtFromAnotherTeacher] = useState(false);
   const [canAccessOtherCourse, setcanAccessOtherCourse] = useState(false);
@@ -255,13 +255,13 @@ const AccessibilitySettings_Step: React.FC<AccessibilitySettings_StepProps> = ({
         </div>
 
         <div className='flex items-center gap-2 py-12 h-fit'>
-          <button
+          {/* <button
             className='flex items-center gap-2 px-6 py-2 font-semibold border rounded-lg border-primary text-primary'
             onClick={handleBack}
           >
             <RiContractLeftLine />
             Back
-          </button>
+          </button> */}
           <button
             className='flex items-center gap-2 px-6 py-2 font-semibold text-white border-2 rounded-lg bg-primary'
             onClick={handleSubmit}
