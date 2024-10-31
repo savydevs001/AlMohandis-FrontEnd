@@ -47,7 +47,7 @@ const CoursesByMeCard: React.FC<CoursesByMeCardProps> = ({ name, published, stud
         {students && (
           <p className="text-sm text-[#666]">
             {students}
-            <span className="px-2 font-semibold text-black text-md">23,7847</span>
+            <span className="px-2 font-semibold text-black text-md">0</span>
           </p>
         )}
 

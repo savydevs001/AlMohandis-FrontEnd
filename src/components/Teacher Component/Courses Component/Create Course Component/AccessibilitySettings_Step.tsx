@@ -1,8 +1,9 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { RiContractLeftLine } from "react-icons/ri";
 import { RxPinRight } from "react-icons/rx";
 import { AccessibilitySettingsResponse } from '../../../../types/courses/createCourse';
+import Cookies from 'js-cookie';
 
 interface AccessibilitySettings_StepProps {
   // formData: { accessibility: string };
@@ -23,7 +24,36 @@ const AccessibilitySettings_Step: React.FC<AccessibilitySettings_StepProps> = ({
 
   const [selectedTeacher, setSelectedTeacher] = useState<string>('');
 
+  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+
   const [loading, setloading] = useState<boolean>(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await fetchCourse();
+    };
+    fetchData();
+  }, []);
+
+  const fetchCourse = async () => {
+    try {
+      const courseId = localStorage.getItem("courseId") as string;
+
+      const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/courses/${courseId}`, {
+        headers: {
+          Authorization:  `Bearer ${Cookies.get('token')}`,
+        },
+      });
+      if (res.data) {
+        console.log(res.data);
+        
+      } else {
+        console.error("Failed");
+      }
+    } catch (error) {
+      console.error("Failed to fetch course");
+    }
+  };
 
   const handleCheckboxChange = () => {
     setIsFree((prev) => !prev);
@@ -35,6 +65,16 @@ const AccessibilitySettings_Step: React.FC<AccessibilitySettings_StepProps> = ({
 
   const handlecanAccessOtherCourse = () => {
     setcanAccessOtherCourse((prev) => !prev);
+  };
+
+  const handleOptionsChange = (option: string) => {
+    setSelectedOptions(prevSelectedOptions => {
+      if (prevSelectedOptions.includes(option)) {
+        return prevSelectedOptions.filter(item => item !== option);
+      } else {
+        return [...prevSelectedOptions, option];
+      }
+    });
   };
 
   // Function to handle type selection
@@ -65,14 +105,13 @@ const AccessibilitySettings_Step: React.FC<AccessibilitySettings_StepProps> = ({
 
   const handleSubmit = async () => {
 
-    if (isFree && (selectedTypes.length === 0 || selectedStages.length === 0)) {
-      alert("Please fill Types And Stages fields");
-      return;
-    }
-    if (boughtFromAnotherTeacher && selectedTeacher === '') {
-      alert("Please fill the Teacher field");
-      return;
-    }
+    // if (isFree && (selectedTypes.length === 0 || selectedStages.length === 0)) {
+    //   alert("Please fill Types And Stages fields");
+    //   return;
+    // }
+    // if (boughtFromAnotherTeacher && selectedTeacher === '') {
+    //   return;
+    // }
     if (isFree){
     setloading(true);
     try {
@@ -85,20 +124,21 @@ const AccessibilitySettings_Step: React.FC<AccessibilitySettings_StepProps> = ({
         academicStage: selectedStages,
         canAccessIfPurchased: canAccessOtherCourse,
         // broughtFromTeacherId: selectedTeacher
-        broughtFromTeacherId: "cm2q2kd6w0000ublh9k8fr2qt"
+        broughtFromTeacherId: "cm2w556430007i56uyd5r3oeb"
       }, {
         headers: {
           Authorization: `Bearer ${JSON.parse(token)}`,
         },
       });
       if (res.data.id) {
-        alert("Succesfull");
         handleNext();
       } else {
-        alert("Failed");
+        console.error("Failed");
       }
     } catch (error) {
-      alert("Failed");
+      console.error("Failed to create course");
+    } finally {
+      setloading(false);
     }
   } else {
     handleNext();
@@ -167,16 +207,37 @@ const AccessibilitySettings_Step: React.FC<AccessibilitySettings_StepProps> = ({
                   <p className='text-[#555] text-sm'>Bought From Another Teacher</p>
                 </div>
                 {boughtFromAnotherTeacher && (
-                  <select className='py-1 lg:mx-16 rounded-xl bg-cardBg lg:w-96 w-80' value={selectedTeacher} onChange={handleTeacherChange}>
-                    <option className='py-1 text-sm bg-cardBg' value="">Select Teacher</option>
-                    <option className='py-1 text-sm bg-cardBg' value="Teacher 1">Teacher 1</option>
-                    <option className='py-1 text-sm bg-cardBg' value="Teacher 2">Teacher 2</option>
-                    <option className='py-1 text-sm bg-cardBg' value="Teacher 3">Teacher 3</option>
-                  </select>
+                  <div>
+                  <label className='flex items-center gap-2'>
+                    <input
+                      type="checkbox"
+                      checked={selectedOptions.includes('Teacher 1')}
+                      onChange={() => handleOptionsChange('Teacher 1')}
+                    />
+                    Teacher 1
+                  </label>
+                  <label className='flex items-center gap-2'>
+                    <input
+                      type="checkbox"
+                      checked={selectedOptions.includes('Teacher 2')}
+                      onChange={() => handleOptionsChange('Teacher 2')}
+                    />
+                    Teacher 2
+                  </label>
+                  <label className='flex items-center gap-2'>
+                    <input
+                      type="checkbox"
+                      checked={selectedOptions.includes('Teacher 3')}
+                      onChange={() => handleOptionsChange('Teacher 3')}
+                    />
+                    Teacher 3
+                  </label>
+                  {/* Add more checkboxes as needed */}
+                </div>
                 )}
                 <div className='flex items-center gap-4 px-5'>
                   <input className='w-3 h-3 text-primary' type="checkbox" checked={canAccessOtherCourse} onChange={handlecanAccessOtherCourse} />
-                  <p className='text-[#555] text-sm'>Bought other course from same teachers</p>
+                  <p className='text-[#555] text-sm'>Bought other course from same teacher</p>
                 </div>
               </div>
 

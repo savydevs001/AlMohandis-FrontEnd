@@ -6,14 +6,6 @@ import Cookies from 'js-cookie';
 import { CreatePartResponse } from '../../../../types/courses/createCourse';
 
 interface Part_StepProps {
-  // formData: {
-  //   title: string;
-  //   description: string;
-  //   accessibility: string;
-  //   additionalField1: string;
-  //   additionalField2: string; // Example field
-  // };
-  // handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   handleNext: () => void;
   handleBack: () => void;
 }
@@ -47,9 +39,7 @@ const Part_Step: React.FC<Part_StepProps> = ({ handleNext, handleBack }) => {
   };
 
   const handleSubmit = async () => {
-    console.log(title, price, openingDate, completionTime);
     if (!validateForm()) {
-      alert('Please fill all the fields');
       return;
     }
     try {
@@ -66,16 +56,14 @@ const Part_Step: React.FC<Part_StepProps> = ({ handleNext, handleBack }) => {
         }
       });
       if (res.data.id) {
-        alert('Part created successfully');
         const partName = 'Part 1';
         localStorage.setItem(partName, res.data.id);
-
         handleNext();
       } else {
-        alert('Failed to create part');
+        console.error("Failed to create part");
       }
     } catch (error) {
-      alert('Failed to create part');
+      console.error("Failed to create part");
     } finally {
       setloading(false);
     }
@@ -101,7 +89,7 @@ const Part_Step: React.FC<Part_StepProps> = ({ handleNext, handleBack }) => {
             <div className='flex flex-col gap-1'>
               <label className='font-medium rounded-md' htmlFor="">Price</label>
               <input
-                type="text"
+                type="number"
                 className='rounded-md bg-cardBg border-[#6666]'
                 name="title"
                 placeholder="$99.00"
@@ -126,7 +114,7 @@ const Part_Step: React.FC<Part_StepProps> = ({ handleNext, handleBack }) => {
               <div className='flex flex-col gap-1'>
                 <label className='font-medium rounded-md' htmlFor="">Course Completion time</label>
                 <input
-                  type="text"
+                  type="number"
                   className='rounded-md bg-cardBg border-[#6666]'
                   name="title"
                   placeholder="4 days"

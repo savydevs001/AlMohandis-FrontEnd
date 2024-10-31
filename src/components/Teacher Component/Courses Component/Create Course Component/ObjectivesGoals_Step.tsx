@@ -45,23 +45,20 @@ const ObjectivesGoals_Step: React.FC<ObjectivesGoals_StepProps> = ({ handleBack,
     setLoading(true);
    try {
     const courseId = localStorage.getItem("courseId");
-     const res : CreateCourseResponse = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/courses/${courseId}/objectives`, {
+     const res : CreateCourseResponse = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/courses/${courseId}/objectives`, {
        objectives: Objectives,
        whatYouWillLearn: StudentLearning
      })
      if (res.data.id) {
-       alert("Succesfull");
        handleNext();
      } else {
-       alert("Failed");
-       handleNext();
+        console.log('Error');
      }  
    } catch (error) {
-     alert("Failed");
+      console.error(error);
    } finally {
      setLoading(false);
     }
-    // make the api call here
   };
 
   return (

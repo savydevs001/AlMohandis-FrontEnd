@@ -47,7 +47,7 @@ const AddModulePopup: React.FC<AddModulePopupProps> = ({ onClose, partContainer,
     onClose();
   };
 
-  const moduleOptions = ["Chapter", "Exam", "Assignment", "Attachment"];
+  const moduleOptions = ["Chapter", "Exam", "Assignment"];
 
   return (
     <div className="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full bg-black bg-opacity-50">
