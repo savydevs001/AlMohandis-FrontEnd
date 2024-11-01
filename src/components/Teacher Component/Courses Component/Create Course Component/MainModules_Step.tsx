@@ -25,6 +25,7 @@ export interface Clip {
 const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPartContainer, partContainer }) => {
   const [partNumber, setPartNumber] = useState(1);
   const [mediaFile, setmediaFile] = useState<File | null>(null);
+  const [components, setComponents] = useState([{}]); 
   const [isPopupOpen, setIsPopupOpen] = useState(false); // State to manage popup visibility
   const [activeModule, setActiveModule] = useState<{ partIndex: number, moduleIndex: number, lessonIndex?: number }>({ partIndex: 0, moduleIndex: 0 });
   const [partId, setPartId] = useState<string | null>(null);
@@ -260,7 +261,9 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
       .map(module => `${module.name} ${module.number}`)
     : [];
 
-
+    const addComponent = () => {
+      setComponents([...components, {}]); // Adds a new empty object to represent the new component
+    };
   const createChapter = async (partIndex: number, moduleIndex: number) => {
     try {
       setLoading(true);
@@ -492,9 +495,9 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
   };
   return (
     <div className='mt-12 h-fit'>
-      <div className='flex max-w-4xl gap-3 mx-auto shadow-2xl h-fit bg-cardBg'>
+      <div className='flex flex-col max-w-4xl gap-3 mx-auto shadow-2xl lg:flex-row h-fit bg-cardBg'>
         {/* Left Section */}
-        <div className='w-[30%] bg-cardBg py-4 px-6 border border-neutral-300'>
+        <div className='lg:w-[30%] w-full bg-cardBg py-4 px-6 border border-neutral-300'>
           <MainModules_Step_Season1Module setPartContainer={setPartContainer} partContainer={partContainer} partNumber={partNumber} setPartNumber={setPartNumber} activeModule={activeModule}
             setmediaFile={setmediaFile}
             setActiveModule={setActiveModule}
@@ -509,6 +512,7 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
             <>
               {!currentChapterHasLessons && (
                 <div className='flex items-center gap-2 mt-4'>
+                  
                   <button
                     className='flex items-center gap-2 px-6 py-2 font-semibold text-white border rounded-lg bg-primary'
                     onClick={handleAddAnother} // Open the popup when clicked
@@ -519,9 +523,16 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
               )}
               {currentChapterHasLessons && (
                 <>
-                  <MainModules_Step_RigthModule handleLessonChange={handleLessonChange} lesson={lesson} handleFileUpload={handleFileUpload} />
+                  {components.map((_, index) => (
+                <div key={index}>
+                      
+                      <MainModules_Step_RigthModule handleLessonChange={handleLessonChange} lesson={lesson} handleFileUpload={handleFileUpload} />
                   <AudioEditor mediaFile={mediaFile} setLesson={setLesson} lessonClips={lesson.clips} />
-                  <div className='flex items-center gap-2 mt-4'>
+                </div>
+                  
+                ))}
+
+                  <div className='flex flex-wrap items-center gap-2 mt-4'>
                     <button
                       className='flex items-center gap-2 px-6 py-2 font-semibold text-white border rounded-lg bg-primary'
                       onClick={handleAddAnother} // Open the popup when clicked
@@ -529,6 +540,7 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
                     >
                       Add Lesson
                     </button>
+                    <button onClick={addComponent} className='flex items-center gap-2 px-6 py-2 font-semibold text-white border rounded-lg bg-primary'>Add Video</button>
                     {hasNextLesson && (
                       <>
                         <button
@@ -545,6 +557,7 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
                         >
                           Save
                         </button>
+                       
                       </>
                     )}
                     {!hasNextLesson && !isLastModule && (

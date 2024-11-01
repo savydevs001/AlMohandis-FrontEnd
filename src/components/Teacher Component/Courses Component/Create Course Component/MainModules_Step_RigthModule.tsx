@@ -1,4 +1,4 @@
-import FileUpload from "./FileUpload";
+// import FileUpload from "./FileUpload";
 
 interface MainModules_Step_RigthModuleProps {
   handleFileUpload?: (file: File | null) => void;
@@ -6,10 +6,13 @@ interface MainModules_Step_RigthModuleProps {
   lesson: { lessonTitle: string; lessonDescription: string; srcUrl: File | null | string; isPromoted: boolean; isFree: boolean, lessonType: string };
 }
 
-const MainModules_Step_RigthModule: React.FC<MainModules_Step_RigthModuleProps> = ({ handleFileUpload, handleLessonChange, lesson }) => {
+const MainModules_Step_RigthModule: React.FC<MainModules_Step_RigthModuleProps> = ({ 
+  
+  // handleFileUpload,
+   handleLessonChange, lesson }) => {
   return (
     <div>
-      <div className='flex justify-between w-full gap-4'>
+      <div className='flex flex-col justify-between w-full gap-4 lg:flex-row'>
         <div className='space-y-4 w-[90%]'>
           <div>
             <label className="font-semibold">Title</label>
@@ -39,7 +42,7 @@ const MainModules_Step_RigthModule: React.FC<MainModules_Step_RigthModuleProps> 
             <label className='font-semibold'>Lesson File</label>
             <div className='w-[100%] border border-dashed border-primary p-2 text-center text-primary space-y-4'>
               <p className="">Browse and choose the files you want to upload from your computer</p>
-              <FileUpload onFileSelect={handleFileUpload} />
+              {/* <FileUpload onFileSelect={handleFilesUpload} /> */}
             </div>
           </div>
         </div>

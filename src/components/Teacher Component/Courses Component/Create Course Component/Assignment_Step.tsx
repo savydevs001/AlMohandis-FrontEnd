@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import FileUpload from './FileUpload';
+// import FileUpload from './FileUpload';
 import axios from 'axios';
 import { AssignmentOrExamResponse, AssignmentResponse } from '../../../../types/courses/createCourse';
 import Cookies from 'js-cookie';
@@ -15,7 +15,7 @@ interface Assignment_StepProps {
   activeModule: { partIndex: number, moduleIndex: number, lessonIndex?: number };
 }
 
-const Assignment_Step: React.FC<Assignment_StepProps> = ({ handleNextModule, isLastModule, handleFinish, handleFileUpload, partId, activeModule, setAssignmentId }) => {
+const Assignment_Step: React.FC<Assignment_StepProps> = ({ handleNextModule, isLastModule, handleFinish, partId, activeModule, setAssignmentId }) => {
 
   // State to manage questions
   const [questions, setQuestions] = useState<{ questionText: string, answerType: string, options: string[], correctAnswer: string; id?: string }[]>([{ questionText: '', answerType: 'SHORT_ANSWER', options: [], correctAnswer: '' }]);
@@ -165,15 +165,21 @@ const Assignment_Step: React.FC<Assignment_StepProps> = ({ handleNextModule, isL
                   <label className="font-semibold">Title</label>
                   <input className='w-full py-2 rounded-md' type="text" placeholder='Enter The Assignment Title' value={title} onChange={(e) => setTitle(e.target.value)} />
                 </div>
-                <div>
-                  <label className="font-semibold flex gap-2">IsFree</label>
-                  <input className='py-2 rounded-md' type="checkbox" checked={isFree} onChange={() => setIsFree((prev) => !prev)} />
+                <div className='flex items-center gap-2'>
+                  <label className="flex gap-2 font-semibold">IsFree</label>
+                  <input className='w-4 h-4 rounded-md' type="checkbox" checked={isFree} onChange={() => setIsFree((prev) => !prev)} />
                 </div>
                 <div className='space-y-4'>
                   {/* Dynamically render questions */}
                   {questions.map((question, index) => (
                     <div key={index} className='flex flex-col gap-1'>
-                      <label>{`Question ${index + 1}`}</label>
+                     <div className='flex items-center justify-between'>
+                     <label>{`Question ${index + 1}`}</label>
+                      <RiDeleteBin6Line
+                        onClick={() => handleDeleteQuestion(index)}
+                        className="p-1 text-2xl text-red-600 border border-red-600 rounded-sm cursor-pointer"
+                      />
+                     </div>
                       <input
                         className='w-full border rounded-md'
                         type="text"
@@ -181,10 +187,7 @@ const Assignment_Step: React.FC<Assignment_StepProps> = ({ handleNextModule, isL
                         value={question.questionText}
                         onChange={(e) => handleQuestionChange(index, e.target.value)} // Handle question change
                       />
-                      <RiDeleteBin6Line
-                        onClick={() => handleDeleteQuestion(index)}
-                        className="p-1 text-2xl text-red-600 border border-red-600 rounded-sm cursor-pointer"
-                      />
+                      
                     </div>
                   ))}
                 </div>
@@ -196,7 +199,7 @@ const Assignment_Step: React.FC<Assignment_StepProps> = ({ handleNextModule, isL
                   <label className='font-semibold'>Lesson File</label>
                   <div className='w-[100%] border border-dashed border-primary p-2 text-center text-primary space-y-4'>
                     <p>Browse and choose the files you want to upload from your computer</p>
-                    <FileUpload onFileSelect={handleFileUpload} />
+                    {/* <FileUpload onFileSelect={handleFileUpload} /> */}
                   </div>
                 </div>
               </div>
