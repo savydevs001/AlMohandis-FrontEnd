@@ -35,7 +35,7 @@ const AddAnotherPopUp: React.FC<AddAnotherPopUpProps> = ({ onClose, onAddLesson,
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="p-6 bg-white rounded-md shadow-lg w-[30%] space-y-4">
+      <div className="p-6 bg-white rounded-md shadow-lg lg:w-[30%] w-[90%] space-y-4">
         <div className='space-y-2'>
           <h5 className='font-semibold'>Chapters</h5>
           <select className='w-full border-none rounded-md outline-none bg-cardBg' value={selectedChapter} onChange={handleChapterChange}>
@@ -54,8 +54,9 @@ const AddAnotherPopUp: React.FC<AddAnotherPopUpProps> = ({ onClose, onAddLesson,
         </div>
         <div className='flex gap-4'>
           <button type="submit" className="px-4 py-2 text-white rounded-lg bg-primary" onClick={handleSubmit}>Add Lesson</button>
-          <button type="button" className="px-4 py-2 text-white rounded-lg bg-red-600" onClick={onClose}>Cancel</button>
+          <button type="button" className="px-4 py-2 text-white bg-red-600 rounded-lg" onClick={onClose}>Cancel</button>
         </div>
+     
       </div>
     </div>
   );

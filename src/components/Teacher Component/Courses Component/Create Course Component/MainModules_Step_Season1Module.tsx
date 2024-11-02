@@ -679,7 +679,7 @@ const MainModules_Step_Season1Module: React.FC<MainModules_Step_Season1ModulePro
                   {part.modules.map((module, moduleIndex) => (
                     <div key={moduleIndex}>
                       <div
-                        className={`mb-2 p-2 cursor-pointer ${activeModule?.partIndex === partIndex && activeModule?.moduleIndex === moduleIndex ? 'bg-blue-100' : ''}`}
+                        className={`mt-4 lg:mt-0 mb-2 p-2 cursor-pointer ${activeModule?.partIndex === partIndex && activeModule?.moduleIndex === moduleIndex ? 'border-l-4 border-l-secondary bg-primary text-white' : ''}`}
                         onClick={() => handleModuleClick(partIndex, moduleIndex)}
                       >
                         <div className='flex items-center justify-between'>
@@ -694,7 +694,7 @@ const MainModules_Step_Season1Module: React.FC<MainModules_Step_Season1ModulePro
                             </span>
                           )}
                           <RiDeleteBin6Line
-                            className="p-1 text-2xl text-red-600 border border-red-600 rounded-sm ml-2"
+                            className="p-1 ml-2 text-2xl text-red-600 border border-red-600 rounded-sm"
                             onClick={(e) => {
                               e.stopPropagation();
                               handleDeleteModule(partIndex, moduleIndex);
@@ -706,7 +706,7 @@ const MainModules_Step_Season1Module: React.FC<MainModules_Step_Season1ModulePro
                           {module.lessons.map((lesson, lessonIndex) => (
                             <div
                               key={lessonIndex}
-                              className={`mb-2 p-2 cursor-pointer ${activeModule?.partIndex === partIndex && activeModule?.moduleIndex === moduleIndex && activeModule?.lessonIndex === lessonIndex ? 'bg-blue-100' : ''}`}
+                              className={` mb-2 p-2 cursor-pointer ${activeModule?.partIndex === partIndex && activeModule?.moduleIndex === moduleIndex && activeModule?.lessonIndex === lessonIndex ? 'border-l-4 border-l-secondary  bg-primary text-white' : ''}`}
                               onClick={() => handleLessonClick(partIndex, moduleIndex, lessonIndex)}
                             >
                               <div className='flex items-center justify-between'>
@@ -716,7 +716,7 @@ const MainModules_Step_Season1Module: React.FC<MainModules_Step_Season1ModulePro
                                   <p>{lesson.type} {lesson.number}</p>
                                 </div>
                                 <RiDeleteBin6Line
-                                  className="p-1 text-2xl text-red-600 border border-red-600 rounded-sm ml-2"
+                                  className="p-1 ml-2 text-2xl text-red-600 border border-red-600 rounded-sm"
                                   onClick={(e) => {
                                     e.stopPropagation();
                                     handleDeleteLesson(partIndex, moduleIndex, lessonIndex);
@@ -741,7 +741,7 @@ const MainModules_Step_Season1Module: React.FC<MainModules_Step_Season1ModulePro
         </div> */}
 
         {/* Add Module and Season Buttons */}
-        <div className='mt-4 space-y-2'>
+        <div className='mt-4 space-x-4 space-y-2 lg:space-x-0'>
           {/* Button for adding a module */}
           <button onClick={handleOpenModulePopUp} className='px-3 py-2 font-semibold border rounded-lg text-md text-primary border-primary'>
             Add Module <span className='px-2 text-md'>+</span>

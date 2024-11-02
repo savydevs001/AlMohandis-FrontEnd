@@ -1,48 +1,62 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { FaPlus } from 'react-icons/fa';
+import UploadPopup from './UploadPopup'; // Import the UploadPopup component
 
-interface FileUploadProps {
-  onFileSelect?: (file: File | null) => void;
-}
-
-const FileUpload: React.FC<FileUploadProps> = ({ onFileSelect,}) => {
+const FileUpload: React.FC = () => {
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
+  // Toggle popup visibility
+  const openPopup = () => setIsPopupOpen(true);
+  const closePopup = () => setIsPopupOpen(false);
+
+  // Handle file selection
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0] || null;
-    onFileSelect?.(file); // Pass the selected file back to the parent component
+    const file = event.target.files?.[0];
+    console.log("Selected file:", file);
   };
 
-  const handleButtonClick = () => {
+  // Trigger file input click inside the popup
+  const handleNewUploadClick = () => {
     fileInputRef.current?.click();
   };
 
   return (
-  <div className='flex items-center justify-center'>
-      <div className='flex items-end justify-end '>
+    <div>
+      {/* Button to open the popup */}
+      <div className='flex items-center justify-center'>
+        <button
+          className='rounded-md bg-primary'
+          onClick={openPopup}
+          style={{
+            padding: '5px 7px',
+            color: 'white',
+            border: 'none',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+          }}
+        >
+          <FaPlus />
+        </button>
+      </div>
+
+      {/* Render UploadPopup with props */}
+      {isPopupOpen && (
+        <UploadPopup
+          onClose={closePopup}
+          onNewUploadClick={handleNewUploadClick} // Trigger file selection
+        />
+      )}
+      {/* Hidden file input */}
       <input
         type="file"
-        accept="audio/*,video/*" // Accept both audio and video files
+        accept="audio/*,video/*"
         onChange={handleFileChange}
         ref={fileInputRef}
         style={{ display: 'none' }}
       />
-      <button
-        className='rounded-md bg-primary'
-        onClick={handleButtonClick}
-        style={{
-          padding: '5px 7px',
-          color: 'white',
-          border: 'none',
-          cursor: 'pointer',
-          display: 'flex',
-          alignItems: 'center',
-        }}
-      >
-        <FaPlus style={{ marginRight: '0px' }} />
-      </button>
     </div>
-  </div>
   );
 };
 

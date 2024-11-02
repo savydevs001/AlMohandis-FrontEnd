@@ -168,12 +168,12 @@ const Exam_Step: React.FC<Exam_StepProps> = ({ handleNextModule, isLastModule, h
   };
 
   return (
-    <div className='mt-12 h-fit'>
-      <div className='flex max-w-4xl gap-3 mx-auto shadow-2xl h-fit bg-cardBg'>
-        <div className='flex-1 p-4 border border-neutral-300'>
+    <div className='mt-0 h-fit'>
+      <div className='flex max-w-4xl gap-3 px-4 mx-auto h-fit bg-cardBg'>
+        <div className='flex-1 space-x-2'>
           <label className="font-semibold">IsFree</label>
-          <input className='py-2 rounded-md' type="checkbox" checked={isFree} onChange={() => setIsFree((prev) => !prev)} />
-          <div className="space-y-1">
+          <input className='w-4 h-4 rounded-md' type="checkbox" checked={isFree} onChange={() => setIsFree((prev) => !prev)} />
+          <div className="mt-3 space-y-1">
             <label className="font-semibold" htmlFor="">Title</label>
             <input
               className='w-full py-2 rounded-md'
@@ -186,13 +186,16 @@ const Exam_Step: React.FC<Exam_StepProps> = ({ handleNextModule, isLastModule, h
 
           {questions.map((question, qIndex) => (
             <div key={qIndex} className='mt-4'>
+              <div className='flex items-center justify-between'>
               <input
-                className='w-full py-2 rounded-md'
+                className='w-[50%] py-2 rounded-md'
                 type="text"
                 value={question.questionText}
                 onChange={(e) => handleQuestionChange(qIndex, 'questionText', e.target.value)}
                 placeholder={`Question ${qIndex + 1}`}
               />
+               <RiDeleteBin6Line onClick={() => handleDeleteQuestion(qIndex)} className="p-1 text-2xl text-red-600 border border-red-600 rounded-sm cursor-pointer" />
+              </div>
               <select
                 className='w-full py-2 mt-2 rounded-md'
                 value={question.answerType}
@@ -202,11 +205,11 @@ const Exam_Step: React.FC<Exam_StepProps> = ({ handleNextModule, isLastModule, h
                 <option value="SHORT_ANSWER">Short Question</option>
               </select>
               {question.answerType === 'MCQ' && (
-                <div className='mt-2'>
+                <div className='flex flex-wrap gap-3 mt-2'>
                   {question.options.map((option, oIndex) => (
                     <input
                       key={oIndex}
-                      className='w-full py-2 rounded-md mt-1'
+                      className='w-[45%] py-2 mt-1 rounded-md'
                       type="text"
                       value={option}
                       onChange={(e) => handleOptionChange(qIndex, oIndex, e.target.value)}
@@ -214,13 +217,13 @@ const Exam_Step: React.FC<Exam_StepProps> = ({ handleNextModule, isLastModule, h
                     />
                   ))}
                   <button
-                    className='px-2 py-1 mt-2 text-white bg-blue-500 rounded'
+                    className='px-2 py-2 mt-2 text-white rounded bg-primary'
                     onClick={() => handleAddOption(qIndex)}
                   >
                     Add Option
                   </button>
                   <input
-                    className='w-full py-2 rounded-md mt-2'
+                    className='w-full py-2 mt-2 rounded-md'
                     type="text"
                     value={question.correctAnswer}
                     onChange={(e) => handleQuestionChange(qIndex, 'correctAnswer', e.target.value)}
@@ -229,9 +232,9 @@ const Exam_Step: React.FC<Exam_StepProps> = ({ handleNextModule, isLastModule, h
                 </div>
               )}
               {question.answerType === 'SHORT_ANSWER' && (
-                <div className='mt-2'>
+                <div className='mt-2 w-[50%]'>
                   <input
-                    className='w-full py-2 rounded-md'
+                    className='w-[50%] py-2 rounded-md'
                     type="text"
                     value={question.correctAnswer}
                     onChange={(e) => handleQuestionChange(qIndex, 'correctAnswer', e.target.value)}
@@ -239,12 +242,12 @@ const Exam_Step: React.FC<Exam_StepProps> = ({ handleNextModule, isLastModule, h
                   />
                 </div>
               )}
-              <RiDeleteBin6Line onClick={() => handleDeleteQuestion(qIndex)} className="p-1 text-2xl text-red-600 border border-red-600 rounded-sm cursor-pointer" />
+             
             </div>
           ))}
 
           <button
-            className='px-4 py-2 mt-4 text-white bg-green-500 rounded'
+            className='px-4 py-2 mt-4 text-white rounded bg-primary'
             onClick={handleAddQuestion}
             disabled={loading}
           >

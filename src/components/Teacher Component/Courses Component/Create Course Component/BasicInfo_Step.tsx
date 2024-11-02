@@ -96,9 +96,15 @@ const BasicInfo_Step: React.FC<BasicInfo_StepProps> = ({ handleNext }) => {
             onChange={handleDescriptionChange}
           />
         </div>
-        <div className='flex flex-col'>
-          <input type="file" />
-        </div>
+        <div className="flex flex-col items-center">
+  <label className="relative cursor-pointer">
+    <input type="file" className="absolute w-full h-full opacity-0 cursor-pointer" />
+    <div className="px-4 py-2 text-gray-700 bg-white border-2 border-gray-400 border-dotted rounded-md hover:bg-gray-100">
+      Choose File
+    </div>
+  </label>
+</div>
+      
         <div className='flex items-center gap-2'>
           <NavLink className='flex items-center gap-2 px-6 py-2 font-semibold border rounded-lg border-primary text-primary' to={'/courses'}>
             <RiContractLeftLine />
