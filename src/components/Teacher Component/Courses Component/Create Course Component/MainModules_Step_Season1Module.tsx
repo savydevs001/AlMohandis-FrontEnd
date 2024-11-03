@@ -1,4 +1,4 @@
-import { RiDeleteBin6Line } from 'react-icons/ri';
+// import { RiDeleteBin6Line } from 'react-icons/ri';
 import ModulePopUp from './AddModulePopUp';
 import SeasonPopUp from './SeasonPopUp';
 import { useEffect, useState } from 'react';
@@ -8,8 +8,9 @@ import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import { DeleteResponse } from '../../../../types/courses/createCourse';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { Clip } from './MainModules_Step';
+import { LessonType } from './MainModules_Step';
 import { FaAudioDescription, FaVideo } from 'react-icons/fa6';
+import { AiOutlineCloseCircle } from 'react-icons/ai';
 
 interface MainModules_Step_Season1ModuleProps {
   setPartContainer: React.Dispatch<React.SetStateAction<{ name: string; value: string; modules: Modules[] }[]>>;
@@ -18,14 +19,12 @@ interface MainModules_Step_Season1ModuleProps {
   setPartNumber: React.Dispatch<React.SetStateAction<number>>;
   activeModule: { partIndex: number, moduleIndex: number, lessonIndex?: number };
   setActiveModule: React.Dispatch<React.SetStateAction<{ partIndex: number, moduleIndex: number, lessonIndex?: number }>>;
-  setmediaFile: React.Dispatch<React.SetStateAction<File | null>>;
-  setLesson: React.Dispatch<React.SetStateAction<{lessonTitle: string; lessonDescription: string; srcUrl: File | null | string; isPromoted: boolean; isFree: boolean, lessonType: string, clips: Clip[]}>>;
+  setLessons: React.Dispatch<React.SetStateAction<LessonType[]>>
 }
 
 const MainModules_Step_Season1Module: React.FC<MainModules_Step_Season1ModuleProps> = ({ setPartContainer, partContainer, partNumber, setPartNumber, activeModule,
   setActiveModule,
-  setmediaFile,
-  setLesson
+  setLessons,
 }) => {
   const [isModulePopUpOpen, setIsModulePopUpOpen] = useState(false);
   const [isSeasonPopUpOpen, setIsSeasonPopUpOpen] = useState(false);
@@ -123,18 +122,24 @@ const MainModules_Step_Season1Module: React.FC<MainModules_Step_Season1ModulePro
     if (selectedModule.name === 'Chapter' && selectedModule.lessons && selectedModule.lessons.length > 0) {
       // Highlight the first lesson of the Chapter module
       setActiveModule({ partIndex, moduleIndex, lessonIndex: 0 });
-      setmediaFile(null);
     } else {
       // Highlight the module itself
       setActiveModule({ partIndex, moduleIndex });
-      setmediaFile(null);
     } 
   };
 
   const handleLessonClick = (partIndex: number, moduleIndex: number, lessonIndex: number) => {
     setActiveModule({ partIndex, moduleIndex, lessonIndex });
-    setLesson({ lessonTitle: '', lessonDescription: '', srcUrl: 'https://example.com/leson1.mp4', isPromoted: false, isFree: false, lessonType: 'AUDIO', clips: [] });
-    setmediaFile(null);
+    const newLesson: LessonType = {
+      title: '',
+      description: '',
+      link: 'https://example.com/leson1.mp4',
+      isPromotional: false,
+      isFree: false,
+      channel: 'YOUTUBE',
+      clips: []
+    };
+    setLessons([newLesson]);
   };
 
   const handleDeleteModule = async (partIndex: number, moduleIndex: number) => {
@@ -672,7 +677,7 @@ const MainModules_Step_Season1Module: React.FC<MainModules_Step_Season1ModulePro
                     <IoIosArrowDown className='text-[#7C7C7C] text-lg' />
                   )}
                 </span>
-               {<button disabled={loading}><RiDeleteBin6Line onClick={() => handleDeletePart(partIndex)} className="p-1 text-2xl text-red-600 border border-red-600 rounded-sm" /></button>}
+               {<button disabled={loading}><AiOutlineCloseCircle onClick={() => handleDeletePart(partIndex)} className="text-red-600" /></button>}
               </div>
               {expandedParts[part.name] && (
                 <div className='ml-4'>
@@ -693,8 +698,8 @@ const MainModules_Step_Season1Module: React.FC<MainModules_Step_Season1ModulePro
                               )}
                             </span>
                           )}
-                          <RiDeleteBin6Line
-                            className="p-1 ml-2 text-2xl text-red-600 border border-red-600 rounded-sm"
+                          <AiOutlineCloseCircle
+                            className="text-red-600"
                             onClick={(e) => {
                               e.stopPropagation();
                               handleDeleteModule(partIndex, moduleIndex);
@@ -715,8 +720,8 @@ const MainModules_Step_Season1Module: React.FC<MainModules_Step_Season1ModulePro
                                   {lesson.type === 'Video Lesson' && <FaVideo className='mr-2 text-lg' />}
                                   <p>{lesson.type} {lesson.number}</p>
                                 </div>
-                                <RiDeleteBin6Line
-                                  className="p-1 ml-2 text-2xl text-red-600 border border-red-600 rounded-sm"
+                                <AiOutlineCloseCircle
+                                  className=" text-red-600"
                                   onClick={(e) => {
                                     e.stopPropagation();
                                     handleDeleteLesson(partIndex, moduleIndex, lessonIndex);

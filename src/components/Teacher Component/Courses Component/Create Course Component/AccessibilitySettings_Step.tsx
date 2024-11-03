@@ -14,7 +14,7 @@ const AccessibilitySettings_Step: React.FC<AccessibilitySettings_StepProps> = ({
   const [canAccessOtherCourse, setcanAccessOtherCourse] = useState(false);
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
   const [selectedStages, setSelectedStages] = useState<number[]>([]);
-  const [selectedTeacher, setSelectedTeacher] = useState<string | null>(null);
+  const [_, setSelectedTeacher] = useState<string | null>(null);
   const [loading, setloading] = useState<boolean>(false);
 
   // Teacher options for the dropdown
@@ -75,7 +75,7 @@ const AccessibilitySettings_Step: React.FC<AccessibilitySettings_StepProps> = ({
           studentAccessType: selectedTypes,
           academicStage: selectedStages,
           canAccessIfPurchased: canAccessOtherCourse,
-          broughtFromTeacherId: selectedTeacher,
+          broughtFromTeacherId: "cm2zq23sf0000126nbara6yem",
         }, {
           headers: {
             Authorization: `Bearer ${JSON.parse(token)}`,
