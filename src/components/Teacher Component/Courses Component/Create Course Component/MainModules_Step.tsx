@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import AudioEditor from './AudioEditor';
+// import AudioEditor from './AudioEditor';
 import MainModules_Step_RigthModule from './MainModules_Step_RigthModule';
 import MainModules_Step_Season1Module from './MainModules_Step_Season1Module';
 import AddModulePopUp from './AddAnotherPopUp'; // Import the popup component
@@ -7,8 +7,9 @@ import { Modules } from './CreateCourse';
 import Assignment_Step from './Assignment_Step';
 import Exam_Step from './Exam_Step';
 import axios from 'axios';
-import { CHAPTERResponse, ChapterResponse } from '../../../../types/courses/createCourse';
+import { ChapterReturnResponse, ChapterResponse } from '../../../../types/courses/createCourse';
 import Cookies from 'js-cookie';
+import { AiOutlineCloseCircle } from 'react-icons/ai';
 
 interface MainModules_StepProps {
   handleFinish: () => void;
@@ -22,10 +23,29 @@ export interface Clip {
   title: string;
 };
 
+export interface LessonType {
+  title: string;
+  description: string;
+  channel: string;
+  link: File | null | string;
+  isPromotional: boolean;
+  isFree: boolean;
+  clips: Clip[];
+}
+
 const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPartContainer, partContainer }) => {
   const [partNumber, setPartNumber] = useState(1);
-  const [mediaFile, setmediaFile] = useState<File | null>(null);
-  const [components, setComponents] = useState([{}]); 
+  const [checkType, setCheckType] = useState(false);
+  const [lessonType, setLessonType] = useState('VIDEO');
+  const [lessons, setLessons] = useState<LessonType[]>([{
+    title: '',
+    description: '',
+    link: 'https://example.com/leson1.mp4',
+    isPromotional: false,
+    isFree: false,
+    channel: 'YOUTUBE',
+    clips: []
+  }]); // Add this state to manage the list of lessons
   const [isPopupOpen, setIsPopupOpen] = useState(false); // State to manage popup visibility
   const [activeModule, setActiveModule] = useState<{ partIndex: number, moduleIndex: number, lessonIndex?: number }>({ partIndex: 0, moduleIndex: 0 });
   const [partId, setPartId] = useState<string | null>(null);
@@ -36,48 +56,79 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
   const [chapterModule, setChapterModule] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const [lesson, setLesson] = useState<{ lessonTitle: string, lessonDescription: string, srcUrl: File | null | string, isPromoted: boolean, isFree: boolean, lessonType: string, clips: Clip[] }>({
-    lessonTitle: '',
-    lessonDescription: '',
-    srcUrl: 'https://example.com/leson1.mp4',
-    isPromoted: false,
+  const [lessonData, _] = useState<LessonType>({
+    title: '',
+    description: '',
+    link: 'https://example.com/leson1.mp4',
+    isPromotional: false,
     isFree: false,
-    lessonType: 'AUDIO',
+    channel: 'YOUTUBE',
     clips: []
   });
 
-  const handleLessonChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value, type } = e.target;
-    if (type === 'checkbox') {
-      const { checked } = e.target as HTMLInputElement;
-      setLesson(prevLesson => ({
-        ...prevLesson,
-        [name]: checked
-      }));
-    } else {
-      setLesson(prevLesson => ({
-        ...prevLesson,
-        [name]: value
-      }));
-    }
-  };
+  // const [lesson, setLesson] = useState<{ lessonTitle: string, lessonDescription: string, srcUrl: File | null | string, isPromoted: boolean, isFree: boolean, lessonType: string, clips: Clip[] }>({
+  //   lessonTitle: '',
+  //   lessonDescription: '',
+  //   srcUrl: 'https://example.com/leson1.mp4',
+  //   isPromoted: false,
+  //   isFree: false,
+  //   lessonType: 'AUDIO',
+  //   clips: []
+  // });
 
-  const handleFileUpload = (file: File | null) => {
-    setmediaFile(file);
+  // const handleLessonChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  //   console.log(e.target);
+
+  //   const { name, value, type } = e.target;
+  //   if (type === 'checkbox') {
+  //     const { checked } = e.target as HTMLInputElement;
+  //     setLessonData(prevLesson => ({
+  //       ...prevLesson,
+  //       [name]: checked
+  //     }));
+  //   } else {
+  //     setLessonData(prevLesson => ({
+  //       ...prevLesson,
+  //       [name]: value
+  //     }));
+  //   }
+  // };
+  const handleLessonChange = (index: number, e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    console.log(e.target.name, e.target.value);
+    console.log("Name", e.target.name);
+    console.log("Value", e.target.value);
+        
+    const { name, value, type } = e.target;
+    setLessons(prevLessons => {
+      const updatedLessons = [...prevLessons];
+      if (type === 'checkbox') {
+        const { checked } = e.target as HTMLInputElement;
+        updatedLessons[index] = {
+          ...updatedLessons[index],
+          [name]: checked
+        };
+      } else {
+        updatedLessons[index] = {
+          ...updatedLessons[index],
+          [name]: value
+        };
+      }
+      return updatedLessons;
+    });
   };
 
   useEffect(() => {
     console.log('useEffect');
     console.log(`Module Id: ${chapterModule}`);
     console.log(assignmentId, examId, lessonId);
-    
+
     const fetchData = async () => {
-      await fetchAssignment();
+      await fetchLesson();
     };
     fetchData();
   }, [activeModule]);
 
-  const fetchAssignment = async () => {
+  const fetchLesson = async () => {
     const moduleKey = `chapterModule_${activeModule.partIndex}_${activeModule.moduleIndex}`;
     const moduleId = localStorage.getItem(moduleKey);
     console.log(`Module ID: ${moduleId}`);
@@ -86,28 +137,37 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
       setChapterModule(moduleId);
       console.log('hello');
 
-      const res: CHAPTERResponse = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/courses/modules/${moduleId}`, {
+      const res: ChapterReturnResponse = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/courses/modules/${moduleId}`, {
         headers: {
           Authorization: `Bearer ${Cookies.get('token')}`
         }
       });
-      console.log(res.data.chapters);
-      const lessonData = res.data.chapters[0].lessons;
-      const activeLesson = localStorage.getItem(`lessonId_${activeModule.partIndex}_${activeModule.moduleIndex}_${activeModule.lessonIndex}`);
-      const actualLesson = lessonData.find((lesson) => lesson.id === activeLesson);
-      console.log("ACUTAL LESSON", actualLesson);
+      
+      if (res.data.chapters && res.data.chapters.length > 0 && res.data.chapters[0].lessons) {
+        const lessonData = res.data.chapters[0].lessons;
+        console.log(lessonData);
+        const activeLesson = localStorage.getItem(`lessonId_${activeModule.partIndex}_${activeModule.moduleIndex}_${activeModule.lessonIndex}`);
+        const mediaSrcArray = lessonData.map((lesson) => lesson.mediaSrc).flat();
+        const actualLesson = mediaSrcArray.filter((lesson) => lesson.lessonId === activeLesson);
+        console.log("Actual Lesson"  ,actualLesson);
+        if (actualLesson.length > 0) {
+          setLessons(actualLesson);
+        }
 
-      if (actualLesson) {
-        const lesson = {
-          lessonTitle: actualLesson.title,
-          lessonDescription: actualLesson.description,
-          lessonType: actualLesson.type,
-          srcUrl: actualLesson.srcUrl,
-          isPromoted: actualLesson.isPromotional,
-          isFree: actualLesson.isFree,
-          clips: actualLesson.clips
-        };
-        setLesson(lesson);
+        // if (actualLesson) {
+        //   const lesson = {
+        //     title: actualLesson.title,
+        //     description: actualLesson.description,
+        //     link: actualLesson.link,
+        //     isPromotional: actualLesson.isPromotional,
+        //     channel: actualLesson.channel,
+        //     isFree: actualLesson.isFree,
+        //     clips: actualLesson.clips
+        //   };
+        //   setLessons([lesson]);
+        // }
+      } else {
+        console.error("No chapters or lessons found in response");
       }
     }
   };
@@ -184,16 +244,27 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
     if (lessonIndex !== undefined && lessonIndex < currentModule.lessons!.length - 1) {
       // Move to the next lesson in the current module
       setActiveModule({ partIndex, moduleIndex, lessonIndex: lessonIndex + 1 });
-      setLesson({ lessonTitle: '', lessonDescription: '', srcUrl: 'https://example.com/leson1.mp4', isPromoted: false, isFree: false, lessonType: 'AUDIO', clips: [] });
-      setmediaFile(null);
+      const newLesson: LessonType = {
+        title: '',
+        description: '',
+        link: 'https://example.com/leson1.mp4',
+        isPromotional: false,
+        isFree: false,
+        channel: 'YOUTUBE',
+        clips: []
+      };
+      setLessons([newLesson]);
+      console.log(lessons);
     } else {
       // Move to the next module if no more lessons
       handleNextModule();
-      setmediaFile(null);
     }
   };
 
   const handleAddLesson = (lessonType: string, chapterName: string) => {
+    setCheckType(lessonType === 'Video Lesson');
+    const type = lessonType === 'Video Lesson' ? 'VIDEO' : 'AUDIO';
+    setLessonType(type);
     setPartContainer(prevState => {
       const newPartContainer = [...prevState];
 
@@ -261,9 +332,14 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
       .map(module => `${module.name} ${module.number}`)
     : [];
 
-    const addComponent = () => {
-      setComponents([...components, {}]); // Adds a new empty object to represent the new component
-    };
+  const handleAddVideo = () => {
+    setLessons([...lessons, lessonData]);
+  };
+
+  const handleDeleteLesson = (index: number) => {
+    setLessons((prevLessons) => prevLessons.filter((_, i) => i !== index));
+  };
+
   const createChapter = async (partIndex: number, moduleIndex: number) => {
     try {
       setLoading(true);
@@ -288,6 +364,16 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
         localStorage.setItem(chapterKey, res.data.id);
         localStorage.setItem('chapterCount', (chapterCount + 1).toString());
         setChapterId(res.data.id);
+        const newLesson: LessonType = {
+          title: '',
+          description: '',
+          link: 'https://example.com/leson1.mp4',
+          isPromotional: false,
+          isFree: false,
+          channel: 'YOUTUBE',
+          clips: []
+        };
+        setLessons([newLesson]);
       } else {
         console.error('Failed to create chapter');
       }
@@ -354,31 +440,33 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
     }
   }, [activeModule]);
 
-  const validateForm = () => {
-    return lesson.lessonTitle.length > 0 && lesson.lessonDescription.length > 0;
-  };
+  // const validateForm = () => {
+  //   return lesson.lessonTitle.length > 0 && lesson.lessonDescription.length > 0;
+  // };
 
   const handleSave = async () => {
-    if (!validateForm()) {
-      return;
-    }
-    console.log(chapterId);
+    // if (!validateForm()) {
+    //   return;
+    // }
+    console.log(lessonType);
+    console.log(lessons);
 
     try {
       setLoading(true);
       const courseId = localStorage.getItem('courseId');
       const lessonId = localStorage.getItem(`lessonId_${activeModule.partIndex}_${activeModule.moduleIndex}_${activeModule.lessonIndex}`);
       if (lessonId) {
-        console.log(lesson);
+        console.log(lessons);
 
         await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/courses/lesson/${lessonId}`, {
-          title: lesson.lessonTitle,
-          description: lesson.lessonDescription,
-          srcUrl: 'https://example.com/leson1.mp4',
-          isPromoted: lesson.isPromoted,
-          isFree: lesson.isFree,
-          type: lesson.lessonType,
-          clips: lesson.clips
+          // title: lesson.lessonTitle,
+          // description: lesson.lessonDescription,
+          // srcUrl: 'https://example.com/leson1.mp4',
+          // isPromoted: lesson.isPromoted,
+          // isFree: lesson.isFree,
+          // type: lesson.lessonType,
+          // clips: lesson.clips
+          mediaSources: lessons
         }, {
           headers: {
             Authorization: `Bearer ${Cookies.get('token')}`
@@ -386,13 +474,15 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
         });
       } else {
         const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/courses/${courseId}/parts/${partId}/modules/chapter/${chapterId}/lesson`, {
-          title: lesson.lessonTitle,
-          description: lesson.lessonDescription,
-          srcUrl: "https://example.com/leson1.mp4",
-          isPromoted: lesson.isPromoted,
-          isFree: lesson.isFree,
-          type: lesson.lessonType,
-          clips: lesson.clips
+          // title: lesson.lessonTitle,
+          // description: lesson.lessonDescription,
+          // srcUrl: "https://example.com/leson1.mp4",
+          // isPromoted: lesson.isPromoted,
+          // isFree: lesson.isFree,
+          // type: lesson.lessonType,
+          // clips: lesson.clips
+          type: lessonType,
+          mediaSources: lessons
         }, {
           headers: {
             Authorization: `Bearer ${Cookies.get('token')}`
@@ -435,22 +525,23 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
   }
 
   const handlefinish = async () => {
-    if (!validateForm()) {
-      return;
-    }
+    // if (!validateForm()) {
+    //   return;
+    // }
     try {
       setLoading(true);
       const courseId = localStorage.getItem('courseId');
       const lessonId = localStorage.getItem(`lessonId_${activeModule.partIndex}_${activeModule.moduleIndex}_${activeModule.lessonIndex}`);
       if (lessonId) {
         await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/courses/lesson/${lessonId}`, {
-          title: lesson.lessonTitle,
-          description: lesson.lessonDescription,
-          srcUrl: 'https://example.com/leson1.mp4',
-          isPromoted: lesson.isPromoted,
-          isFree: lesson.isFree,
-          type: lesson.lessonType,
-          clips: lesson.clips
+          // title: lesson.lessonTitle,
+          // description: lesson.lessonDescription,
+          // srcUrl: 'https://example.com/leson1.mp4',
+          // isPromoted: lesson.isPromoted,
+          // isFree: lesson.isFree,
+          // type: lesson.lessonType,
+          // clips: lesson.clips
+          mediaSources: lessons
         }, {
           headers: {
             Authorization: `Bearer ${Cookies.get('token')}`
@@ -458,13 +549,15 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
         });
       } else {
         const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/courses/${courseId}/parts/${partId}/modules/chapter/${chapterId}/lesson`, {
-          title: lesson.lessonTitle,
-          description: lesson.lessonDescription,
-          srcUrl: 'https://example.com/leson1.mp4',
-          isPromoted: lesson.isPromoted,
-          isFree: lesson.isFree,
-          type: lesson.lessonType,
-          clips: lesson.clips
+          // title: lesson.lessonTitle,
+          // description: lesson.lessonDescription,
+          // srcUrl: 'https://example.com/leson1.mp4',
+          // isPromoted: lesson.isPromoted,
+          // isFree: lesson.isFree,
+          // type: lesson.lessonType,
+          // clips: lesson.clips
+          type: lessonType,
+          mediaSources: lessons
         }, {
           headers: {
             Authorization: `Bearer ${Cookies.get('token')}`
@@ -499,9 +592,8 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
         {/* Left Section */}
         <div className='lg:w-[30%] w-full bg-cardBg py-4 px-6 border border-neutral-300'>
           <MainModules_Step_Season1Module setPartContainer={setPartContainer} partContainer={partContainer} partNumber={partNumber} setPartNumber={setPartNumber} activeModule={activeModule}
-            setmediaFile={setmediaFile}
             setActiveModule={setActiveModule}
-            setLesson={setLesson}
+            setLessons={setLessons}
           /> {/* Initial left module */}
         </div>
 
@@ -512,7 +604,7 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
             <>
               {!currentChapterHasLessons && (
                 <div className='flex items-center gap-2 mt-4'>
-                  
+
                   <button
                     className='flex items-center gap-2 px-6 py-2 font-semibold text-white border rounded-lg bg-primary'
                     onClick={handleAddAnother} // Open the popup when clicked
@@ -523,14 +615,27 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
               )}
               {currentChapterHasLessons && (
                 <>
-                  {components.map((_, index) => (
-                <div key={index}>
-                      
-                      <MainModules_Step_RigthModule handleLessonChange={handleLessonChange} lesson={lesson} handleFileUpload={handleFileUpload} />
-                  <AudioEditor mediaFile={mediaFile} setLesson={setLesson} lessonClips={lesson.clips} />
-                </div>
-                  
-                ))}
+                  {lessons.map((lesson, index) => (
+                   <div key={index}>
+                   {lessons.length > 1 && (
+                     <button
+                       disabled={loading}
+                       onClick={() => handleDeleteLesson(index)}
+                     >
+                       <AiOutlineCloseCircle className="text-red-600" />
+                     </button>
+                   )}
+                   <MainModules_Step_RigthModule
+                     lesson={lesson}
+                     index={index}
+                     handleLessonChange={handleLessonChange}
+                     setLessons={setLessons}
+                     activeModule={activeModule}
+                   />
+                   {/* <AudioEditor mediaFile={mediaFile} setLesson={setLesson} lessonClips={lesson.clips} /> */}
+                 </div>
+
+                  ))}
 
                   <div className='flex flex-wrap items-center gap-2 mt-4'>
                     <button
@@ -540,7 +645,7 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
                     >
                       Add Lesson
                     </button>
-                    <button onClick={addComponent} className='flex items-center gap-2 px-6 py-2 font-semibold text-white border rounded-lg bg-primary'>Add Video</button>
+                    {checkType && <button onClick={handleAddVideo} className='flex items-center gap-2 px-6 py-2 font-semibold text-white border rounded-lg bg-primary'>Add Video</button>}
                     {hasNextLesson && (
                       <>
                         <button
@@ -557,7 +662,7 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
                         >
                           Save
                         </button>
-                       
+
                       </>
                     )}
                     {!hasNextLesson && !isLastModule && (
@@ -602,7 +707,7 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
             </>
           )}
           {activeModuleType === 'Assignment' && (
-            <Assignment_Step handleNextModule={handleNextModule} isLastModule={isLastModule} handleFinish={handleFinish} handleFileUpload={handleFileUpload} partId={partId} activeModule={activeModule} setAssignmentId={setAssignmentId} />
+            <Assignment_Step handleNextModule={handleNextModule} isLastModule={isLastModule} handleFinish={handleFinish} partId={partId} activeModule={activeModule} setAssignmentId={setAssignmentId} />
           )}
           {activeModuleType === 'Exam' && (
             <Exam_Step handleNextModule={handleNextModule} isLastModule={isLastModule} handleFinish={handleFinish} partId={partId} activeModule={activeModule} setExamId={setExamId} />

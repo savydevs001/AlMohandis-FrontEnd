@@ -113,36 +113,58 @@ export type EXAMResponse = {
     }
 }
 
-export type CHAPTERResponse = {
-    data: {
-        id: string,
-        type: 'ASSIGNMENT' | 'EXAM' | 'CHAPTER'
-        partId: string,
-        courseId: string,
-        chapters: [
-            {
-                id: string,
-                moduleId: string,
-                lessons: [
-                    {
-                        id: string,
-                        title: string,
-                        description: string,
-                        type: string,
-                        srcUrl: string,
-                        isFree: boolean,
-                        isPromotional: boolean,
-                        chapterId: string,
-                        clips: [
-                            {
-                                start: number,
-                                end: number,
-                                title: string,
-                            }
-                        ],
-                    }
-                ]
-            }
-        ],
-    }
-}
+// Define types for the individual components of the structure
+
+// Media Source Type
+export interface MediaSource {
+    id: string;
+    link: string;
+    title: string;
+    description: string;
+    lessonId: string;
+    channel: string;
+    isFree: boolean;
+    isPromotional: boolean;
+    clips: Clip[];
+  }
+  
+  // Clip Type
+  interface Clip {
+    id: string;
+    title: string;
+    start: number;
+    end: number;
+    mediaSrcId: string;
+  }
+  
+  // Lesson Type
+  export interface Lesson {
+    id: string;
+    type: string;
+    chapterId: string;
+    mediaSrc: MediaSource[];
+  }
+  
+  // Chapter Type
+  interface Chapter {
+    id: string;
+    moduleId: string;
+    lessons: Lesson[];
+  }
+  
+  // Main Chapter Response Type
+  export interface ChapterReturnResponse {
+   data: {
+    id: string;
+    type: string;
+    partId: string;
+    courseId: string;
+    isPromoted: boolean;
+    isPromotional: boolean;
+    exams: unknown[]; // Specify more detail if exams have a known structure
+    assignments: unknown[]; // Specify more detail if assignments have a known structure
+    chapters: Chapter[];
+    attachments: unknown[]; // Specify more detail if attachments have a known structure
+   }
+  }
+  

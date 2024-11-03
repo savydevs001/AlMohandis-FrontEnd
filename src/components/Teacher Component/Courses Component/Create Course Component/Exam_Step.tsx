@@ -171,8 +171,8 @@ const Exam_Step: React.FC<Exam_StepProps> = ({ handleNextModule, isLastModule, h
     <div className='mt-0 h-fit'>
       <div className='flex max-w-4xl gap-3 px-4 mx-auto h-fit bg-cardBg'>
         <div className='flex-1 space-x-2'>
-          <label className="font-semibold">IsFree</label>
-          <input className='w-4 h-4 rounded-md' type="checkbox" checked={isFree} onChange={() => setIsFree((prev) => !prev)} />
+        <p className='text-sm text-[#7C7C7C]'>Available for Free</p>
+          <input className='w-3 h-3 rounded-sm text-primary' type="checkbox" checked={isFree} onChange={() => setIsFree((prev) => !prev)} />
           <div className="mt-3 space-y-1">
             <label className="font-semibold" htmlFor="">Title</label>
             <input

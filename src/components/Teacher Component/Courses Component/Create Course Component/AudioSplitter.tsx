@@ -16,11 +16,12 @@ interface AudioSplitterProps {
   }[]>>,
   removeClip: (index: number) => void;
   mediaFile: File | null | undefined;
-  setLesson: React.Dispatch<React.SetStateAction<{ lessonTitle: string; lessonDescription: string; srcUrl: File | null | string; isPromoted: boolean; isFree: boolean, lessonType: string, clips: Clip[] }>>;
-  onSliderChange: (value: number) => void;
+  setLessons: React.Dispatch<React.SetStateAction<{ title: string; description: string; link: File | null | string; isPromotional: boolean; isFree: boolean, channel: string, clips: Clip[] }[]>>;
+  indexClip: number;
+  // onSliderChange: (value: number) => void;
 }
 
-const AudioSplitter: React.FC<AudioSplitterProps> = ({ rangeValues, setRangeValues, duration, handleSplit, splitClips, setSplitClips, removeClip, mediaFile, setLesson, onSliderChange }) => {
+const AudioSplitter: React.FC<AudioSplitterProps> = ({ rangeValues, setRangeValues, duration, handleSplit, splitClips, setSplitClips, removeClip, mediaFile, setLessons, indexClip }) => {
  // Handle range slider changes (Start and End times)
   // const handleRangeChange = (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
   //   const value = parseFloat(event.target.value);
@@ -35,9 +36,9 @@ const handleRangeChange = (event: React.ChangeEvent<HTMLInputElement>, index: nu
   updatedRange[index] = value;
   setRangeValues(updatedRange);
 
-  // Update video preview
-  if (index === 0) onSliderChange(value); // Start range slider
-  else onSliderChange(updatedRange[1]); // End range slider
+  // // Update video preview
+  // if (index === 0) onSliderChange(value); // Start range slider
+  // else onSliderChange(updatedRange[1]); // End range slider
 };
 
   return (
@@ -90,7 +91,7 @@ const handleRangeChange = (event: React.ChangeEvent<HTMLInputElement>, index: nu
           <div>
             {
               splitClips.map((clip, index) => (
-                <div className='flex items-center gap-2'>
+                <div className='flex items-center gap-2' key={index}>
                   <div className='flex flex-col space-y-1'>
                     <label className='text-sm font-semibold' htmlFor="">Clip {index + 1} Title</label>
                     <input className='rounded-md w-36 bg-cardBg' type="text" placeholder='Title of Clip'
@@ -99,10 +100,17 @@ const handleRangeChange = (event: React.ChangeEvent<HTMLInputElement>, index: nu
                         const updatedClips = [...splitClips];
                         updatedClips[index].title = e.target.value;
                         setSplitClips(updatedClips);
-                        setLesson((prevLesson) => {
-                          const updatedLesson = { ...prevLesson };
-                          updatedLesson.clips = updatedClips.map((clip) => ({ start: clip.start, end: clip.end, title: clip.title }));
-                          return updatedLesson;
+                        setLessons((prevLessons) => {
+                          const updatedLessons = [...prevLessons];
+                          updatedLessons[indexClip] = {
+                            ...updatedLessons[indexClip],
+                            clips: updatedClips.map((clip) => ({
+                              start: clip.start,
+                              end: clip.end,
+                              title: clip.title,
+                            })),
+                          };
+                          return updatedLessons;
                         });
                       }} />
                   </div>
@@ -115,7 +123,7 @@ const handleRangeChange = (event: React.ChangeEvent<HTMLInputElement>, index: nu
                   </div>
                   <div className='flex items-center justify-end gap-2 mt-12 border-b border-b-primary '>
                     <IoQrCodeOutline className='text-sm text-primary' />
-                    <a href="" className='text-sm text-primary'>Export</a>
+                    <p className='text-sm text-primary'>Export</p>
                   </div>
                   <IoClose className='text-sm text-primary cursor-pointer' onClick={() => removeClip(index)} /> {/* Cross icon */}
                 </div>
