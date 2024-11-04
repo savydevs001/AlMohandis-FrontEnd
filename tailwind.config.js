@@ -16,6 +16,7 @@ export default {
         'txtColor': '#fff',
         'paraColor': '#717171',
         'cardBg': '#efededca',
+        'pTag': '#7C7C7C'
       }
     },
     noScrollBar: {
