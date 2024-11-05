@@ -95,7 +95,10 @@ const MainModules_Step_Season1Module: React.FC<MainModules_Step_Season1ModulePro
     }
   }, [partContainer]);
   const handleOpenSeasonPopUp = () => setIsSeasonPopUpOpen(true);
-
+  const setLessonType = (type: string) => {
+    console.log(type);
+    localStorage.setItem('lessonType', type);
+  };
   const togglePartExpansion = (partName: string) => {
     setExpandedParts(prevState => ({
       ...prevState,
@@ -714,20 +717,23 @@ const MainModules_Step_Season1Module: React.FC<MainModules_Step_Season1ModulePro
                               className={` mb-2 p-2 cursor-pointer ${activeModule?.partIndex === partIndex && activeModule?.moduleIndex === moduleIndex && activeModule?.lessonIndex === lessonIndex ? 'border-l-4 border-l-secondary  bg-primary text-white' : ''}`}
                               onClick={() => handleLessonClick(partIndex, moduleIndex, lessonIndex)}
                             >
-                              <div className='flex items-center justify-between'>
-                                <div className='flex items-center'>
-                                  {lesson.type === 'Audio Lesson' && <FaAudioDescription className='mr-2 text-lg' />}
-                                  {lesson.type === 'Video Lesson' && <FaVideo className='mr-2 text-lg' />}
-                                  <p>{lesson.type} {lesson.number}</p>
-                                </div>
-                                <AiOutlineCloseCircle
-                                  className=" text-red-600"
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    handleDeleteLesson(partIndex, moduleIndex, lessonIndex);
-                                  }}
-                                />
-                              </div>
+                           <div
+  className='flex  items-center justify-between'
+  onClick={() => setLessonType(lesson.type)} // Wrap in an anonymous function
+>
+  <div className='flex items-center'>
+    {lesson.type === 'Audio Lesson' && <FaAudioDescription className='mr-2 text-lg' />}
+    {lesson.type === 'Video Lesson' && <FaVideo className='mr-2 text-lg' />}
+    <p className=''>{lesson.type} {lesson.number}</p>
+  </div>
+  <AiOutlineCloseCircle
+    className="text-red-600"
+    onClick={(e) => {
+      e.stopPropagation();
+      handleDeleteLesson(partIndex, moduleIndex, lessonIndex);
+    }}
+  />
+</div>
                             </div>
                           ))}
                         </div>

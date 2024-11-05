@@ -4,68 +4,74 @@ import { RiContractLeftLine } from "react-icons/ri";
 import axios from 'axios';
 import { CreateCourseResponse } from '../../../../types/courses/createCourse';
 import Cookies from 'js-cookie';
-// import { RxPinRight } from "react-icons/rx";
 
 interface BasicInfo_StepProps {
-  // formData: { title: string; description: string };
-  // handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   handleNext: () => void;
 }
 
 const BasicInfo_Step: React.FC<BasicInfo_StepProps> = ({ handleNext }) => {
-
-  const [title, settitle] = useState<string>("");
-  const [description, setdescription] = useState<string>("");
-  const [loading, setloading] = useState<boolean>(false);
-  // const [imageSrc, setimageSrc] = useState<string>('dsdsdsd');
+  const [title, setTitle] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [file, setFile] = useState<File | null>(null); // State to hold the uploaded file
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    settitle(e.target.value);
+    setTitle(e.target.value);
   };
 
   const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setdescription(e.target.value);
+    setDescription(e.target.value);
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setFile(e.target.files[0]); // Set the selected file
+    }
   };
 
   const validate = () => {
-    if (title === "" || description === "") {
-      return false;
-    }
-    return true;
+    return title !== "" && description !== "" && file !== null; // Ensure file is also selected
   };
 
   const handleSubmit = async () => {
     if (!validate()) {
       return;
     }
-    // make the api call here
-    setloading(true);
+  
+    setLoading(true);
     const token = Cookies.get('token');
-    console.log(token);
     
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('description', description);
+    
+    // Check if file is not null before appending
+    if (file) {
+      formData.append('file', file); // Append the file to the FormData
+    } else {
+      console.error("No file selected");
+      setLoading(false);
+      return; // Exit if no file is selected
+    }
+  
     try {
-      const res : CreateCourseResponse = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/courses/create`, {
-        title,
-        description,
-        imageSrc: 'dadasdasd'
-      }, {
+      const res: CreateCourseResponse = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/courses/create`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data', // Set content type for file upload
         },
       });
       
       if (res.data.id) {
-        console.log(res.data.id);
-
         localStorage.setItem("courseId", res.data.id);
         handleNext();
       } else {
-        console.error("Failed");
+        console.error("Failed to create course");
       }
     } catch (error) {
-      console.error("Failed to create course");
+      console.error("Failed to create course", error);
     } finally {
-      setloading(false);
+      setLoading(false);
     }
   };
 
@@ -97,19 +103,29 @@ const BasicInfo_Step: React.FC<BasicInfo_StepProps> = ({ handleNext }) => {
           />
         </div>
         <div className="flex flex-col items-center">
-  <label className="relative cursor-pointer">
-    <input type="file" className="absolute w-full h-full opacity-0 cursor-pointer" />
-    <div className="px-4 py-2 text-gray-700 bg-white border-2 border-gray-400 border-dotted rounded-md hover:bg-gray-100">
-      Choose File
-    </div>
-  </label>
-</div>
+          <label className="relative cursor-pointer">
+            <input 
+              type="file" 
+              className="absolute w-full h-full opacity-0 cursor-pointer" 
+              onChange={handleFileChange} // Handle file change
+            />
+            <div className="px-4 py-2 text-gray-700 bg-white border-2 border-gray-400 border-dotted rounded-md hover:bg-gray-100">
+              {file ? file.name : "Choose File"}
+            </div>
+          </label>
+        </div>
       
         <div className='flex items-center gap-2'>
           <NavLink className='flex items-center gap-2 px-6 py-2 font-semibold border rounded-lg border-primary text-primary' to={'/courses'}>
             <RiContractLeftLine />
-            Back</NavLink>
-          <button className='flex items-center gap-2 px-6 py-2 font-semibold text-white border-2 rounded-lg bg-primary' disabled={loading} onClick={handleSubmit}>Next
+            Back
+          </NavLink>
+          <button 
+ className='flex items-center gap-2 px-6 py-2 font-semibold text-white border-2 rounded-lg bg-primary' 
+            disabled={loading} 
+            onClick={handleSubmit}
+          >
+            Next
           </button>
         </div>
       </div>

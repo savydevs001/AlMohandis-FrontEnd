@@ -60,18 +60,21 @@ function StudentCardContent() {
         courseTitle="Course 1"
         instructorName="Instructor 1"
         progress={75}
+        courseId="dcdv"
       />
       <CourseCard 
         img={img}
         courseTitle="Course 2"
         instructorName="Instructor 2"
         progress={60}
+        courseId="dcdv"
       />
       <CourseCard 
         img={img}
         courseTitle="Course 3"
         instructorName="Instructor 3"
         progress={50}
+        courseId="dcdv"
       />
     </div>
     </div>

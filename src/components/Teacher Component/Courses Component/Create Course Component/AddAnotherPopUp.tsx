@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 
 interface AddAnotherPopUpProps {
   onClose: () => void; // Function to close the popup
@@ -32,6 +32,10 @@ const AddAnotherPopUp: React.FC<AddAnotherPopUpProps> = ({ onClose, onAddLesson,
   };
 
   const lessonOptions = ["Audio Lesson", "Video Lesson"];
+
+  useEffect(() => {
+    console.log("Selected Lesson type is: ", selectedLesson);
+  }, [availableChapters]);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">

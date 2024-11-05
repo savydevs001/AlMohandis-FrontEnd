@@ -200,13 +200,14 @@ const MainModules_Step_RigthModule: React.FC<MainModules_Step_RigthModuleProps> 
   };
 
   return (
-    <div>
+    <div className="">
       <div className='flex flex-col justify-between w-full gap-4 lg:flex-row'>
         <div className='space-y-4 w-[90%]'>
           <div>
             <label className="font-semibold">Title</label>
             <input className='w-full py-2 rounded-md' name="title" type="text" placeholder='Lesson 1 Title' value={lesson.title} onChange={(e) => handleLessonChange(index, e)} />
           </div>
+
           <div className='space-y-4'>
             <div className='mt-3 space-y-2'>
               <div className='flex items-center gap-3'>
@@ -227,7 +228,7 @@ const MainModules_Step_RigthModule: React.FC<MainModules_Step_RigthModuleProps> 
       </div>
 
       {/* Lesson File and Attachment Upload Sections */}
-      <div className='space-y-4'>
+      <div className='space-y-4 '>
         <div className='w-[100%]'>
           <label className='font-semibold'>Lesson File</label>
           <div className='w-[100%] border border-dashed border-primary p-2 text-center text-primary space-y-4'>
@@ -271,7 +272,7 @@ const MainModules_Step_RigthModule: React.FC<MainModules_Step_RigthModuleProps> 
                     onClick={handleClick}
                   // onClick={onNewUploadClick} // Opens file selection dialog
                   >
-                    New Upload
+                    Confirm Upload
                   </button>
                 </div>
                 {uploadProgress > 0 && (
@@ -290,7 +291,7 @@ const MainModules_Step_RigthModule: React.FC<MainModules_Step_RigthModuleProps> 
       </div>
 
       {/* Audio Editor Section */}
-      <div className='flex flex-col' style={{ padding: '10px', maxWidth: '800px', margin: '0 auto' }}>
+      <div className='flex flex-col border-2 border-red-500' style={{ padding: '10px', maxWidth: '800px', margin: '0 auto' }}>
         <div className='flex flex-col gap-2'>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }}>
             {/* Conditionally render the play/pause button and time display for audio only */}
@@ -323,9 +324,9 @@ const MainModules_Step_RigthModule: React.FC<MainModules_Step_RigthModuleProps> 
 
             {/* Render audio waveform if not a video, else render video player */}
             {!isVideo ? (
-              <div ref={waveformRef} style={{ width: '100%', height: '70px', background: '#f3f3f3' }}></div>
+              <div ref={waveformRef} style={{ width: '100%', border:"",height: '70px', background: '#f3f3f3' }}></div>
             ) : (
-              <div className='video-container w-[70%] h-[10%] rounded-lg'>
+              <div className='video-container border-2 border-red-500 w-[70%] h-[10%] rounded-lg'>
                 <video
                   ref={videoRef}
                   controls={false}
