@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 
 interface CourseMaterialProps {
   course: {
     parts: {
       modules: {
+        type: 'CHAPTER' | 'ASSIGNMENT' | 'EXAM'; 
         chapters: {
           id: string;
           type: 'VIDEO' | 'AUDIO';
@@ -32,6 +33,9 @@ interface CourseMaterialProps {
 
 const CourseMaterial: React.FC<CourseMaterialProps> = ({ course, onItemSelect, onAssignmentSelect }) => {
   const [activeItem, setActiveItem] = useState<string | null>(null);
+  const [chapters, setChapters] = useState<any[]>([]);
+  const [assignments, setAssignments] = useState<any[]>([]);
+  const [exams, setExams] = useState<any[]>([]);
 
   const handleItemClick = (item: string | null) => {
     setActiveItem(item);
@@ -40,71 +44,67 @@ const CourseMaterial: React.FC<CourseMaterialProps> = ({ course, onItemSelect, o
 
   if (!course) return <div>No course data available.</div>;
 
+  useEffect(() => {
+    if (course) {
+      // Filter chapters, assignments, and exams
+      const filteredChapters = course.parts.flatMap(part => 
+        part.modules.filter(module => module.type === 'CHAPTER').flatMap(module => module.chapters)
+      );
+
+      const filteredAssignments = course.parts.flatMap(part => 
+        part.modules.filter(module => module.type === 'ASSIGNMENT').flatMap(module => module.assignments)
+      );
+
+      const filteredExams = course.parts.flatMap(part => 
+        part.modules.filter(module => module.type === 'EXAM').flatMap(module => module.exams)
+      );
+
+      // Set the state with filtered data
+      setChapters(filteredChapters);
+      setAssignments(filteredAssignments);
+      setExams(filteredExams);
+    }
+  }, [course]);
+
+
   return (
     <div className="flex flex-col items-start w-full p-5 lg:items-center">
       <h1 className="text-start text-xl font-semibold text-[#333333]">Course Material</h1>
       <ul className="text-start text-[#7C7C7C] space-y-3 mt-4 w-[70%] list-disc list-inside">
-        {course.parts.map((part) => 
-          part.modules.map((module, moduleIndex) => (
-            <div key={moduleIndex}>
-              {/* Render chapters only if they exist */}
-              {module.chapters.length > 0 && (
-                <>
-                  <h2 className="mt-4 text-lg font-semibold">Chapters</h2>
-                  {module.chapters.map((chapter, chapterIndex) => (
-                    <div key={chapter.id}>
-                      {chapter.lessons.length > 0 ? (
-                        <li
-                          className={`text-xs w-full cursor-pointer p-2 ${activeItem === `Chapter ${chapterIndex + 1}` ? 'bg-[#D6D6D654] border-l-4 border-primary' : ''}`}
-                          onClick={() => handleItemClick(`Chapter ${chapterIndex + 1}`)}
-                          style={{ display: 'block', whiteSpace: 'nowrap' }}
-                        >
-                          Chapter {chapterIndex + 1}
-                        </li>
-                      ) : (
-                        <div className="w-full p-2 text-gray-500">No lessons.</div>
-                      )}
-                    </div>
-                  ))}
-                </>
-              )}
-              
-              {/* Render assignments only if they exist */}
-              {module.assignments.length > 0 && (
-                <>
-                  <h2 className="mt-4 text-lg font-semibold">Assignments</h2>
-                  {module.assignments.map((assignment) => (
-                    <li
-                      key={assignment.id}
-                      className={`text-xs w-full cursor-pointer p-2 ${activeItem === assignment.title ? 'bg-[#D6D6D654] border-l-4 border-primary' : ''}`}
-                      onClick={() => onAssignmentSelect(assignment.title)} // Handle assignment click
-                      style={{ display: 'block', whiteSpace: 'nowrap' }}
-                    >
-                      {assignment.title.slice(0, 20)}.. {assignment.isFree ? "(Free)" : ""}
-                    </li>
-                  ))}
-                </>
-              )}
+      <h2 className="mt-4 text-lg font-semibold">Chapters</h2>
+      {chapters.map((chapter, index) => (
+              <li
+                key={chapter.id}
+                className={`text-xs w-full cursor-pointer p-2 ${activeItem === `Chapter ${index + 1}` ? 'bg-[#D6D6D654] border-l-4 border-primary' : ''}`}
+                onClick={() => handleItemClick(`Chapter ${index + 1}`)}
+                style={{ display: 'block', whiteSpace: 'nowrap' }}
+              >
+                Chapter {index + 1}
+              </li>
+            ))}
 
-              {/* Render exams only if they exist */}
-              {module.exams.length > 0 && (
-                <>
-                  <h2 className="mt-4 text-lg font-semibold">Exams</h2>
-                  {module.exams.map((exam, index) => (
-                    <li
-                      key={`exam-${index}`}
-                      className={`text-xs w-full cursor-pointer p-2 ${activeItem === exam.title ? 'bg-[#D6D6D654] border-l-4 border-primary' : ''}`}
-                      onClick={() => handleItemClick(exam.title)}
-                      style={{ display: 'block', whiteSpace: 'nowrap' }}
-                    >
-                      {exam.title.slice(0, 20)}..
-                    </li>
-                  ))}
-                </>
-              )}
-            </div>
-          ))
-        )}
+            <h2 className="mt-4 text-lg font-semibold">Assignments</h2>
+            {assignments.map((assignment) => (
+              <li
+                key={assignment.id}
+                className={`text-xs w-full cursor-pointer p-2 ${activeItem === assignment.title ? 'bg-[#D6D6D654] border-l-4 border-primary' : ''}`}
+ onClick={() => onAssignmentSelect(assignment.title)} // Handle assignment click
+                style={{ display: 'block', whiteSpace: 'nowrap' }}
+              >
+                {assignment.title.slice(0, 20)}.. {assignment.isFree ? "(Free)" : ""}
+              </li>
+            ))}
+            <h2 className="mt-4 text-lg font-semibold">Exams</h2>
+            {exams.map((exam, index) => (
+              <li
+                key={`exam-${index}`}
+                className={`text-xs w-full cursor-pointer p-2 ${activeItem === exam.title ? 'bg-[#D6D6D654] border-l-4 border-primary' : ''}`}
+                onClick={() => handleItemClick(exam.title)}
+                style={{ display: 'block', whiteSpace: 'nowrap' }}
+              >
+                {exam.title.slice(0, 20)}..
+              </li>
+            ))}
       </ul>
       <div className="flex flex-col items-start justify-center mt-4 space-y-4">
         

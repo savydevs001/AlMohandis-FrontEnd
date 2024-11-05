@@ -32,6 +32,7 @@ interface Exam {
 }
 
 interface Module {
+  type: 'CHAPTER' | 'ASSIGNMENT' | 'EXAM';
   chapters: Chapter[];
   assignments: Assignment[];
   exams: Exam[];
