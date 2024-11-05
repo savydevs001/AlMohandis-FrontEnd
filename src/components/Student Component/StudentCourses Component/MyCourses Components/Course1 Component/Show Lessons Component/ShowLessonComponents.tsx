@@ -1,15 +1,19 @@
-// import React from 'react'
+import React from 'react';
+import ShowAssignment from "./Show Content Component/ShowAssignmentComponent/ShowAssignment";
+import ShowChapter from "./ShowChapter";
+import ShowLessonHeader from "./ShowLessonHeader";
 
-import ShowChapter from "./ShowChapter"
-import ShowLessonHeader from "./ShowLessonHeader"
-
-function ShowLessonComponents() {
-  return (
-    <div className="p-5">
-     <ShowLessonHeader/>
-     <ShowChapter/>
-    </div>
-  )
+interface ShowLessonComponentsProps {
+  activeSection: string;
 }
 
-export default ShowLessonComponents
+const ShowLessonComponents: React.FC<ShowLessonComponentsProps> = ({ activeSection }) => {
+  return (
+    <div className="p-5">
+    <ShowLessonHeader />
+    {activeSection === "Assignments" ? <ShowAssignment /> : <ShowChapter />} 
+  </div>
+  );
+};
+
+export default ShowLessonComponents;

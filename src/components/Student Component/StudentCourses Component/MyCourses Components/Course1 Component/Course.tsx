@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom'; // Import useParams
-import Cookies from 'js-cookie'; // Import js-cookie
-import CourseMaterial from "./CourseMaterial";
+import  { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import Cookies from 'js-cookie';
 import ShowActivity from "./Show Lessons Component/ShowActivity";
 import ShowLessonComponents from "./Show Lessons Component/ShowLessonComponents";
 import StudentDashboardHeader from "./Show Lessons Component/StudentDashboardHeader";
+import CourseMaterial from './CourseMaterial';
 
 // Define the types for the course data
 interface Lesson {
@@ -13,7 +13,7 @@ interface Lesson {
 
 interface Chapter {
   id: string;
-  type: 'VIDEO' | 'AUDIO'; // Match types with CourseMaterial
+  type: 'VIDEO' | 'AUDIO';
   duration: string;
   link: string;
   lessons: Lesson[];
@@ -42,18 +42,17 @@ interface Part {
 }
 
 interface Course {
-  title:string
+  title: string;
   parts: Part[];
 }
 
-// In your Course1 component
 function Course1() {
-  const { courseId } = useParams<{ courseId: string }>(); // Get courseId from URL params
+  const { courseId } = useParams<{ courseId: string }>();
   const [course, setCourse] = useState<Course | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  
-  // Retrieve the token from cookies
+  const [activeSection, setActiveSection] = useState<string>('Chapters'); // Track the active section
+
   const token = Cookies.get('token');
 
   useEffect(() => {
@@ -63,7 +62,7 @@ function Course1() {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`, // Include the token in the headers
+            'Authorization': `Bearer ${token}`,
           },
         });
 
@@ -73,7 +72,6 @@ function Course1() {
 
         const data: Course = await response.json();
         setCourse(data);
-        console.log(data);
       } catch (error: any) {
         setError(error.message);
       } finally {
@@ -82,36 +80,35 @@ function Course1() {
     };
 
     fetchCourseData();
-  }, [courseId, token]); // Add token to the dependency array
+  }, [courseId, token]);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <div className="flex-1">
-      <div>
-        <StudentDashboardHeader courseTitle={course?.title} />
-      </div>
+      <StudentDashboardHeader courseTitle={course?.title} />
       <div className="flex flex-col gap-4 mt-8 lg:flex-row">
         <div className="lg:w-[25%] w-[100%] flex flex-col lg:items-center items-start bg-white shadow-md">
-          <CourseMaterial course={course} />
+          <CourseMaterial 
+            course={course} 
+            onItemSelect={(item, section) => {
+              setActiveSection(section); // Set active section to Chapters or Exams
+              console.log(item, section);
+            }} 
+            onAssignmentSelect={(assignmentTitle) => {
+              setActiveSection("Assignments"); // Switch to Assignments when an assignment is selected
+              console.log(assignmentTitle);
+            }} 
+          />
         </div>
         <div className="lg:w-[50%] w-full bg-white shadow-md">
-          {course && <ShowLessonComponents />} 
+          {course && <ShowLessonComponents activeSection={activeSection} />} 
         </div>
         <div className="lg:w-[25%] w-full">
           <ShowActivity />
         </div>
       </div>
-      {/* Uncomment and use the Routes if needed */}
-      {/* <Routes>
-        <Route path="videoLesson" element={<VideoLesson />} />
-      </Routes> */}
     </div>
   );
 }

@@ -73,7 +73,7 @@ const StudentSidebar: React.FC = () => {
             ]}
           />
           <SidebarItem to="/liveLectures" icon={<RiLiveFill />} label="Live Lectures" />
-          <SidebarItem to="/assignments" icon={<MdAssignment />} label="Assignments" />
+          <SidebarItem to="/studentAssignments" icon={<MdAssignment />} label="Assignments" />
           <SidebarItem to="/professors" icon={<RiCalendarCheckFill />} label="Professors" />
           <SidebarItem to="/favorites" icon={<FaBookmark />} label="Favorites" />
           <SidebarItem to="/chat" icon={<BsCalendar2CheckFill />} label="Attendance" />

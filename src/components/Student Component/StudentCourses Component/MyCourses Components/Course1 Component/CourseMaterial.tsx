@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
 
-// Define the type for the active item
-type ActiveItem = string | null; // Allow any string for chapters, assignments, etc.
-
 interface CourseMaterialProps {
   course: {
     parts: {
@@ -14,28 +11,31 @@ interface CourseMaterialProps {
           link: string;
           lessons: {
             mediaSrc: string; 
-          }[];
-        }[];
+          }[]; 
+        }[]; 
         assignments: {
           id: string;
           title: string;
           moduleId: string;
           isFree: boolean;
-        }[];
+        }[]; 
         exams: {
           id: string;
           title: string;
-        }[];
-      }[];
-    }[];
-  } | null; // Course can be null initially
+        }[]; 
+      }[]; 
+    }[]; 
+  } | null; 
+  onItemSelect: (item: string | null, section: string) => void; // Prop for handling chapter selection
+  onAssignmentSelect: (assignmentTitle: string) => void; // Prop for handling assignment selection
 }
 
-const CourseMaterial: React.FC<CourseMaterialProps> = ({ course }) => {
-  const [activeItem, setActiveItem] = useState<ActiveItem>(null); // State to track the active item
+const CourseMaterial: React.FC<CourseMaterialProps> = ({ course, onItemSelect, onAssignmentSelect }) => {
+  const [activeItem, setActiveItem] = useState<string | null>(null);
 
-  const handleItemClick = (item: ActiveItem) => {
-    setActiveItem(item); // Set the clicked item as active
+  const handleItemClick = (item: string | null) => {
+    setActiveItem(item);
+    onItemSelect(item, 'Chapters'); // Notify the parent component about the selected item
   };
 
   if (!course) return <div>No course data available.</div>;
@@ -50,21 +50,19 @@ const CourseMaterial: React.FC<CourseMaterialProps> = ({ course }) => {
               {/* Render chapters only if they exist */}
               {module.chapters.length > 0 && (
                 <>
-                  <h2 className="font-semibold text-lg mt-4">Chapters</h2>
+                  <h2 className="mt-4 text-lg font-semibold">Chapters</h2>
                   {module.chapters.map((chapter, chapterIndex) => (
                     <div key={chapter.id}>
-                      {/* Only render chapter if it has lessons */}
                       {chapter.lessons.length > 0 ? (
                         <li
-                          className={`w-full cursor-pointer p-2 ${activeItem === `Chapter ${chapterIndex + 1}` ? 'bg-[#D6D6D654] border-l-4 border-primary' : ''}`}
+                          className={`text-xs w-full cursor-pointer p-2 ${activeItem === `Chapter ${chapterIndex + 1}` ? 'bg-[#D6D6D654] border-l-4 border-primary' : ''}`}
                           onClick={() => handleItemClick(`Chapter ${chapterIndex + 1}`)}
+                          style={{ display: 'block', whiteSpace: 'nowrap' }}
                         >
                           Chapter {chapterIndex + 1}
                         </li>
                       ) : (
-                        <div className="w-full p-2 text-gray-500">
-                          No lessons.
-                        </div>
+                        <div className="w-full p-2 text-gray-500">No lessons.</div>
                       )}
                     </div>
                   ))}
@@ -74,14 +72,15 @@ const CourseMaterial: React.FC<CourseMaterialProps> = ({ course }) => {
               {/* Render assignments only if they exist */}
               {module.assignments.length > 0 && (
                 <>
-                  <h2 className="font-semibold text-lg mt-4">Assignments</h2>
+                  <h2 className="mt-4 text-lg font-semibold">Assignments</h2>
                   {module.assignments.map((assignment) => (
                     <li
                       key={assignment.id}
-                      className={`w-full cursor-pointer p-2 ${activeItem === assignment.title ? 'bg-[#D6D6D654] border-l-4 border-primary' : ''}`}
-                      onClick={() => handleItemClick(assignment.title)}
+                      className={`text-xs w-full cursor-pointer p-2 ${activeItem === assignment.title ? 'bg-[#D6D6D654] border-l-4 border-primary' : ''}`}
+                      onClick={() => onAssignmentSelect(assignment.title)} // Handle assignment click
+                      style={{ display: 'block', whiteSpace: 'nowrap' }}
                     >
-                      {assignment.title.slice(0,20)}.. {assignment.isFree ? "(Free)" : ""}
+                      {assignment.title.slice(0, 20)}.. {assignment.isFree ? "(Free)" : ""}
                     </li>
                   ))}
                 </>
@@ -90,12 +89,13 @@ const CourseMaterial: React.FC<CourseMaterialProps> = ({ course }) => {
               {/* Render exams only if they exist */}
               {module.exams.length > 0 && (
                 <>
-                  <h2 className="font-semibold text-lg mt-4">Exams</h2>
+                  <h2 className="mt-4 text-lg font-semibold">Exams</h2>
                   {module.exams.map((exam, index) => (
                     <li
                       key={`exam-${index}`}
-                      className={`w-full cursor-pointer p-2 ${activeItem === exam.title ? 'bg-[#D6D6D654] border-l-4 border-primary' : ''}`}
+                      className={`text-xs w-full cursor-pointer p-2 ${activeItem === exam.title ? 'bg-[#D6D6D654] border-l-4 border-primary' : ''}`}
                       onClick={() => handleItemClick(exam.title)}
+                      style={{ display: 'block', whiteSpace: 'nowrap' }}
                     >
                       {exam.title.slice(0, 20)}..
                     </li>
@@ -107,10 +107,17 @@ const CourseMaterial: React.FC<CourseMaterialProps> = ({ course }) => {
         )}
       </ul>
       <div className="flex flex-col items-start justify-center mt-4 space-y-4">
-        <div>
-          <h1 className="text-xl font-medium text-[#333333]">Assignments</h1>
-          <p className="text-xs">Submitted - Reviewed</p>
-        </div>
+        
+        {course.parts.flatMap(part => part.modules.flatMap(module => module.assignments)).map((assignment) => (
+          <div 
+            key={assignment.id} 
+            className="cursor-pointer" 
+            onClick={() => onAssignmentSelect(assignment.title)} // Click handler for bottom assignment section
+          >
+            <h1 className="text-xl font-medium text-[#333333]">Assignments</h1>
+            <p className="text-xs">{assignment.title.slice(0, 20)}.. {assignment.isFree ? "(Free)" : ""}</p>
+          </div>
+        ))}
         <h1 className="text-xl font-medium text-[#333333]">Attachment</h1>
         <h1 className="text-xl font-medium text-[#333333]">Grades</h1>
         <h1 className="text-xl font-medium text-[#333333]">Discussion</h1>
