@@ -3,7 +3,7 @@ export async function getVdoCipherOtp(url: string) {
     try {
       const apiSecret = import.meta.env.VITE_VDOCIPHER_API_SECRET;
       const response = await axios.post(
-        `${url}/otp`,
+        `${url}`,
         { ttl: 300 },
         {
           headers: {
