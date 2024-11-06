@@ -3,7 +3,7 @@ import React from 'react';
 import AssignmentHeader from './AssignmentHeader';
 import AssignmentCard from './AssignmentCard';
 
-const ShowAssignment: React.FC = () => {
+const ShowAssignments: React.FC = () => {
   return (
     <div className="">
     {/* <ShowLessonHeader/> */}
@@ -19,4 +19,4 @@ const ShowAssignment: React.FC = () => {
   );
 };
 
-export default ShowAssignment;
+export default ShowAssignments;

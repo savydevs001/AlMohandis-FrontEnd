@@ -1,52 +1,81 @@
-// import React from 'react'
+import React from 'react';
 import { IoVideocam } from "react-icons/io5";
 import { IoIosMusicalNotes } from "react-icons/io";
-import { GrAttachment } from "react-icons/gr";
-import { SiLibreofficewriter } from "react-icons/si";
+
 import { NavLink } from "react-router-dom";
 
-function ShowChapter() {
-  return (
-    <div className="mt-4 space-y-5">
-   <NavLink to={'/videoLesson'} >
-   <div className="flex items-center gap-4">
-    <IoVideocam />
-<div className="">
-      <h4>Lesson 1</h4>
-      <p className="flex items-center gap-2 text-xs text-[#7C7C7C]">Video <li>30 minutes</li></p>
-</div>
-    </div>
-   </NavLink>
-    <div className="flex items-center gap-4">
-    <IoIosMusicalNotes />
-<div className="">
-      <h4>Lesson 1</h4>
-      <p className="flex items-center gap-2 text-xs text-[#7C7C7C]">Audio <li>30 minutes</li></p>
-</div>
-    </div>
-    <div className="flex items-center gap-4">
-    <GrAttachment />
-<div className="">
-      <h4>Attachment 1</h4>
-      <p className="flex items-center gap-2 text-xs text-[#7C7C7C]">Type of Attachment</p>
-</div>
-    </div>
-    <div className="flex items-center gap-4">
-    <SiLibreofficewriter />
-<div className="">
-      <h4>Assignment 1</h4>
-      <p className="flex items-center gap-2 text-xs text-[#7C7C7C]">Submitted - Review</p>
-</div>
-    </div>
-    <div className="flex items-center gap-4">
-    <SiLibreofficewriter />
-<div className="">
-      <h4>Exam 1</h4>
-      <p className="flex items-center gap-2 text-xs text-[#7C7C7C]">20-12-2023</p>
-</div>
-    </div>
-    </div>
-  )
+// Define interfaces for MediaSource, Lesson, and Chapter
+interface MediaSource {
+  id: string;
+  link: string;
+  title: string;
+  description: string;
+  lessonId: string;
+  channel: string;
+  isFree: boolean;
+  isPromotional: boolean;
 }
 
-export default ShowChapter
+interface Lesson {
+  id: string;
+  type: 'VIDEO' | 'AUDIO';
+  chapterId: string;
+  mediaSrc: MediaSource[];
+  duration: string; // Added duration for display
+}
+
+interface Attachment {
+  id: string;
+  title: string;
+  description: string;
+}
+
+interface Assignment {
+  id: string;
+  title: string;
+  status: string; // e.g., "Submitted - Review"
+}
+
+interface Exam {
+  id: string;
+  title: string;
+  date: string; // Exam date
+}
+
+interface Chapter {
+  id: string;
+  name: string; // Chapter name
+  lessons: Lesson[];
+  attachments?: Attachment[];
+  assignments?: Assignment[];
+  exams?: Exam[];
+}
+
+interface ShowChapterProps {
+  chapter: Chapter;
+}
+
+const ShowChapter: React.FC<ShowChapterProps> = ({ chapter }) => {
+  console.log(chapter);
+  return (
+    <div className="mt-4 p-4 space-y-5">
+      <h2 className="text-xl font-bold">Chapter Name</h2> {/* Chapter Name */}
+      
+      {/* Lessons */}
+      {chapter.lessons.map((lesson) => (
+        <NavLink to={lesson.mediaSrc[0]?.link} key={lesson.id} className="flex items-center gap-4">
+          {lesson.type === 'VIDEO' ? <IoVideocam /> : <IoIosMusicalNotes />}
+          <div>
+            <h4>{lesson.type === 'VIDEO' ? 'Video Lesson' : 'Audio Lesson'}</h4>
+            <p className="flex items-center gap-2 text-xs text-[#7C7C7C]">
+              {lesson.type} <li>30 minutes</li>
+            </p>
+          </div>
+        </NavLink>
+      ))}
+
+    </div>
+  );
+};
+
+export default ShowChapter;

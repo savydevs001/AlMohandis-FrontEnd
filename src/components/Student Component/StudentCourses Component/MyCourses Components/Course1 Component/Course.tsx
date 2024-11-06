@@ -1,18 +1,33 @@
-import  { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import ShowActivity from "./Show Lessons Component/ShowActivity";
-import ShowLessonComponents from "./Show Lessons Component/ShowLessonComponents";
+import ShowModuleDetail from "./Show Lessons Component/ShowModuleDetails";
 import StudentDashboardHeader from "./Show Lessons Component/StudentDashboardHeader";
 import CourseMaterial from './CourseMaterial';
 
-// Define the types for the course data
+interface MediaSource {
+  id: string;
+  link: string;
+  title: string;
+  description: string;
+  lessonId: string;
+  channel: string;
+  isFree: boolean;
+  isPromotional: boolean;
+}
+
 interface Lesson {
-  mediaSrc: string;
+  id: string;
+  type: 'VIDEO' | 'AUDIO';
+  chapterId: string;
+  mediaSrc: MediaSource[];
+  duration: string;
 }
 
 interface Chapter {
   id: string;
+  name: string;
   type: 'VIDEO' | 'AUDIO';
   duration: string;
   link: string;
@@ -52,7 +67,8 @@ function Course1() {
   const [course, setCourse] = useState<Course | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [activeSection, setActiveSection] = useState<string>('Chapters'); // Track the active section
+  const [activeSection] = useState<string>('Chapters'); // Keeping `activeSection` without `setActiveSection`
+  const [activeItem, setActiveItem] = useState<string | null>(null);
 
   const token = Cookies.get('token');
 
@@ -86,6 +102,10 @@ function Course1() {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
+  const handleMaterialSelect = (item: string | null) => {
+    setActiveItem(item);
+  };
+
   return (
     <div className="flex-1">
       <StudentDashboardHeader courseTitle={course?.title} />
@@ -93,18 +113,11 @@ function Course1() {
         <div className="lg:w-[25%] w-[100%] flex flex-col lg:items-center items-start bg-white shadow-md">
           <CourseMaterial 
             course={course} 
-            onItemSelect={(item, section) => {
-              setActiveSection(section); // Set active section to Chapters or Exams
-              console.log(item, section);
-            }} 
-            onAssignmentSelect={(assignmentTitle) => {
-              setActiveSection("Assignments"); // Switch to Assignments when an assignment is selected
-              console.log(assignmentTitle);
-            }} 
+            onCourseMaterialSelect={handleMaterialSelect} 
           />
         </div>
         <div className="lg:w-[50%] w-full bg-white shadow-md">
-          {course && <ShowLessonComponents activeSection={activeSection} />} 
+          {course && <ShowModuleDetail course={course} activeSection={activeSection} activeItem={activeItem} />} 
         </div>
         <div className="lg:w-[25%] w-full">
           <ShowActivity />
