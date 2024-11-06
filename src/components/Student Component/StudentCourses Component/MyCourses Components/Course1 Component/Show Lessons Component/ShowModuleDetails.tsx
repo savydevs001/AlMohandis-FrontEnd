@@ -1,6 +1,8 @@
 import React from 'react';
 import ShowChapter from './ShowChapter'; // Ensure the correct path to ShowChapter
 import ShowAssignments from './Show Content Component/ShowAssignmentComponent/ShowAssignment';
+import SingleAssignment from './Show Content Component/ShowAssignmentComponent/SingleAssignment';
+import SingleExam from './Show Content Component/ShowExam Component/SingleExam';
 // import ShowExam from './ShowExam'; // Ensure the correct path to ShowExam
 
 interface MediaSource {
@@ -107,14 +109,15 @@ const ShowModuleDetail: React.FC<ShowModuleDetailProps> = ({ activeSection, acti
     {activeSection === 'Chapters' && activeChapter ? (
       <ShowChapter chapter={activeChapter} />
     ) : activeSection === 'Assignments' ? (
-      <p>Show Single Assignment</p> // Replace with <ShowAssignment assignment={activeAssignment} /> when ready
+      <SingleAssignment/> // Replace with <ShowAssignment assignment={activeAssignment} /> when ready
     ) : activeSection === 'Exams'  ? (
-      <p>Show Single Exams</p> 
+      <SingleExam/>
+      
       // saif show single exam here plz
     ) : activeSection === 'View All Assignments' ? (
       <ShowAssignments/>  // all assignments
     ) : (
-      <div>Select a section to view details.</div>
+      <div className='mt-6 text-xl font-semibold text-center'>Select a section to view details.</div>
     )}
   </div>
   
