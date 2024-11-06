@@ -41,7 +41,7 @@ interface Lesson {
 }
 
 interface ShowModuleDetailProps {
-  activeSection: string;
+  activeSection: string | null;
   activeItem: string | null;
   course: {
     parts: {
@@ -69,48 +69,49 @@ const ShowModuleDetail: React.FC<ShowModuleDetailProps> = ({ activeSection, acti
     }
     return null;
   };
+  console.log(activeSection)
 
-  const getActiveAssignment = () => {
-    if (course && activeSection === 'Assignments' && activeItem) {
-      for (const part of course.parts) {
-        for (const module of part.modules) {
-          if (module.type === 'ASSIGNMENT') {
-            const assignment = module.assignments.find(asg => asg.title === activeItem);
-            if (assignment) return assignment;
-          }
-        }
-      }
-    }
-    return null;
-  };
+  // const getActiveAssignment = () => {
+  //   if (course && activeSection === 'Assignments' && activeItem) {
+  //     for (const part of course.parts) {
+  //       for (const module of part.modules) {
+  //         if (module.type === 'ASSIGNMENT') {
+  //           const assignment = module.assignments.find(asg => asg.title === activeItem);
+  //           if (assignment) return assignment;
+  //         }
+  //       }
+  //     }
+  //   }
+  //   return null;
+  // };
 
-  const getActiveExam = () => {
-    if (course && activeSection === 'Exams' && activeItem) {
-      for (const part of course.parts) {
-        for (const module of part.modules) {
-          if (module.type === 'EXAM') {
-            const exam = module.exams.find(ex => ex.title === activeItem);
-            if (exam) return exam;
-          }
-        }
-      }
-    }
-    return null;
-  };
+  // const getActiveExam = () => {
+  //   if (course && activeSection === 'Exams' && activeItem) {
+  //     for (const part of course.parts) {
+  //       for (const module of part.modules) {
+  //         if (module.type === 'EXAM') {
+  //           const exam = module.exams.find(ex => ex.title === activeItem);
+  //           if (exam) return exam;
+  //         }
+  //       }
+  //     }
+  //   }
+  //   return null;
+  // };
 
   const activeChapter = getActiveChapter();
-  const activeAssignment = getActiveAssignment();
-  const activeExam = getActiveExam();
-  console.log(activeChapter, activeAssignment, activeExam);
+  // const activeAssignment = getActiveAssignment();
+  // const activeExam = getActiveExam();
   return (
     <div>
     {activeSection === 'Chapters' && activeChapter ? (
       <ShowChapter chapter={activeChapter} />
-    ) : activeSection === 'Assignments' && activeAssignment ? (
+    ) : activeSection === 'Assignments' ? (
       <p>Show Single Assignment</p> // Replace with <ShowAssignment assignment={activeAssignment} /> when ready
-    ) : activeSection === 'Exams' && activeExam ? (
+    ) : activeSection === 'Exams'  ? (
       <p>Show Single Exams</p> 
-    ) : activeItem === 'View All Assignments' ? (
+      // saif show single exam here plz
+    ) : activeSection === 'View All Assignments' ? (
       <ShowAssignments/>  // all assignments
     ) : (
       <div>Select a section to view details.</div>

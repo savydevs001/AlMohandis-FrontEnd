@@ -67,7 +67,7 @@ function Course1() {
   const [course, setCourse] = useState<Course | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [activeSection] = useState<string>('Chapters'); // Keeping `activeSection` without `setActiveSection`
+  const [activeSection,setActiveSection] = useState<string|null>('Chapters'); 
   const [activeItem, setActiveItem] = useState<string | null>(null);
 
   const token = Cookies.get('token');
@@ -106,6 +106,10 @@ function Course1() {
     setActiveItem(item);
   };
 
+  const handleActiveSection=(section:string|null)=>{
+    setActiveSection(section);
+  }
+
   return (
     <div className="flex-1">
       <StudentDashboardHeader courseTitle={course?.title} />
@@ -114,6 +118,7 @@ function Course1() {
           <CourseMaterial 
             course={course} 
             onCourseMaterialSelect={handleMaterialSelect} 
+            onActiveSection={handleActiveSection}
           />
         </div>
         <div className="lg:w-[50%] w-full bg-white shadow-md">

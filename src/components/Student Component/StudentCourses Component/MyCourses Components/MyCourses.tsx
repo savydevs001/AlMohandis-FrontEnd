@@ -4,6 +4,7 @@ import StudentSidebar from "../../StudentSidebar";
 import MyCoursesContent from "./MyCoursesContent";
 import CourseDetail from "./Course1 Component/Course";
 import VideoLesson from "./Course1 Component/Show Lessons Component/Lesson Vidoe Course/VideoLesson";
+import AudioLesson from "./Course1 Component/Show Lessons Component/Lesson Vidoe Course/AudioLesson";
 
 function MyCourses() {
   return (
@@ -14,7 +15,8 @@ function MyCourses() {
         <Routes>
           <Route path="/" element={<MyCoursesContent />} /> {/* Default view for MyCourses */}
           <Route path="/:courseId" element={<CourseDetail />} /> 
-          <Route path="videoLesson" element = {<VideoLesson/>} />
+          <Route path="/videoLesson/:id" element = {<VideoLesson/>} />
+          <Route path="/audioLesson/:id" element = {<AudioLesson/>} />
         </Routes>
       </div>
     </div>

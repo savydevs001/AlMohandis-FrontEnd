@@ -3,7 +3,8 @@
 import LessonContent from "../Show Content Component/LessonContent"
 import VideoPlayer from "./VideoPlayer"
 
-function VideoLessonComponents() {
+function VideoLessonComponents({lessonData}:any) {
+  console.log(lessonData);
   return (
     <div className="flex flex-col w-full gap-4 mt-7 lg:flex-row">
       <div className="lg:w-[62%] w-full p-2">

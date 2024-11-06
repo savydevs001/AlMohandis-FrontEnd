@@ -3,9 +3,10 @@ import { Course } from '../../../../../types/course';
 interface CourseMaterialProps {
   course: Course | null; 
   onCourseMaterialSelect: (item: string | null) => void; 
+  onActiveSection: (section: string) => void;
 }
 
-const CourseMaterial: React.FC<CourseMaterialProps> = ({ course, onCourseMaterialSelect }) => {
+const CourseMaterial: React.FC<CourseMaterialProps> = ({ course, onCourseMaterialSelect,onActiveSection }) => {
   const [activeItem, setActiveItem] = 
   useState<string | null>(null);
   const [chapters, setChapters] = useState<any[]>([]);
@@ -48,7 +49,13 @@ const CourseMaterial: React.FC<CourseMaterialProps> = ({ course, onCourseMateria
           <li
             key={chapter.id}
             className={`text-xs w-full cursor-pointer p-2 ${activeItem === `Chapter ${index + 1}` ? 'bg-[#D6D6D654] border-l-4 border-primary' : ''}`}
-            onClick={() => handleItemClick(`Chapter ${index + 1}`)}
+            onClick={
+              () => {
+                handleItemClick(`Chapter ${index + 1}`)
+                onActiveSection("Chapters")
+              }
+            
+            }
             style={{ display: 'block', whiteSpace: 'nowrap' }}
           >
             Chapter {index + 1}
@@ -60,7 +67,13 @@ const CourseMaterial: React.FC<CourseMaterialProps> = ({ course, onCourseMateria
           <li
             key={assignment.id}
             className={`text-xs w-full cursor-pointer p-2 ${activeItem === assignment.title ? 'bg-[#D6D6D654] border-l-4 border-primary' : ''}`}
-            onClick={() => handleItemClick(assignment.title)}
+            onClick={
+              () => {
+                handleItemClick("Assignment");
+                onActiveSection("Assignments");
+              }
+            
+            }
             style={{ display: 'block', whiteSpace: 'nowrap' }}
           >
             {assignment.title.slice(0, 20)}.. {assignment.isFree ? "(Free)" : ""}
@@ -71,7 +84,13 @@ const CourseMaterial: React.FC<CourseMaterialProps> = ({ course, onCourseMateria
           <li
             key={`exam-${index}`}
             className={`text-xs w-full cursor-pointer p-2 ${activeItem === exam.title ? 'bg-[#D6D6D654] border-l-4 border-primary' : ''}`}
-            onClick={() => handleItemClick(exam.title)}
+            onClick={
+              () => {
+                handleItemClick("Exams");
+                onActiveSection("Exams");
+              }
+            
+            }
             style={{ display: 'block', whiteSpace: 'nowrap' }}
           >
             {exam.title.slice(0, 20)}..

@@ -1,7 +1,6 @@
 import React from 'react';
 import { IoVideocam } from "react-icons/io5";
 import { IoIosMusicalNotes } from "react-icons/io";
-
 import { NavLink } from "react-router-dom";
 
 // Define interfaces for MediaSource, Lesson, and Chapter
@@ -56,24 +55,27 @@ interface ShowChapterProps {
 }
 
 const ShowChapter: React.FC<ShowChapterProps> = ({ chapter }) => {
+  console.log("current chapter");
   console.log(chapter);
   return (
     <div className="mt-4 p-4 space-y-5">
-      <h2 className="text-xl font-bold">Chapter Name</h2> {/* Chapter Name */}
-      
+      <h2 className="text-xl font-bold">Chapter Name </h2> 
       {/* Lessons */}
       {chapter.lessons.map((lesson) => (
-        <NavLink to={lesson.mediaSrc[0]?.link} key={lesson.id} className="flex items-center gap-4">
+        <NavLink 
+          to={lesson.type === 'VIDEO' ? `/courses/myCourses/videoLesson/${lesson.id}` : `/courses/myCourses/audioLesson/${lesson.id}`} 
+          key={lesson.id} 
+          className="flex items-center gap-4"
+        >
           {lesson.type === 'VIDEO' ? <IoVideocam /> : <IoIosMusicalNotes />}
           <div>
             <h4>{lesson.type === 'VIDEO' ? 'Video Lesson' : 'Audio Lesson'}</h4>
             <p className="flex items-center gap-2 text-xs text-[#7C7C7C]">
-              {lesson.type} <li>30 minutes</li>
+              {lesson.type} <li>{lesson.duration}</li>
             </p>
           </div>
         </NavLink>
       ))}
-
     </div>
   );
 };
