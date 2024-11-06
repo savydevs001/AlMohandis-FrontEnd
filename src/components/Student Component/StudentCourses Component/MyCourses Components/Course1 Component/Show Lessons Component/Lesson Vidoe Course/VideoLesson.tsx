@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom'; // Import useParams from react-router-dom
 import StudentDashboardHeader from "../StudentDashboardHeader";
 import VideoLessonComponents from "./VideoLessonComponents";
+import Cookies from 'js-cookie';
+import axios from 'axios';
 
 // Define the types for the media source and lesson data
 interface MediaSrc {
@@ -22,34 +25,42 @@ interface LessonData {
 }
 
 function VideoLesson() {
+  const { lessonId } = useParams<{ lessonId: string }>(); // Get lessonId from params
   const [lessonData, setLessonData] = useState<LessonData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchLessonData = async () => {
+      const token = Cookies.get('token'); 
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`, 
+        },
+      };
+
       try {
-        // Use the environment variable for the backend URL
-        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/student/lesson/cm341oy4t0018125t0kv6190g`);
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data: LessonData = await response.json();
-        setLessonData(data);
-      } catch (error: any) {
-        setError(error.message);
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/student/lesson/${lessonId}`, config);
+        setLessonData(response.data);
+        console.log(response.data);
+      } catch (err) {
+        setError('Error fetching lesson data');
+        console.error(err);
       } finally {
-        setLoading(false);
+        setLoading(false); // Stop loading once data is fetched or an error occurs
       }
     };
 
     fetchLessonData();
-  }, []);
+  }, [lessonId]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+        <div className="text-lg font-semibold">Loading...</div> 
+    );
   }
-
+ 
   if (error) {
     return <div>Error: {error}</div>;
   }
@@ -60,16 +71,6 @@ function VideoLesson() {
         <div className="w-full">
           <StudentDashboardHeader />
           <VideoLessonComponents lessonData={lessonData} />
-          {/* Example of rendering video titles */}
-          <div>
-            {lessonData?.mediaSrc?.map(video => (
-              <div key={video.id}>
-                <h2>{video.title}</h2>
-                <p>{video.description}</p>
-                <a href={video.link} target="_blank" rel="noopener noreferrer">Watch Video</a>
-              </div>
-            ))}
-          </div>
         </div>
       </div>
     </div>

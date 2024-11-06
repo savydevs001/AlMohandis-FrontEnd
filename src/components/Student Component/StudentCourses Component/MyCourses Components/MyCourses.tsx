@@ -15,8 +15,8 @@ function MyCourses() {
         <Routes>
           <Route path="/" element={<MyCoursesContent />} /> {/* Default view for MyCourses */}
           <Route path="/:courseId" element={<CourseDetail />} /> 
-          <Route path="/videoLesson/:id" element = {<VideoLesson/>} />
-          <Route path="/audioLesson/:id" element = {<AudioLesson/>} />
+          <Route path="/videoLesson/:lessonId" element = {<VideoLesson/>} />
+          <Route path="/audioLesson/:lessonId" element = {<AudioLesson/>} />
         </Routes>
       </div>
     </div>
