@@ -6,7 +6,6 @@ import AssignmentCard from './AssignmentCard';
 const ShowAssignments: React.FC = () => {
   return (
     <div className="">
-    {/* <ShowLessonHeader/> */}
     <AssignmentHeader/>
 
     <div className='space-y-4'>

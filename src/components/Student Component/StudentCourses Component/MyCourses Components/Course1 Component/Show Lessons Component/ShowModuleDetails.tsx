@@ -22,16 +22,32 @@ interface Chapter {
   lessons: Lesson[];
 }
 
-export interface Assignment {
+interface Exam {
   id: string;
   title: string;
   moduleId: string;
   isFree: boolean;
+  questions: Question[];
 }
 
-export interface Exam {
+interface Question {
+  id: string;
+  questionText: string;
+  answerType: string;
+  options: any[];
+  correctAnswer: string;
+  assignmentId: string;
+  examId: string | null;
+  moduleId: string | null;
+}
+
+interface Assignment {
   id: string;
   title: string;
+  moduleId: string;
+  isFree: boolean;
+  questions: Question[];
+  submissions: any[];
 }
 
 interface Lesson {
@@ -54,10 +70,11 @@ interface ShowModuleDetailProps {
         exams: Exam[];
       }[];
     }[];
-  } | null; // Allow course to be null
+  } | null; 
 }
 
 const ShowModuleDetail: React.FC<ShowModuleDetailProps> = ({ activeSection, activeItem, course }) => {
+  console.log(activeItem)
   const getActiveChapter = () => {
     if (course && activeSection === 'Chapters' && activeItem) {
       for (const part of course.parts) {
@@ -73,51 +90,51 @@ const ShowModuleDetail: React.FC<ShowModuleDetailProps> = ({ activeSection, acti
   };
   console.log(activeSection)
 
-  // const getActiveAssignment = () => {
-  //   if (course && activeSection === 'Assignments' && activeItem) {
-  //     for (const part of course.parts) {
-  //       for (const module of part.modules) {
-  //         if (module.type === 'ASSIGNMENT') {
-  //           const assignment = module.assignments.find(asg => asg.title === activeItem);
-  //           if (assignment) return assignment;
-  //         }
-  //       }
-  //     }
-  //   }
-  //   return null;
-  // };
+  const getActiveAssignment = () => {
+    if (course && activeSection === 'Assignments' && activeItem) {
+      for (const part of course.parts) {
+        for (const module of part.modules) {
+          if (module.type === 'ASSIGNMENT') {
+            const assignment = module.assignments.find(asg => asg.id === activeItem);
+            if (assignment) return assignment;
+          }
+        }
+      }
+    }
+    return null;
+  };
 
-  // const getActiveExam = () => {
-  //   if (course && activeSection === 'Exams' && activeItem) {
-  //     for (const part of course.parts) {
-  //       for (const module of part.modules) {
-  //         if (module.type === 'EXAM') {
-  //           const exam = module.exams.find(ex => ex.title === activeItem);
-  //           if (exam) return exam;
-  //         }
-  //       }
-  //     }
-  //   }
-  //   return null;
-  // };
+  const getActiveExam = () => {
+    if (course && activeSection === 'Exams' && activeItem) {
+      for (const part of course.parts) {
+        for (const module of part.modules) {
+          if (module.type === 'EXAM') {
+            const exam = module.exams.find(ex => ex.id === activeItem);
+            if (exam) return exam;
+          }
+        }
+      }
+    }
+    return null;
+  };
 
   const activeChapter = getActiveChapter();
-  // const activeAssignment = getActiveAssignment();
-  // const activeExam = getActiveExam();
+  const activeAssignment = getActiveAssignment();
+  const activeExam = getActiveExam();
+
+  console.log(activeChapter,activeAssignment,activeExam)
   return (
     <div>
     {activeSection === 'Chapters' && activeChapter ? (
       <ShowChapter chapter={activeChapter} />
-    ) : activeSection === 'Assignments' ? (
-      <SingleAssignment/> // Replace with <ShowAssignment assignment={activeAssignment} /> when ready
-    ) : activeSection === 'Exams'  ? (
-      <SingleExam/>
-      
-      // saif show single exam here plz
-    ) : activeSection === 'View All Assignments' ? (
-      <ShowAssignments/>  // all assignments
+    ) : activeSection === 'Assignments' && activeAssignment ? (
+      <SingleAssignment assignment={activeAssignment} />
+    ) : activeSection === 'Exams' && activeExam  ? (
+      <SingleExam exam={activeExam}/>
+    ) : activeItem === 'View All Assignments' ? (
+      <ShowAssignments/>  
     ) : (
-      <div className='mt-6 text-xl font-semibold text-center'>Select a section to view details.</div>
+      <div className='mt-6 text-xl font-semibold text-center text-gray-400'>Select a section to view details.</div>
     )}
   </div>
   

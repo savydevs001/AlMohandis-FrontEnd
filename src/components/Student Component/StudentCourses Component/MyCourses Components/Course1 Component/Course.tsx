@@ -34,16 +34,33 @@ interface Chapter {
   lessons: Lesson[];
 }
 
+interface Question {
+  id: string;
+  questionText: string;
+  answerType: string;
+  options: any[];
+  correctAnswer: string;
+  assignmentId: string;
+  examId: string | null;
+  moduleId: string | null;
+}
+
+
 interface Assignment {
   id: string;
   title: string;
   moduleId: string;
   isFree: boolean;
+  questions: Question[];
+  submissions: any[];
 }
 
 interface Exam {
   id: string;
   title: string;
+  moduleId: string;
+  isFree: boolean;
+  questions: Question[];
 }
 
 interface Module {

@@ -2,7 +2,7 @@
 
 function AssignmentHeader() {
   return (
-    <div className="flex items-center gap-5 mt-6">
+    <div className="flex items-center gap-3 mt-6">
   <h5 className="font-medium border-b border-primary">UpComing</h5>
   <h5  className="text-pTag">Submitted</h5>
   <h5 className=" text-pTag">Graded</h5>

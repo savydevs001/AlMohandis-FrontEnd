@@ -66,27 +66,27 @@ const CourseMaterial: React.FC<CourseMaterialProps> = ({ course, onCourseMateria
         {assignments.map((assignment) => (
           <li
             key={assignment.id}
-            className={`text-xs w-full cursor-pointer p-2 ${activeItem === assignment.title ? 'bg-[#D6D6D654] border-l-4 border-primary' : ''}`}
+            className={`text-xs w-full cursor-pointer p-2 ${activeItem === assignment.id ? 'bg-[#D6D6D654] border-l-4 border-primary' : ''}`}
             onClick={
               () => {
-                handleItemClick("Assignment");
+                handleItemClick(assignment.id);
                 onActiveSection("Assignments");
               }
             
             }
             style={{ display: 'block', whiteSpace: 'nowrap' }}
           >
-            {assignment.title.slice(0, 20)}.. {assignment.isFree ? "(Free)" : ""}
+            {assignment.title.slice(0, 20)}.. 
           </li>
         ))}
         <h2 className="mt-4 text-lg font-semibold">Exams</h2>
         {exams.map((exam, index) => (
           <li
             key={`exam-${index}`}
-            className={`text-xs w-full cursor-pointer p-2 ${activeItem === exam.title ? 'bg-[#D6D6D654] border-l-4 border-primary' : ''}`}
+            className={`text-xs w-full cursor-pointer p-2 ${activeItem === exam.id ? 'bg-[#D6D6D654] border-l-4 border-primary' : ''}`}
             onClick={
               () => {
-                handleItemClick("Exams");
+                handleItemClick(exam.id);
                 onActiveSection("Exams");
               }
             
