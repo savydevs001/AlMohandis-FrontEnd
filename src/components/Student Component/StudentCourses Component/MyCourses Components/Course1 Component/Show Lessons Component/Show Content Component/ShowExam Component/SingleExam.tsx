@@ -28,7 +28,7 @@ const SingleExam: React.FC = () => {
        <p>Total Question <span className='font-bold'>10</span></p>
       </div>
      <NavLink to='/showQuestions'>
-      <button className="px-4 py-2 font-semibold text-white rounded-md bg-primary">Start Exam</button>
+      <button className="px-4 py-2 mt-3 font-semibold text-white rounded-md bg-primary">Start Exam</button>
       </NavLink>
     </div>
   );

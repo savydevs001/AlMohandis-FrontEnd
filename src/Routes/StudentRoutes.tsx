@@ -7,6 +7,7 @@ import ProtectedRoute from '../components/ProtectedRoute'; // Import the Protect
 import StudentAssignment from "../components/Student Component/StudentAssignment Component/StudentAssignment";
 import ExamQuestionsPage from "../components/Student Component/StudentCourses Component/MyCourses Components/Course1 Component/Show Lessons Component/Show Content Component/ShowExam Component/ShowExamQuestions Component/ExamQuestionsPage";
 import CorrectOption from "../components/Student Component/StudentCourses Component/MyCourses Components/Course1 Component/Show Lessons Component/Show Content Component/ShowGraded Component/CorrectOptions/CorrectOption";
+import Professors from "../pages/Student Page/Professors";
 
 function StudentRoutes() {
   return (
@@ -18,6 +19,7 @@ function StudentRoutes() {
       <Route path="/studentAssignments" element={<ProtectedRoute allowedRoles={['student']}><StudentAssignment /></ProtectedRoute>} />
       <Route path="/showQuestions" element={<ProtectedRoute allowedRoles={['student']}><ExamQuestionsPage /></ProtectedRoute>} />
       <Route path="/correctOptions" element={<ProtectedRoute allowedRoles={['student']}><CorrectOption /></ProtectedRoute>} />
+      <Route path="/Professors/*" element={<ProtectedRoute allowedRoles={['student']}><Professors /></ProtectedRoute>} />
     </Routes>
   );
 }
