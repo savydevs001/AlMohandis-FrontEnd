@@ -1,6 +1,8 @@
 import React, { useRef, useState } from 'react';
 import { IoIosLink } from 'react-icons/io';
 import ShowLessonHeader from '../../ShowLessonHeader';
+import Cookies from 'js-cookie';
+import { useSnackbar } from 'notistack'; 
 
 interface Question {
   id: string;
@@ -27,17 +29,54 @@ interface SingleAssignmentProps {
 }
 
 const SingleAssignment: React.FC<SingleAssignmentProps> = ({ assignment }) => {
+  const { enqueueSnackbar } = useSnackbar();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [fileName, setFileName] = useState<string | null>(null);
+  const [file, setFile] = useState<File | null>(null);
 
   const handleFileClick = () => {
     fileInputRef.current?.click();
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      setFileName(file.name);
+    const selectedFile = event.target.files?.[0];
+    if (selectedFile) {
+      setFileName(selectedFile.name);
+      setFile(selectedFile); // Store the selected file
+    }
+  };
+
+  const handleSubmit = async () => {
+    if (!file) {
+      alert('Please select a file before submitting.');
+      return;
+    }
+  
+    const token = Cookies.get('token'); // Retrieve the token from cookies
+    if (!token) {
+      alert('No authorization token found. Please log in.');
+      return;
+    }
+  
+    const formData = new FormData();
+    formData.append('assignmentId', assignment.id);
+    formData.append('file', file);
+  
+    try {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/student/submitAssignment`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+        body: formData,
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to submit assignment');
+      }
+      enqueueSnackbar('Assignment submitted successfully!', { variant: 'success' });
+    } catch (error:any) {
+      enqueueSnackbar(error.message, { variant: 'error' });
     }
   };
 
@@ -90,8 +129,13 @@ const SingleAssignment: React.FC<SingleAssignmentProps> = ({ assignment }) => {
         </div>
       </div>
 
-      <button className="px-4 py-2 font-semibold text-white rounded-md bg-primary">Submit</button>
-    </div>
+      <button 
+        onClick={handleSubmit}
+        className="px-4 py-2 font-semibold text-white rounded-md bg-primary"
+      >
+        Submit
+      </button>
+ </div>
   );
 };
 
