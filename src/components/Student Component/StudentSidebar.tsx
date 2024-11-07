@@ -44,14 +44,17 @@ const StudentSidebar: React.FC = () => {
 
   return (
     <>
-      <div className="sticky top-0 left-0 w-full bg-teal-100 lg:p-4 h-fit md:hidden">
+      {/* Menu Button - Only visible on small screens */}
+      <div className="sticky top-0 left-0 w-full p-4 bg-teal-100 lg:hidden h-fit">
         <button onClick={toggleSidebar} className="p-2 text-black rounded-md menu-button">
           <AiOutlineMenu size={30} />
         </button>
       </div>
 
-      <div className={`fixed lg:sticky top-0 left-0 w-64 h-full lg:h-[100vh] bg-primary z-50 sidebar transition-transform transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}>
-        <button onClick={toggleSidebar} className="absolute text-white top-4 right-4 md:hidden">
+      {/* Sidebar - Visible on large screens, togglable on small screens */}
+      <div className={`fixed lg:sticky top-0 left-0 w-64 h-full lg:h-[100vh] bg-primary z-50 sidebar transition-transform transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}>
+        {/* Close Button - Only visible on small screens */}
+        <button onClick={toggleSidebar} className="absolute text-white top-4 right-4 lg:hidden">
           <AiOutlineClose size={30} />
         </button>
 

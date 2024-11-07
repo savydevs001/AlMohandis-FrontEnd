@@ -11,7 +11,7 @@ const SeasonPrice: React.FC<SeasonPriceProps> = ({ title, price }) => {
       <div className="flex items-center justify-between ">
         <div className="flex items-center gap-3">
           <input type="checkbox" className="rounded-full text-primary" />
-          <h1 className="text-xl font-semibold">{title}</h1>
+          <h1 className="font-semibold lg:text-xl text-md">{title}</h1>
         </div>
         <p className="text-xl font-semibold text-primary">{price}</p>
       </div>

@@ -6,10 +6,10 @@ import Instructors from "./CourseObjectivesComponent/Instructors/Instructors"
 function EnrollCourseSeasonInstructur() {
   return (
     <div>
-    <div className="-translate-y-80 ">
+    <div className="lg:-translate-y-80 ">
     <BuyCourseCard/>
     </div>
-    <div className="-translate-y-72 ">
+    <div className="lg:-translate-y-72 ">
     <Instructors/>
     </div>
     </div>
