@@ -9,10 +9,10 @@ function HomeCourses() {
       <p className='py-3 text-md'>Our most popular and demanding Courses</p>
      </div>
 <div className='flex flex-wrap items-center'>
-<InstructorCard/>
-<InstructorCard/>
-<InstructorCard/>
-<InstructorCard/>
+<InstructorCard buttonText="View Now" width='[40%]'/>
+<InstructorCard buttonText="View Now" width=''/>
+<InstructorCard buttonText="View Now" width=''/>
+<InstructorCard buttonText="View Now" width=''/>
 </div>
 
 

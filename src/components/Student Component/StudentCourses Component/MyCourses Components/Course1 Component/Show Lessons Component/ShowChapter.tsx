@@ -2,6 +2,7 @@ import React from 'react';
 import { IoVideocam } from "react-icons/io5";
 import { IoIosMusicalNotes } from "react-icons/io";
 import { NavLink } from "react-router-dom";
+import ShowLessonHeader from './ShowLessonHeader';
 
 // Define interfaces for MediaSource, Lesson, and Chapter
 interface MediaSource {
@@ -58,7 +59,8 @@ const ShowChapter: React.FC<ShowChapterProps> = ({ chapter }) => {
   console.log("current chapter");
   console.log(chapter);
   return (
-    <div className="mt-4 p-4 space-y-5">
+    <div className="p-4 space-y-5 ">
+      <ShowLessonHeader/>
       <h2 className="text-xl font-bold">Chapter Name </h2> 
       {/* Lessons */}
       {chapter.lessons.map((lesson) => (
