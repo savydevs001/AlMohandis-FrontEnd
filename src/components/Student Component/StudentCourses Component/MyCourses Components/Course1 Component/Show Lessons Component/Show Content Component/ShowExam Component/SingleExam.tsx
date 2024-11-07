@@ -23,23 +23,27 @@ interface Exam {
 
 interface SingleExamProps {
   exam: Exam;
+  currentPart: {
+    title: string;
+    price: number;
+    completionTime: number;
+  };
 }
 
-const SingleExam: React.FC<SingleExamProps> = ({ exam }) => {
+const SingleExam: React.FC<SingleExamProps> = ({ exam, currentPart }) => {
   return (
     <div className="flex-1 p-5 space-y-5">
-      <ShowLessonHeader />
+      <ShowLessonHeader head={currentPart.title} />
       <div className="flex items-start justify-between">
         <div className="space-y-6">
           <h1 className="text-2xl font-semibold">{exam.title}</h1>
           <p className="w-[100%] font-sans">
-            {/* You can customize this description as needed */}
             This exam consists of the following questions:
             <ul className="list-disc list-inside mt-2">
               {exam.questions.map((question, index) => (
-                <p key={question.id}>
+                <li key={question.id}>
                   {index + 1}. {question.questionText}
-                </p>
+                </li>
               ))}
             </ul>
           </p>

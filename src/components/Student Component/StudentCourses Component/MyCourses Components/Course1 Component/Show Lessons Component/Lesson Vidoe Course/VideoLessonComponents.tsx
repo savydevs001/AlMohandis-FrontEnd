@@ -20,7 +20,7 @@ function VideoLessonComponents({ lessonData }: any) {
           onMediaSrcSelect={handleVideoSelect} // Pass the correct function
         />
       </div>
-      <div className="lg:w-[38%] w-full">
+      <div className="lg:w-[38%] w-full border-2">
         <LessonContent  /> 
       </div>
     </div>

@@ -64,6 +64,7 @@ interface Exam {
 }
 
 interface Module {
+  id: string;
   type: 'CHAPTER' | 'ASSIGNMENT' | 'EXAM';
   chapters: Chapter[];
   assignments: Assignment[];
@@ -71,6 +72,10 @@ interface Module {
 }
 
 interface Part {
+  title: string;
+  price: number;
+  completionTime: number;
+  id: string;
   modules: Module[];
 }
 

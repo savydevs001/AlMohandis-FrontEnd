@@ -26,9 +26,14 @@ interface Assignment {
 
 interface SingleAssignmentProps {
   assignment: Assignment;
+  currentPart:{
+    title: string;
+    price: number;
+    completionTime: number;
+  }
 }
 
-const SingleAssignment: React.FC<SingleAssignmentProps> = ({ assignment }) => {
+const SingleAssignment: React.FC<SingleAssignmentProps> = ({ assignment,currentPart }) => {
   const { enqueueSnackbar } = useSnackbar();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [fileName, setFileName] = useState<string | null>(null);
@@ -82,7 +87,7 @@ const SingleAssignment: React.FC<SingleAssignmentProps> = ({ assignment }) => {
 
   return (
     <div className="flex-1 p-5 space-y-5">
-      <ShowLessonHeader />
+      <ShowLessonHeader head={currentPart.title} />
       <div className="flex items-start justify-between">
         <div className="space-y-6">
           <h1 className="text-2xl font-semibold">{assignment.title}</h1>

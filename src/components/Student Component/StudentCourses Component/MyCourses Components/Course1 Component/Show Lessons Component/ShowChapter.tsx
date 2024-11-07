@@ -4,63 +4,41 @@ import { IoIosMusicalNotes } from "react-icons/io";
 import { NavLink } from "react-router-dom";
 import ShowLessonHeader from './ShowLessonHeader';
 
-// Define interfaces for MediaSource, Lesson, and Chapter
-interface MediaSource {
-  id: string;
-  link: string;
-  title: string;
-  description: string;
-  lessonId: string;
-  channel: string;
-  isFree: boolean;
-  isPromotional: boolean;
-}
-
-interface Lesson {
-  id: string;
-  type: 'VIDEO' | 'AUDIO';
-  chapterId: string;
-  mediaSrc: MediaSource[];
-  duration: string; // Added duration for display
-}
-
-interface Attachment {
-  id: string;
-  title: string;
-  description: string;
-}
-
-interface Assignment {
-  id: string;
-  title: string;
-  status: string; // e.g., "Submitted - Review"
-}
-
-interface Exam {
-  id: string;
-  title: string;
-  date: string; // Exam date
-}
-
-interface Chapter {
-  id: string;
-  name: string; // Chapter name
-  lessons: Lesson[];
-  attachments?: Attachment[];
-  assignments?: Assignment[];
-  exams?: Exam[];
-}
-
 interface ShowChapterProps {
-  chapter: Chapter;
+  chapter: {
+    id: string;
+    name: string; // Chapter name
+    lessons: {
+      id: string;
+      type: 'VIDEO' | 'AUDIO';
+      chapterId: string;
+      mediaSrc: {
+        id: string;
+        link: string;
+        title: string;
+        description: string;
+        lessonId: string;
+        channel: string;
+        isFree: boolean;
+        isPromotional: boolean;
+      }[];
+      duration: string;
+    }[];
+  };
+  currentPart: {
+    title: string;
+    price: number;
+    completionTime: number;
+  };
 }
 
-const ShowChapter: React.FC<ShowChapterProps> = ({ chapter }) => {
+
+const ShowChapter: React.FC<ShowChapterProps> = ({ chapter,currentPart }) => {
   console.log("current chapter");
   console.log(chapter);
   return (
     <div className="p-4 space-y-5 ">
-      <ShowLessonHeader/>
+      <ShowLessonHeader head={currentPart.title}/>
       <h2 className="text-xl font-bold">Chapter Name </h2> 
       {/* Lessons */}
       {chapter.lessons.map((lesson) => (

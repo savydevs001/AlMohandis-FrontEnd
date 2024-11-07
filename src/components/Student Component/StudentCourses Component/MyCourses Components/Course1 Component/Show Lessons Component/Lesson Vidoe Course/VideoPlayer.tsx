@@ -3,7 +3,7 @@ import PublishedCourse from "./PublishedCourse";
 import StudentRating from "./StudentRating";
 import VideoCommets from "./VideoCommets";
 import { useState, useEffect } from "react";
-import { getVdoCipherOtp } from "../../../../../../../utils/services";
+// import { getVdoCipherOtp } from "../../../../../../../utils/services";
 
 interface MediaSource {
   id: string;
@@ -28,34 +28,41 @@ interface VideoPlayerProps {
   onMediaSrcSelect?: (id: string, link: string) => void;
 }
 
-
 function VideoPlayer({ lessonData, onMediaSrcSelect }: VideoPlayerProps) {
-  const [selectedVideo, setSelectedVideo] = useState<string>(lessonData.mediaSrc[0]?.link || "");
-  const [, setSelectedVideoId] = useState<string>(lessonData.mediaSrc[0]?.id || "");
+  const firstVideo = lessonData.mediaSrc[0] || null;
+  const [selectedVideo, setSelectedVideo] = useState<string>(firstVideo?.link || "");
+  const [, setSelectedVideoId] = useState<string>(firstVideo?.id || "");
   const [videoUrl, setVideoUrl] = useState<string>("");
+  const [selectedVideoDescription, setSelectedVideoDescription] = useState<string>(firstVideo?.description || "");
 
   const handleVideoChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedLink = event.target.value;
-    const selectedId = lessonData.mediaSrc.find((video: MediaSource) => video.link === selectedLink)?.id || "";
+    console.log
+    const selectedMedia = lessonData.mediaSrc.find((video: MediaSource) => video.link === selectedLink);
 
-    setSelectedVideo(selectedLink);
-    setSelectedVideoId(selectedId);
-    if (onMediaSrcSelect) {
-      onMediaSrcSelect(selectedId, selectedLink);
+    if (selectedMedia) {
+      console.log("Selected Link:", selectedLink);  // Debugging: check selected link
+      console.log("Selected Media:", selectedMedia); // Debugging: check selected media
+      setSelectedVideo(selectedLink);
+      setSelectedVideoId(selectedMedia.id);
+      setSelectedVideoDescription(selectedMedia.description);
+      if (onMediaSrcSelect) {
+        onMediaSrcSelect(selectedMedia.id, selectedLink);
+      }
     }
   };
 
   useEffect(() => {
     const fetchVideoDetails = async () => {
       try {
-        const { otp, playbackInfo } = await getVdoCipherOtp(selectedVideo);
-        const embedUrl = `https://player.vdocipher.com/v2/?otp=${otp}&playbackInfo=${playbackInfo}`;
+        // const { otp, playbackInfo } = await getVdoCipherOtp(selectedVideo);
+        // console.log("OTP:", otp);
+        // console.log("Playback Info:", playbackInfo);
+        const embedUrl = `https://player.vdocipher.com/v2/?otp=20160313versASE323TxVMBssGMuC2nmPCMyMLV1r5vHhKHK6kfa4TgDB8R4nEj7&playbackInfo=eyJ2aWRlb0lkIjoiMmZjYzFhZmJmMWZlNDcwZDlmOWRlYzM0ZGZjODE5ZTQifQ==`;
         setVideoUrl(embedUrl);
-        // const embedUrl = `https://player.vdocipher.com/v2/?otp=20160313versASE323cK79ssJUuL4elRsQfXaL1hd9CFWFAWJYGlrQHIG2LxQn0k&playbackInfo=eyJ2aWRlb0lkIjoiMmZjYzFhZmJmMWZlNDcwZDlmOWRlYzM0ZGZjODE5ZTQifQ==`;
       } catch (error) {
-        console.error('Error embedding video:', error);
+        console.error("Error embedding video:", error);
       }
-      
     };
 
     if (selectedVideo) {
@@ -69,7 +76,7 @@ function VideoPlayer({ lessonData, onMediaSrcSelect }: VideoPlayerProps) {
         {videoUrl ? (
           <iframe
             src={videoUrl}
-            style={{ border: 0, width: '42vw', height: '405px' }}
+            style={{ border: 0, width: "42vw", height: "405px" }}
             allow="encrypted-media"
             allowFullScreen
           ></iframe>
@@ -84,7 +91,7 @@ function VideoPlayer({ lessonData, onMediaSrcSelect }: VideoPlayerProps) {
             className="rounded-md"
             id="videoSelect"
             onChange={handleVideoChange}
-            value={selectedVideo}
+            value={selectedVideo}  // Ensure selected value is based on selectedVideo
           >
             {lessonData.mediaSrc.map((video: MediaSource) => (
               <option key={video.id} value={video.link}>
@@ -99,7 +106,7 @@ function VideoPlayer({ lessonData, onMediaSrcSelect }: VideoPlayerProps) {
       </div>
       <div className="space-y-5">
         <PublishedCourse />
-        <StudentRating />
+        <StudentRating description={selectedVideoDescription} />
         <div>
           <VideoCommets />
         </div>
