@@ -10,7 +10,7 @@ function AssignmentCard() {
       <h5 className="text-pTag">Chapter 1 - Assignment 1</h5>
       <p className="text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis recusandae laudantium voluptatibus. Iure, nobis optio!</p>
     <NavLink to="/studentAssignments">
-    <button className="px-4 py-2 font-semibold text-white rounded-md bg-primary">View</button>
+    <button className="px-4 py-2 mt-3 font-semibold text-white rounded-md bg-primary">View</button>
     </NavLink>
    </div>
     </div>

@@ -1,11 +1,14 @@
 import React, { useRef, useState } from 'react';
 import { IoIosLink } from 'react-icons/io';
-import DashBoardHeader from '../../Teacher Component/Dashboard Component/DashBoardHeader';
+import DashBoardHeader from '../../../Teacher Component/Dashboard Component/DashBoardHeader';
 
-const ViewAssignment: React.FC = () => {
+const SubmitedAssignmentView: React.FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [fileName, setFileName] = useState<string | null>(null);
 
+  const handleFileClick = () => {
+      fileInputRef.current?.click();
+    };
   const handleIconClick = () => {
     fileInputRef.current?.click();
   };
@@ -18,13 +21,13 @@ const ViewAssignment: React.FC = () => {
   };
 
   return (
-    <div className="flex-1 space-y-8">
+    <div className="flex-1 space-y-5">
        <div className="flex items-center justify-between gap-6 lg:gap-0">
             <h1 className="text-2xl font-semibold">Assignment</h1>
             <DashBoardHeader/>
       </div>
-      <div className="flex items-start justify-between ">
-        <div className="space-y-6 ">
+      <div className="flex items-start justify-between mt-6">
+        <div className="space-y-6">
           <h1 className="text-2xl font-semibold">Assignment 1</h1>
       <div className='w-full'>
       <p className="w-[60%] font-sans">
@@ -33,10 +36,10 @@ const ViewAssignment: React.FC = () => {
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus quis quia blanditiis hic nam et laboriosam 
             consequatur quo, ducimus voluptatibus dicta facere aperiam, esse reprehenderit suscipit, vero neque sed cumque?
           </p>
-          <p></p>
+          
       </div>
         </div>
-        <button className="px-4 py-2 font-semibold text-white rounded-md bg-primary">Submit</button>
+        <p className="text-xs text-pTag w-[60%]">Submitted on 28-02-2024</p>
       </div>
 
       <div className="mt-6 space-y-2">
@@ -46,7 +49,25 @@ const ViewAssignment: React.FC = () => {
           consequatur dolore ipsam beatae ipsum!?
         </p>
       </div>
-
+      <div className="flex flex-col space-y-1 w-[60%]">
+        <label className="font-semibold text-md" htmlFor="">
+          Assignment
+        </label>
+        {/* Hidden file input */}
+        <input
+          ref={fileInputRef}
+          type="file"
+          style={{ display: "none" }}
+          onChange={handleFileChange}
+        />
+        {/* Custom button */}
+        <button
+          onClick={handleFileClick}
+          className="w-full py-1 border rounded-lg border-pTag hover:bg-gray-300"
+        >
+          Choose File
+        </button>
+      </div>
       <div className="space-y-2">
         {/* Show the file name if a file is selected */}
         {fileName && (
@@ -68,10 +89,13 @@ const ViewAssignment: React.FC = () => {
       </div>
       <div className='flex flex-col space-y-1'>
         <label className='text-sm font-semibold' htmlFor="">Add Comment</label>
-        <input className='w-[60%] rounded-lg border-pTag ' type="text" placeholder='Add Text' />
+        <input className='w-[60%] py-1 rounded-lg border-pTag ' type="text" placeholder='Add Text' />
       </div>
     </div>
   );
 };
 
-export default ViewAssignment;
+export default SubmitedAssignmentView;
+
+
+;

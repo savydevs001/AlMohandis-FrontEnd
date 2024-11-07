@@ -39,7 +39,7 @@ const ShowChapter: React.FC<ShowChapterProps> = ({ chapter,currentPart }) => {
   return (
     <div className="p-4 space-y-5 ">
       <ShowLessonHeader head={currentPart.title}/>
-      <h2 className="text-xl font-bold">Chapter Name </h2> 
+      <h2 className="text-xl font-semibold">Chapter Name </h2> 
       {/* Lessons */}
       {chapter.lessons.map((lesson) => (
         <NavLink 
