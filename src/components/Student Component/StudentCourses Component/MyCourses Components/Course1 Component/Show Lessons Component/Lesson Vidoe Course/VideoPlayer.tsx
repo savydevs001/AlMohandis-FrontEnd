@@ -72,11 +72,12 @@ function VideoPlayer({ lessonData, onMediaSrcSelect }: VideoPlayerProps) {
 
   return (
     <div className="space-y-3">
-      <div className="rounded-full">
+      <div className="w-full mx-auto rounded-full ">
         {videoUrl ? (
           <iframe
+          className="lg:w-[100%] w-full lg:h-[55vh] rounded-lg"
             src={videoUrl}
-            style={{ border: 0, width: "42vw", height: "405px" }}
+            style={{ border: 0}}
             allow="encrypted-media"
             allowFullScreen
           ></iframe>

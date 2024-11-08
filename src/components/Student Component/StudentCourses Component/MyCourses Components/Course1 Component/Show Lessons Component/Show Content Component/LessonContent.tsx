@@ -11,6 +11,7 @@ function LessonContent() {
       <Contents/>
       <ShowNextVideoContent/>
       <ChapterDropdown/>
+     
      </div>
     </div>
   )

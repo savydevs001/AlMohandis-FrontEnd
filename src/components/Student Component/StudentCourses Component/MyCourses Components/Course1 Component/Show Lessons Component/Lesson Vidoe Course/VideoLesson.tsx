@@ -66,8 +66,8 @@ function VideoLesson() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen lg:flex-row">
-      <div className="flex-1 w-[90%] lg:p-6 lg:flex bg-gray-50 mt-3 lg:mt-0 mx-auto">
+    <div className="flex w-[100%] flex-col min-h-screen lg:flex-row">
+      <div className="flex-1 w-[100%] lg:flex bg-gray-50 mt-3 lg:mt-0 mx-auto">
         <div className="w-full">
           <StudentDashboardHeader />
           <VideoLessonComponents lessonData={lessonData} />

@@ -8,6 +8,8 @@ import ExamQuestionsPage from "../components/Student Component/StudentCourses Co
 import CorrectOption from "../components/Student Component/StudentCourses Component/MyCourses Components/Course1 Component/Show Lessons Component/Show Content Component/ShowGraded Component/CorrectOptions/CorrectOption";
 import Professors from "../pages/Student Page/Professors";
 import StudentAssignments from "../pages/Student Page/StudentAssignments";
+import StudentAttendence from "../pages/Student Page/StudentAttendence";
+import RegisteredSubject from "../pages/Student Page/RegisteredSubject";
 
 function StudentRoutes() {
   return (
@@ -20,6 +22,8 @@ function StudentRoutes() {
       <Route path="/showQuestions" element={<ProtectedRoute allowedRoles={['student']}><ExamQuestionsPage /></ProtectedRoute>} />
       <Route path="/correctOptions" element={<ProtectedRoute allowedRoles={['student']}><CorrectOption /></ProtectedRoute>} />
       <Route path="/Professors/*" element={<ProtectedRoute allowedRoles={['student']}><Professors /></ProtectedRoute>} />
+      <Route path="/StudentAttendance" element={<ProtectedRoute allowedRoles={['student']}><StudentAttendence /></ProtectedRoute>} />
+      <Route path="/RegisteredSubject" element={<ProtectedRoute allowedRoles={['student']}><RegisteredSubject /></ProtectedRoute>} />
     </Routes>
   );
 }
