@@ -7,14 +7,21 @@ import { useLoginMutation } from '../../redux/api/auth/auth';
 import Cookies from 'js-cookie';
 import { useSnackbar } from 'notistack';
 
+interface LoginError {
+    status?: number;
+    data?: {
+        code?: number;
+    };
+}
+
 const Login = () => {
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [login] = useLoginMutation();
-    const { enqueueSnackbar } = useSnackbar();
 
     const navigate = useNavigate();
+    const { enqueueSnackbar } = useSnackbar();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -22,25 +29,30 @@ const Login = () => {
         try {
             const res = await login({ phone, password });
             if (res.data?.token) {
-                // Store token and user type in cookies
-                Cookies.set('token', res.data.token, { expires: 1 / 24 }); 
-                Cookies.set('userType', res.data.user.type, { expires: 1 / 24 }); // Store user type
+                Cookies.set('token', res.data.token, { expires: 1 / 24 });
+                Cookies.set('userType', res.data.user.type, { expires: 1 / 24 });
+                
                 enqueueSnackbar('Login successful!', { variant: 'success' });
-                // Check user type and navigate accordingly
+
                 if (res.data.user.type === 'student') {
                     navigate('/StudentDashboard');
                 } else {
                     navigate('/dashboard');
                 }
+            } else if (res.error) {
+                const error = res.error as LoginError; // Explicitly cast to LoginError type
+                const statusCode = error.status || error.data?.code;
+                if (statusCode === 401) {
+                    enqueueSnackbar('Unauthorized: Incorrect phone or password.', { variant: 'error' });
+                } else if (statusCode === 500) {
+                    enqueueSnackbar('Server error: Please try again later.', { variant: 'error' });
+                } else {
+                    enqueueSnackbar('An error occurred. Please try again.', { variant: 'error' });
+                }
             }
-        } catch (error:any) {
-            if (error.status === 401) {
-                enqueueSnackbar('Unauthorized: Incorrect phone or password.', { variant: 'error' });
-            } else if (error.status === 500) {
-                enqueueSnackbar('Server error: Please try again later.', { variant: 'error' });
-            } else {
-                enqueueSnackbar('An error occurred. Please try again.', { variant: 'error' });
-            }
+        } catch (error: unknown) {
+            enqueueSnackbar('An unexpected error occurred. Please try again.', { variant: 'error' });
+            console.error(error);
         } finally {
             setLoading(false);
         }
@@ -78,7 +90,7 @@ const Login = () => {
                             />
                         </div>
                         <button className='w-full px-4 py-3 text-lg font-semibold rounded-lg bg-primary text-txtColor' disabled={loading}>
-                            Login
+                            {loading ? 'Logging in...' : 'Login'}
                         </button>
                         <div className='flex items-center justify-center gap-2'>
                             <p className='text-sm font-semibold'>Already have an account?</p>
