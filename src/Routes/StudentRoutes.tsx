@@ -10,6 +10,8 @@ import Professors from "../pages/Student Page/Professors";
 import StudentAssignments from "../pages/Student Page/StudentAssignments";
 import StudentAttendence from "../pages/Student Page/StudentAttendence";
 import RegisteredSubject from "../pages/Student Page/RegisteredSubject";
+import Schudle from "../pages/Student Page/Schudle";
+
 
 function StudentRoutes() {
   return (
@@ -24,6 +26,7 @@ function StudentRoutes() {
       <Route path="/Professors/*" element={<ProtectedRoute allowedRoles={['student']}><Professors /></ProtectedRoute>} />
       <Route path="/StudentAttendance" element={<ProtectedRoute allowedRoles={['student']}><StudentAttendence /></ProtectedRoute>} />
       <Route path="/RegisteredSubject" element={<ProtectedRoute allowedRoles={['student']}><RegisteredSubject /></ProtectedRoute>} />
+      <Route path="/StudentSchedule" element={<ProtectedRoute allowedRoles={['student']}><Schudle /></ProtectedRoute>} />
     </Routes>
   );
 }

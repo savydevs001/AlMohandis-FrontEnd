@@ -1,5 +1,6 @@
 // import React from 'react'
 
+import RegisteredSubjectsPageLayout from "../../components/Student Component/RegisteredSubjectComponent/RegisteredSubjectsPageLayout"
 import StudentSidebar from "../../components/Student Component/StudentSidebar"
 
 function RegisteredSubject() {
@@ -9,7 +10,7 @@ function RegisteredSubject() {
       <div className="flex-1 w-[90%] lg:p-6 lg:flex bg-gray-50 mt-3 lg:mt-0 mx-auto">
         {/* <StudentCardContent /> */}
        {/* <StudentAttendencePageLayout/> */}
-       <h1>Hy</h1>
+     <RegisteredSubjectsPageLayout/>
       </div>
     </div>
   )

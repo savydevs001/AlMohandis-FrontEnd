@@ -9,7 +9,7 @@ import Assistants from '../pages/Teacher Page/Assistants';
 import Subjects from '../pages/Teacher Page/Subjects';
 import Support from '../pages/Teacher Page/Support';
 import PromotionalContent from '../pages/Teacher Page/PromotionalContent';
-import Schudle from '../pages/Teacher Page/Schudle';
+
 import Draft from '../components/Teacher Component/Courses Component/Draft';
 import PendingCourse from '../components/Teacher Component/Courses Component/PendingCourse';
 import CreateCourse from '../components/Teacher Component/Courses Component/Create Course Component/CreateCourse';
@@ -29,7 +29,6 @@ const TeacherRoutes: React.FC = () => {
       <Route path="/subjects" element={<ProtectedRoute allowedRoles={['teacher']}><Subjects /></ProtectedRoute>} />
       <Route path="/support" element={<ProtectedRoute allowedRoles={['teacher']}><Support /></ProtectedRoute>} />
       <Route path="/promotionalContent" element={<ProtectedRoute allowedRoles={['teacher']}><PromotionalContent /></ProtectedRoute>} />
-      <Route path="/schedule" element={<ProtectedRoute allowedRoles={['teacher']}><Schudle /></ProtectedRoute>} />
       <Route path="/draft" element={<ProtectedRoute allowedRoles={['teacher']}><Draft /></ProtectedRoute>} />
       <Route path="/pending" element={<ProtectedRoute allowedRoles={['teacher']}><PendingCourse /></ProtectedRoute>} />
       <Route path="/createCourse" element={<ProtectedRoute allowedRoles={['teacher']}><CreateCourse /></ProtectedRoute>} />

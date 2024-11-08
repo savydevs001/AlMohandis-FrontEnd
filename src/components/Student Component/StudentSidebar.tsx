@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { MdOutlineDashboard, MdAssignment } from "react-icons/md";
+import { AiTwotoneSchedule } from "react-icons/ai";
+
 import { RiLiveFill, RiCalendarCheckFill } from "react-icons/ri";
 import { PiChairBold } from "react-icons/pi";
 import { FaBookReader, FaBookmark, FaBullhorn } from 'react-icons/fa';
@@ -10,6 +12,8 @@ import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { BsCalendar2CheckFill } from 'react-icons/bs';
 import logo from '../../assets/dashboardlogo.png';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
+import { IoMdLogOut } from "react-icons/io";
+import { FcBusinessman } from "react-icons/fc";
 
 const StudentSidebar: React.FC = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
@@ -52,49 +56,68 @@ const StudentSidebar: React.FC = () => {
       </div>
 
       {/* Sidebar - Visible on large screens, togglable on small screens */}
-      <div className={`fixed lg:sticky top-0 left-0 w-64 h-full lg:h-[100vh] bg-primary z-50 sidebar transition-transform transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}>
-        {/* Close Button - Only visible on small screens */}
-        <button onClick={toggleSidebar} className="absolute text-white top-4 right-4 lg:hidden">
-          <AiOutlineClose size={30} />
-        </button>
-
-        <div className="px-6 py-2 w-[90%] text-lg font-bold text-center">
-          <img src={logo} alt="Logo" />
-        </div>
+      <div className={`fixed lg:relative top-0 left-0 w-64 bg-primary z-50 sidebar transition-transform transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 min-h-screen flex flex-col justify-between`}>
         
-        <ul className="p-4 space-y-1">
-          <SidebarItem to="/StudentDashboard" icon={<MdOutlineDashboard />} label="Dashboard" />
-          <SidebarItem 
-            icon={<PiChairBold />} 
-            label="Courses" 
-            isDropdown={true}
-            isOpen={isCoursesDropdownOpen}
-            onToggle={() => setIsCoursesDropdownOpen(prev => !prev)}
-            dropdownItems={[
-              { to: "/courses/myCourses", label: "My Courses" },
-              { to: "/courses/buyCourses", label: "Buy Courses" }
-            ]}
-          />
-          <SidebarItem to="/liveLectures" icon={<RiLiveFill />} label="Live Lectures" />
-          <SidebarItem to="/studentAssignments" icon={<MdAssignment />} label="Assignments" />
-          <SidebarItem to="/Professors" icon={<RiCalendarCheckFill />} label="Professors" />
-          <SidebarItem to="/favorites" icon={<FaBookmark />} label="Favorites" />
-          <SidebarItem to="/StudentAttendance" icon={<BsCalendar2CheckFill />} label="Attendance" />
-          <SidebarItem to="/chat" icon={<IoSendSharp />} label="Chat" />
-          <SidebarItem to="/RegisteredSubject" icon={<FaBookReader />} label="Registered Subject" />
-          <SidebarItem 
-            icon={<GrSupport />} 
-            label="Support" 
-            isDropdown={true}
-            isOpen={isSupportDropdownOpen}
-            onToggle={() => setIsSupportDropdownOpen(prev => !prev)}
-            dropdownItems={[
-              { to: "/support/faq", label: "FAQ" },
-              { to: "/support/contact", label: "Contact Support" }
-            ]}
-          />
-          <SidebarItem to="/assistant" icon={<FaBullhorn />} label="Promotion Content" />
-        </ul>
+        {/* Sidebar top section (Logo and Nav Links) */}
+        <div>
+          {/* Close Button - Only visible on small screens */}
+          <button onClick={toggleSidebar} className="absolute text-white top-4 right-4 lg:hidden">
+            <AiOutlineClose size={30} />
+          </button>
+
+          <div className="px-6 py-2 w-[90%] text-lg font-bold text-center">
+            <img src={logo} alt="Logo" />
+          </div>
+
+          <ul className="px-4 py-4 space-y-1">
+            <SidebarItem to="/StudentDashboard" icon={<MdOutlineDashboard />} label="Dashboard" />
+            <SidebarItem 
+              icon={<PiChairBold />} 
+              label="Courses" 
+              isDropdown={true}
+              isOpen={isCoursesDropdownOpen}
+              onToggle={() => setIsCoursesDropdownOpen(prev => !prev)}
+              dropdownItems={[
+                { to: "/courses/myCourses", label: "My Courses" },
+                { to: "/courses/buyCourses", label: "Buy Courses" }
+              ]}
+            />
+            <SidebarItem to="/liveLectures" icon={<RiLiveFill />} label="Live Lectures" />
+            <SidebarItem to="/studentAssignments" icon={<MdAssignment />} label="Assignments" />
+            <SidebarItem to="/Professors" icon={<RiCalendarCheckFill />} label="Professors" />
+            <SidebarItem to="/favorites" icon={<FaBookmark />} label="Favorites" />
+            <SidebarItem to="/StudentAttendance" icon={<BsCalendar2CheckFill />} label="Attendance" />
+            <SidebarItem to="" icon={<IoSendSharp />} label="Chat" />
+            <SidebarItem to="/StudentSchedule" icon={<AiTwotoneSchedule />} label="Schedule" />
+            <SidebarItem to="/RegisteredSubject" icon={<FaBookReader />} label="Registered Subject" />
+            <SidebarItem 
+              icon={<GrSupport />} 
+              label="Support" 
+              isDropdown={true}
+              isOpen={isSupportDropdownOpen}
+              onToggle={() => setIsSupportDropdownOpen(prev => !prev)}
+              dropdownItems={[
+                { to: "/support/faq", label: "FAQ" },
+                { to: "/support/contact", label: "Contact Support" }
+              ]}
+            />
+            <SidebarItem to="/assistant" icon={<FaBullhorn />} label="Promotion Content" />
+          </ul>
+        </div>
+
+        {/* Sidebar bottom section (Profile and Logout) */}
+        <div className='p-4 space-y-3'>
+          <div className='flex items-center gap-3'>
+            <div className='flex items-center justify-center w-6 h-6 bg-white rounded-full '>
+              <FcBusinessman />
+            </div>
+            <p className='text-white'>Student 1</p>
+          </div>
+          <button className='flex items-center gap-3 px-4 py-1 bg-white rounded-xl text-primary'>
+            <IoMdLogOut />
+            Logout
+          </button>
+        </div>
       </div>
     </>
   );
