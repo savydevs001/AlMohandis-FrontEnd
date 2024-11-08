@@ -23,7 +23,7 @@ const Login = () => {
             const res = await login({ phone, password });
             if (res.data?.token) {
                 // Store token and user type in cookies
-                Cookies.set('token', res.data.token, { expires: 1 / 24 }); // Set cookie with 1 hour expiration
+                Cookies.set('token', res.data.token, { expires: 1 / 24 }); 
                 Cookies.set('userType', res.data.user.type, { expires: 1 / 24 }); // Store user type
                 enqueueSnackbar('Login successful!', { variant: 'success' });
                 // Check user type and navigate accordingly
@@ -33,8 +33,14 @@ const Login = () => {
                     navigate('/dashboard');
                 }
             }
-        } catch (error) {
-            enqueueSnackbar('Login failed. Please check your credentials.', { variant: 'error' });
+        } catch (error:any) {
+            if (error.status === 401) {
+                enqueueSnackbar('Unauthorized: Incorrect phone or password.', { variant: 'error' });
+            } else if (error.status === 500) {
+                enqueueSnackbar('Server error: Please try again later.', { variant: 'error' });
+            } else {
+                enqueueSnackbar('An error occurred. Please try again.', { variant: 'error' });
+            }
         } finally {
             setLoading(false);
         }
