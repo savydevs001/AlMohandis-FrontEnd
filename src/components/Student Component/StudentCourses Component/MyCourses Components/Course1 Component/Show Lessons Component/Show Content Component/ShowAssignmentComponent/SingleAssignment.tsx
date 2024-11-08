@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { IoIosLink } from 'react-icons/io';
 import ShowLessonHeader from '../../ShowLessonHeader';
 import Cookies from 'js-cookie';
-import { useSnackbar } from 'notistack'; 
+import { useSnackbar } from 'notistack';
 
 interface Question {
   id: string;
@@ -22,22 +22,24 @@ interface Assignment {
   isFree: boolean;
   questions: Question[];
   submissions: any[];
+  isSubmitted: boolean; // Add this line to indicate submission status
 }
 
 interface SingleAssignmentProps {
   assignment: Assignment;
-  currentPart:{
+  currentPart: {
     title: string;
     price: number;
     completionTime: number;
   }
 }
 
-const SingleAssignment: React.FC<SingleAssignmentProps> = ({ assignment,currentPart }) => {
+const SingleAssignment: React.FC<SingleAssignmentProps> = ({ assignment, currentPart }) => {
   const { enqueueSnackbar } = useSnackbar();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [fileName, setFileName] = useState<string | null>(null);
   const [file, setFile] = useState<File | null>(null);
+  console.log(assignment);
 
   const handleFileClick = () => {
     fileInputRef.current?.click();
@@ -56,17 +58,17 @@ const SingleAssignment: React.FC<SingleAssignmentProps> = ({ assignment,currentP
       alert('Please select a file before submitting.');
       return;
     }
-  
+
     const token = Cookies.get('token'); // Retrieve the token from cookies
     if (!token) {
       alert('No authorization token found. Please log in.');
       return;
     }
-  
+
     const formData = new FormData();
     formData.append('assignmentId', assignment.id);
     formData.append('file', file);
-  
+
     try {
       const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/student/submitAssignment`, {
         method: 'POST',
@@ -75,12 +77,12 @@ const SingleAssignment: React.FC<SingleAssignmentProps> = ({ assignment,currentP
         },
         body: formData,
       });
-  
+
       if (!response.ok) {
         throw new Error('Failed to submit assignment');
       }
       enqueueSnackbar('Assignment submitted successfully!', { variant: 'success' });
-    } catch (error:any) {
+    } catch (error: any) {
       enqueueSnackbar(error.message, { variant: 'error' });
     }
   };
@@ -110,11 +112,13 @@ const SingleAssignment: React.FC<SingleAssignmentProps> = ({ assignment,currentP
           type="file"
           style={{ display: "none" }}
           onChange={handleFileChange}
+          disabled={assignment.isSubmitted} // Disable if assignment is submitted
         />
         {/* Custom button */}
         <button
           onClick={handleFileClick}
           className="w-full py-1 border rounded-lg border-pTag hover:bg-gray-300"
+          disabled={assignment.isSubmitted} // Disable if assignment is submitted
         >
           Choose File
         </button>
@@ -128,6 +132,11 @@ const SingleAssignment: React.FC<SingleAssignmentProps> = ({ assignment,currentP
             Selected file: {fileName}
           </div>
         )}
+        {assignment.isSubmitted && (
+          <div className="w-full p-2 text-xs text-red-600 border rounded-lg">
+            This assignment has already been submitted.
+          </div>
+        )}
         <div className="flex items-center gap-2 cursor-pointer" onClick={handleFileClick}>
           <IoIosLink />
           <p className="text-sm text-primary">Add your work</p>
@@ -137,10 +146,11 @@ const SingleAssignment: React.FC<SingleAssignmentProps> = ({ assignment,currentP
       <button 
         onClick={handleSubmit}
         className="px-4 py-2 font-semibold text-white rounded-md bg-primary"
+        disabled={assignment.isSubmitted} // Disable if assignment is submitted
       >
         Submit
       </button>
- </div>
+    </div>
   );
 };
 

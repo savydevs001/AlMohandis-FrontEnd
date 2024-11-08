@@ -47,6 +47,7 @@ interface Assignment {
   isFree: boolean;
   questions: Question[];
   submissions: any[];
+  isSubmitted:boolean
 }
 
 interface Lesson {
