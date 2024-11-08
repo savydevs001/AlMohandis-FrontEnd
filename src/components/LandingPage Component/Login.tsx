@@ -5,12 +5,14 @@ import Footer from '../Footer';
 import { useState } from 'react';
 import { useLoginMutation } from '../../redux/api/auth/auth';
 import Cookies from 'js-cookie';
+import { useSnackbar } from 'notistack';
 
 const Login = () => {
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [login] = useLoginMutation();
+    const { enqueueSnackbar } = useSnackbar();
 
     const navigate = useNavigate();
 
@@ -23,7 +25,7 @@ const Login = () => {
                 // Store token and user type in cookies
                 Cookies.set('token', res.data.token, { expires: 1 / 24 }); // Set cookie with 1 hour expiration
                 Cookies.set('userType', res.data.user.type, { expires: 1 / 24 }); // Store user type
-                
+                enqueueSnackbar('Login successful!', { variant: 'success' });
                 // Check user type and navigate accordingly
                 if (res.data.user.type === 'student') {
                     navigate('/StudentDashboard');
@@ -32,7 +34,7 @@ const Login = () => {
                 }
             }
         } catch (error) {
-            console.log(error);
+            enqueueSnackbar('Login failed. Please check your credentials.', { variant: 'error' });
         } finally {
             setLoading(false);
         }
