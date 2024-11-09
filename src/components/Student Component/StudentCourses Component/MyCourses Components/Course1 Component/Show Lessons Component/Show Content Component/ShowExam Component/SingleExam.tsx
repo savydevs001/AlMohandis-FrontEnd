@@ -31,6 +31,7 @@ interface SingleExamProps {
 }
 
 const SingleExam: React.FC<SingleExamProps> = ({ exam, currentPart }) => {
+  console.log(exam);
   return (
     <div className="flex-1 p-5 space-y-5">
       <ShowLessonHeader head={currentPart.title} />
@@ -54,7 +55,7 @@ const SingleExam: React.FC<SingleExamProps> = ({ exam, currentPart }) => {
         <p>Total Questions: <span className='font-bold'>{exam.questions.length}</span></p>
       </div>
       
-      <NavLink to='/showQuestions'>
+      <NavLink to={`/exams/${exam.id}/attempt`}>
         <button className="px-4 py-2 mt-3 font-semibold text-white rounded-md bg-primary">Start Exam</button>
       </NavLink>
     </div>

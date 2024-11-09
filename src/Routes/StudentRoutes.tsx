@@ -21,7 +21,7 @@ function StudentRoutes() {
       <Route path="/videoLesson" element={<ProtectedRoute allowedRoles={['student']}><VideoLesson /></ProtectedRoute>} />
       <Route path="/courses/buyCourses/*" element={<ProtectedRoute allowedRoles={['student']}><BuyCourses /></ProtectedRoute>} />
       <Route path="/studentAssignments/*" element={<ProtectedRoute allowedRoles={['student']}><StudentAssignments /></ProtectedRoute>} />
-      <Route path="/showQuestions" element={<ProtectedRoute allowedRoles={['student']}><ExamQuestionsPage /></ProtectedRoute>} />
+      <Route path="/exams/:examId/:attempt" element={<ProtectedRoute allowedRoles={['student']}><ExamQuestionsPage /></ProtectedRoute>} />
       <Route path="/correctOptions" element={<ProtectedRoute allowedRoles={['student']}><CorrectOption /></ProtectedRoute>} />
       <Route path="/Professors/*" element={<ProtectedRoute allowedRoles={['student']}><Professors /></ProtectedRoute>} />
       <Route path="/StudentAttendance" element={<ProtectedRoute allowedRoles={['student']}><StudentAttendence /></ProtectedRoute>} />
