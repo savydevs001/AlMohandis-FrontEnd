@@ -2,6 +2,7 @@ import LandingPageRoutes from "./Routes/LandingPageRoutes"
 import { BrowserRouter } from "react-router-dom"
 import TeacherRoutes from "./Routes/TeacherRoutes"
 import StudentRoutes from "./Routes/StudentRoutes"
+import AdminPageRoute from "./Routes/AdminPageRoute"
 
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
         <LandingPageRoutes />
         <TeacherRoutes />
         <StudentRoutes/>
+        <AdminPageRoute/>
       </BrowserRouter>
     </>
   )

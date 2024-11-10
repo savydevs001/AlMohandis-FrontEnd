@@ -1,5 +1,5 @@
 // import React from 'react'
-import img from '/professorsImg.png';
+import img from '../../../assets/professorsImg.png';
 
 function ProfessorPersonalDetail() {
   return (

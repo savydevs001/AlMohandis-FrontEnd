@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import professorsImg from '/professorsImg.png';
+import professorsImg from '../../assets/professorsImg.png';
 
 interface Professor {
   id: string; // Assuming each professor has a unique ID
