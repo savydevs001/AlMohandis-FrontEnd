@@ -10,6 +10,7 @@ function LiveLectureTable() {
     setIsPopupOpen(true);
   };
 
+
   const closePopup = () => {
     setIsPopupOpen(false);
     setSelectedData(null);
