@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ExamQuestionsHeader from "./ExamQuestionsHeader";
 import ExamQuestion from "./ExamQuestion";
 import Cookies from 'js-cookie';
+import { LuArrowLeftToLine, LuArrowRightToLine } from 'react-icons/lu';
 
 interface Question {
   id: string;
@@ -156,33 +157,39 @@ const ExamQuestionShowComponent: React.FC<Props> = ({ examId }) => {
             onAnswerSelect={handleAnswerSelect}
             selectedAnswer={selectedAnswers[currentQuestionIndex]} // Pass selected answer
           />
-          <div className="flex justify-between mt-4">
-            <button onClick={prevQuestion} disabled={currentQuestionIndex === 0}>
+          <div className="flex justify-end gap-4 mt-4">
+            <button className='flex items-center gap-2 px-4 py-2 border rounded-md text-primary border-primary' onClick={prevQuestion} disabled={currentQuestionIndex === 0}>
+            <LuArrowLeftToLine />
               Previous
             </button>
-            <button onClick={nextQuestion} disabled={currentQuestionIndex === examData.questions.length - 1}>
+            <button className="flex items-center gap-2 px-4 py-2 text-white rounded-md bg-primary " onClick={nextQuestion} disabled={currentQuestionIndex === examData.questions.length - 1}>
               Next
+            <LuArrowRightToLine  />
             </button>
             {currentQuestionIndex === examData.questions.length - 1 && (
-              <button onClick={finishExam}>
+              <button className="flex items-center gap-2 px-4 py-2 text-white rounded-md bg-primary " onClick={finishExam}>
                 Finish
               </button>
             )}
           </div>
-          <div className="mt-4">
+          <div className="flex items-center gap-4 mt-4 text-xl font-semibold text-primary">
+            <h1 className='text-lg font-semibold text-black'>Total Questions</h1>
             {currentQuestionIndex + 1} / {examData.questions.length}
           </div>
         </div>
       )}
       {finished && examData && (
-        <div>
-          <h2>Your Answers:</h2>
+        <div className='mt-8 space-y-4 ' >
+          <h2 className='text-xl font-semibold'>Your Answers:</h2>
+         
           {examData.questions.map((question, index) => (
-            <div key={question.id} className={`border ${selectedAnswers[index] !== question.correctAnswer ? 'border-red-500' : ''} p-4 rounded-md mb-4`}>
+           <div className=''>
+             <div  key={question.id} className={`border ${selectedAnswers[index] !== question.correctAnswer ? 'border-red-500 ' : ''} p-4 rounded-md mb-4`}>
               <h1 className="text-lg">{question.questionText}</h1>
               <p className="text-pTag">Correct Answer: {question.correctAnswer}</p>
               <p className="text-pTag">Your Answer: {selectedAnswers[index]}</p>
             </div>
+           </div>
           ))}
         </div>
       )}

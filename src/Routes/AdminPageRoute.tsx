@@ -6,6 +6,7 @@ import UserManagement from "../pages/Admin Page/UserManagement"
 import AdminStudentCourse from "../components/Admin Component/UserManagementComponent/StudentComponents/AdminStudentInformation/StudentCourses/AdminStudentCourse"
 import ViewCourse from "../components/Admin Component/UserManagementComponent/StudentComponents/AdminStudentInformation/StudentCourses/ViewCourse/ViewCourse"
 import StudentViewCourse from "../components/Admin Component/UserManagementComponent/StudentComponents/AdminStudentInformation/StudentCourses/StudentViewCourseComponent/StudentViewCourse"
+import TeacherInformation from "../components/Admin Component/UserManagementComponent/AdminTeacherComponent/TeacherInformatioComponents/TeacherInformation"
 
 function AdminPageRoute() {
   return (
@@ -15,6 +16,7 @@ function AdminPageRoute() {
  <Route path="/AdminStudentCourses" element ={<AdminStudentCourse/>}  />
  <Route path="/ViewCourse" element = {<ViewCourse/>} />
  <Route path="/StudentViewCourse" element = {<StudentViewCourse/>} />
+ <Route path="/TeacherInformation" element = {<TeacherInformation/>} />
    </Routes>
    
   )

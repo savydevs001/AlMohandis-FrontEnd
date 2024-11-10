@@ -21,7 +21,7 @@ const TeacherRoutes: React.FC = () => {
     <Routes>
       <Route path="/liveLectures" element={<ProtectedRoute allowedRoles={['teacher']}><LiveLectures /></ProtectedRoute>} />
       <Route path="/courses" element={<ProtectedRoute allowedRoles={['teacher']}><Courses /></ProtectedRoute>} />
-      <Route path="/assignments" element={<ProtectedRoute allowedRoles={['teacher']}><Assignment /></ProtectedRoute>} />
+      <Route path="/assignments/*" element={<ProtectedRoute allowedRoles={['teacher']}><Assignment /></ProtectedRoute>} />
       <Route path="/exams" element={<ProtectedRoute allowedRoles={['teacher']}><Exams /></ProtectedRoute>} />
       <Route path="/attendence" element={<ProtectedRoute allowedRoles={['teacher']}><Attendence /></ProtectedRoute>} />
       <Route path="/chat" element={<ProtectedRoute allowedRoles={['teacher']}><Chat /></ProtectedRoute>} />

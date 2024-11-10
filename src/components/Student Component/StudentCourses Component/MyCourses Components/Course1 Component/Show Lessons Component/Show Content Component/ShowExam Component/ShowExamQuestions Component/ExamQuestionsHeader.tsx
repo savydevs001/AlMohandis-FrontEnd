@@ -7,7 +7,7 @@ interface Props {
 
 const ExamQuestionsHeader: React.FC<Props> = ({ title, remainingTime }) => {
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex flex-col justify-between space-y-3 lg:items-center lg:flex-row lg:space-y-0">
       <h1 className="text-2xl font-semibold">{title}</h1>
       <h5 className="text-xl">
         Remaining Time : <span className="text-2xl text-primary">{remainingTime}</span>
