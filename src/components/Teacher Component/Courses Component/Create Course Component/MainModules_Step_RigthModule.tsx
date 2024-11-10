@@ -67,7 +67,7 @@ const MainModules_Step_RigthModule: React.FC<MainModules_Step_RigthModuleProps> 
       formData.append('title', lesson.title);
 
       try {
-        const response = await axios.post('http://localhost:5000/api/videoUpload', formData, {
+        const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/videoUpload`, formData, {
           onUploadProgress: (progressEvent) => {
             const total = progressEvent.total || 1; // Ensure total is not undefined
             const current = progressEvent.loaded;
