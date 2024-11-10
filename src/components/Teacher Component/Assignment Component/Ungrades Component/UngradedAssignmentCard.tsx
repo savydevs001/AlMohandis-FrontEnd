@@ -5,10 +5,9 @@ import { AssignmentPopup } from '../../Courses Component/Edit Course/EditCourseP
 function UngradedAssignmentCard() {
   const [activePopup, setActivePopup] = useState<string | null>(null);
 
-  const handleFileUpload = (file: File | null) => {
-    // Handle file upload logic here
-    console.log(file);
-  };
+  // const handleFileUpload = (file: File | null) => {
+  //   console.log(file);
+  // };
 
   const closePopup = () => {
     setActivePopup(null);
@@ -42,7 +41,7 @@ function UngradedAssignmentCard() {
       {/* Conditionally render the popup */}
       {activePopup === 'assignment' && (
         <AssignmentPopup
-          handleFileUpload={handleFileUpload}
+          // handleFileUpload={handleFileUpload}
           onClose={closePopup} // Pass closePopup function to close the popup
         />
       )}
