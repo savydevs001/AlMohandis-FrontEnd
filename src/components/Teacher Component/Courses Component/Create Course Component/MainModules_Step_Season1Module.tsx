@@ -666,7 +666,7 @@ const MainModules_Step_Season1Module: React.FC<MainModules_Step_Season1ModulePro
   };
 
   return (
-    <div>
+    <div className='border-2 border-blue-500'>
       <div>
         {
           partContainer.length > 0 && partContainer.map((part, partIndex) => (

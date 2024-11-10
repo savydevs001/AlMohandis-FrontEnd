@@ -8,7 +8,7 @@ function StudentAssignmentPageLayout() {
   return (
     <div className="flex-1 space-y-6">
       <div className="flex items-center justify-between gap-6 lg:gap-0">
-            <h1 className="text-2xl font-semibold">Assignment</h1>
+            <h1 className="text-2xl font-semibold">UpComing Assignments</h1>
             <DashBoardHeader/>
       </div>
       <div className="space-y-6">

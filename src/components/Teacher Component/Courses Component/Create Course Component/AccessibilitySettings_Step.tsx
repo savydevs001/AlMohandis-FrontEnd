@@ -75,7 +75,7 @@ const AccessibilitySettings_Step: React.FC<AccessibilitySettings_StepProps> = ({
           studentAccessType: selectedTypes,
           academicStage: selectedStages,
           canAccessIfPurchased: canAccessOtherCourse,
-          broughtFromTeacherId: "cm2zq23sf0000126nbara6yem",
+          broughtFromTeacherId: "cm340il3l0000125tqn61rhcz",
         }, {
           headers: {
             Authorization: `Bearer ${JSON.parse(token)}`,
