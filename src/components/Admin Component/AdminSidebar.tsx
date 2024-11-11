@@ -120,7 +120,7 @@ const AdminSidebar: React.FC = () => {
               ]}
             />
 
-            <SidebarItem to="/studentAssignments" icon={<MdAssignment />} label="Assignments" />
+            <SidebarItem to="/myassignments" icon={<MdAssignment />} label="Assignments" />
             <SidebarItem to="/exams" icon={<RiCalendarCheckFill />} label="Exams" />
 
             <SidebarItem

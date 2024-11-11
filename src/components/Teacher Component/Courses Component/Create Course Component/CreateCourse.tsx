@@ -32,15 +32,7 @@ const CreateCourse: React.FC = () => {
     const savedStep = localStorage.getItem('currentStep');
     if (savedStep) {
       const stepNumber = parseInt(savedStep, 10);
-      if (stepNumber === 5) {
-        console.log('Clearing local storage');
-        
-        localStorage.clear();
-      } else {
-        console.log('Setting step');
-        
-        setStep(stepNumber);
-      }
+      setStep(stepNumber);
     }
   }, []);
 
@@ -50,20 +42,11 @@ const CreateCourse: React.FC = () => {
     }
   }, [step]);
 
-
   const handleNext = () => {
     if (step < 9) {
       setStep((prevStep) => prevStep + 1);
     }
-    console.log(step);
-    
   };
-
-  // const handleBack = () => {
-  //   if (step > 1) {
-  //     setStep((prevStep) => prevStep - 1);
-  //   }
-  // };
 
   const handleFinish = () => {
     setStep(8);
@@ -81,58 +64,31 @@ const CreateCourse: React.FC = () => {
         </div>
         {step === 1 && (
           <BasicInfo_Step
-            // formData={formData}
-            // handleInputChange={handleInputChange}
             handleNext={handleNext}
           />
         )}
         {step === 2 && (
           <AccessibilitySettings_Step
-            // formData={formData}
-            // handleInputChange={handleInputChange}
             handleNext={handleNext}
-            // handleBack={handleBack}
           />
         )}
         {step === 3 && (
           <ObjectivesGoals_Step
-            // formData={formData}
-            // handleInputChange={handleInputChange}
             handleNext={handleNext}
-            // handleBack={handleBack}
           />
         )}
         {step === 4 && (
           <Part_Step
-            // formData={formData}
-            // handleInputChange={handleInputChange}
             handleNext={handleNext}
-            // handleBack={handleBack}
           />
         )}
         {step === 5 && (
           <MainModules_Step
             handleFinish={handleFinish}
-            // handleBack={handleBack}
             setPartContainer={setPartContainer}
             partContainer={partContainer}
           />
         )}
-        {/* {step === 6 && (
-          <Step6
-            formData={formData}
-            handleInputChange={handleInputChange}
-            handleNext={handleNext}
-          />
-        )} */}
-        {/* {step === 7 && (
-          <Step7
-            formData={formData}
-            handleInputChange={handleInputChange}
-            // handleSubmit={handleSubmit}
-            handleNext={handleNext} // Pass handleNext to Step 7
-          />
-        )} */}
         {step === 8 && (
           <Step8
             handleNext={handleNext}
