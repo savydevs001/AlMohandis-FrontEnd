@@ -1,9 +1,13 @@
-import { NavLink } from "react-router-dom";
+// import React from 'react';
+import { NavLink } from 'react-router-dom';
 
+// Define the prop types
 type AssistantCoursesTableProps = {
-  onViewClick: () => void; // Ensure it's a function with no arguments and void return type
+  onViewClick?: () => void;
 };
 
+
+// Define the component
 function AssistantCoursesTable({ onViewClick }: AssistantCoursesTableProps) {
   return (
     <div className="overflow-x-auto">
@@ -19,16 +23,11 @@ function AssistantCoursesTable({ onViewClick }: AssistantCoursesTableProps) {
           </tr>
         </thead>
         <tbody className="bg-[#D1D6D6]">
+          {/* Sample data rows */}
           {[
             { id: 'Basic of Python', name: 'John Daniel', assistant: '28-03-2024', startDate: 'Active', status: 'Published' },
-            { id: 'Basic of Python', name: 'John Daniel', assistant: '28-03-2024', startDate: 'Active', status: 'Published' },
-            { id: 'Basic of Python', name: 'John Daniel', assistant: '28-03-2024', startDate: 'Active', status: 'Published' },
-            { id: 'Basic of Python', name: 'John Daniel', assistant: '28-03-2024', startDate: 'Active', status: 'Published' },
-            { id: 'Basic of Python', name: 'John Daniel', assistant: '28-03-2024', startDate: 'Active', status: 'Published' },
-            { id: 'Basic of Python', name: 'John Daniel', assistant: '28-03-2024', startDate: 'Active', status: 'Published' },
-            { id: 'Basic of Python', name: 'John Daniel', assistant: '28-03-2024', startDate: 'Active', status: 'Published' },
-            { id: 'Basic of Python', name: 'John Daniel', assistant: '28-03-2024', startDate: 'Active', status: 'Published' },
-            // Other rows...
+            { id: 'Advanced JavaScript', name: 'Jane Smith', assistant: '05-04-2024', startDate: 'Inactive', status: 'Draft' },
+            // More rows as needed...
           ].map((row, index) => (
             <tr key={index}>
               <td className="px-4 py-2 border border-black">{row.id}</td>
@@ -41,8 +40,8 @@ function AssistantCoursesTable({ onViewClick }: AssistantCoursesTableProps) {
                 </NavLink>
               </td>
               <td className="px-4 py-2 border border-black">
-                {/* View button triggering onViewClick */}
-                <button onClick={onViewClick} className="text-pink-500 border-b border-pink-500 cursor-pointer">View</button>
+                {/* Button with onViewClick event */}
+                <button onClick={() => onViewClick?.()} className="text-pink-500 border-b border-pink-500 cursor-pointer">View</button>
               </td>
             </tr>
           ))}

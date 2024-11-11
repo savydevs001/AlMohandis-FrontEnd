@@ -10,16 +10,19 @@ function AssistantInfomationShowTables() {
   const [activeTab, setActiveTab] = useState<Tab>('information');
   const [showPermissions, setShowPermissions] = useState<boolean>(false);
 
-  // Define the function to be passed to the child component
-
+  // Define the function to handle view click, set `showPermissions` state
+  const handleViewClick = () => {
+    setShowPermissions(true);
+  };
 
   const renderContent = () => {
     switch (activeTab) {
       case 'information':
         return <TeacherGeneralInformationSect />;
       case 'course':
-        // Pass the handleViewClick function to the child component
-        return <AssistantInfoCoursesTable />;
+        // Pass the handleViewClick function to AssistantInfoCoursesTable
+        return <AssistantInfoCoursesTable onViewClick={handleViewClick} />;
+
       case 'lecturesAttended':
         return <AssistantSubject />;
       default:
@@ -30,7 +33,6 @@ function AssistantInfomationShowTables() {
   return (
     <div className="mt-8 space-y-12">
       <div className="w-full p-2 space-y-3 bg-white shadow-sm">
-        {/* Tabs Header */}
         <div className="flex flex-wrap items-start space-x-6 border-b">
           <button
             className={`lg:px-4 py-2 text-sm font-semibold ${activeTab === 'information' ? 'text-teal-600 border-b-2 border-teal-600' : 'text-gray-600'}`}
@@ -52,11 +54,8 @@ function AssistantInfomationShowTables() {
           </button>
         </div>
 
-        {/* Content Section */}
         <div>
           {renderContent()}
-
-          {/* Show permissions content when View button is clicked */}
           {showPermissions && <CoursesPermissions />}
         </div>
       </div>
