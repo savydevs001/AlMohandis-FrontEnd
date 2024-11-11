@@ -2,7 +2,7 @@ import { useState } from 'react';
 import TeacherGeneralInformationSect from '../../TeacherInformatioComponents/TeacherGeneralInformationSect';
 import AssistantSubject from './AssistantSubject';
 import AssistantInfoCoursesTable from './AssistantInfoCoursesTable';
-import CoursesPermissions from './CoursesPermissions';
+
 
 type Tab = 'information' | 'course' | 'lecturesAttended' | 'registeredStudents' | 'permissions' | 'assistants';
 
@@ -56,7 +56,7 @@ function AssistantInfomationShowTables() {
 
         <div>
           {renderContent()}
-          {showPermissions && <CoursesPermissions />}
+          {showPermissions && <></>}
         </div>
       </div>
     </div>

@@ -17,8 +17,20 @@ const optionsData: Option[] = [
   { id: 8, label: 'Show Assignments result', enabled: false },
 ];
 
+const optionsData2: Option[] = [
+  { id: 1, label: 'Add Exam', enabled: false },
+  { id: 2, label: 'Edit Course', enabled: false },
+  { id: 3, label: 'Delete Course', enabled: false },
+  { id: 4, label: 'Show Exam Results', enabled: false },
+  { id: 5, label: 'Show Course Students', enabled: false },
+  { id: 6, label: 'Delete Course Students', enabled: false },
+  { id: 7, label: 'Freeze Course Students', enabled: false },
+  { id: 8, label: 'Chat in Course Chats', enabled: false },
+];
+
 const CoursesPermissions: React.FC = () => {
   const [options, setOptions] = useState(optionsData);
+  const [options2, setOptions2] = useState(optionsData2);
 
   const handleToggle = (id: number) => {
     setOptions(prevOptions =>
@@ -28,35 +40,56 @@ const CoursesPermissions: React.FC = () => {
     );
   };
 
+  const handleToggle2 = (id: number) => {
+    setOptions2(prevOptions =>
+      prevOptions.map(option =>
+        option.id === id ? { ...option, enabled: !option.enabled } : option
+      )
+    );
+  };
+
   return (
-    <div className="p-5 space-y-4 w-[40%] border">
-      {options.map(option => (
-        <div key={option.id} className="flex items-center justify-between w-[100%] ">
-          <span className="text-gray-700">{option.label}</span>
-          <button
-            onClick={() => handleToggle(option.id)}
-            className={`relative inline-flex h-3 w-8 items-center rounded-full transition-colors ${
-              option.enabled ? 'bg-teal-500' : 'bg-gray-300'
-            }`}
-          >
-            <span
-              className={`${
-                option.enabled ? 'translate-x-6' : 'translate-x-1'
-              } inline-block h-2 w-2 transform rounded-full bg-white transition-transform`}
-            />
-          </button>
-        </div>
-      ))}
+    <div className="flex flex-col items-center justify-center w-full gap-6 mx-auto lg:p-6 lg:flex-row">
+      <div className="p-5 space-y-4 lg:w-[40%] border w-full">
+        {options.map(option => (
+          <div key={option.id} className="flex items-center justify-between w-[100%]">
+            <span className="text-gray-700">{option.label}</span>
+            <button
+              onClick={() => handleToggle(option.id)}
+              className={`relative inline-flex h-3 w-8 items-center rounded-full transition-colors ${
+                option.enabled ? 'bg-teal-500' : 'bg-gray-300'
+              }`}
+            >
+              <span
+                className={`${
+                  option.enabled ? 'translate-x-6' : 'translate-x-1'
+                } inline-block h-2 w-2 transform rounded-full bg-white transition-transform`}
+              />
+            </button>
+          </div>
+        ))}
+      </div>
+      <div className="p-5 space-y-4 lg:w-[40%] border w-full">
+        {options2.map(option => (
+          <div key={option.id} className="flex items-center justify-between w-[100%]">
+            <span className="text-gray-700">{option.label}</span>
+            <button
+              onClick={() => handleToggle2(option.id)}
+              className={`relative inline-flex h-3 w-8 items-center rounded-full transition-colors ${
+                option.enabled ? 'bg-teal-500' : 'bg-gray-300'
+              }`}
+            >
+              <span
+                className={`${
+                  option.enabled ? 'translate-x-6' : 'translate-x-1'
+                } inline-block h-2 w-2 transform rounded-full bg-white transition-transform`}
+              />
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
 
 export default CoursesPermissions;
-
-
-
-
-
-
-
-

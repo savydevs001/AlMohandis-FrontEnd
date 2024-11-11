@@ -80,8 +80,8 @@ const AdminSidebar: React.FC = () => {
               dropdownItems={[
                 { to: "/UserManagement", label: "Student" },
                 { to: "/AdminTeacher", label: "Teacher" },
-                { to: "/Guardian", label: "Guardian" },
-                { to: "/Admin", label: "Admin" }
+                { to: "/AdminGuardianPage", label: "Guardian" },
+                { to: "/AdminManagement", label: "Admin" }
               ]}
             />
 
