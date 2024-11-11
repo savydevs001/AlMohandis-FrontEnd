@@ -1,5 +1,6 @@
 // import React from 'react'
 import { PiDotsThreeOutlineVerticalFill } from "react-icons/pi";
+import { NavLink } from "react-router-dom";
 
 function AdminAssistantCard() {
   return (
@@ -9,7 +10,10 @@ function AdminAssistantCard() {
       <PiDotsThreeOutlineVerticalFill />
      </div>
      <p>hello@gmail.com</p>
-     <button className="px-4 py-1 text-lg font-semibold text-white rounded-md bg-primary">Manage</button>
+     <NavLink to='/AssistantInformation'>
+
+     <button className="px-4 py-1 mt-3 text-lg font-semibold text-white rounded-md bg-primary">Manage</button>
+     </NavLink>
     </div>
   )
 }

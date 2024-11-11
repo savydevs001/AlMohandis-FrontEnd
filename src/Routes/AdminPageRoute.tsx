@@ -8,6 +8,7 @@ import ViewCourse from "../components/Admin Component/UserManagementComponent/St
 import StudentViewCourse from "../components/Admin Component/UserManagementComponent/StudentComponents/AdminStudentInformation/StudentCourses/StudentViewCourseComponent/StudentViewCourse"
 import TeacherInformation from "../components/Admin Component/UserManagementComponent/AdminTeacherComponent/TeacherInformatioComponents/TeacherInformation"
 import TeacherInfoShowComp from "../components/Admin Component/UserManagementComponent/AdminTeacherComponent/TeacherInformatioComponents/TeacherInfoShowComp"
+import AssistantInformation from "../components/Admin Component/UserManagementComponent/AdminTeacherComponent/AdminAssistantComponent/AssistantInformationComponent/AssistantInformation"
 
 function AdminPageRoute() {
   return (
@@ -20,6 +21,7 @@ function AdminPageRoute() {
  <Route path="/ViewCourse" element = {<ViewCourse/>} />
  <Route path="/StudentViewCourse" element = {<StudentViewCourse/>} />
  <Route path="/TeacherInformation" element = {<TeacherInformation/>} />
+ <Route path="/AssistantInformation" element = {<AssistantInformation/>} />
    </Routes>
    
   )
