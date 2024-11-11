@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FaRegPenToSquare } from "react-icons/fa6";
 import { AssignmentPopup } from '../../Courses Component/Edit Course/EditCoursePopUps/AssignmentPopUp';
+import { NavLink } from "react-router-dom";
 
 function UngradedAssignmentCard() {
   const [activePopup, setActivePopup] = useState<string | null>(null);
@@ -26,9 +27,11 @@ function UngradedAssignmentCard() {
             Posted on <span className="font-medium text-black">{currentDate}</span>
           </p>
           <p className="font-medium">Course Name - Chapter 1</p>
+          <NavLink to='/gradeNow'>
           <button className="px-3 py-2 font-medium text-white rounded-md bg-primary">
             Grade Now
           </button>
+          </NavLink>
         </div>
         <div>
           <FaRegPenToSquare 

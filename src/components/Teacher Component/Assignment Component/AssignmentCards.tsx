@@ -13,7 +13,7 @@ function Assignment() {
         </div>
    <nav className="flex items-center gap-12 mt-8">
       <li className="list-none text-tertiary">
-            <NavLink to={'ungraded'} className={({ isActive }) => isActive ? 'text-tertiary border-b border-primary font-semibold flex items-center gap-4' : 'text-tertiary flex items-center gap-4'}>Ungraded</NavLink>
+            <NavLink to={''} className={({ isActive }) => isActive ? 'text-tertiary border-b border-primary font-semibold flex items-center gap-4' : 'text-tertiary flex items-center gap-4'}>Ungraded</NavLink>
             </li>
            <li className="list-none">
            <NavLink to={'grades'} className={({ isActive }) => isActive ? 'text-tertiary border-b border-primary font-semibold flex items-center gap-4' : 'text-tertiary flex items-center gap-4'}>Graded</NavLink>

@@ -79,7 +79,7 @@ const AdminSidebar: React.FC = () => {
               onToggle={() => toggleDropdown('User Management')}
               dropdownItems={[
                 { to: "/UserManagement", label: "Student" },
-                { to: "AdminTeacher", label: "Teacher" },
+                { to: "/AdminTeacher", label: "Teacher" },
                 { to: "/Guardian", label: "Guardian" },
                 { to: "/Admin", label: "Admin" }
               ]}
