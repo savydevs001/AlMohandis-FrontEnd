@@ -21,7 +21,7 @@ const SubmitAssignment: React.FC = () => {
     const fetchAssignments = async () => {
       try {
         const token = Cookies.get('token'); // Replace with your method of retrieving the token
-        const response = await fetch('http://localhost:5000/api/student/assignments', {
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/student/assignments`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

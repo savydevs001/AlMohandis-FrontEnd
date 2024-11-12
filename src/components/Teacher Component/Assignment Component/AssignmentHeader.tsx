@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom"
 import DashBoardHeader from "../Dashboard Component/DashBoardHeader"
 
 
-function Assignment() {
+function AssignmentHeader() {
   return (
     <div className="w-full">
    <div className="flex items-center justify-between w-full gap-4 p-2">
@@ -36,4 +36,4 @@ function Assignment() {
   )
 }
 
-export default Assignment
+export default AssignmentHeader
