@@ -15,6 +15,7 @@ import PendingCourse from '../components/Teacher Component/Courses Component/Pen
 import CreateCourse from '../components/Teacher Component/Courses Component/Create Course Component/CreateCourse';
 import EditCourse from '../components/Teacher Component/Courses Component/Edit Course/EditCourse';
 import ProtectedRoute from '../components/ProtectedRoute'; // Import the ProtectedRoute
+import GradeNow from '../components/Teacher Component/Assignment Component/GradeNow/GradeNow';
 
 const TeacherRoutes: React.FC = () => {
   return (
@@ -22,6 +23,7 @@ const TeacherRoutes: React.FC = () => {
       <Route path="/liveLectures" element={<ProtectedRoute allowedRoles={['teacher']}><LiveLectures /></ProtectedRoute>} />
       <Route path="/courses" element={<ProtectedRoute allowedRoles={['teacher']}><Courses /></ProtectedRoute>} />
       <Route path="/assignments/*" element={<ProtectedRoute allowedRoles={['teacher']}><Assignment /></ProtectedRoute>} />
+      <Route path="/gradeNow" element={<ProtectedRoute allowedRoles={['teacher']}><GradeNow /></ProtectedRoute>} />
       <Route path="/exams" element={<ProtectedRoute allowedRoles={['teacher']}><Exams /></ProtectedRoute>} />
       <Route path="/attendence" element={<ProtectedRoute allowedRoles={['teacher']}><Attendence /></ProtectedRoute>} />
       <Route path="/chat" element={<ProtectedRoute allowedRoles={['teacher']}><Chat /></ProtectedRoute>} />

@@ -7,16 +7,21 @@ import AdminStudentCourse from "../components/Admin Component/UserManagementComp
 import ViewCourse from "../components/Admin Component/UserManagementComponent/StudentComponents/AdminStudentInformation/StudentCourses/ViewCourse/ViewCourse"
 import StudentViewCourse from "../components/Admin Component/UserManagementComponent/StudentComponents/AdminStudentInformation/StudentCourses/StudentViewCourseComponent/StudentViewCourse"
 import TeacherInformation from "../components/Admin Component/UserManagementComponent/AdminTeacherComponent/TeacherInformatioComponents/TeacherInformation"
+import TeacherInfoShowComp from "../components/Admin Component/UserManagementComponent/AdminTeacherComponent/TeacherInformatioComponents/TeacherInfoShowComp"
+import AssistantInformation from "../components/Admin Component/UserManagementComponent/AdminTeacherComponent/AdminAssistantComponent/AssistantInformationComponent/AssistantInformation"
 
 function AdminPageRoute() {
   return (
    <Routes>
  <Route path="/AdminDashboard" element = {<AdminDashboard/>} />
  <Route path="/UserManagement/*" element = {<UserManagement/>} />
+ <Route path="/AdminTeacher" element ={
+      <TeacherInfoShowComp/>}  />
  <Route path="/AdminStudentCourses" element ={<AdminStudentCourse/>}  />
  <Route path="/ViewCourse" element = {<ViewCourse/>} />
  <Route path="/StudentViewCourse" element = {<StudentViewCourse/>} />
  <Route path="/TeacherInformation" element = {<TeacherInformation/>} />
+ <Route path="/AssistantInformation" element = {<AssistantInformation/>} />
    </Routes>
    
   )

@@ -48,7 +48,7 @@ const AdminSidebar: React.FC = () => {
 
   return (
     <>
-      <div className="sticky top-0 left-0 w-full p-4 bg-teal-100 lg:hidden h-fit">
+      <div className="sticky top-0 left-0 w-full bg-teal-100 lg:hidden h-fit">
         <button onClick={toggleSidebar} className="p-2 text-black rounded-md menu-button">
           <AiOutlineMenu size={30} />
         </button>
@@ -79,7 +79,7 @@ const AdminSidebar: React.FC = () => {
               onToggle={() => toggleDropdown('User Management')}
               dropdownItems={[
                 { to: "/UserManagement", label: "Student" },
-                { to: "AdminTeacher", label: "Teacher" },
+                { to: "/AdminTeacher", label: "Teacher" },
                 { to: "/Guardian", label: "Guardian" },
                 { to: "/Admin", label: "Admin" }
               ]}
