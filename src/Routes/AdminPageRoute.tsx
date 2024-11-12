@@ -13,6 +13,7 @@ import AdminGurardian from "../components/Admin Component/UserManagementComponen
 import GaurdianInformation from "../components/Admin Component/UserManagementComponent/AdminGuardianComponent/GaurdianInformationComponent/GaurdianInformation"
 import AdminManageAdmin from "../components/Admin Component/UserManagementComponent/AdminManageAdminComponents/AdminManageAdmin"
 import AdminInformation from "../components/Admin Component/UserManagementComponent/AdminManageAdminComponents/AdminInformationCpomponent/AdminInformation"
+import ContentManageMent from "../pages/Admin Page/ContentManageMent"
 
 function AdminPageRoute() {
   return (
@@ -30,6 +31,7 @@ function AdminPageRoute() {
  <Route path="/GaurdianInformation" element = {<GaurdianInformation/>} />
  <Route path="/AdminManagement" element = {<AdminManageAdmin/>} />
  <Route path="/AdminInformation" element = {<AdminInformation/>} />
+ <Route path="/ContentManagement/*" element = {<ContentManageMent/>} />
 
    </Routes>
    
