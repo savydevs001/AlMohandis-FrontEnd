@@ -33,7 +33,7 @@ function AssistantInfoCoursesTable({ onViewClick }: AssistantInfoCoursesTablePro
           <AssistantCoursesTable onViewClick={handleViewClick} />
         </div>
       )}
-      {isViewClicked && <CoursesPermissions />}
+      {isViewClicked &&  <CoursesPermissions />}
     </div>
   );
 }

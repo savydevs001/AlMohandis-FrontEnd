@@ -9,6 +9,11 @@ import StudentViewCourse from "../components/Admin Component/UserManagementCompo
 import TeacherInformation from "../components/Admin Component/UserManagementComponent/AdminTeacherComponent/TeacherInformatioComponents/TeacherInformation"
 import TeacherInfoShowComp from "../components/Admin Component/UserManagementComponent/AdminTeacherComponent/TeacherInformatioComponents/TeacherInfoShowComp"
 import AssistantInformation from "../components/Admin Component/UserManagementComponent/AdminTeacherComponent/AdminAssistantComponent/AssistantInformationComponent/AssistantInformation"
+import AdminGurardian from "../components/Admin Component/UserManagementComponent/AdminGuardianComponent/AdminGurardian"
+import GaurdianInformation from "../components/Admin Component/UserManagementComponent/AdminGuardianComponent/GaurdianInformationComponent/GaurdianInformation"
+import AdminManageAdmin from "../components/Admin Component/UserManagementComponent/AdminManageAdminComponents/AdminManageAdmin"
+import AdminInformation from "../components/Admin Component/UserManagementComponent/AdminManageAdminComponents/AdminInformationCpomponent/AdminInformation"
+import ContentManageMent from "../pages/Admin Page/ContentManageMent"
 
 function AdminPageRoute() {
   return (
@@ -22,6 +27,12 @@ function AdminPageRoute() {
  <Route path="/StudentViewCourse" element = {<StudentViewCourse/>} />
  <Route path="/TeacherInformation" element = {<TeacherInformation/>} />
  <Route path="/AssistantInformation" element = {<AssistantInformation/>} />
+ <Route path="/AdminGuardianPage" element = {<AdminGurardian/>} />
+ <Route path="/GaurdianInformation" element = {<GaurdianInformation/>} />
+ <Route path="/AdminManagement" element = {<AdminManageAdmin/>} />
+ <Route path="/AdminInformation" element = {<AdminInformation/>} />
+ <Route path="/ContentManagement/*" element = {<ContentManageMent/>} />
+
    </Routes>
    
   )

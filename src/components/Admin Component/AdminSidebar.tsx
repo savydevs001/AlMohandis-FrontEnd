@@ -80,8 +80,8 @@ const AdminSidebar: React.FC = () => {
               dropdownItems={[
                 { to: "/UserManagement", label: "Student" },
                 { to: "/AdminTeacher", label: "Teacher" },
-                { to: "/Guardian", label: "Guardian" },
-                { to: "/Admin", label: "Admin" }
+                { to: "/AdminGuardianPage", label: "Guardian" },
+                { to: "/AdminManagement", label: "Admin" }
               ]}
             />
 
@@ -110,12 +110,12 @@ const AdminSidebar: React.FC = () => {
               isOpen={openDropdown === 'Content Management'}
               onToggle={() => toggleDropdown('Content Management')}
               dropdownItems={[
-                { to: "/content/landingPage", label: "Landing Page" },
-                { to: "/content/aboutUs", label: "About Us" },
-                { to: "/content/contactUs", label: "Contact Us" },
-                { to: "/content/privacyPolicy", label: "Privacy & Policy" },
+                { to: "/ContentManagement", label: "Landing Page" },
+                { to: "AdminAboutUs", label: "About Us" },
+                { to: "AdminContactUs", label: "Contact Us" },
+                { to: "AdminPrivacyPolicy", label: "Privacy & Policy" },
                 { to: "/content/serviceAgreement", label: "Service Agreement" },
-                { to: "/content/termsConditions", label: "Terms and Conditions" },
+                { to: "AdminTermsConditions", label: "Terms and Conditions" },
                 { to: "/content/promotionalContent", label: "Promotional Content" }
               ]}
             />
