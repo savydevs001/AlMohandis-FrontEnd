@@ -44,21 +44,6 @@ const MainModules_Step_RigthModule: React.FC<MainModules_Step_RigthModuleProps> 
     setMediaFile(file);
   };
 
-  // const handleLessonChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-  //   const { name, value, type } = e.target;
-  //   if (type === 'checkbox') {
-  //     const { checked } = e.target as HTMLInputElement;
-  //     setsinglelesson(prevLesson => ({
-  //       ...prevLesson,
-  //       [name]: checked
-  //     }));
-  //   } else {
-  //     setsinglelesson(prevLesson => ({
-  //       ...prevLesson,
-  //       [name]: value
-  //     }));
-  //   }
-  // };
 
   const handleClick = async () => {
     if (videoFile) {
@@ -276,9 +261,9 @@ const MainModules_Step_RigthModule: React.FC<MainModules_Step_RigthModuleProps> 
                   </button>
                 </div>
                 {uploadProgress > 0 && (
-                  <div className='w-full bg-gray-200 rounded-full h-4'>
+                  <div className='w-full h-4 bg-gray-200 rounded-full'>
                     <div
-                      className='bg-blue-600 h-full rounded-full'
+                      className='h-full bg-blue-600 rounded-full'
                       style={{ width: `${uploadProgress}%` }}
                     />
                   </div>

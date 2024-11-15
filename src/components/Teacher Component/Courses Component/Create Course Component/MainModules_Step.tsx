@@ -66,33 +66,6 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
     clips: []
   });
 
-  // const [lesson, setLesson] = useState<{ lessonTitle: string, lessonDescription: string, srcUrl: File | null | string, isPromoted: boolean, isFree: boolean, lessonType: string, clips: Clip[] }>({
-  //   lessonTitle: '',
-  //   lessonDescription: '',
-  //   srcUrl: 'https://example.com/leson1.mp4',
-  //   isPromoted: false,
-  //   isFree: false,
-  //   lessonType: 'AUDIO',
-  //   clips: []
-  // });
-
-  // const handleLessonChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-  //   console.log(e.target);
-
-  //   const { name, value, type } = e.target;
-  //   if (type === 'checkbox') {
-  //     const { checked } = e.target as HTMLInputElement;
-  //     setLessonData(prevLesson => ({
-  //       ...prevLesson,
-  //       [name]: checked
-  //     }));
-  //   } else {
-  //     setLessonData(prevLesson => ({
-  //       ...prevLesson,
-  //       [name]: value
-  //     }));
-  //   }
-  // };
   const handleLessonChange = (index: number, e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     console.log(e.target.name, e.target.value);
     console.log("Name", e.target.name);
@@ -154,18 +127,6 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
           setLessons(actualLesson);
         }
 
-        // if (actualLesson) {
-        //   const lesson = {
-        //     title: actualLesson.title,
-        //     description: actualLesson.description,
-        //     link: actualLesson.link,
-        //     isPromotional: actualLesson.isPromotional,
-        //     channel: actualLesson.channel,
-        //     isFree: actualLesson.isFree,
-        //     clips: actualLesson.clips
-        //   };
-        //   setLessons([lesson]);
-        // }
       } else {
         console.error("No chapters or lessons found in response");
       }
@@ -190,20 +151,6 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
     }
   }, [activeModule]);
 
-  // const handleNextModule = async () => {
-  //   if (!activeModule) return;
-  //   const { partIndex, moduleIndex } = activeModule;
-  //   const currentPart = partContainer[partIndex];
-  //   // setLoading(true);
-  //   setPartId(localStorage.getItem(`Part ${partIndex + 1}`));
-  //   if (moduleIndex < currentPart.modules.length - 1) {
-  //     // Move to the next module in the current part
-  //     setActiveModule({ partIndex, moduleIndex: moduleIndex + 1 });
-  //   } else if (partIndex < partContainer.length - 1) {
-  //     // Move to the first module of the next part
-  //     setActiveModule({ partIndex: partIndex + 1, moduleIndex: 0 });
-  //   }
-  // };
   const handleNextModule = async () => {
     if (!activeModule) return;
     const { partIndex, moduleIndex } = activeModule;
@@ -382,15 +329,7 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
     } finally {
       setLoading(false);
     }
-    // const randomString = Math.random().toString(36).substring(2, 8);
-    // const chapterCount = localStorage.getItem('chapterCount') ? parseInt(localStorage.getItem('chapterCount')!) : 0;
-    // const newChapterName = `Chapter ${chapterCount + 1}`;
-    // const chapterKey = `chapterId_${partIndex}_${moduleIndex}`;
-
-    // console.log(`Created ${newChapterName} with ID: ${randomString}`);
-    // localStorage.setItem(chapterKey, randomString);
-    // localStorage.setItem('chapterCount', (chapterCount + 1).toString());
-    // setChapterId(randomString);
+    
   };
 
   useEffect(() => {
@@ -424,14 +363,7 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
   };
 
   useEffect(() => {
-    // if (activeModuleType === 'Chapter') {
-    //   const chapterCount = localStorage.getItem('chapterCount') ? parseInt(localStorage.getItem('chapterCount')!) : 0;
-    //   for (let i = 1; i <= chapterCount; i++) {
-    //     setChapterId(localStorage.getItem(`chapterId_Chapter ${i}`));
-    //     console.log(`Chapter ID: ${localStorage.getItem(`chapterId_Chapter ${i}`)}`);
-
-    //   }
-    // }
+   
     if (activeModule) {
       console.log(`if`);
 
@@ -440,14 +372,9 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
     }
   }, [activeModule]);
 
-  // const validateForm = () => {
-  //   return lesson.lessonTitle.length > 0 && lesson.lessonDescription.length > 0;
-  // };
 
   const handleSave = async () => {
-    // if (!validateForm()) {
-    //   return;
-    // }
+
     console.log(lessonType);
     console.log(lessons);
 
@@ -459,13 +386,7 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
         console.log(lessons);
 
         await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/courses/lesson/${lessonId}`, {
-          // title: lesson.lessonTitle,
-          // description: lesson.lessonDescription,
-          // srcUrl: 'https://example.com/leson1.mp4',
-          // isPromoted: lesson.isPromoted,
-          // isFree: lesson.isFree,
-          // type: lesson.lessonType,
-          // clips: lesson.clips
+
           mediaSources: lessons
         }, {
           headers: {
@@ -474,13 +395,7 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
         });
       } else {
         const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/courses/${courseId}/parts/${partId}/modules/chapter/${chapterId}/lesson`, {
-          // title: lesson.lessonTitle,
-          // description: lesson.lessonDescription,
-          // srcUrl: "https://example.com/leson1.mp4",
-          // isPromoted: lesson.isPromoted,
-          // isFree: lesson.isFree,
-          // type: lesson.lessonType,
-          // clips: lesson.clips
+
           type: lessonType,
           mediaSources: lessons
         }, {
@@ -510,37 +425,18 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
     } finally {
       setLoading(false);
     }
-    // console.log(`Chapter ID: ${chapterId}. Part Id: ${partId}`);
-    // const { partIndex, moduleIndex, lessonIndex } = activeModule;
-    // console.log(`Part Id in Lesson Step: ${partId}`);
-    // const randomString = Math.random().toString(36).substring(2, 8);
-    // const lessonCount = localStorage.getItem('lessonCount') ? parseInt(localStorage.getItem('lessonCount')!) : 0;
-    // const newLessonName = `Lesson ${lessonCount + 1}`;
-    // const lessonKey = `lessonId_${partIndex}_${moduleIndex}_${lessonIndex}`;
-
-    // console.log(`Created ${newLessonName} with ID: ${randomString}`);
-    // localStorage.setItem(lessonKey, randomString);
-    // localStorage.setItem('lessonCount', (lessonCount + 1).toString());
-    // setLessonId(randomString);
+    
   }
 
   const handlefinish = async () => {
-    // if (!validateForm()) {
-    //   return;
-    // }
+
     try {
       setLoading(true);
       const courseId = localStorage.getItem('courseId');
       const lessonId = localStorage.getItem(`lessonId_${activeModule.partIndex}_${activeModule.moduleIndex}_${activeModule.lessonIndex}`);
       if (lessonId) {
         await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/courses/lesson/${lessonId}`, {
-          // title: lesson.lessonTitle,
-          // description: lesson.lessonDescription,
-          // srcUrl: 'https://example.com/leson1.mp4',
-          // isPromoted: lesson.isPromoted,
-          // isFree: lesson.isFree,
-          // type: lesson.lessonType,
-          // clips: lesson.clips
+
           mediaSources: lessons
         }, {
           headers: {
@@ -549,13 +445,7 @@ const MainModules_Step: React.FC<MainModules_StepProps> = ({ handleFinish, setPa
         });
       } else {
         const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/courses/${courseId}/parts/${partId}/modules/chapter/${chapterId}/lesson`, {
-          // title: lesson.lessonTitle,
-          // description: lesson.lessonDescription,
-          // srcUrl: 'https://example.com/leson1.mp4',
-          // isPromoted: lesson.isPromoted,
-          // isFree: lesson.isFree,
-          // type: lesson.lessonType,
-          // clips: lesson.clips
+
           type: lessonType,
           mediaSources: lessons
         }, {

@@ -85,7 +85,7 @@ const AdminSidebar: React.FC = () => {
               ]}
             />
 
-            <SidebarItem to="/liveLectures" icon={<RiLiveFill />} label="Course Management" />
+            <SidebarItem to="/CourseManagement" icon={<RiLiveFill />} label="Course Management" />
             <SidebarItem to="/liveLectures" icon={<RiLiveFill />} label="Live Lectures" />
 
             <SidebarItem

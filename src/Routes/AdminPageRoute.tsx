@@ -14,6 +14,7 @@ import GaurdianInformation from "../components/Admin Component/UserManagementCom
 import AdminManageAdmin from "../components/Admin Component/UserManagementComponent/AdminManageAdminComponents/AdminManageAdmin"
 import AdminInformation from "../components/Admin Component/UserManagementComponent/AdminManageAdminComponents/AdminInformationCpomponent/AdminInformation"
 import ContentManageMent from "../pages/Admin Page/ContentManageMent"
+import CourseManagement from "../pages/Admin Page/CourseManagement"
 
 function AdminPageRoute() {
   return (
@@ -32,6 +33,9 @@ function AdminPageRoute() {
  <Route path="/AdminManagement" element = {<AdminManageAdmin/>} />
  <Route path="/AdminInformation" element = {<AdminInformation/>} />
  <Route path="/ContentManagement/*" element = {<ContentManageMent/>} />
+ <Route path="/CourseManagement/*" element = {<CourseManagement/>} />
+
+
 
    </Routes>
    
