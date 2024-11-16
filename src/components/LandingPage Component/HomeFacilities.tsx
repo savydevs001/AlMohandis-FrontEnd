@@ -1,14 +1,12 @@
 // import React from 'react'
 
-function HomeFacilities() {
+function HomeFacilities({data}:any) {
   return (
     <div className='max-w-6xl mx-auto mt-10'>
      <div className='flex flex-col items-center justify-center'>
       <h3 className='text-2xl font-bold leading-relaxed text-tertiary'>How are we different?</h3>
-      <p className='text-tertiary w-full  lg:w-[50%] text-center'>At <span className='font-medium text-primary'>Al Mohandes</span> Educational Institution, we are more than just an educational platform. We pride ourselves on offering a unique learning experience that sets us apart from the rest</p>
+      <p className='text-tertiary w-full  lg:w-[50%] text-center'>{data.description}</p>
      </div>
-
-
      
      <section className="py-16 text-center lg:px-20">
   <div className="relative flex items-center justify-center mt-10">
