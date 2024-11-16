@@ -1,6 +1,6 @@
 // import React from 'react'
 
-import AdminInputField from "./AdminInputField"
+// import AdminInputField from "./AdminInputField"
 
 function AdminLandingPopularCourse() {
   return (
@@ -11,8 +11,8 @@ function AdminLandingPopularCourse() {
       </div>
             <h1 className="text-xl font-semibold text-center text-primary">Popular Courses</h1>
 <div className="space-y-2">
-      <AdminInputField label="Title" placeholder="Enter Popular Courses Title"/>
-      <AdminInputField label="Description" placeholder="Enter Popular Courses Description"/>
+      {/* <AdminInputField label="Title" placeholder="Enter Popular Courses Title"/>
+      <AdminInputField label="Description" placeholder="Enter Popular Courses Description"/> */}
    
 </div>
     </div>

@@ -2,19 +2,19 @@ import React from 'react';
 
 interface AdminInputFieldProps {
   label: string;
-  placeholder: string;
-  width?: string; // Optional prop for custom width
+  placeholder?: string;
+  onChange: (value: string) => void;
 }
 
-const AdminInputField: React.FC<AdminInputFieldProps> = ({ label, placeholder, width = '100%' }) => {
+const AdminInputField: React.FC<AdminInputFieldProps> = ({ label, placeholder, onChange }) => {
   return (
-    <div className="space-y-2" style={{ width }}>
-      <label className="font-medium" htmlFor="inputField">{label}</label>
+    <div className="space-y-1">
+      <label className="font-semibold text-gray-800">{label}</label>
       <input
-        id="inputField"
-        className="w-full rounded-md border-[#979595A8] focus-within:ring-0 bg-transparent"
         type="text"
         placeholder={placeholder}
+        className="w-full p-2 border border-gray-300 rounded-md"
+        onChange={(e) => onChange(e.target.value)}
       />
     </div>
   );
