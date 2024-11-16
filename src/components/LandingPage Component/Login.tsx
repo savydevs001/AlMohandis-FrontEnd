@@ -31,11 +31,14 @@ const Login = () => {
             if (res.data?.token) {
                 Cookies.set('token', res.data.token, { expires: 1 / 24 });
                 Cookies.set('userType', res.data.user.type, { expires: 1 / 24 });
-                
+    
                 enqueueSnackbar('Login successful!', { variant: 'success' });
-
+    
+                // Navigate based on user type
                 if (res.data.user.type === 'student') {
                     navigate('/StudentDashboard');
+                } else if (res.data.user.type === 'admin' || res.data.user.role === 'SUPER_ADMIN') {
+                    navigate('/AdminDashboard');
                 } else {
                     navigate('/dashboard');
                 }
@@ -57,6 +60,7 @@ const Login = () => {
             setLoading(false);
         }
     };
+    
 
     return (
         <>

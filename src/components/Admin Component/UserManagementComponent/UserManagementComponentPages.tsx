@@ -12,7 +12,7 @@ function UserManagementComponentPages() {
     <Routes>
       <Route path="" element ={
       <AdminStudentMainPage/>}  />
-      <Route path="AdminStudentInformation" element ={
+      <Route path="/student/view/:Id" element ={
       <AdminStudentInformation/>}  />
       <Route path="TeacherInformation" element ={
       <TeacherInformation/>}  />

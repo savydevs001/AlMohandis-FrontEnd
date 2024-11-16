@@ -15,10 +15,6 @@ import AdminManageAdmin from "../components/Admin Component/UserManagementCompon
 import AdminInformation from "../components/Admin Component/UserManagementComponent/AdminManageAdminComponents/AdminInformationCpomponent/AdminInformation"
 import ContentManageMent from "../pages/Admin Page/ContentManageMent"
 import CourseManagement from "../pages/Admin Page/CourseManagement"
-import FinancialManagement from "../pages/Admin Page/FinancialManagement"
-import ReportsandAnalytics from "../pages/Admin Page/ReportsandAnalytics"
-import CoursePerformanceReport from "../components/Admin Component/ReportsAndAnalytics/CoursePerformanceReport/CoursePerformanceReport"
-import SystemUsageStatistics from "../components/Admin Component/ReportsAndAnalytics/SystemUsageStatictics/SystemUsageStatistics"
 
 function AdminPageRoute() {
   return (
@@ -38,10 +34,6 @@ function AdminPageRoute() {
  <Route path="/AdminInformation" element = {<AdminInformation/>} />
  <Route path="/ContentManagement/*" element = {<ContentManageMent/>} />
  <Route path="/CourseManagement/*" element = {<CourseManagement/>} />
- <Route path="/FinancialManagement" element = {<FinancialManagement/>} />
- <Route path="/ReportandAnalytics" element = {<ReportsandAnalytics/>} />
- <Route path="/CoursePerformanceReport" element = {<CoursePerformanceReport/>} />
- <Route path="/SystemUsageStatistics" element = {<SystemUsageStatistics/>} />
 
 
 
@@ -50,4 +42,4 @@ function AdminPageRoute() {
   )
 }
 
-export default AdminPageRoute
+export default AdminPageRoute;
