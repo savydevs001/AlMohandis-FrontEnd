@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { MdOutlineDashboard, MdAssignment } from "react-icons/md";
+import { FaHandHoldingUsd } from "react-icons/fa";
+
 import { AiTwotoneSchedule } from "react-icons/ai";
 import { FaRegUserCircle, FaBookReader } from "react-icons/fa";
 import { RiLiveFill, RiCalendarCheckFill } from "react-icons/ri";
@@ -95,13 +97,13 @@ const AdminSidebar: React.FC = () => {
               isOpen={openDropdown === 'Reports & Analytics'}
               onToggle={() => toggleDropdown('Reports & Analytics')}
               dropdownItems={[
-                { to: "/reports/userActivity", label: "User Activity Reports" },
-                { to: "/reports/coursePerformance", label: "Course Performance Reports" },
-                { to: "/reports/systemUsage", label: "System Usage Statistics" }
+                { to: "/ReportandAnalytics", label: "User Activity Reports" },
+                { to: "/CoursePerformanceReport", label: "Course Performance Reports" },
+                { to: "/SystemUsageStatistics", label: "System Usage Statistics" }
               ]}
             />
 
-            <SidebarItem to="/financialManagement" icon={<MdAssignment />} label="Financial Management" />
+            <SidebarItem to="/FinancialManagement" icon={<FaHandHoldingUsd />} label="Financial Management" />
 
             <SidebarItem
               icon={<FaRegUserCircle />}
