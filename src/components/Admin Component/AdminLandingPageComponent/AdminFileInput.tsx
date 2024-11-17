@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-// import { FiTrash2 } from 'react-icons/fi';
 import { LiaEdit } from "react-icons/lia";
 import { TbCircleMinus } from "react-icons/tb";
 
 interface FileInputProps {
   label: string;
   width?: string; // Optional prop to specify the width of the component
+  fileText?: string; // Optional prop to customize the text
 }
 
-const AdminFileInput: React.FC<FileInputProps> = ({ label, width = '100%' }) => {
+const AdminFileInput: React.FC<FileInputProps> = ({ label, width = '100%', fileText = 'Img' }) => {
   const [fileName, setFileName] = useState<string | null>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,7 +27,7 @@ const AdminFileInput: React.FC<FileInputProps> = ({ label, width = '100%' }) => 
       <div className="flex items-center p-2 border border-dashed rounded-md border-primary">
         <div className="flex items-center space-x-2">
           <div className="text-green-500">📁</div>
-          <span className="text-gray-700">{fileName || 'Img'}</span>
+          <span className="text-sm text-gray-700">{fileName || fileText}</span> {/* Display custom text or default text */}
         </div>
         
         <input

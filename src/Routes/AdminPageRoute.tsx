@@ -15,6 +15,9 @@ import AdminManageAdmin from "../components/Admin Component/UserManagementCompon
 import AdminInformation from "../components/Admin Component/UserManagementComponent/AdminManageAdminComponents/AdminInformationCpomponent/AdminInformation"
 import ContentManageMent from "../pages/Admin Page/ContentManageMent"
 import CourseManagement from "../pages/Admin Page/CourseManagement"
+import CommunicationMessages from "../pages/Admin Page/CommunicationMessages"
+import CommunicationAnnouncements from "../pages/Admin Page/CommunicationAnnounsment"
+import SupportTicket from "../pages/Admin Page/SupportTicket"
 
 function AdminPageRoute() {
   return (
@@ -34,6 +37,9 @@ function AdminPageRoute() {
  <Route path="/AdminInformation" element = {<AdminInformation/>} />
  <Route path="/ContentManagement/*" element = {<ContentManageMent/>} />
  <Route path="/CourseManagement/*" element = {<CourseManagement/>} />
+ <Route path="/CommunicationMessages" element = {<CommunicationMessages/>} />
+ <Route path="/CommunicationAnnouncements" element = {<CommunicationAnnouncements/>} />
+ <Route path="/CommunicationSupportTicket" element = {<SupportTicket/>} />
 
 
 

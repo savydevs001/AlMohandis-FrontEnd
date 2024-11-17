@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { MdOutlineDashboard, MdAssignment } from "react-icons/md";
 import { FaHandHoldingUsd } from "react-icons/fa";
+import { IoIosSend } from "react-icons/io";
 
 import { AiTwotoneSchedule } from "react-icons/ai";
 import { FaRegUserCircle, FaBookReader } from "react-icons/fa";
@@ -13,6 +14,7 @@ import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import { IoMdLogOut } from "react-icons/io";
 import { FcBusinessman } from "react-icons/fc";
 import logo from '../../assets/dashboardlogo.png';
+import { VscGraphLine } from "react-icons/vsc";
 
 const AdminSidebar: React.FC = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -91,7 +93,7 @@ const AdminSidebar: React.FC = () => {
             <SidebarItem to="/liveLectures" icon={<RiLiveFill />} label="Live Lectures" />
 
             <SidebarItem
-              icon={<FaRegUserCircle />}
+              icon={<VscGraphLine />}
               label="Reports & Analytics"
               isDropdown={true}
               isOpen={openDropdown === 'Reports & Analytics'}
@@ -104,7 +106,18 @@ const AdminSidebar: React.FC = () => {
             />
 
             <SidebarItem to="/FinancialManagement" icon={<FaHandHoldingUsd />} label="Financial Management" />
-
+            <SidebarItem
+              icon={<IoIosSend />}
+              label="Communication"
+              isDropdown={true}
+              isOpen={openDropdown === 'Communication'}
+              onToggle={() => toggleDropdown('Communication')}
+              dropdownItems={[
+                { to: "/CommunicationMessages", label: "Messages" },
+                { to: "/CommunicationAnnouncements", label: "Announcements" },
+                { to: "/CommunicationSupportTicket", label: "Support Ticket" },
+              ]}
+            />
             <SidebarItem
               icon={<FaRegUserCircle />}
               label="Content Management"
