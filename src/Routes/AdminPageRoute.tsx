@@ -18,6 +18,10 @@ import CourseManagement from "../pages/Admin Page/CourseManagement"
 import CommunicationMessages from "../pages/Admin Page/CommunicationMessages"
 import CommunicationAnnouncements from "../pages/Admin Page/CommunicationAnnounsment"
 import SupportTicket from "../pages/Admin Page/SupportTicket"
+import FinancialManagement from "../pages/Admin Page/FinancialManagement"
+import ReportsandAnalytics from "../pages/Admin Page/ReportsandAnalytics"
+import CoursePerformanceReport from "../components/Admin Component/ReportsAndAnalytics/CoursePerformanceReport/CoursePerformanceReport"
+import SystemUsageStatistics from "../components/Admin Component/ReportsAndAnalytics/SystemUsageStatictics/SystemUsageStatistics"
 
 function AdminPageRoute() {
   return (
@@ -40,6 +44,10 @@ function AdminPageRoute() {
  <Route path="/CommunicationMessages" element = {<CommunicationMessages/>} />
  <Route path="/CommunicationAnnouncements" element = {<CommunicationAnnouncements/>} />
  <Route path="/CommunicationSupportTicket" element = {<SupportTicket/>} />
+ <Route path="/FinancialManagement" element = {<FinancialManagement/>} />
+ <Route path="/ReportandAnalytics" element = {<ReportsandAnalytics/>} />
+ <Route path="/CoursePerformanceReport" element = {<CoursePerformanceReport/>} />
+ <Route path="/SystemUsageStatistics" element = {<SystemUsageStatistics/>} />
 
 
 
