@@ -58,7 +58,7 @@ function VideoPlayer({ lessonData, onMediaSrcSelect }: VideoPlayerProps) {
         // const { otp, playbackInfo } = await getVdoCipherOtp(selectedVideo);
         // console.log("OTP:", otp);
         // console.log("Playback Info:", playbackInfo);
-        const embedUrl = `https://player.vdocipher.com/v2/?otp=20160313versASE323TxVMBssGMuC2nmPCMyMLV1r5vHhKHK6kfa4TgDB8R4nEj7&playbackInfo=eyJ2aWRlb0lkIjoiMmZjYzFhZmJmMWZlNDcwZDlmOWRlYzM0ZGZjODE5ZTQifQ==`;
+        const embedUrl = `https://player.vdocipher.com/v2/?otp=20160313versASE323hmltmlQ30D25RtmWqIyF9T0E8oLNv5lXvJezyql7bUJ9he&playbackInfo=eyJ2aWRlb0lkIjoiYjQ1MWZkMGI3ZGJlNDA2M2E0Y2U0MGVhMjVmMjkxNWYifQ`;
         setVideoUrl(embedUrl);
       } catch (error) {
         console.error("Error embedding video:", error);
