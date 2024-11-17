@@ -1,15 +1,14 @@
-// PermissionsList.tsx
 import React from 'react';
 
 type Permission = {
-  id: number;
+  id: string;
   label: string;
   enabled: boolean;
 };
 
 type PermissionsListProps = {
   permissions: Permission[];
-  onToggle: (id: number) => void;
+  onToggle: (id: string) => void;
 };
 
 const PermissionsList: React.FC<PermissionsListProps> = ({ permissions, onToggle }) => {

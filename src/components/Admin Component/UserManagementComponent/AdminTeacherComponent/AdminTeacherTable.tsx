@@ -1,29 +1,78 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
+import Cookies from 'js-cookie';
+import { useSnackbar } from 'notistack';
 
 type RowData = {
   id: string;
-  name: string;
+  fullName: string;
   email: string;
-  typeClass: string;
+  gender: string;
   joiningDate: string;
-  coursesEnrolled: string;
-  courses: number;
-  student: number;
+  department: string;
+  level: number;
+  experience: number;
+  isFreeze: boolean;
+  assistantForId: string | null;
 };
 
 function AdminTeacherTable() {
-  const [data] = useState<RowData[]>([
-    { id: '01IST09', name: 'John Daniel', email: 'john@gmail.com', typeClass: 'Professor', joiningDate: 'Computer Science', coursesEnrolled: '20-02-2025', courses: 5, student: 250 },
-    { id: '01IST10', name: 'Anna Smith', email: 'anna@gmail.com', typeClass: 'Professor', joiningDate: 'Physics', coursesEnrolled: '21-03-2023', courses: 4, student: 180 },
-    { id: '01IST11', name: 'Zara Ali', email: 'zara@gmail.com', typeClass: 'Professor', joiningDate: 'Mathematics', coursesEnrolled: '19-04-2021', courses: 3, student: 200 },
-    // ... add more rows as needed
-  ]);
-
+  const [data, setData] = useState<RowData[]>([]);
   const [sortConfig, setSortConfig] = useState<{ key: keyof RowData | null; direction: 'asc' | 'desc' | null }>({
     key: null,
     direction: null,
   });
+  const { enqueueSnackbar } = useSnackbar(); // Initialize notistack
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = Cookies.get('token');
+        const response = await fetch('http://localhost:5000/api/admin/teacher/getAll', {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        const result: RowData[] = await response.json();
+        setData(result);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        enqueueSnackbar('Failed to fetch data', { variant: 'error' });
+      }
+    };
+
+    fetchData();
+  }, [enqueueSnackbar]);
+
+  const handleDelete = async (id: string) => {
+    try {
+      const token = Cookies.get('token');
+      const response = await fetch(`http://localhost:5000/api/admin/teacher/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete teacher');
+      }
+
+      setData(data.filter((row) => row.id !== id));
+      enqueueSnackbar('Teacher deleted successfully', { variant: 'success' });
+    } catch (error) {
+      console.error('Error deleting teacher:', error);
+      enqueueSnackbar('Failed to delete teacher', { variant: 'error' });
+    }
+  };
 
   const sortedData = React.useMemo(() => {
     if (!sortConfig.key || !sortConfig.direction) return data;
@@ -63,34 +112,34 @@ function AdminTeacherTable() {
               <th className="px-4 py-2 border border-black cursor-pointer" onClick={() => requestSort('id')}>
                 Student ID {sortConfig.key === 'id' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : ''}
               </th>
-              <th className="px-4 py-2 border border-black cursor-pointer" onClick={() => requestSort('name')}>
-                Name {sortConfig.key === 'name' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : ''}
+              <th className="px-4 py-2 border border-black cursor-pointer" onClick={() => requestSort('fullName')}>
+                Name {sortConfig.key === 'fullName' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : ''}
               </th>
               <th className="px-4 py-2 border border-black cursor-pointer" onClick={() => requestSort('email')}>
                 Email {sortConfig.key === 'email' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : ''}
               </th>
-              <th className="px-4 py-2 border border-black">Level</th>
+              <th className="px-4 py-2 border border-black">Gender</th>
               <th className="px-4 py-2 border border-black">Department</th>
-              <th className="px-4 py-2 border border-black">Joining</th>
-              <th className="px-4 py-2 border border-black">Course</th>
-              <th className="px-4 py-2 border border-black">Student</th>
+              <th className="px-4 py-2 border border-black">Joining Date</th>
+              <th className="px-4 py-2 border border-black">Level</th>
+              <th className="px-4 py-2 border border-black">Experience</th>
               <th className="px-4 py-2 border border-black">Actions</th>
             </tr>
           </thead>
           <tbody className="bg-[#D1D6D6] text-xs">
-            {sortedData.map((row, index) => (
-              <tr key={index}>
+            {sortedData.map((row) => (
+              <tr key={row.id}>
                 <td className="px-4 py-2 border border-black">{row.id}</td>
-                <td className="px-4 py-2 border border-black">{row.name}</td>
+                <td className="px-4 py-2 border border-black">{row.fullName}</td>
                 <td className="px-4 py-2 border border-black">{row.email}</td>
-                <td className="px-4 py-2 border border-black">{row.typeClass}</td>
-                <td className="px-4 py-2 border border-black">{row.joiningDate}</td>
-                <td className="px-4 py-2 border border-black">{row.coursesEnrolled}</td>
-                <td className="px-4 py-2 border border-black">{row.courses}</td>
-                <td className="px-4 py-2 border border-black">{row.student}</td>
+                <td className="px-4 py-2 border border-black">{row.gender}</td>
+                <td className="px-4 py-2 border border-black">{row.department}</td>
+                <td className="px-4 py-2 border border-black">{new Date(row.joiningDate).toLocaleDateString()}</td>
+                <td className="px-4 py-2 border border-black">{row.level}</td>
+                <td className="px-4 py-2 border border-black">{row.experience} years</td>
                 <td className="px-4 py-2 border border-black">
                   <Link to='/TeacherInformation' className="text-blue-500 cursor-pointer">View</Link> | 
-                  <span className="text-red-600 cursor-pointer">Delete</span>
+                  <span className="text-red-600 cursor-pointer" onClick={() => handleDelete(row.id)}>Delete</span>
                 </td>
               </tr>
             ))}

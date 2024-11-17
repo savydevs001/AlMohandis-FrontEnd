@@ -1,15 +1,135 @@
-// import React from 'react'
-
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { NavLink } from "react-router-dom";
+import Cookies from 'js-cookie';
+import { useSnackbar } from 'notistack';
 import PermissionsPopup from './AdminPermissions/PermissionsPopup';
-// Import the popup component
+
+interface Permission {
+  id: string;
+  adminId: string;
+  studentPermissionsId: string;
+  teacherPermissionsId: string;
+  coursePermissionsId: string;
+  subjectPermissionsId: string;
+  studentPermissions: {
+    viewStudent: boolean;
+    editStudent: boolean;
+    addStudent: boolean;
+    removeStudent: boolean;
+    freezeStudent: boolean;
+    addToCourse: boolean;
+  };
+  teacherPermissions: {
+    viewTeacher: boolean;
+    editTeacher: boolean;
+    addTeacher: boolean;
+    removeTeacher: boolean;
+    assignSubject: boolean;
+    assignAssistant: boolean;
+  };
+  coursePermissions: {
+    viewCourse: boolean;
+    addCourse: boolean;
+    editCourse: boolean;
+    activateCourse: boolean;
+    archiveCourse: boolean;
+    addToCourse: boolean;
+  };
+  subjectPermissions: {
+    viewSubjects: boolean;
+    registerStudent: boolean;
+    assignSubjectToTeacher: boolean;
+    manageSubjectGroups: boolean;
+    takeAttendance: boolean;
+    viewAttendance: boolean;
+  };
+}
+
+interface Admin {
+  id: string;
+  fullName: string;
+  email: string;
+  phone: string;
+  role: string;
+  permissions?: Permission[];
+}
 
 function AdminManagementTable() {
+  const [admins, setAdmins] = useState<Admin[]>([]);
+  const [selectedPermissions, setSelectedPermissions] = useState<Permission | null>(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
 
-  const openPopup = () => setIsPopupOpen(true);
-  const closePopup = () => setIsPopupOpen(false);
+  const openPopup = (permissions: Permission | null) => {
+    setSelectedPermissions(permissions);
+    setIsPopupOpen(true);
+  };
+
+  const closePopup = () => {
+    setIsPopupOpen(false);
+    setSelectedPermissions(null);
+  };
+
+  useEffect(() => {
+    const fetchAdmins = async () => {
+      try {
+        const token = Cookies.get('token');
+        if (!token) {
+          enqueueSnackbar("Authorization token not found in cookies", { variant: 'error' });
+          return;
+        }
+
+        const response = await fetch('http://localhost:5000/api/admin/admins', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch admins");
+        }
+
+        const data: Admin[] = await response.json();
+        const filteredAdmins = data.filter(admin => admin.role !== 'SUPER_ADMIN');
+        setAdmins(filteredAdmins);
+      } catch (error) {
+        enqueueSnackbar("Error fetching admins", { variant: 'error' });
+        console.error(error);
+      }
+    };
+
+    fetchAdmins();
+  }, [enqueueSnackbar]);
+
+  const handleDeleteAdmin = async (adminId: string) => {
+    try {
+      const token = Cookies.get('token');
+      if (!token) {
+        enqueueSnackbar("Authorization token not found in cookies", { variant: 'error' });
+        return;
+      }
+
+      const response = await fetch(`http://localhost:5000/api/admin/deleteAdmin/${adminId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to delete admin");
+      }
+
+      setAdmins((prevAdmins) => prevAdmins.filter(admin => admin.id !== adminId));
+      enqueueSnackbar("Admin deleted successfully", { variant: 'success' });
+    } catch (error) {
+      enqueueSnackbar("Error deleting admin", { variant: 'error' });
+      console.error(error);
+    }
+  };
 
   return (
     <div className="overflow-x-auto">
@@ -20,30 +140,36 @@ function AdminManagementTable() {
               <th className="px-4 py-2 border border-black">ID</th>
               <th className="px-4 py-2 border border-black">Name</th>
               <th className="px-4 py-2 border border-black">Email</th>
-              <th className="px-4 py-2 border border-black">Joining Date</th>
-              <th className="px-4 py-2 border border-black">Designation</th>
+              <th className="px-4 py-2 border border-black">Phone</th>
+              <th className="px-4 py-2 border border-black">Role</th>
               <th className="px-4 py-2 border border-black">Permissions</th>
               <th className="px-4 py-2 border border-black">Actions</th>
             </tr>
           </thead>
           <tbody className="bg-[#D1D6D6]">
-            {[
-              { id: '01IST09', name: 'John Daniel', email: 'john@gmail.com', typeClass: '20-02-2023', joiningDate: 'Administrator' },
-              { id: '01IST10', name: 'Jane Doe', email: 'jane@gmail.com', typeClass: '15-03-2023', joiningDate: 'Moderator' },
-            ].map((row, index) => (
+            {admins.map((admin, index) => (
               <tr key={index}>
-                <td className="px-4 py-2 border border-black">{row.id}</td>
-                <td className="px-4 py-2 border border-black">{row.name}</td>
-                <td className="px-4 py-2 border border-black">{row.email}</td>
-                <td className="px-4 py-2 border border-black">{row.typeClass}</td>
-                <td className="px-4 py-2 border border-black">{row.joiningDate}</td>
+                <td className="px-4 py-2 border border-black">{admin.id.slice(0, 10)}</td>
+                <td className="px-4 py-2 border border-black">{admin.fullName}</td>
+                <td className="px-4 py-2 border border-black">{admin.email}</td>
+                <td className="px-4 py-2 border border-black">{admin.phone}</td>
+                <td className="px-4 py-2 border border-black">{admin.role}</td>
                 <td className="px-4 py-2 border border-black">
-                  <span onClick={openPopup} className="text-pink-500 border-b border-pink-500 cursor-pointer">View</span>
+                  <span
+                    onClick={() => openPopup(admin.permissions && admin.permissions.length > 0 ? admin.permissions[0] : null)}
+                    className="text-pink-500 border-b border-pink-500 cursor-pointer"
+                  >
+                    View
+                  </span>
                 </td>
                 <td className="px-4 py-2 border border-black">
                   <NavLink to='/AdminInformation' className="text-pink-500 border-b border-pink-500 cursor-pointer">View</NavLink> | 
-                  <span className="text-red-600 border-b border-red-600 cursor-pointer">Delete</span> |
-                  <span className="text-blue-600 border-b border-blue-500 cursor-pointer">Edit</span>
+                  <span
+                    onClick={() => handleDeleteAdmin(admin.id)}
+                    className="text-red-600 border-b border-red-600 cursor-pointer"
+                  >
+                    Delete
+                  </span>
                 </td>
               </tr>
             ))}
@@ -51,8 +177,8 @@ function AdminManagementTable() {
         </table>
       </div>
 
-      {/* Render the popup if isPopupOpen is true */}
-      {isPopupOpen && <PermissionsPopup onClose={closePopup} />}
+      {/* Popup for Viewing Permissions */}
+      {isPopupOpen && <PermissionsPopup onClose={closePopup} permissions={selectedPermissions} />}
     </div>
   );
 }
