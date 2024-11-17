@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import AdminFileInput from "../../AdminLandingPageComponent/AdminFileInput";
 
 interface ViewPopupProps {
@@ -8,6 +8,21 @@ interface ViewPopupProps {
 }
 
 const ViewMessagesPopup: React.FC<ViewPopupProps> = ({ show, onClose }) => {
+  const [formData, setFormData] = useState({
+    status: "",
+    userName: "",
+    email: "",
+    userRole: "",
+    issueType: "",
+    description: "",
+    comments: "",
+    heroImg: "",
+  });
+
+  const handleInputChange = (field: string, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
+  
   if (!show) return null;
 
   return (
@@ -22,7 +37,9 @@ const ViewMessagesPopup: React.FC<ViewPopupProps> = ({ show, onClose }) => {
           <label className="font-semibold" htmlFor="recipient-group">
             Recipient Group
           </label>
-          <select  className="rounded-md lg:w-[25%] w-[60%] border-slate-300" id="recipient-group">
+          <select 
+          value={formData.status}
+          className="rounded-md lg:w-[25%] w-[60%] border-slate-300" id="recipient-group">
             <option value="all">All</option>
             <option value="guardians">Guardians</option>
             <option value="students">Students</option>
@@ -47,7 +64,10 @@ const ViewMessagesPopup: React.FC<ViewPopupProps> = ({ show, onClose }) => {
             </div>
         </div>
         <div className="flex flex-col space-y-1">
-        <AdminFileInput label="Attachment" fileText="ScreenShot of Issue" />
+        <AdminFileInput
+          label="ScreenShot of Issue"
+          onChange={(value) => handleInputChange("heroImg", value)}
+        />
         </div>
         <button
           onClick={onClose}

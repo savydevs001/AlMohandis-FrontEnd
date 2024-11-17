@@ -9,14 +9,27 @@ interface SendNowPopupProps {
 
 const SendNowPopup: React.FC<SendNowPopupProps> = ({ show, onClose }) => {
   const [step, setStep] = useState(1); // State to track current step
+  const [formData, setFormData] = useState({
+    status: "",
+    userName: "",
+    email: "",
+    userRole: "",
+    issueType: "",
+    description: "",
+    comments: "",
+    heroImg: "",
+  });
 
-  if (!show) return null;
-
-  const handleNext = (event: React.FormEvent) => {
-    event.preventDefault(); // Prevent form submission
-    setStep(2); // Move to the next step
+  const handleInputChange = (field: string, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
+  if (!show) return null;
+  const handleNext = (event: React.FormEvent) => {
+    event.preventDefault();
+    console.log("Form Data:", formData); // Check form data here
+    setStep(2);
+  };
   const handlePrevious = () => {
     setStep(1); // Go back to the first step
   };
@@ -87,8 +100,14 @@ const SendNowPopup: React.FC<SendNowPopupProps> = ({ show, onClose }) => {
               </div>
 
               <div>
-                <AdminFileInput label="Attachment" fileText="Assignment File"/>
-                <AdminFileInput label="" fileText="Assignment File"/>
+              <AdminFileInput
+          label="Hero Img"
+          onChange={(value) => handleInputChange("heroImg", value)}
+        />
+                <AdminFileInput
+          label="Hero Img"
+          onChange={(value) => handleInputChange("heroImg", value)}
+        />
               </div>
               <div className="flex items-center gap-3">
                 <input type="radio" className="w-3 h-3 text-primary" />
