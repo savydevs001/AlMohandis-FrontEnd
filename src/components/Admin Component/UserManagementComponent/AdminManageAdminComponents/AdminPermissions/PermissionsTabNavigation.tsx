@@ -1,4 +1,3 @@
-// TabNavigation.tsx
 import React from 'react';
 
 type TabNavigationProps = {
@@ -17,7 +16,7 @@ const PermissionsTabNavigation: React.FC<TabNavigationProps> = ({ selectedTab, o
         <button
           key={tab}
           onClick={() => onTabClick(tab)}
-          className={`lg:py-2 oy-1 lg:px-4 px-2${
+          className={`lg:py-2 oy-1 lg:px-4 px-2 ${
             selectedTab === tab ? 'border-b-2 border-teal-500 font-semibold' : ''
           }`}
         >
@@ -29,4 +28,3 @@ const PermissionsTabNavigation: React.FC<TabNavigationProps> = ({ selectedTab, o
 };
 
 export default PermissionsTabNavigation;
- 
