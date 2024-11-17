@@ -28,7 +28,7 @@ function AdminTeacherShowAllComp() {
         </div>
         <AdminTeacherTable />
       </div>
-      {isPopupOpen && <AddTeacherPopup onClose={handleClosePopup} />} {/* Conditionally render the popup */}
+      {isPopupOpen && <AddTeacherPopup onClose={handleClosePopup} />} 
     </div>
   );
 }

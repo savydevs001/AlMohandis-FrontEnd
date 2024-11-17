@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { NavLink } from "react-router-dom";
 import Cookies from 'js-cookie';
+import { useSnackbar } from 'notistack';
 import PermissionsPopup from './AdminPermissions/PermissionsPopup';
 
 interface Permission {
@@ -57,12 +58,13 @@ function AdminManagementTable() {
   const [admins, setAdmins] = useState<Admin[]>([]);
   const [selectedPermissions, setSelectedPermissions] = useState<Permission | null>(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
 
   const openPopup = (permissions: Permission | null) => {
     setSelectedPermissions(permissions);
     setIsPopupOpen(true);
   };
-  
+
   const closePopup = () => {
     setIsPopupOpen(false);
     setSelectedPermissions(null);
@@ -73,7 +75,7 @@ function AdminManagementTable() {
       try {
         const token = Cookies.get('token');
         if (!token) {
-          console.error("Authorization token not found in cookies");
+          enqueueSnackbar("Authorization token not found in cookies", { variant: 'error' });
           return;
         }
 
@@ -93,12 +95,41 @@ function AdminManagementTable() {
         const filteredAdmins = data.filter(admin => admin.role !== 'SUPER_ADMIN');
         setAdmins(filteredAdmins);
       } catch (error) {
-        console.error("Error fetching admins:", error);
+        enqueueSnackbar("Error fetching admins", { variant: 'error' });
+        console.error(error);
       }
     };
 
     fetchAdmins();
-  }, []);
+  }, [enqueueSnackbar]);
+
+  const handleDeleteAdmin = async (adminId: string) => {
+    try {
+      const token = Cookies.get('token');
+      if (!token) {
+        enqueueSnackbar("Authorization token not found in cookies", { variant: 'error' });
+        return;
+      }
+
+      const response = await fetch(`http://localhost:5000/api/admin/deleteAdmin/${adminId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to delete admin");
+      }
+
+      setAdmins((prevAdmins) => prevAdmins.filter(admin => admin.id !== adminId));
+      enqueueSnackbar("Admin deleted successfully", { variant: 'success' });
+    } catch (error) {
+      enqueueSnackbar("Error deleting admin", { variant: 'error' });
+      console.error(error);
+    }
+  };
 
   return (
     <div className="overflow-x-auto">
@@ -124,17 +155,21 @@ function AdminManagementTable() {
                 <td className="px-4 py-2 border border-black">{admin.phone}</td>
                 <td className="px-4 py-2 border border-black">{admin.role}</td>
                 <td className="px-4 py-2 border border-black">
-                <span
+                  <span
                     onClick={() => openPopup(admin.permissions && admin.permissions.length > 0 ? admin.permissions[0] : null)}
                     className="text-pink-500 border-b border-pink-500 cursor-pointer"
                   >
                     View
                   </span>
-
                 </td>
                 <td className="px-4 py-2 border border-black">
                   <NavLink to='/AdminInformation' className="text-pink-500 border-b border-pink-500 cursor-pointer">View</NavLink> | 
-                  <span className="text-red-600 border-b border-red-600 cursor-pointer">Delete</span> |
+                  <span
+                    onClick={() => handleDeleteAdmin(admin.id)}
+                    className="text-red-600 border-b border-red-600 cursor-pointer"
+                  >
+                    Delete
+                  </span>
                 </td>
               </tr>
             ))}
@@ -142,6 +177,7 @@ function AdminManagementTable() {
         </table>
       </div>
 
+      {/* Popup for Viewing Permissions */}
       {isPopupOpen && <PermissionsPopup onClose={closePopup} permissions={selectedPermissions} />}
     </div>
   );
