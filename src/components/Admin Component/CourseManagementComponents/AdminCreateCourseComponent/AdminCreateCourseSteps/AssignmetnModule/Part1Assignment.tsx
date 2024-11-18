@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import FileUpload from '../../../../../Teacher Component/Courses Component/Create Course Component/FileUpload';
-import Step6LeftSide from '../Step6LeftSide';
+// import Step6LeftSide from '../Step6LeftSide';
 
 
 interface Assignment_StepProps {
@@ -36,7 +36,7 @@ const Part1Assignment: React.FC<Assignment_StepProps> = ({  isLastModule, handle
     <div className='mt-12 h-fit'>
       <div className='flex flex-col max-w-4xl gap-3 mx-auto shadow-2xl h-fit bg-cardBg lg:flex-row'>
        <div className='lg:w-[30%] w-full'>
-        <Step6LeftSide/>
+        {/* <Step6LeftSide/> */}
        </div>
         <div className='flex-1 p-4 border border-neutral-300'>
           <div>

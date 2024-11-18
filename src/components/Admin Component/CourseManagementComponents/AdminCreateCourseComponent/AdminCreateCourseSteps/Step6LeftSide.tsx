@@ -6,75 +6,73 @@ import { GiLoveSong } from "react-icons/gi";
 import { IoVideocam } from "react-icons/io5";
 import AddModuleBtns from './AddModuleBtns';
 
+interface Module {
+  name: string;
+  lessons?: { type: string; title: string }[]; // Optional lessons for Chapter modules
+}
 
-function Step6LeftSide() {
-  // State to control dropdown visibility
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+interface Part {
+  name: string;
+  modules: Module[];
+}
 
-  // Toggle dropdown visibility
-  const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+interface Step6LeftSideProps {
+  parts: Part[];
+  onDeletePart: (partName: string) => void; // Function to handle part deletion
+}
 
+function Step6LeftSide({ parts, onDeletePart }: Step6LeftSideProps) {
   return (
-    <div className="w-full p-3">
-      <div className="flex items-center justify-between px-4">
-        <h1 className="text-2xl font-semibold text-[#333]">Part 1</h1>
-        <RiDeleteBinLine className="p-1 text-2xl text-red-500 border border-red-500 rounded-md" />
-      </div>
-
-      <div className="p-4 space-y-4">
-        {/* Chapter Box with Dropdown Toggle */}
-        <div 
-          className="flex items-center justify-between p-2 px-6 border-l-4 cursor-pointer bg-neutral-50 border-primary"
-          onClick={toggleDropdown}
-        >
-          <li className="flex items-center gap-2 list-none text-md text-pTag">
-            Chapter 1
-            {isDropdownOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}
-          </li>
-          <IoIosCloseCircleOutline className="ml-2 text-lg text-red-500" />
-        </div>
-
-        {/* Dropdown Menu */}
-        {isDropdownOpen && (
-          <div className="">
-            <ul className="px-5 ">
-              <div className='flex items-center justify-between mt-1 cursor-pointer hover:bg-gray-200'>
-           <div className='flex items-center'>
-           <GiLoveSong />
-           <li className="px-4 py-2 cursor-pointer hover:bg-gray-200">Audio</li>
-           </div>
-              <IoIosCloseCircleOutline className="ml-2 text-lg text-red-500" />
-              </div>
-              <div className='flex items-center justify-between cursor-pointer hover:bg-gray-200'>
-           <div className='flex items-center'>
-           <IoVideocam />
-           <li className="px-4 py-2 cursor-pointer hover:bg-gray-200">Video</li>
-           </div>
-              <IoIosCloseCircleOutline className="ml-2 text-lg text-red-500" />
-              </div>
-              <li className="px-4 py-2 font-semibold cursor-pointer hover:bg-gray-200">Assignment</li>
-              <li className="px-4 py-2 font-semibold cursor-pointer hover:bg-gray-200">Exam</li>
-            </ul>
+    <div className="w-full border-2 border-purple-600 p-3">
+      {parts.map((part, partIndex) => (
+        <div key={partIndex}>
+          <div className="flex items-center justify-between px-4">
+            <h1 className="text-2xl font-semibold text-[#333]">{part.name}</h1>
+            <RiDeleteBinLine 
+              className="p-1 text-2xl text-red-500 border border-red-500 rounded-md" 
+              onClick={() => onDeletePart(part.name)} // Call delete function
+            />
           </div>
-        )}
-         <div 
-          className="flex items-center justify-between p-2 px-6 border-l-4 cursor-pointer bg-neutral-50 border-primary"
-        >
-          <li className="flex items-center gap-2 list-none text-md text-pTag">
-            Exam 1
-          </li>
-          <IoIosCloseCircleOutline className="ml-2 text-lg text-red-500" />
+          <div className="p-4 space-y-4">
+            {part.modules.map((module, moduleIndex) => {
+              const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+              const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+
+              return (
+                <div key={moduleIndex}>
+                  <div 
+                    className="flex items-center justify-between p-2 px-6 border-l-4 cursor-pointer bg-neutral-50 border-primary"
+                    onClick={module.name === 'Chapter' ? toggleDropdown : undefined}
+                  >
+                    <li className="flex items-center gap-2 list-none text-md text-pTag">
+                      {module.name} {module.name === 'Chapter' && (isDropdownOpen ? <IoIosArrowUp /> : <IoIosArrowDown />)}
+                    </li>
+                    <IoIosCloseCircleOutline className="ml-2 text-lg text-red-500" />
+                  </div>
+
+                  {/* Dropdown Menu for Chapter */}
+                  {isDropdownOpen && module.name === 'Chapter' && (
+                    <div className="">
+                      <ul className="px-5 ">
+                        {module.lessons && module.lessons.map((lesson, lessonIndex) => (
+                          <div key={lessonIndex} className='flex items-center justify-between cursor-pointer hover:bg-gray-200'>
+                            <div className='flex items-center'>
+                              {lesson.type === 'Audio' ? <GiLoveSong /> : <IoVideocam />}
+                              <li className="px-4 py-2 cursor-pointer hover:bg-gray-200">{lesson.title}</li>
+                            </div>
+                            <IoIosCloseCircleOutline className="ml-2 text-lg text-red-500" />
+                          </div>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
         </div>
-        <div 
-          className="flex items-center justify-between p-2 px-6 border-l-4 cursor-pointer bg-neutral-50 border-primary"
-        >
-          <li className="flex items-center gap-2 list-none text-md text-pTag">
-            Assignment 1
-          </li>
-          <IoIosCloseCircleOutline className="ml-2 text-lg text-red-500" />
-        </div>
-      </div>
-      <AddModuleBtns/>
+      ))}
+      <AddModuleBtns />
     </div>
   );
 }

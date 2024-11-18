@@ -59,7 +59,7 @@ function CourseManagementShowHeader() {
           </button>
         </div>
         <div>
-          <NavLink className='px-4 py-3 font-semibold text-white rounded-md bg-primary' to='AdminCreateCourse'>Create New Course <span className='text-2xl'>+</span></NavLink>
+          <NavLink className='px-4 py-3 font-semibold text-white rounded-md bg-primary' to='AdminCreateCourse/step1'>Create New Course <span className='text-2xl'>+</span></NavLink>
           </div>
      </div>
 
