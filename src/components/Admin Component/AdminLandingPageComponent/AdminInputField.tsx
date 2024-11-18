@@ -8,7 +8,7 @@ interface AdminInputFieldProps {
 
 const AdminInputField: React.FC<AdminInputFieldProps> = ({ label, placeholder, onChange }) => {
   return (
-    <div className="space-y-1">
+    <div className="w-full space-y-1">
       <label className="font-semibold text-gray-800">{label}</label>
       <input
         type="text"

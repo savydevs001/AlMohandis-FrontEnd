@@ -9,7 +9,7 @@ interface AdminFileInputProps {
   onChange: (fileName: string) => void; // Function to handle file name change
 }
 
-const AdminFileInput: React.FC<AdminFileInputProps> = ({ label, fileText, onChange }) => {
+const AdminFileInput: React.FC<AdminFileInputProps> = ({ label,  fileText, onChange }) => {
   const [fileName, setFileName] = useState<string | null>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,7 +26,7 @@ const AdminFileInput: React.FC<AdminFileInputProps> = ({ label, fileText, onChan
   };
 
   return (
-    <div className="space-y-1">
+    <div className="w-full space-y-1">
       <label className="font-semibold text-gray-800">{label}</label>
       <div className="flex items-center p-2 border border-dashed rounded-md border-primary">
         <div className="flex items-center space-x-2">

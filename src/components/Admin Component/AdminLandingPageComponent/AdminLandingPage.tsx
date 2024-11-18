@@ -88,7 +88,7 @@ function AdminLandingPage() {
               <div className="space-y-2">
                 <div className="flex items-center w-full gap-3">
                   <AdminInputField label="Title" placeholder="Enter Title...." onChange={(value) => handleFeatureChange(index, 'title', value)} />
-                  <AdminFileInput label="Icon" onChange={(value) => handleFeatureChange(index, 'icon', value)} />
+                  <AdminFileInput width='w-[50%]' label="Icon" onChange={(value) => handleFeatureChange(index, 'icon', value)} />
                 </div>
                 <AdminInputField label="Description" placeholder="Enter Description...." onChange={(value) => handleFeatureChange(index, 'description', value)} />
               </div>

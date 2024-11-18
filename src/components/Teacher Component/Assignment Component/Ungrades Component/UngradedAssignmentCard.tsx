@@ -20,7 +20,7 @@ function UngradedAssignmentCard() {
   return (
     <div>
       {/* Ungraded Assignment Card */}
-      <div className="flex justify-between w-full px-4 py-4 space-y-1 bg-white border rounded-lg shadow-lg border-neutral-200">
+      <div className="flex justify-between w-full px-4 py-4 space-y-1 bg-white border rounded-lg shadow-sm border-neutral-200">
         <div className="space-y-1">
           <h3 className="font-semibold">Assignment 1</h3>
           <p className="text-[#7C7C7C]">
@@ -36,7 +36,7 @@ function UngradedAssignmentCard() {
         <div>
           <FaRegPenToSquare 
             onClick={() => setActivePopup('assignment')}
-            className="font-sans text-xl cursor-pointer"
+            className="text-xl font-thin cursor-pointer"
           />
         </div>
       </div>

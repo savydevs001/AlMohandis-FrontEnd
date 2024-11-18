@@ -22,6 +22,9 @@ import FinancialManagement from "../pages/Admin Page/FinancialManagement"
 import ReportsandAnalytics from "../pages/Admin Page/ReportsandAnalytics"
 import CoursePerformanceReport from "../components/Admin Component/ReportsAndAnalytics/CoursePerformanceReport/CoursePerformanceReport"
 import SystemUsageStatistics from "../components/Admin Component/ReportsAndAnalytics/SystemUsageStatictics/SystemUsageStatistics"
+import AdminAssignment from "../pages/Admin Page/AdminAssignment"
+import AdminExam from "../pages/Admin Page/AdminExam"
+import AdminSchdules from "../pages/Admin Page/AdminSchdules"
 
 function AdminPageRoute() {
   return (
@@ -48,6 +51,9 @@ function AdminPageRoute() {
  <Route path="/ReportandAnalytics" element = {<ReportsandAnalytics/>} />
  <Route path="/CoursePerformanceReport" element = {<CoursePerformanceReport/>} />
  <Route path="/SystemUsageStatistics" element = {<SystemUsageStatistics/>} />
+ <Route path="/AdminAssignment/*" element = {<AdminAssignment/>} />
+ <Route path="/AdminExam/*" element = {<AdminExam/>} />
+ <Route path="/AdminSchdules" element = {<AdminSchdules/>} />
 
 
 

@@ -2,20 +2,20 @@
 import { Route, Routes, useLocation } from 'react-router-dom'
 import ExamsCard from '../../components/Teacher Component/Exam Component/ExamsCard'
 import ExamsHeader from '../../components/Teacher Component/Exam Component/ExamsHeader'
-import Sidebar from '../../components/Teacher Component/Sidebar'
 import View from '../../components/Teacher Component/Exam Component/View'
 import ViewAttemps from '../../components/Teacher Component/Exam Component/ViewAttemps'
+import AdminSidebar from '../../components/Admin Component/AdminSidebar'
 
-function Exams() {
+function AdminExam() {
   const location = useLocation(); // Get the current route
 
   // Check if current path is either /exams/viewExam or /exams/viewAttemps
-  const isViewPage = location.pathname === '/exams/viewExam' || location.pathname === '/exams/viewAttemps';
+  const isViewPage = location.pathname === '/AdminExam/viewExam' || location.pathname === '/AdminExam/viewAttemps';
 
   return (
     <div className="flex flex-col min-h-screen lg:flex-row">
       <div>
-        <Sidebar/>
+        <AdminSidebar/>
       </div>
 
       <div className="flex-col w-full mx-auto mt-3 lg:p-6 lg:flex bg-gray-50 lg:mt-0">
@@ -45,4 +45,7 @@ function Exams() {
   )
 }
 
-export default Exams;
+export default AdminExam;
+
+
+

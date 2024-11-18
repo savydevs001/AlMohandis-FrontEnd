@@ -1,16 +1,15 @@
-// import React from 'react'
 
-import Sidebar from "../../components/Teacher Component/Sidebar"
 import { NavLink, Routes, Route } from "react-router-dom"
 import Ungraded from "../../components/Teacher Component/Assignment Component/Ungraded"
 import Grades from "../../components/Teacher Component/Assignment Component/Grades"
 import DashBoardHeader from "../../components/Teacher Component/Dashboard Component/DashBoardHeader"
+import AdminSidebar from "../../components/Admin Component/AdminSidebar"
 
-function Assignment() {
+function AdminAssignment() {
   return (
     <div className="flex flex-col min-h-screen lg:flex-row">
       <div>
-        <Sidebar />
+        <AdminSidebar />
       </div>
       
       <div className="flex-col w-full mx-auto mt-3 lg:p-6 lg:flex bg-gray-50 lg:mt-0">
@@ -24,7 +23,7 @@ function Assignment() {
             <nav className="flex items-center gap-12 mt-8">
   <li className="list-none text-tertiary">
     <NavLink 
-      to="/assignments" 
+      to="/AdminAssignment" 
       end
       className={({ isActive }) => isActive 
         ? 'text-tertiary border-b border-primary font-semibold flex items-center gap-4' 
@@ -66,4 +65,7 @@ function Assignment() {
   )
 }
 
-export default Assignment
+export default AdminAssignment
+
+
+

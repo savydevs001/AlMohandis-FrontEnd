@@ -16,15 +16,20 @@ import CreateCourse from '../components/Teacher Component/Courses Component/Crea
 import EditCourse from '../components/Teacher Component/Courses Component/Edit Course/EditCourse';
 import ProtectedRoute from '../components/ProtectedRoute'; // Import the ProtectedRoute
 import GradeNow from '../components/Teacher Component/Assignment Component/GradeNow/GradeNow';
+import MarkAttendence from '../components/Teacher Component/Attendence Component/MarkAttendence/MarkAttendence';
+import ViewAttendence from '../components/Teacher Component/Attendence Component/ViewAttendence/ViewAttendence';
+import Schdule from '../pages/Teacher Page/Schudle';
+import AudioEditor from '../components/Admin Component/CourseManagementComponents/AdminCreateCourseComponent/AdminCreateCourseSteps/RigthAudioModule/AudioEditor';
+// import DashBoard from '../pages/Teacher Page/DashBoard';
 
 const TeacherRoutes: React.FC = () => {
   return (
     <Routes>
       <Route path="/liveLectures" element={<ProtectedRoute allowedRoles={['teacher']}><LiveLectures /></ProtectedRoute>} />
-      <Route path="/courses" element={<ProtectedRoute allowedRoles={['teacher']}><Courses /></ProtectedRoute>} />
+      <Route path="/courses/*" element={<ProtectedRoute allowedRoles={['teacher']}><Courses /></ProtectedRoute>} />
       <Route path="/assignments/*" element={<ProtectedRoute allowedRoles={['teacher']}><Assignment /></ProtectedRoute>} />
+      <Route path="/exams/*" element={<ProtectedRoute allowedRoles={['teacher']}><Exams /></ProtectedRoute>} />
       <Route path="/gradeNow" element={<ProtectedRoute allowedRoles={['teacher']}><GradeNow /></ProtectedRoute>} />
-      <Route path="/exams" element={<ProtectedRoute allowedRoles={['teacher']}><Exams /></ProtectedRoute>} />
       <Route path="/attendence" element={<ProtectedRoute allowedRoles={['teacher']}><Attendence /></ProtectedRoute>} />
       <Route path="/chat" element={<ProtectedRoute allowedRoles={['teacher']}><Chat /></ProtectedRoute>} />
       <Route path="/assistant" element={<ProtectedRoute allowedRoles={['teacher']}><Assistants /></ProtectedRoute>} />
@@ -35,6 +40,11 @@ const TeacherRoutes: React.FC = () => {
       <Route path="/pending" element={<ProtectedRoute allowedRoles={['teacher']}><PendingCourse /></ProtectedRoute>} />
       <Route path="/createCourse" element={<ProtectedRoute allowedRoles={['teacher']}><CreateCourse /></ProtectedRoute>} />
       <Route path="/editCourse" element={<ProtectedRoute allowedRoles={['teacher']}><EditCourse /></ProtectedRoute>} />
+      <Route path="/markAttendence" element={<ProtectedRoute allowedRoles={['teacher']}><MarkAttendence /></ProtectedRoute>} />
+      <Route path="/viewAttendence" element={<ProtectedRoute allowedRoles={['teacher']}><ViewAttendence /></ProtectedRoute>} />
+      <Route path="/schedule" element={<ProtectedRoute allowedRoles={['teacher']}><Schdule /></ProtectedRoute>} />
+      <Route path="/AudioEditor" element={<ProtectedRoute allowedRoles={['teacher']}><AudioEditor /></ProtectedRoute>} />
+
     </Routes>
   );
 };

@@ -8,7 +8,8 @@ import { AiTwotoneSchedule } from "react-icons/ai";
 import { FaRegUserCircle, FaBookReader } from "react-icons/fa";
 import { RiLiveFill, RiCalendarCheckFill } from "react-icons/ri";
 import { IoSendSharp } from "react-icons/io5";
-import { GrSupport } from "react-icons/gr";
+import { PiExam } from "react-icons/pi";
+
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import { IoMdLogOut } from "react-icons/io";
@@ -135,11 +136,11 @@ const AdminSidebar: React.FC = () => {
               ]}
             />
 
-            <SidebarItem to="/myassignments" icon={<MdAssignment />} label="Assignments" />
-            <SidebarItem to="/exams" icon={<RiCalendarCheckFill />} label="Exams" />
+            <SidebarItem to="/AdminAssignment" icon={<MdAssignment />} label="Assignments" />
+            <SidebarItem to="/AdminExam" icon={<PiExam />} label="Exams" />
 
             <SidebarItem
-              icon={<GrSupport />}
+              icon={<RiCalendarCheckFill />}
               label="Attendance"
               isDropdown={true}
               isOpen={openDropdown === 'Attendance'}
@@ -152,7 +153,7 @@ const AdminSidebar: React.FC = () => {
 
             <SidebarItem to="/registeredSubject" icon={<FaBookReader />} label="Registered Subject" />
             <SidebarItem to="/managementGroup" icon={<IoSendSharp />} label="Management Group" />
-            <SidebarItem to="/studentSchedule" icon={<AiTwotoneSchedule />} label="Schedule" />
+            <SidebarItem to="/AdminSchdules" icon={<AiTwotoneSchedule />} label="Schedule" />
           </ul>
         </div>
 
