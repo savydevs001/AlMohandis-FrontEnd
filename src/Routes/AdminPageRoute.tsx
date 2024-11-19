@@ -30,6 +30,7 @@ import LogsAudits from "../pages/Admin Page/LogsAudits"
 import ManagementGroup from "../pages/Admin Page/ManagementGroup"
 
 import AdminRegisterdSubject from "../pages/Admin Page/AdminRegisterdSubject"
+import AdminProfile from "../pages/Admin Page/AdminProfile"
 
 function AdminPageRoute() {
   return (
@@ -61,8 +62,9 @@ function AdminPageRoute() {
  <Route path="/AdminSchdules" element = {<AdminSchdules/>} />
  <Route path="/AdminLiveLectures" element = {<AdminLiveLectures/>} />
  <Route path="/LogsAudits" element = {<LogsAudits/>} />
- <Route path="/ManagementGroup" element = {<ManagementGroup/>} />
+ <Route path="/ManagementGroup/*" element = {<ManagementGroup/>} />
  <Route path="/AdminRegisterdSubject/*" element = {<AdminRegisterdSubject/>} />
+ <Route path="/AdminProfile" element = {<AdminProfile/>} />
 
 
 

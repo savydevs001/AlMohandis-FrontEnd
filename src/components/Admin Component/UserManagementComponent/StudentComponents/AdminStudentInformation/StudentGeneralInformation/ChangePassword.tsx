@@ -48,6 +48,9 @@ function ChangePassword() {
                 placeholder="Confirm new password"
               />
             </div>
+            <div>
+              <button className="px-4 py-1 font-semibold border rounded-md border-primary text-primary">Save</button>
+            </div>
           </div>
         )}
       </div>

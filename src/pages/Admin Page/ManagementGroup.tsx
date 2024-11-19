@@ -1,7 +1,9 @@
 // import React from 'react'
 
+import { Route, Routes } from "react-router-dom"
 import AdminSidebar from "../../components/Admin Component/AdminSidebar"
 import ManageGroupShowAllComp from "../../components/Admin Component/ManagementGroupComponents/ManageGroupShowAllComp"
+import CreateManagementGroup from "../../components/Admin Component/ManagementGroupComponents/CreateManagementGroup/CreateManagementGroup"
 
 function ManagementGroup() {
   return (
@@ -9,7 +11,11 @@ function ManagementGroup() {
       <AdminSidebar/>
            
            <div className="flex-1 w-[90%] lg:p-6 lg:flex bg-gray-50 mt-3 lg:mt-0 mx-auto">
-<ManageGroupShowAllComp/>
+<Routes>
+  <Route path="/" element={<ManageGroupShowAllComp/>}/>
+  <Route path="CreateManagementGroup" element={<CreateManagementGroup/>}/>
+</Routes>
+
            </div>
          </div>
   )

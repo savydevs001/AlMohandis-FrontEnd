@@ -161,12 +161,12 @@ const AdminSidebar: React.FC = () => {
         </div>
 
         <div className="p-4 space-y-3">
-          <div className="flex items-center gap-3">
+          <NavLink to="/AdminProfile" className="flex items-center gap-3">
             <div className="flex items-center justify-center w-6 h-6 bg-white rounded-full">
               <FcBusinessman />
             </div>
             <p className="text-white">Admin 1</p>
-          </div>
+          </NavLink>
           <button className="flex items-center gap-3 px-4 py-1 bg-white rounded-xl text-primary">
             <IoMdLogOut />
             Logout

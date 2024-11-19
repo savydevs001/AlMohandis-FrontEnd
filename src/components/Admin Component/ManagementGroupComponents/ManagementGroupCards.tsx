@@ -2,13 +2,12 @@ import { useState } from "react";
 import img from "../../../../src/assets/book.webp";
 import GradesPopup from "../../Student Component/RegisteredSubjectComponent/GradesPopup";
 import DeletePopup from "../Communication/Messages/DeletePopup";
+import { NavLink } from "react-router-dom";
 
 
 function ManagementGroupCards() {
   const [showGradesPopup, setShowGradesPopup] = useState(false);
   const [showDeletePopup, setShowDeletePopup] = useState(false);
-
-  const handleOpenGradesPopup = () => setShowGradesPopup(true);
   const handleCloseGradesPopup = () => setShowGradesPopup(false);
 
   const handleOpenDeletePopup = () => setShowDeletePopup(true);
@@ -31,12 +30,14 @@ function ManagementGroupCards() {
         </div>
       </div>
       <div className="flex flex-col lg:w-[12%] w-[100%] items-start gap-2 lg:border-l-4 border-BgColor px-4">
+        
+        <NavLink className='w-full' to='CreateManagementGroup'>
         <button
           className="w-full px-4 py-2 text-sm font-semibold text-white rounded-lg bg-primary"
-          onClick={handleOpenGradesPopup}
         >
           Edit
         </button>
+        </NavLink>
         <button
           className="w-full px-4 py-2 text-sm font-semibold text-white bg-red-700 rounded-lg"
           onClick={handleOpenDeletePopup}
