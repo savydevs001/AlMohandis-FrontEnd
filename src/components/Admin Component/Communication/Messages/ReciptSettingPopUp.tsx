@@ -131,7 +131,7 @@ const ReciptSettingPopUp: React.FC<ReciptSettingPopUpProps> = ({ onClose, }) => 
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2 border rounded border-primary text-primary hover:bg-blue-700"
+            className="px-4 py-2 border rounded border-primary text-primary"
           >
             Cancel
           </button>

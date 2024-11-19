@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { MdOutlineDashboard, MdAssignment } from "react-icons/md";
+import { FaObjectGroup } from "react-icons/fa";
+
 import { FaHandHoldingUsd } from "react-icons/fa";
 import { IoIosSend } from "react-icons/io";
-
+import { AiOutlineAudit } from "react-icons/ai";
 import { AiTwotoneSchedule } from "react-icons/ai";
 import { FaRegUserCircle, FaBookReader } from "react-icons/fa";
 import { RiLiveFill, RiCalendarCheckFill } from "react-icons/ri";
-import { IoSendSharp } from "react-icons/io5";
+// import { IoSendSharp } from "react-icons/io5";
 import { PiExam } from "react-icons/pi";
 
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
@@ -91,7 +93,7 @@ const AdminSidebar: React.FC = () => {
             />
 
             <SidebarItem to="/CourseManagement" icon={<RiLiveFill />} label="Course Management" />
-            <SidebarItem to="/liveLectures" icon={<RiLiveFill />} label="Live Lectures" />
+            <SidebarItem to="/AdminLiveLectures" icon={<RiLiveFill />} label="Live Lectures" />
 
             <SidebarItem
               icon={<VscGraphLine />}
@@ -119,6 +121,7 @@ const AdminSidebar: React.FC = () => {
                 { to: "/CommunicationSupportTicket", label: "Support Ticket" },
               ]}
             />
+             <SidebarItem to="/LogsAudits" icon={<AiOutlineAudit />} label="Logs and Audits" />
             <SidebarItem
               icon={<FaRegUserCircle />}
               label="Content Management"
@@ -151,8 +154,8 @@ const AdminSidebar: React.FC = () => {
               ]}
             />
 
-            <SidebarItem to="/registeredSubject" icon={<FaBookReader />} label="Registered Subject" />
-            <SidebarItem to="/managementGroup" icon={<IoSendSharp />} label="Management Group" />
+            <SidebarItem to="/AdminRegisterdSubject" icon={<FaBookReader />} label="Registered Subject" />
+            <SidebarItem to="/ManagementGroup" icon={<FaObjectGroup />} label="Management Group" />
             <SidebarItem to="/AdminSchdules" icon={<AiTwotoneSchedule />} label="Schedule" />
           </ul>
         </div>

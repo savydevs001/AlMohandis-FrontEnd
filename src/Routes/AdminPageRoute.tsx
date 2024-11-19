@@ -25,6 +25,11 @@ import SystemUsageStatistics from "../components/Admin Component/ReportsAndAnaly
 import AdminAssignment from "../pages/Admin Page/AdminAssignment"
 import AdminExam from "../pages/Admin Page/AdminExam"
 import AdminSchdules from "../pages/Admin Page/AdminSchdules"
+import AdminLiveLectures from "../pages/Admin Page/AdminLiveLectures"
+import LogsAudits from "../pages/Admin Page/LogsAudits"
+import ManagementGroup from "../pages/Admin Page/ManagementGroup"
+
+import AdminRegisterdSubject from "../pages/Admin Page/AdminRegisterdSubject"
 
 function AdminPageRoute() {
   return (
@@ -54,6 +59,10 @@ function AdminPageRoute() {
  <Route path="/AdminAssignment/*" element = {<AdminAssignment/>} />
  <Route path="/AdminExam/*" element = {<AdminExam/>} />
  <Route path="/AdminSchdules" element = {<AdminSchdules/>} />
+ <Route path="/AdminLiveLectures" element = {<AdminLiveLectures/>} />
+ <Route path="/LogsAudits" element = {<LogsAudits/>} />
+ <Route path="/ManagementGroup" element = {<ManagementGroup/>} />
+ <Route path="/AdminRegisterdSubject/*" element = {<AdminRegisterdSubject/>} />
 
 
 

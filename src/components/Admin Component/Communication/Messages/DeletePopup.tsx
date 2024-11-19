@@ -24,7 +24,7 @@ const DeletePopup: React.FC<DeletePopupProps> = ({ show, onClose, onDelete }) =>
         <div className="space-x-4">
           <button
             onClick={onDelete}
-            className="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600"
+            className="px-4 py-2 text-white bg-red-600 rounded hover:bg-red-700"
           >
             Delete
           </button>

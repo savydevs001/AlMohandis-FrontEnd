@@ -1,28 +1,27 @@
 // import React from 'react'
 import  { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import ActiveCourseShowComp from './ActiveCoursesComponent/ActiveCourseShowComp';
-import AdminPendingCourses from './AdminPendingCourses/AdminPendingCourses';
-import AdminDraftCourses from './AdminDraftCourses/AdminDraftCourses';
-import AdminArchivedCourse from './AdminArchived/AdminArchivedCourse';
+import AdminLiveLectureTable from './AdminLiveLectureTableComp/AdminLiveLectureTable';
+import AdminPendingApprobal from './AdminPendingApprovalComp/AdminPendingApprobal';
+import LiveLectureRejected from './AdminLiveLecRejectedComp/LiveLectureRejected';
+import { RiWirelessChargingFill } from "react-icons/ri";
 
 
 type Tab = 'information' | 'course' | 'lecturesAttended' | 'registeredStudents';
 
-function CourseManagementShowHeader() {
+function AdminLiveLectureHeader
+() {
   const [activeTab, setActiveTab] = useState<Tab>('information');
 
   const renderContent = () => {
     switch (activeTab) {
       case 'information':
-        return <ActiveCourseShowComp/>
+        return <AdminLiveLectureTable/>
       case 'course':
-        return  <AdminPendingCourses/>
+        return <AdminPendingApprobal/>
       
       case 'lecturesAttended':
-        return <AdminArchivedCourse/>
-      case 'registeredStudents':
-        return <AdminDraftCourses/>
+        return <LiveLectureRejected/>
       default:
         return null;
     }
@@ -38,29 +37,24 @@ function CourseManagementShowHeader() {
             className={`px-2 py-2 text-md  ${activeTab === 'information' ? 'text-teal-600 border-b-2 border-teal-600' : 'text-gray-600'}`}
             onClick={() => setActiveTab('information')}
           >
-            Active
+            Successful
           </button>
           <button
             className={`lg:px-4 px-2 py-2 text-sm font-semibold ${activeTab === 'course' ? 'text-teal-600 border-b-2 border-teal-600' : 'text-gray-600'}`}
             onClick={() => setActiveTab('course')}
           >
-            Pending
+            Pending Approval
           </button>
           <button
             className={`px-4 py-2 text-sm font-semibold ${activeTab === 'lecturesAttended' ? 'text-teal-600 border-b-2 border-teal-600' : 'text-gray-600'}`}
             onClick={() => setActiveTab('lecturesAttended')}
           >
-            Archived
-          </button>
-          <button
-            className={`px-4 py-2 text-sm font-semibold ${activeTab === 'registeredStudents' ? 'text-teal-600 border-b-2 border-teal-600' : 'text-gray-600'}`}
-            onClick={() => setActiveTab('registeredStudents')}
-          >
-            Draft
+            Rejected
           </button>
         </div>
         <div>
-          <NavLink className='px-4 py-3 font-semibold text-white rounded-md bg-primary' to='AdminCreateCourse'>Create New Course <span className='text-2xl'>+</span></NavLink>
+          <NavLink className='flex items-center gap-2 px-4 py-3 font-semibold text-white rounded-md bg-primary' to=''>Start Live <span className='text-2xl'><RiWirelessChargingFill />
+          </span></NavLink>
           </div>
      </div>
 
@@ -73,7 +67,9 @@ function CourseManagementShowHeader() {
   );
 }
 
-export default CourseManagementShowHeader;
+export default AdminLiveLectureHeader
+;
+
 
 
 

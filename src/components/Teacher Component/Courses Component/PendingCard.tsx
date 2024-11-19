@@ -9,9 +9,9 @@ function PendingCard() {
             Created On
             <span className="px-2 font-semibold text-black text-md">20-4-2024</span>
           </p>
-      <p className="text-[.9vw] text-[#666]">
+      <p className="lg:text-[.9vw] text-[3.5vw] text-[#666]">
             Request Publish On
-            <span className="px-2 text-[1vw] font-semibold text-black ">20-4-2024</span>
+            <span className="px-2 lg:text-[1vw] text-[3.5vw] font-semibold text-black ">20-4-2024</span>
           </p>
           <button className="px-8 py-2 mt-3 text-sm text-white rounded-md bg-primary">
               Back to Draft
