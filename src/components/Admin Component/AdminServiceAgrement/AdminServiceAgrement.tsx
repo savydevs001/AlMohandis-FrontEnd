@@ -5,7 +5,7 @@ import AdminInputField from "../AdminLandingPageComponent/AdminInputField"
 // import LandingPageBtns from "../AdminLandingPageComponent/LandingPageBtns"
 import UserManagementHeader from "../UserManagementComponent/UserManagementHeader"
 
-function AdminPrivacyPolicy() {
+function AdminServiceAgrement() {
   return (
       <div className="flex-1 space-y-5">
       <UserManagementHeader title="Privacy Policy"/>
@@ -28,4 +28,7 @@ function AdminPrivacyPolicy() {
   )
 }
 
-export default AdminPrivacyPolicy
+export default AdminServiceAgrement
+
+
+

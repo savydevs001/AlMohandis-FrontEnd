@@ -7,6 +7,7 @@ import AdminAboutUS from "../../components/Admin Component/AdminAboutUsComponent
 import AdminContectUs from "../../components/Admin Component/AdminContectUsComponent/AdminContectUs";
 import AdminPrivacyPolicy from "../../components/Admin Component/AdminPrivacyPolicyComponent/AdminPrivacyPolicy";
 import AdminTermsConidtion from "../../components/Admin Component/AdminTerms&ConidtionsComponent/AdminTermsConidtion";
+import AdminServiceAgrement from "../../components/Admin Component/AdminServiceAgrement/AdminServiceAgrement";
 
 function ContentManageMent() {
   return (
@@ -21,6 +22,7 @@ function ContentManageMent() {
 <Route path="AdminContactUs" element={<AdminContectUs/>}/>      
 <Route path="AdminPrivacyPolicy" element={<AdminPrivacyPolicy/>}/>      
 <Route path="AdminTermsConditions" element={<AdminTermsConidtion/>}/>      
+<Route path="AdminServiceAgrement" element={<AdminServiceAgrement/>}/>      
      </Routes>
       </div>
     </div>

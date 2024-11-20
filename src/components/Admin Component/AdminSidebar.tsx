@@ -133,7 +133,7 @@ const AdminSidebar: React.FC = () => {
                 { to: "AdminAboutUs", label: "About Us" },
                 { to: "AdminContactUs", label: "Contact Us" },
                 { to: "AdminPrivacyPolicy", label: "Privacy & Policy" },
-                { to: "/content/serviceAgreement", label: "Service Agreement" },
+                { to: "AdminServiceAgrement", label: "Service Agreement" },
                 { to: "AdminTermsConditions", label: "Terms and Conditions" },
                 { to: "/content/promotionalContent", label: "Promotional Content" }
               ]}
