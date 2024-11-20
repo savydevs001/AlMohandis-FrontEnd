@@ -1,52 +1,60 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import UserManagementHeader from '../../UserManagementComponent/UserManagementHeader';
 import Step1BasicInfo from './AdminCreateCourseSteps/Step1BasicInfo';
 import Step2AccessibilitySettings from './AdminCreateCourseSteps/Step2AccessibilitySettings';
-
+import Step3ObjecjectivesGoals from './AdminCreateCourseSteps/Step3ObjecjectivesGoals';
 import Step4AddInstructor from './AdminCreateCourseSteps/Step4AddInstructor';
 import Step5CreatePart from './AdminCreateCourseSteps/Step5CreatePart';
 import Step6CreatePart from './AdminCreateCourseSteps/Step6CreatePart';
-import Step3ObjecjectivesGoals from './AdminCreateCourseSteps/Step3ObjecjectivesGoals';
-// import Part1Assignment from './AdminCreateCourseSteps/AssignmetnModule/Part1Assignment';
 import Part1ExamModule from './AdminCreateCourseSteps/ExamModule/Part1ExamModule';
 
-
 const AdminCreateCourse: React.FC = () => {
-  const [step, setStep] = useState<number>(1);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    const savedStep = localStorage.getItem('currentStep');
-    if (savedStep) setStep(parseInt(savedStep, 10));
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem('currentStep', step.toString());
-  }, [step]);
-
-  const handleNext = () => setStep(step + 1);
+  const handleNext = (nextStep: string) => navigate(nextStep);
   const handleFinish = () => alert('Course creation finished!');
 
   return (
-    <div className='flex flex-col flex-1 min-h-screen lg:flex-row'>
-      <div className='flex-1 w-full p-2 mx-auto lg:w-full lg:p-6'>
-        <UserManagementHeader title='New Course' />
-
-        {/* Render the component based on the current step */}
-        {step === 1 && <Step1BasicInfo handleNext={handleNext} />}
-        {step === 2 && <Step2AccessibilitySettings handleNext={handleNext} />}
-        {step === 3 && <Step3ObjecjectivesGoals handleNext={handleNext} />}
-        {step === 4 && <Step4AddInstructor handleNext={handleNext} />}
-        {step === 5 && <Step5CreatePart handleNext={handleNext} />}
-        {step === 6 && <Step6CreatePart handleNext={handleNext} />}
-        {/* {step === 7 && <RightAudioMudule title='Right Audio Module'   handleNext={handleNext} />} */}
-        {step === 7 && (
-          <Part1ExamModule
-            
-            handleNextModule={handleNext}
-            isLastModule={true}  // Adjust based on whether it's the last module
-            handleFinish={handleFinish}
+    <div className="flex flex-col flex-1 min-h-screen lg:flex-row">
+      <div className="flex-1 w-full p-2 mx-auto lg:w-full lg:p-6">
+        <UserManagementHeader title="New Course" />
+        <Routes>
+          <Route
+            path="step1"
+            element={<Step1BasicInfo handleNext={() => handleNext('step2')} />}
           />
-        )}
+          <Route
+            path="step2"
+            element={<Step2AccessibilitySettings handleNext={() => handleNext('step3')} />}
+          />
+          <Route
+            path="step3"
+            element={<Step3ObjecjectivesGoals handleNext={() => handleNext('step4')} />}
+          />
+          <Route
+            path="step4"
+            element={<Step4AddInstructor handleNext={() => handleNext('step5')} />}
+          />
+          <Route
+            path="step5"
+            element={<Step5CreatePart handleNext={() => handleNext('step6')} />}
+          />
+          <Route
+            path="step6"
+            element={<Step6CreatePart handleNext={() => handleNext('step7')} />}
+          />
+          <Route
+            path="step7"
+            element={
+              <Part1ExamModule
+                handleNextModule={() => handleNext('step7')}
+                isLastModule={true}
+                handleFinish={handleFinish}
+              />
+            }
+          />
+        </Routes>
       </div>
     </div>
   );

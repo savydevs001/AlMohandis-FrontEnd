@@ -13,7 +13,7 @@ function CourseManagement() {
 <Routes>
       <Route path="/" element={<CourseManagementShowAllComp/>}/>
       <Route path="" element/>
-      <Route path="AdminCreateCourse" element={<AdminCreateCourse/>}/>
+      <Route path="AdminCreateCourse/*" element={<AdminCreateCourse/>}/>
       <Route path="" element/>
 </Routes>
       </div>

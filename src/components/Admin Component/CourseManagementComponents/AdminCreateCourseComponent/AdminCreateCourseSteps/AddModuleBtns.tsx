@@ -1,28 +1,34 @@
-import { useState } from 'react'; // Import the popup component
+import { useEffect, useState } from 'react'; 
 import AddModulePopup from './ModuleBtnsPopUp/AddModulePopUp';
 import AddSeasonsPopUp from './ModuleBtnsPopUp/AddSeasonsPopUp';
-// Import the AddSeasonsPopUp component
 
 function AddModuleBtns() {
-  const [isPopupOpen, setIsPopupOpen] = useState<boolean>(false); // State to control module popup visibility
-  const [isSeasonPopupOpen, setIsSeasonPopupOpen] = useState<boolean>(false); // State to control season popup visibility
-  const [partContainer, setPartContainer] = useState<{ name: string; value: string; modules: any[] }[]>([]); // State to manage partContainer
-  const [partNumber, setPartNumber] = useState<number>(0); // State to manage part number
+  const [isPopupOpen, setIsPopupOpen] = useState<boolean>(false);
+  const [isSeasonPopupOpen, setIsSeasonPopupOpen] = useState<boolean>(false);
+  const [partContainer, setPartContainer] = useState<{ name: string; value: string; modules: any[] }[]>(() => {
+    const savedParts = localStorage.getItem('partContainer');
+    return savedParts ? JSON.parse(savedParts) : [];
+  });
+  const [partNumber, setPartNumber] = useState<number>(partContainer.length);
+
+  useEffect(() => {
+    localStorage.setItem('partContainer', JSON.stringify(partContainer));
+  }, [partContainer]);
 
   const handleOpenPopup = () => {
-    setIsPopupOpen(true); // Open module popup
+    setIsPopupOpen(true);
   };
 
   const handleClosePopup = () => {
-    setIsPopupOpen(false); // Close module popup
+    setIsPopupOpen(false);
   };
 
   const handleOpenSeasonPopup = () => {
-    setIsSeasonPopupOpen(true); // Open season popup
+    setIsSeasonPopupOpen(true);
   };
 
   const handleCloseSeasonPopup = () => {
-    setIsSeasonPopupOpen(false); // Close season popup
+    setIsSeasonPopupOpen(false);
   };
 
   return (
@@ -35,12 +41,11 @@ function AddModuleBtns() {
       </button>
       <button 
         className="px-3 py-2 font-semibold text-white border-2 rounded-lg bg-primary"
-        onClick={handleOpenSeasonPopup} // Open the Add Season popup
+        onClick={handleOpenSeasonPopup}
       >
         Add Season
       </button>
 
-      {/* Conditionally render the AddModulePopup */}
       {isPopupOpen && 
         <AddModulePopup
           onClose={handleClosePopup}
@@ -49,7 +54,6 @@ function AddModuleBtns() {
         />
       }
 
-      {/* Conditionally render the AddSeasonsPopUp */}
       {isSeasonPopupOpen && 
         <AddSeasonsPopUp
           onClose={handleCloseSeasonPopup}

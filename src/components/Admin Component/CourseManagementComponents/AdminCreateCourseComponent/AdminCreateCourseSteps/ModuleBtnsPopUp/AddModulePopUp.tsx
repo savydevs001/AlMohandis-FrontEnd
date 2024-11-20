@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
-import { Modules } from '../../../../../Teacher Component/Courses Component/Create Course Component/CreateCourse';
 
 interface AddModulePopupProps {
   onClose: () => void;
-  partContainer: { name: string; value: string; modules: Modules[] }[];
-  setPartContainer: React.Dispatch<React.SetStateAction<{ name: string; value: string; modules: Modules[] }[]>>;
+  partContainer: { name: string; value: string; modules: any[] }[];
+  setPartContainer: React.Dispatch<React.SetStateAction<{ name: string; value: string; modules: any[] }[]>>;
 }
 
 const AddModulePopup: React.FC<AddModulePopupProps> = ({ onClose, partContainer, setPartContainer }) => {
@@ -28,21 +27,24 @@ const AddModulePopup: React.FC<AddModulePopupProps> = ({ onClose, partContainer,
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    // Find the selected part
+
     const updatedPartContainer = partContainer.map(part => {
       if (part.name === selectedSeason) {
-        // Calculate the next number for the module type
-        const moduleCount = part.modules.filter(module => module.name === selectedModule).length;
+        const modules = part.modules || [];
+        const moduleCount = modules.filter(module => module.name === selectedModule).length;
         const newModuleNumber = moduleCount + 1;
+
         return {
           ...part,
-          modules: [...part.modules, { name: selectedModule, number: newModuleNumber, lessons: [] }] // Add the new module
+          modules: [
+            ...modules,
+            { name: selectedModule, number: newModuleNumber, lessons: [] },
+          ],
         };
       }
       return part;
     });
 
-    // Update the partContainer state
     setPartContainer(updatedPartContainer);
     onClose();
   };
@@ -50,14 +52,15 @@ const AddModulePopup: React.FC<AddModulePopupProps> = ({ onClose, partContainer,
   const moduleOptions = ['Chapter', 'Exam', 'Assignment'];
 
   const handleCancel = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    event.preventDefault(); // Prevent form submission on Cancel
+    event.preventDefault();
     onClose();
   };
 
   return (
     <div className="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full bg-black bg-opacity-50">
       <div className="w-[90%] p-5 bg-white rounded-lg shadow-lg lg:w-1/3">
-        <div className="flex items-center justify-end mb-4">
+        <div className="flex items-center justify ```tsx
+        end mb-4">
           <AiOutlineCloseCircle className="text-2xl text-red-600 cursor-pointer" onClick={onClose} />
         </div>
         <form onSubmit={handleSubmit}>

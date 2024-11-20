@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { RiDeleteBin6Line } from 'react-icons/ri';
-import Step6LeftSide from '../Step6LeftSide';
+// import Step6LeftSide from '../Step6LeftSide';
 
 interface Exam_StepProps {
   handleNextModule: () => void;
@@ -73,7 +73,7 @@ const Part1ExamModule: React.FC<Exam_StepProps> = ({ handleNextModule, handleFin
     <div className='mt-0 h-fit'>
       <div className='flex flex-col w-[100%] gap-3 px-4 mx-auto mt-4 lg:max-w-4xl h-fit bg-cardBg lg:flex-row'>
         <div className='lg:w-[30%] w-full  border-2'>
-            <Step6LeftSide/>
+            {/* <Step6LeftSide/> */}
         </div>
         <div className='w-full p-4 space-x-2 border-2 lg:flex-1'>
           <p className='text-sm text-[#7C7C7C]'>Available for Free</p>
