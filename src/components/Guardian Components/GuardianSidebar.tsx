@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { MdOutlineDashboard, MdAssignment } from "react-icons/md";
-import { FaObjectGroup } from "react-icons/fa";
 
 import { FaHandHoldingUsd } from "react-icons/fa";
-import { IoIosSend } from "react-icons/io";
-import { AiOutlineAudit } from "react-icons/ai";
 import { AiTwotoneSchedule } from "react-icons/ai";
-import { FaRegUserCircle, FaBookReader } from "react-icons/fa";
-import { RiLiveFill, RiCalendarCheckFill } from "react-icons/ri";
+import { FaRegUserCircle } from "react-icons/fa";
+import { RiLiveFill } from "react-icons/ri";
 // import { IoSendSharp } from "react-icons/io5";
 import { PiExam } from "react-icons/pi";
 
@@ -17,9 +14,9 @@ import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import { IoMdLogOut } from "react-icons/io";
 import { FcBusinessman } from "react-icons/fc";
 import logo from '../../assets/dashboardlogo.png';
-import { VscGraphLine } from "react-icons/vsc";
 
-const AdminSidebar: React.FC = () => {
+
+const GuardianSidebar: React.FC = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
@@ -76,87 +73,30 @@ const AdminSidebar: React.FC = () => {
           </div>
 
           <ul className="px-4 py-4 space-y-1">
-            <SidebarItem to="/AdminDashboard" icon={<MdOutlineDashboard />} label="Dashboard" />
+            <SidebarItem to="/GuardianNotification" icon={<MdOutlineDashboard />} label="Notifications" />
 
+            <SidebarItem to="/MyStudent" icon={<RiLiveFill />} label="My Student" />
+            <SidebarItem to="" icon={<RiLiveFill />} label="Live Lectures" />
+
+            <SidebarItem to="" icon={<FaHandHoldingUsd />} label="Chats" />
+            <SidebarItem to="/AdminSchdules" icon={<AiTwotoneSchedule />} label="Schedule" />
             <SidebarItem
               icon={<FaRegUserCircle />}
-              label="User Management"
+              label="Support"
               isDropdown={true}
-              isOpen={openDropdown === 'User Management'}
-              onToggle={() => toggleDropdown('User Management')}
+              isOpen={openDropdown === 'Support'}
+              onToggle={() => toggleDropdown('Support')}
               dropdownItems={[
-                { to: "/UserManagement", label: "Student" },
-                { to: "/AdminTeacher", label: "Teacher" },
-                { to: "/AdminGuardianPage", label: "Guardian" },
-                { to: "/AdminManagement", label: "Admin" }
+                { to: "/", label: "Live Chat" },
+                { to: "", label: "Support Tickets" },
               ]}
             />
 
-            <SidebarItem to="/CourseManagement" icon={<RiLiveFill />} label="Course Management" />
-            <SidebarItem to="/AdminLiveLectures" icon={<RiLiveFill />} label="Live Lectures" />
-
-            <SidebarItem
-              icon={<VscGraphLine />}
-              label="Reports & Analytics"
-              isDropdown={true}
-              isOpen={openDropdown === 'Reports & Analytics'}
-              onToggle={() => toggleDropdown('Reports & Analytics')}
-              dropdownItems={[
-                { to: "/ReportandAnalytics", label: "User Activity Reports" },
-                { to: "/CoursePerformanceReport", label: "Course Performance Reports" },
-                { to: "/SystemUsageStatistics", label: "System Usage Statistics" }
-              ]}
-            />
-
-            <SidebarItem to="/FinancialManagement" icon={<FaHandHoldingUsd />} label="Financial Management" />
-            <SidebarItem
-              icon={<IoIosSend />}
-              label="Communication"
-              isDropdown={true}
-              isOpen={openDropdown === 'Communication'}
-              onToggle={() => toggleDropdown('Communication')}
-              dropdownItems={[
-                { to: "/CommunicationMessages", label: "Messages" },
-                { to: "/CommunicationAnnouncements", label: "Announcements" },
-                { to: "/CommunicationSupportTicket", label: "Support Ticket" },
-              ]}
-            />
-             <SidebarItem to="/LogsAudits" icon={<AiOutlineAudit />} label="Logs and Audits" />
-            <SidebarItem
-              icon={<FaRegUserCircle />}
-              label="Content Management"
-              isDropdown={true}
-              isOpen={openDropdown === 'Content Management'}
-              onToggle={() => toggleDropdown('Content Management')}
-              dropdownItems={[
-                { to: "/ContentManagement", label: "Landing Page" },
-                { to: "AdminAboutUs", label: "About Us" },
-                { to: "AdminContactUs", label: "Contact Us" },
-                { to: "AdminPrivacyPolicy", label: "Privacy & Policy" },
-                { to: "AdminServiceAgrement", label: "Service Agreement" },
-                { to: "AdminTermsConditions", label: "Terms and Conditions" },
-                { to: "/content/promotionalContent", label: "Promotional Content" }
-              ]}
-            />
-
-            <SidebarItem to="/AdminAssignment" icon={<MdAssignment />} label="Assignments" />
+            <SidebarItem to="" icon={<MdAssignment />} label="Promotional Conetent" />
             <SidebarItem to="/AdminExam" icon={<PiExam />} label="Exams" />
 
-            <SidebarItem
-              icon={<RiCalendarCheckFill />}
-              label="Attendance"
-              isDropdown={true}
-              isOpen={openDropdown === 'Attendance'}
-              onToggle={() => toggleDropdown('Attendance')}
-              dropdownItems={[
-                { to: "/AdminViewAttendance", label: "View Attendance" },
-                { to: "/AdminMarkAttendance", label: "Mark Attendance" }
-              ]}
-            />
-
-            <SidebarItem to="/AdminRegisterdSubject" icon={<FaBookReader />} label="Registered Subject" />
-            <SidebarItem to="/ManagementGroup" icon={<FaObjectGroup />} label="Management Group" />
-            <SidebarItem to="/AdminSchdules" icon={<AiTwotoneSchedule />} label="Schedule" />
+            
+            
           </ul>
         </div>
 
@@ -243,4 +183,8 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ to, icon, label, isDropdown, 
   );
 };
 
-export default AdminSidebar;
+export default GuardianSidebar;
+
+
+
+

@@ -11,7 +11,7 @@ function RegisteredSubjectsPageLayout() {
             <DashBoardHeader/>
       </div>
       <div className="mt-8 space-y-4" >
-           <RegisteredSubjectCard/> 
+           <RegisteredSubjectCard /> 
            <RegisteredSubjectCard/> 
            <RegisteredSubjectCard/> 
            <RegisteredSubjectCard/> 

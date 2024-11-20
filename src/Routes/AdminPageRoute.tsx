@@ -31,6 +31,8 @@ import ManagementGroup from "../pages/Admin Page/ManagementGroup"
 
 import AdminRegisterdSubject from "../pages/Admin Page/AdminRegisterdSubject"
 import AdminProfile from "../pages/Admin Page/AdminProfile"
+import AdminAttendance from "../pages/Admin Page/AdminAttendance"
+import AdminMarkAttendance from "../components/Admin Component/Admin Attendance/AdminMarkAttendance/AdminMarkAttendacne"
 
 function AdminPageRoute() {
   return (
@@ -65,6 +67,8 @@ function AdminPageRoute() {
  <Route path="/ManagementGroup/*" element = {<ManagementGroup/>} />
  <Route path="/AdminRegisterdSubject/*" element = {<AdminRegisterdSubject/>} />
  <Route path="/AdminProfile" element = {<AdminProfile/>} />
+ <Route path="/AdminViewAttendance" element = {<AdminAttendance/>} />
+ <Route path="/AdminMarkAttendance" element = {<AdminMarkAttendance/>} />
 
 
 
