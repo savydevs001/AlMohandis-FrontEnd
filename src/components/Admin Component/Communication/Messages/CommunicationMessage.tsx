@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import UserManagementHeader from "../../UserManagementComponent/UserManagementHeader";
-import CommunicationMessageDropDown from "./CommunicationMessageDropDown";
+import CommunicationMessageDropDown from "./CommuMesgDropDown";
 import MessagesList from "./MessagesList";
 import SendNowPopup from "./SendNowPopup";
 

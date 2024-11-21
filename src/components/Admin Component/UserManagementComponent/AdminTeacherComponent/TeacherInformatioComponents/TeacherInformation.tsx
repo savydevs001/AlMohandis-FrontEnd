@@ -1,7 +1,7 @@
 // import React from 'react'
 
 import AdminSidebar from "../../../AdminSidebar"
-import TeacherInformationShowCpm from "./TeacherInformationShowCpm"
+import TeacherInformationShowCpm from "./TeachInfoShowCpm"
 
 function TeacherInformation() {
   return (

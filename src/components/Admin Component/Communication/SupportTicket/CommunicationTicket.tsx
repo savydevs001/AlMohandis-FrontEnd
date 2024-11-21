@@ -1,7 +1,7 @@
 // import React from 'react'
 
 import UserManagementHeader from "../../UserManagementComponent/UserManagementHeader"
-import CommunicationTicketList from "./CommunicationTicketList"
+import CommunicationTicketList from "./CommunTicktList"
 import TicketDropdown from "./TicketDropdown"
 
 function CommunicationTicket() {

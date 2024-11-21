@@ -1,7 +1,7 @@
 // import React from 'react'
 
 import AdminSidebar from "../../AdminSidebar"
-import AdminMarkAttendanceShowComp from "./AdminMarkAttendanceShowComp"
+import AdminMarkAttendanceShowComp from "./AdMarkAttendComp"
 
 function AdminMarkAttendance() {
   return (

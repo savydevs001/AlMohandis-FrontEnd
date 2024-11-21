@@ -1,7 +1,7 @@
 // import React from 'react'
 
 // import AdminAboutHeadings from "../AdminAboutUsComponent/AdminAboutHeadings"
-import AdminInputField from "../AdminLandingPageComponent/AdminInputField"
+import AdminInputField from "../AdminLandingCom/AdminInputField"
 // import LandingPageBtns from "../AdminLandingPageComponent/LandingPageBtns"
 import UserManagementHeader from "../UserManagementComponent/UserManagementHeader"
 

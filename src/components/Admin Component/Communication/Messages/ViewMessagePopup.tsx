@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import AdminFileInput from "../../AdminLandingPageComponent/AdminFileInput";
+import AdminFileInput from "../../AdminLandingCom/AdminFileInput";
 
 interface ViewPopupProps {
   show: boolean;

@@ -19,7 +19,7 @@ import GradeNow from '../components/Teacher Component/Assignment Component/Grade
 import MarkAttendence from '../components/Teacher Component/Attendence Component/MarkAttendence/MarkAttendence';
 import ViewAttendence from '../components/Teacher Component/Attendence Component/ViewAttendence/ViewAttendence';
 import Schdule from '../pages/Teacher Page/Schudle';
-import AudioEditor from '../components/Admin Component/CourseManagementComponents/AdminCreateCourseComponent/AdminCreateCourseSteps/RigthAudioModule/AudioEditor';
+import AudioEditor from '../components/Admin Component/CourseManagementComp/AdminCreateCourseComp/AdminCreateCourseSteps/RigthAudioModule/AudioEditor';
 // import DashBoard from '../pages/Teacher Page/DashBoard';
 
 const TeacherRoutes: React.FC = () => {

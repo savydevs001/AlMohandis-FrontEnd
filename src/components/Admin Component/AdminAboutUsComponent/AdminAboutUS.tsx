@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import AdminInputField from "../AdminLandingPageComponent/AdminInputField";
-import LandingPageBtns from "../AdminLandingPageComponent/LandingPageBtns";
+import AdminInputField from "../AdminLandingCom/AdminInputField";
+import LandingPageBtns from "../AdminLandingCom/LandingPageBtns";
 import UserManagementHeader from "../UserManagementComponent/UserManagementHeader";
 import AdminAboutHeadings from "./AdminAboutHeadings";
 import axios from "axios";

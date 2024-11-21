@@ -1,5 +1,5 @@
 import  { useState } from 'react';
-import TeacherGeneralInformationSect from './TeacherGeneralInformationSect';
+import TeacherGeneralInformationSect from './TeachGeneralInfoSect';
 import TeacherCourseSect from './TeacherCoursesComponent/TeacherCourseSect';
 import AdminRegisteredSubjects from './RegisteredSubjectComponent/AdminRegisteredSubjects';
 import TeacherLiveLecture from './TeachersLiveLectureComponent/TeacherLiveLecture';

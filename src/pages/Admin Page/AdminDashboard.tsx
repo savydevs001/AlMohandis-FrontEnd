@@ -1,6 +1,6 @@
 // import React from 'react'
 
-import DashBoardComponetsPage from "../../components/Admin Component/AdminDashBoardContent/DashBoardComponetsPage"
+import DashBoardComponetsPage from "../../components/Admin Component/AdminDashBoardContent/DashBoardCompPag"
 import AdminSidebar from "../../components/Admin Component/AdminSidebar"
 
 

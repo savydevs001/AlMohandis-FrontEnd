@@ -1,6 +1,6 @@
 // import React from 'react'
 
-import FinalcialManagementShowAllComp from "../../components/Admin Component/AdminFinancialManagement/FinalcialManagementShowAllComp"
+import FinalcialManagementShowAllComp from "../../components/Admin Component/AdminFinanManag/FinalcialMangComp"
 import AdminSidebar from "../../components/Admin Component/AdminSidebar"
 
 function FinancialManagement() {

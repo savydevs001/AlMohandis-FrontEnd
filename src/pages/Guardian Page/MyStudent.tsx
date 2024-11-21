@@ -3,7 +3,7 @@
 import { Route, Routes } from "react-router-dom"
 import GuardianSidebar from "../../components/Guardian Components/GuardianSidebar"
 import MyStudentShowComp from "../../components/Guardian Components/MyStudentComponents/MyStudentShowComp"
-import StudentInformationShowComp from "../../components/Guardian Components/MyStudentComponents/StudentInformation/StudentInforamtionShowComp"
+import StudentInformationShowComp from "../../components/Guardian Components/MyStudentComponents/StudentInformation/StudentInfoShowComp"
 
 function MyStudent() {
   return (
