@@ -1,6 +1,6 @@
 // import React from 'react'
-import PromotionalVideo from '../../components/LandingPage Component/Promotional Content/PromotionalVideo'
-import PromotionalReels from '../../components/LandingPage Component/Promotional Content/PromotionalReels'
+import PromotionalVideo from '../../components/LandingPageComponent/Promotional Content/PromotionalVideo'
+import PromotionalReels from '../../components/LandingPageComponent/Promotional Content/PromotionalReels'
 import Navbar from '../../components/Navbar'
 import Footer from '../../components/Footer'
 

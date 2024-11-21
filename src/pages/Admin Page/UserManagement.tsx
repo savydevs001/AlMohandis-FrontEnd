@@ -1,7 +1,7 @@
 // import React from 'react'
 
-import AdminSidebar from "../../components/Admin Component/AdminSidebar"
-import UserManagementComponentPages from "../../components/Admin Component/UserManagementComponent/UserManagement"
+import AdminSidebar from "../../components/AdminComponent/AdminSidebar"
+import UserManagementComponentPages from "../../components/AdminComponent/UserManagementComponent/UserManagement"
 
 
 function UserManagement() {

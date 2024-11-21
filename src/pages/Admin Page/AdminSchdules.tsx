@@ -1,5 +1,5 @@
 // import React from 'react'
-import AdminSidebar from '../../components/Admin Component/AdminSidebar'
+import AdminSidebar from '../../components/AdminComponent/AdminSidebar'
 import Schdules from '../../components/Teacher Component/Schudele Component/Schdules'
 
 function AdminSchdules() {

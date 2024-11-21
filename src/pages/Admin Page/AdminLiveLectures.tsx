@@ -1,7 +1,7 @@
 // import React from 'react'
 
-import AdminLiveLectureShowAllComp from "../../components/Admin Component/AdminLiveLectures/LiveLecComp"
-import AdminSidebar from "../../components/Admin Component/AdminSidebar"
+import AdminLiveLectureShowAllComp from "../../components/AdminComponent/AdminLiveLectures/LiveLecComp"
+import AdminSidebar from "../../components/AdminComponent/AdminSidebar"
 
 function AdminLiveLectures() {
   return (

@@ -1,7 +1,7 @@
 // import React from 'react'
 
-import RegisteredSubjectsPageLayout from "../../components/Student Component/RegisteredSubject/RegisteredSubjectsPageLayout"
-import StudentSidebar from "../../components/Student Component/StudentSidebar"
+import RegisteredSubjectsPageLayout from "../../components/StudentComponent/RegisteredSubject/RegisteredSubjects"
+import StudentSidebar from "../../components/StudentComponent/StudentSidebar"
 
 function RegisteredSubject() {
   return (

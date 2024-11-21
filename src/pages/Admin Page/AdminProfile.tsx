@@ -1,7 +1,7 @@
 // import React from 'react'
 
-import AdminProfileShowComp from "../../components/Admin Component/AdminProfileComponent/ProfileShowComp"
-import AdminSidebar from "../../components/Admin Component/AdminSidebar"
+import AdminProfileShowComp from "../../components/AdminComponent/AdminProfileComponent/ProfileShowComp"
+import AdminSidebar from "../../components/AdminComponent/AdminSidebar"
 
 function AdminProfile() {
   return (

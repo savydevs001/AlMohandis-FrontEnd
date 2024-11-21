@@ -1,9 +1,9 @@
 // import React from 'react'
 
 import { Route, Routes } from "react-router-dom"
-import AdminRegSubShowAllComp from "../../components/Admin Component/AdminRegisSubjComp/RegSubComp"
-import AdminSidebar from "../../components/Admin Component/AdminSidebar"
-import ViewRegSubject from "../../components/Admin Component/AdminRegisSubjComp/ViewRegSubject/ViewRegSubject"
+import AdminRegSubShowAllComp from "../../components/AdminComponent/AdminRegisSubjComp/RegSubComp"
+import AdminSidebar from "../../components/AdminComponent/AdminSidebar"
+import ViewRegSubject from "../../components/AdminComponent/AdminRegisSubjComp/ViewRegSubject/ViewRegSubject"
 
 function AdminRegisterdSubject() {
   return (

@@ -1,9 +1,9 @@
 // import React from 'react'
 
 import { Route, Routes } from "react-router-dom"
-import AdminSidebar from "../../components/Admin Component/AdminSidebar"
-import ManageGroupShowAllComp from "../../components/Admin Component/ManagementGroupComp/ManagGroupShowComp"
-import CreateManagementGroup from "../../components/Admin Component/ManagementGroupComp/ManagementGroup/ManagementGroup"
+import AdminSidebar from "../../components/AdminComponent/AdminSidebar"
+import ManageGroupShowAllComp from "../../components/AdminComponent/ManagementGroupComp/ManagGroupShowComp"
+import CreateManagementGroup from "../../components/AdminComponent/ManagementGroupComp/ManagementGroup/ManagementGroup"
 
 function ManagementGroup() {
   return (

@@ -1,7 +1,7 @@
 // import React from 'react'
 
-import AdminSidebar from "../../components/Admin Component/AdminSidebar"
-import CommunicationTicket from "../../components/Admin Component/Communication/SupportTicket/CommunicationTicket"
+import AdminSidebar from "../../components/AdminComponent/AdminSidebar"
+import CommunicationTicket from "../../components/AdminComponent/Communication/SupportTicket/CommunicationTicket"
 
 function SupportTicket() {
   return (

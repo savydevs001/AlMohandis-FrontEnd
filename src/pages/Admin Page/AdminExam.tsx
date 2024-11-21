@@ -4,7 +4,7 @@ import ExamsCard from '../../components/Teacher Component/Exam Component/ExamsCa
 import ExamsHeader from '../../components/Teacher Component/Exam Component/ExamsHeader'
 import View from '../../components/Teacher Component/Exam Component/View'
 import ViewAttemps from '../../components/Teacher Component/Exam Component/ViewAttemps'
-import AdminSidebar from '../../components/Admin Component/AdminSidebar'
+import AdminSidebar from '../../components/AdminComponent/AdminSidebar'
 
 function AdminExam() {
   const location = useLocation(); // Get the current route

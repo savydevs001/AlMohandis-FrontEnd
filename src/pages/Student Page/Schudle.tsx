@@ -1,5 +1,5 @@
 // import React from 'react'
-import StudentSidebar from '../../components/Student Component/StudentSidebar'
+import StudentSidebar from '../../components/StudentComponent/StudentSidebar'
 import Schdules from '../../components/Teacher Component/Schudele Component/Schdules'
 
 

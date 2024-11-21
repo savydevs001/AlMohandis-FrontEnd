@@ -1,9 +1,9 @@
 // import React from 'react'
 
 import { Route, Routes } from "react-router-dom"
-import AdminSidebar from "../../components/Admin Component/AdminSidebar"
-import CourseManagementShowAllComp from "../../components/Admin Component/CourseManagementComp/CourseManageComp"
-import AdminCreateCourse from "../../components/Admin Component/CourseManagementComp/CreateCourse/AdminCreateCourse"
+import AdminSidebar from "../../components/AdminComponent/AdminSidebar"
+import CourseManagementShowAllComp from "../../components/AdminComponent/CourseManagementComp/CourseManageComp"
+import AdminCreateCourse from "../../components/AdminComponent/CourseManagementComp/CreateCourse/AdminCreateCourse"
 
 function CourseManagement() {
   return (

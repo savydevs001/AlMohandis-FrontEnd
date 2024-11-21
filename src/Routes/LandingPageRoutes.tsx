@@ -1,11 +1,11 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Home from '../pages/Landing Page/Home';
-import About from '../components/LandingPage Component/About';
-import TermCondition from '../components/LandingPage Component/TermCondition';
-import PrivacyPolicy from '../components/LandingPage Component/PrivacyPolicy';
-import ServiceAggrement from '../components/LandingPage Component/ServiceAggrement';
-import CreateAccount from '../components/LandingPage Component/CreateAccount';
-import Login from '../components/LandingPage Component/Login';
+import About from '../components/LandingPageComponent/About';
+import TermCondition from '../components/LandingPageComponent/TermCondition';
+import PrivacyPolicy from '../components/LandingPageComponent/PrivacyPolicy';
+import ServiceAggrement from '../components/LandingPageComponent/ServiceAggrement';
+import CreateAccount from '../components/LandingPageComponent/CreateAccount';
+import Login from '../components/LandingPageComponent/Login';
 import Contact from '../pages/Landing Page/Contact';
 import PromotionContent from '../pages/Landing Page/PromotionContent';
 import DashBoard from '../pages/Teacher Page/DashBoard';

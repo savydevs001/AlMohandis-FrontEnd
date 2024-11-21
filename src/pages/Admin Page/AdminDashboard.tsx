@@ -1,7 +1,7 @@
 // import React from 'react'
 
-import DashBoardComponetsPage from "../../components/Admin Component/AdminDashBoardContent/DashBoardCompPag"
-import AdminSidebar from "../../components/Admin Component/AdminSidebar"
+import DashBoardComponetsPage from "../../components/AdminComponent/AdminDashBoardContent/DashBoardCompPag"
+import AdminSidebar from "../../components/AdminComponent/AdminSidebar"
 
 
 function AdminDashboard() {

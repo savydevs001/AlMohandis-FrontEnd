@@ -1,9 +1,9 @@
 // import React from 'react'
 
 import { Route, Routes } from "react-router-dom"
-import GuardianSidebar from "../../components/Guardian Components/GuardianSidebar"
-import MyStudentShowComp from "../../components/Guardian Components/MyStudentComponents/MyStudentShowComp"
-import StudentInformationShowComp from "../../components/Guardian Components/MyStudentComponents/StudentInformation/StudentInfoShowComp"
+import GuardianSidebar from "../../components/GuardianComponents/GuardianSidebar"
+import MyStudentShowComp from "../../components/GuardianComponents/MyStudentComponents/MyStudentShowComp"
+import StudentInformationShowComp from "../../components/GuardianComponents/MyStudentComponents/StudentInformation/StudentInfoShowComp"
 
 function MyStudent() {
   return (

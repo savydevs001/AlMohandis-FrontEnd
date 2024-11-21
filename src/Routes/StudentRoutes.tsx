@@ -1,11 +1,11 @@
 import { Routes, Route } from "react-router-dom";
 import StudentDashboard from "../pages/Student Page/StudentDashboard";
-import MyCourses from "../components/Student Component/StudentCourses/MyCourses Components/MyCourses";
-import BuyCourses from "../components/Student Component/StudentCourses/Buy Courses Components/BuyCourses";
-import VideoLesson from "../components/Student Component/StudentCourses/MyCourses Components/Course1 Component/Show Lessons Component/Lesson Vidoe Course/VideoLesson";
+import MyCourses from "../components/StudentComponent/StudentCourses/MyCourses Components/MyCourses";
+import BuyCourses from "../components/StudentComponent/StudentCourses/BuyCourses/BuyCourses";
+import VideoLesson from "../components/StudentComponent/StudentCourses/MyCourses Components/Course1 Component/ShowLessons/Lesson Vidoe Course/VideoLesson";
 import ProtectedRoute from '../components/ProtectedRoute'; // Import the ProtectedRoute
-import ExamQuestionsPage from "../components/Student Component/StudentCourses/MyCourses Components/Course1 Component/Show Lessons Component/Show Content Component/ShowExam Component/ShowExamQuestions Component/ExamQuestionsPage";
-import CorrectOption from "../components/Student Component/StudentCourses/MyCourses Components/Course1 Component/Show Lessons Component/Show Content Component/ShowGraded Component/CorrectOptions/CorrectOption";
+import ExamQuestionsPage from "../components/StudentComponent/StudentCourses/MyCourses Components/Course1 Component/ShowLessons/ShowContent/ShowExam/ShowExamQuestion/ExamQuestions";
+import CorrectOption from "../components/StudentComponent/StudentCourses/MyCourses Components/Course1 Component/ShowLessons/ShowContent/ShowGraded/CorrectOptions/CorrectOption";
 import Professors from "../pages/Student Page/Professors";
 import StudentAssignments from "../pages/Student Page/StudentAssignments";
 import StudentAttendence from "../pages/Student Page/StudentAttendence";

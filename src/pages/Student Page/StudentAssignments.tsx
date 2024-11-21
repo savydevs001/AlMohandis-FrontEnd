@@ -1,9 +1,9 @@
 import { Route, Routes } from "react-router-dom";
-import StudentAssignmentPageLayout from "../../components/Student Component/StudentAssignment/StudentAssignmentPageLayout";
-import StudentSidebar from "../../components/Student Component/StudentSidebar";
-import SubmitAssignment from "../../components/Student Component/StudentAssignment/UpComingAssignmets/SubmitAssignment";
-import AssignmentGrades from "../../components/Student Component/StudentAssignment/AssignmentGrades/AssignmentGrades";
-import ViewAssignment from "../../components/Student Component/StudentAssignment/ViewAssignment";
+import StudentAssignmentPageLayout from "../../components/StudentComponent/StudentAssignment/AssignmentPage";
+import StudentSidebar from "../../components/StudentComponent/StudentSidebar";
+import SubmitAssignment from "../../components/StudentComponent/StudentAssignment/UpComingAssignmets/SubmitAssignment";
+import AssignmentGrades from "../../components/StudentComponent/StudentAssignment/AssignmentGrades/AssignmentGrades";
+import ViewAssignment from "../../components/StudentComponent/StudentAssignment/ViewAssignment";
 // import ViewAssignmentsGrades from "../../components/Student Component/StudentAssignment Component/AssignmentGrades/ViewAssignmentsGrades";
 // import SubmitedAssignmentView from "../../components/Student Component/StudentAssignment Component/UpComingAssignmets/SubmitedAssignmentView";
 

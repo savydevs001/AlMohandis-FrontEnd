@@ -1,6 +1,6 @@
 // import React from 'react'
 
-import GuardianSidebar from "../../components/Guardian Components/GuardianSidebar"
+import GuardianSidebar from "../../components/GuardianComponents/GuardianSidebar"
 
 function GuardianNotification() {
   return (
