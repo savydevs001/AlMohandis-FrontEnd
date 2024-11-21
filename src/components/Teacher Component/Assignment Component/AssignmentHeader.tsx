@@ -1,7 +1,7 @@
 // import React from 'react'
 
 import { NavLink } from "react-router-dom"
-import DashBoardHeader from "../Dashboard Component/DashBoardHeader"
+import DashBoardHeader from "../DashboardComponent/DashBoardHeader"
 
 
 function AssignmentHeader() {

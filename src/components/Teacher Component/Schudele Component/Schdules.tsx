@@ -1,6 +1,6 @@
 // import React from 'react'
 
-import DashBoardHeader from "../Dashboard Component/DashBoardHeader"
+import DashBoardHeader from "../DashboardComponent/DashBoardHeader"
 import ClassesSchudle from "./ClassesSchudle"
 
 function Schdules() {

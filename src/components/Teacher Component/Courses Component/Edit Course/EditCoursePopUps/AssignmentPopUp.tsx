@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import AdminFileInput from '../../../../Admin Component/AdminLandingCom/AdminFileInput';
+import AdminFileInput from '../../../../Admin Component/Landing/AdminFileInput';
 
 export const AssignmentPopup: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   const [questions, setQuestions] = useState<{ id: number; question: string }[]>([]); // Array of questions

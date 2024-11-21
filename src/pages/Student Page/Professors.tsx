@@ -2,7 +2,7 @@
 import { Route, Routes } from "react-router-dom"
 import ProfessorsPageLayout from "../../components/ProfessorsComponent/ProfessorsPageLayout"
 import StudentSidebar from "../../components/Student Component/StudentSidebar"
-import ProfessorViewDetail from "../../components/ProfessorsComponent/ProfessorViewComponent/ProfessorViewDetail"
+import ProfessorViewDetail from "../../components/ProfessorsComponent/ProfessorView/ProfessorViewDetail"
 
 function Professors() {
   return (

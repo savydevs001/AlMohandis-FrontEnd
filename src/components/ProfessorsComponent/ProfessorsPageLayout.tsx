@@ -1,6 +1,6 @@
 // src/components/ProfessorsComponent/ProfessorsPageLayout.tsx
 import { useEffect, useState } from 'react';
-import DashBoardHeader from "../Teacher Component/Dashboard Component/DashBoardHeader";
+import DashBoardHeader from "../Teacher Component/DashboardComponent/DashBoardHeader";
 import ProfessorsCard from "./ProfessorsCard";
 import Cookies from 'js-cookie';
 

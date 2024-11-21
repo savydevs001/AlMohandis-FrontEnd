@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { IoIosInformationCircleOutline } from "react-icons/io"
 import { ExamPopup } from "../Courses Component/Edit Course/EditCoursePopUps/ExamPopUp";
-import DashBoardHeader from "../Dashboard Component/DashBoardHeader";
+import DashBoardHeader from "../DashboardComponent/DashBoardHeader";
 
 function View() {
 

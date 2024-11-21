@@ -4,7 +4,7 @@ import Sidebar from '../Sidebar';
 import CoursesNav from './CoursesCards';
 import Draft from './Draft';
 import PendingCourse from './PendingCourse';
-import CreateCourse from './Create Course Component/CreateCourse';
+import CreateCourse from './CreateCourseComp/CreateCourse';
 import EditCourse from './Edit Course/EditCourse';
 import CoursesCards from './CoursesCards'
 

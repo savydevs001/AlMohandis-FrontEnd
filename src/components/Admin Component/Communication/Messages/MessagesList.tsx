@@ -1,7 +1,7 @@
 // import React from 'react'
 
 import { useState } from "react";
-import ExportPopup from "../../AdminFinanManag/ExportPopUp";
+import ExportPopup from "../../Finanace/ExportPopUp";
 import { PiExportLight } from "react-icons/pi";
 import MessagesTable from "./MessagesTable";
 

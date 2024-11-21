@@ -1,5 +1,5 @@
 // import React from 'react'
-import StudentCardContent from '../../components/Student Component/StudentDashboard Component/StudentCardContent'
+import StudentCardContent from '../../components/Student Component/StudentDashboard/StudentCardContent'
 import StudentSidebar from '../../components/Student Component/StudentSidebar'
 
 function StudentDashboard() {

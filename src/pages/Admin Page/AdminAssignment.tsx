@@ -2,7 +2,7 @@
 import { NavLink, Routes, Route } from "react-router-dom"
 import Ungraded from "../../components/Teacher Component/Assignment Component/Ungraded"
 import Grades from "../../components/Teacher Component/Assignment Component/Grades"
-import DashBoardHeader from "../../components/Teacher Component/Dashboard Component/DashBoardHeader"
+import DashBoardHeader from "../../components/Teacher Component/DashboardComponent/DashBoardHeader"
 import AdminSidebar from "../../components/Admin Component/AdminSidebar"
 
 function AdminAssignment() {

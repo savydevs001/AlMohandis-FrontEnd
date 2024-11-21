@@ -2,12 +2,13 @@
 
 import { Route, Routes } from "react-router-dom";
 import AdminSidebar from "../../components/Admin Component/AdminSidebar";
-import AdminLandingPage from "../../components/Admin Component/AdminLandingCom/AdminLandingPage";
-import AdminAboutUS from "../../components/Admin Component/AdminAboutUsComponent/AdminAboutUS";
-import AdminContectUs from "../../components/Admin Component/AdminContectUsComp/AdminContectUs";
-import AdminPrivacyPolicy from "../../components/Admin Component/AdminPrivacyComp/AdminPrivacyPolicy";
-import AdminTermsConidtion from "../../components/Admin Component/AdminTermsComp/AdminTermsConidtion";
-import AdminServiceAgrement from "../../components/Admin Component/AdminServiceAgrement/AdminServiceAgrement";
+import AdminLandingPage from "../../components/Admin Component/Landing/AdminLandingPage";
+import AdminAboutUS from "../../components/Admin Component/AboutUs/AdminAboutUS";
+
+import AdminPrivacyPolicy from "../../components/Admin Component/Privacy/AdminPrivacyPolicy";
+import AdminTermsConidtion from "../../components/Admin Component/AdminTermsComp/TermsConidtion";
+import AdminServiceAgrement from "../../components/Admin Component/ServiceAgrement/ServiceAgrement";
+import AdminContectUs from "../../components/Admin Component/ContactUs/AdminContectUs";
 
 function ContentManageMent() {
   return (

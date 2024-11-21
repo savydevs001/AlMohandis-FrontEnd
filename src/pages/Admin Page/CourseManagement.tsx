@@ -3,7 +3,7 @@
 import { Route, Routes } from "react-router-dom"
 import AdminSidebar from "../../components/Admin Component/AdminSidebar"
 import CourseManagementShowAllComp from "../../components/Admin Component/CourseManagementComp/CourseManageComp"
-import AdminCreateCourse from "../../components/Admin Component/CourseManagementComp/AdminCreateCourseComp/AdminCreateCourse"
+import AdminCreateCourse from "../../components/Admin Component/CourseManagementComp/CreateCourse/AdminCreateCourse"
 
 function CourseManagement() {
   return (

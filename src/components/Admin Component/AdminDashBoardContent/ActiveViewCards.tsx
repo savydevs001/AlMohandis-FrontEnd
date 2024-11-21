@@ -1,7 +1,7 @@
 
 import { GiGraduateCap } from 'react-icons/gi'
 import { NavLink } from 'react-router-dom'
-import Card from '../../Teacher Component/Dashboard Component/Card'
+import Card from '../../Teacher Component/DashboardComponent/Card'
 import { MdAssignment } from 'react-icons/md'
 import { FaMessage } from 'react-icons/fa6'
 import { FcApproval } from 'react-icons/fc'

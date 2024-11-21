@@ -1,6 +1,6 @@
 // import React from 'react'
 
-import StudentAttendencePageLayout from "../../components/Student Component/StudentAttendenceComponent/StudentAttendencePageLayout"
+import StudentAttendencePageLayout from "../../components/Student Component/StudentAttendence/StudentAttendencePageLayout"
 import StudentSidebar from "../../components/Student Component/StudentSidebar"
 
 function StudentAttendence() {

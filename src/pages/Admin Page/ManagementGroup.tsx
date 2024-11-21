@@ -3,7 +3,7 @@
 import { Route, Routes } from "react-router-dom"
 import AdminSidebar from "../../components/Admin Component/AdminSidebar"
 import ManageGroupShowAllComp from "../../components/Admin Component/ManagementGroupComp/ManagGroupShowComp"
-import CreateManagementGroup from "../../components/Admin Component/ManagementGroupComp/CreateManagementGroup/CreateManagementGroup"
+import CreateManagementGroup from "../../components/Admin Component/ManagementGroupComp/ManagementGroup/ManagementGroup"
 
 function ManagementGroup() {
   return (

@@ -2,9 +2,9 @@
 import  { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import ActiveCourseShowComp from './ActiveCoursesComponent/ActiveCourseShowComp';
-import AdminPendingCourses from './AdminPendingCourses/AdminPendingCourses';
-import AdminDraftCourses from './AdminDraftCourses/AdminDraftCourses';
-import AdminArchivedCourse from './AdminArchived/AdminArchivedCourse';
+import AdminPendingCourses from './PendingCourses/AdminPendingCourses';
+import AdminDraftCourses from './DraftCourses/AdminDraftCourses';
+import AdminArchivedCourse from './Archived/AdminArchivedCourse';
 
 
 type Tab = 'information' | 'course' | 'lecturesAttended' | 'registeredStudents';

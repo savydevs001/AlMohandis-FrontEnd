@@ -1,6 +1,6 @@
 // import React from 'react'
 
-import DashBoardHeader from "../../Teacher Component/Dashboard Component/DashBoardHeader"
+import DashBoardHeader from "../../Teacher Component/DashboardComponent/DashBoardHeader"
 import ActiveViewCards from "./ActiveViewCards"
 import CourseApproval from "./CourseApproval/CourseApproval"
 import DashboardRecentActivity from "./DashboardActivity"

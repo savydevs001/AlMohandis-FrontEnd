@@ -1,6 +1,6 @@
 // import React from 'react'
 
-import StudentInfoProfessorCard from "./StudentInfoProfessorCard"
+import StudentInfoProfessorCard from "./ProfessorInfoCard"
 
 function StudentInfoProfessors() {
   return (

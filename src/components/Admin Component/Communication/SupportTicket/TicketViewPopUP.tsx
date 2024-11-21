@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import AdminFileInput from "../../AdminLandingCom/AdminFileInput";
+import AdminFileInput from "../../Landing/AdminFileInput";
 
 
 

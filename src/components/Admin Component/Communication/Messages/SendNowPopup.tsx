@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ReciptSettingPopUp from "./ReciptSettingPopUp";
-import AdminFileInput from "../../AdminLandingCom/AdminFileInput";
+import AdminFileInput from "../../Landing/AdminFileInput";
 
 interface SendNowPopupProps {
   show: boolean; // Controls the popup visibility

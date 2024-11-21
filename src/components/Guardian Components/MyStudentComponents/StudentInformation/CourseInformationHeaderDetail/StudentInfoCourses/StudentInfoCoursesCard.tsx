@@ -1,6 +1,6 @@
 // import React from 'react'
 import img from '../../../../../../assets/book.webp'
-import ProgressBar from '../../../../../Student Component/StudentDashboard Component/ProgressBar'
+import ProgressBar from '../../../../../Student Component/StudentDashboard/ProgressBar'
 function StudentInfoCoursesCard() {
   return (
     <div className="flex flex-col w-full gap-4 p-4 bg-white rounded-lg shadow-sm lg:flex-row">

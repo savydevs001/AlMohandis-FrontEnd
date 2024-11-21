@@ -1,5 +1,5 @@
 
-import DashBoardHeader from "../Dashboard Component/DashBoardHeader"
+import DashBoardHeader from "../DashboardComponent/DashBoardHeader"
 
 function ExamsHeader() {
   return (

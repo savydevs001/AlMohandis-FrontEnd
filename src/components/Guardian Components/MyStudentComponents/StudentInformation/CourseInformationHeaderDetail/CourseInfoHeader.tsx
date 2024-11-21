@@ -1,7 +1,7 @@
 // import React from 'react'
 import  { useState } from 'react';
 import StudentInfoCourses from './StudentInfoCourses/StudentInfoCourses';
-import StudentRegisteredSubject from './StudentRegisteredSubject/StudentRegisteredSubject';
+import StudentRegisteredSubject from './StudentRegisteredSubject/RegisteredSubject';
 import StudentSchedule from './StudentSchedule';
 import StudentInfoProfessors from './StudentInfoProfessors/StudentInfoProfessors';
 

@@ -1,6 +1,6 @@
 // import React from 'react'
 
-import AdminViewAttendacne from "../../components/Admin Component/Admin Attendance/AdminViewAttendance/AdminViewAttendacne"
+import AdminViewAttendacne from "../../components/Admin Component/Admin Attendance/ViewAttendance/ViewAttendacne"
 import AdminSidebar from "../../components/Admin Component/AdminSidebar"
 
 function AdminAttendance() {

@@ -1,7 +1,7 @@
 // import React from 'react'
 
 import AdminSidebar from "../../components/Admin Component/AdminSidebar"
-import LogsAuditsShowAllComp from "../../components/Admin Component/LogsAuditsComponent/LogsAuditsShowAllComp"
+import LogsAuditsShowAllComp from "../../components/Admin Component/LogsAuditsComponent/LogsAudits"
 
 function LogsAudits() {
   return (

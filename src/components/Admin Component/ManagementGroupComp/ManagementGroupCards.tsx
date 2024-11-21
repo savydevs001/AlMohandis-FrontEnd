@@ -1,6 +1,6 @@
 import { useState } from "react";
 import img from "../../../../src/assets/book.webp";
-import GradesPopup from "../../Student Component/RegisteredSubjectComponent/GradesPopup";
+import GradesPopup from "../../Student Component/RegisteredSubject/GradesPopup";
 import DeletePopup from "../Communication/Messages/DeletePopup";
 import { NavLink } from "react-router-dom";
 

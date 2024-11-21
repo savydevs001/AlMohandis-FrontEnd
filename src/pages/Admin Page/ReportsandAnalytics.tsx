@@ -1,7 +1,7 @@
 // import React from 'react'
 
 import AdminSidebar from "../../components/Admin Component/AdminSidebar"
-import UserActivityReport from "../../components/Admin Component/ReportsAndAnalytics/UserActivityReports/UserActivityReport"
+import UserActivityReport from "../../components/Admin Component/ReportsAndAnalytics/ActivityReports/UserActivityReport"
 
 function ReportsandAnalytics() {
   return (

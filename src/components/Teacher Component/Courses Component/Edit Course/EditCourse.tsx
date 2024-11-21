@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import DashBoardHeader from "../../Dashboard Component/DashBoardHeader";
+import DashBoardHeader from "../../DashboardComponent/DashBoardHeader";
 import Sidebar from "../../Sidebar";
 import EditCourseForm from "./EditCourseForm";
 import SeasonsTiles from "./SeasonsTiles";

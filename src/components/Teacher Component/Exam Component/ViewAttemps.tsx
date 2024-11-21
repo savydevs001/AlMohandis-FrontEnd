@@ -1,6 +1,6 @@
-import DashBoardHeader from "../Dashboard Component/DashBoardHeader";
-import ViewAttemptQuestions from "./ViewAttemp Component/ViewAttemptQuestions";
-import ViewAttemptStudents from "./ViewAttemp Component/ViewAttemptStudents";
+import DashBoardHeader from "../DashboardComponent/DashBoardHeader";
+import ViewAttemptQuestions from "./ViewAttemp/ViewAttemptQuestions";
+import ViewAttemptStudents from "./ViewAttemp/ViewAttemptStudents";
 
 
 function ViewAttemps() {
