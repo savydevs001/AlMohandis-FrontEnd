@@ -1,7 +1,9 @@
 // import React from 'react'
 
-import AttendenceHeader from "../../../Teacher Component/Attendence Component/AttendenceHeader"
-import ViewAttendenceSheet from "../../../Teacher Component/Attendence Component/ViewAttendence/ViewAttendenceSheet"
+import AttendenceHeader from "../../../TeacherComponent/Attendence Component/AttendenceHeader"
+import ViewAttendenceSheet from "../../../TeacherComponent/Attendence Component/ViewAttendence/ViewAttendenceSheet"
+
+
 
 function AdminViewAttendacne() {
   return (

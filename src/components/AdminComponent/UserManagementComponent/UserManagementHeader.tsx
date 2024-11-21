@@ -1,5 +1,6 @@
 import React from 'react';
-import DashBoardHeader from '../../Teacher Component/DashboardComponent/DashBoardHeader';
+import DashBoardHeader from '../../TeacherComponent/DashboardComponent/DashBoardHeader';
+
 
 // Define props type for the component
 interface UserManagementComponentPagesProps {

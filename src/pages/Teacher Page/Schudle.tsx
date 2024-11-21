@@ -1,6 +1,8 @@
 // import React from 'react'
-import Schdules from '../../components/Teacher Component/Schudele Component/Schdules'
-import Sidebar from '../../components/Teacher Component/Sidebar'
+
+import Schdules from "../../components/TeacherComponent/Schudele Component/Schdules"
+import Sidebar from "../../components/TeacherComponent/Sidebar"
+
 
 function Schudle() {
   return (

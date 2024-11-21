@@ -1,10 +1,12 @@
 // import React from 'react'
 
-import Sidebar from "../../components/Teacher Component/Sidebar"
-import { NavLink, Routes, Route } from "react-router-dom"
-import Ungraded from "../../components/Teacher Component/Assignment Component/Ungraded"
-import Grades from "../../components/Teacher Component/Assignment Component/Grades"
-import DashBoardHeader from "../../components/Teacher Component/DashboardComponent/DashBoardHeader"
+import { NavLink, Route, Routes } from "react-router-dom"
+import DashBoardHeader from "../../components/TeacherComponent/DashboardComponent/DashBoardHeader"
+import Sidebar from "../../components/TeacherComponent/Sidebar"
+import Ungraded from "../../components/TeacherComponent/Assignment/Ungraded"
+import Grades from "../../components/TeacherComponent/Assignment/Grades"
+
+
 
 function Assignment() {
   return (

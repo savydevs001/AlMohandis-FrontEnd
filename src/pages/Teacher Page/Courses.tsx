@@ -1,9 +1,9 @@
 import React from 'react';
+import Sidebar from '../../components/TeacherComponent/Sidebar';
+import CoursesNav from '../../components/TeacherComponent/Courses Component/CoursesCards';
 // import CoursesByMeCard from "../../components/Teacher Component/Courses Component/CoursesByMeCard";
+import CoursesCards from '../../components/TeacherComponent/Courses Component/CoursesCards';
 
-import Sidebar from "../../components/Teacher Component/Sidebar";
-import CoursesNav from '../../components/Teacher Component/Courses Component/CoursesNav';
-import CoursesCards from '../../components/Teacher Component/Courses Component/CoursesCards'
 
 const Courses: React.FC = () => {
   return (

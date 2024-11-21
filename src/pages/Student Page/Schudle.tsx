@@ -1,6 +1,7 @@
 // import React from 'react'
 import StudentSidebar from '../../components/StudentComponent/StudentSidebar'
-import Schdules from '../../components/Teacher Component/Schudele Component/Schdules'
+import Schdules from '../../components/TeacherComponent/Schudele Component/Schdules'
+
 
 
 function Schudle() {

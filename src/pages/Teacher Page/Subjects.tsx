@@ -1,5 +1,7 @@
 // import React from 'react'
-import Sidebar from '../../components/Teacher Component/Sidebar'
+
+import Sidebar from "../../components/TeacherComponent/Sidebar"
+
 
 function Subjects() {
   return (

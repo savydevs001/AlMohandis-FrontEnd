@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import DashBoardHeader from "../../../Teacher Component/DashboardComponent/DashBoardHeader";
+
 import StudentAssignmentHeader from "../AssignmentHeader";
 import SubmitAssignmentCard from "./SubmitAssignmentCard";
 import Cookies from 'js-cookie';
+import DashBoardHeader from '../../../TeacherComponent/DashboardComponent/DashBoardHeader';
 
 interface Assignment {
   id: string; 

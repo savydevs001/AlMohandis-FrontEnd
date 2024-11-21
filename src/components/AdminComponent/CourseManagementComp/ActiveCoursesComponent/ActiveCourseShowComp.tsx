@@ -1,5 +1,6 @@
 // import React from 'react'
-import CoursesByMeCard from "../../../Teacher Component/Courses Component/CoursesByMeCard"
+
+import CoursesByMeCard from "../../../TeacherComponent/Courses Component/CoursesByMeCard"
 import ActiveCourseDropDown from "./ActiveCourseDropDown"
 
 function ActiveCourseShowComp() {

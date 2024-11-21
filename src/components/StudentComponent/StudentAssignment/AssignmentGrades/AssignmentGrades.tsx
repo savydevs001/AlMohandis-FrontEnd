@@ -1,6 +1,8 @@
 // import React from 'react'
 
-import DashBoardHeader from "../../../Teacher Component/DashboardComponent/DashBoardHeader"
+
+
+import DashBoardHeader from "../../../TeacherComponent/DashboardComponent/DashBoardHeader"
 import StudentAssignmentHeader from "../AssignmentHeader"
 import AssignmentGradesCard from "./AssignmentGradesCard"
 

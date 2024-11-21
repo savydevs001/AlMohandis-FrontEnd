@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import FileUpload from "../../../../../Teacher Component/Courses Component/CreateCourseComp/FileUpload";
+
 import { RxPinRight } from "react-icons/rx";
+import FileUpload from "../../../../../TeacherComponent/Courses Component/CreateCourseComp/FileUpload";
 
 interface RightVideoModuleProps {
   title: string;

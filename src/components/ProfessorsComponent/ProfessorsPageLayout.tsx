@@ -1,8 +1,9 @@
 // src/components/ProfessorsComponent/ProfessorsPageLayout.tsx
 import { useEffect, useState } from 'react';
-import DashBoardHeader from "../Teacher Component/DashboardComponent/DashBoardHeader";
+
 import ProfessorsCard from "./ProfessorsCard";
 import Cookies from 'js-cookie';
+import DashBoardHeader from '../TeacherComponent/DashboardComponent/DashBoardHeader';
 
 interface Professor {
   id: string; // Assuming each professor has a unique ID

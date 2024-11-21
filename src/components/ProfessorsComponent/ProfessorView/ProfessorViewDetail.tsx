@@ -1,6 +1,7 @@
 // import React from 'react'
 
-import DashBoardHeader from "../../Teacher Component/DashboardComponent/DashBoardHeader"
+
+import DashBoardHeader from "../../TeacherComponent/DashboardComponent/DashBoardHeader"
 import ProfessorsCoursesSect from "./ProfessorCourses/ProfessorsCoursesSect"
 import ProfessorPersonalDetail from "./ProfessorPersonalDetail"
 import UpComingLecture from "./UpComingLectures/UpComingLecture"

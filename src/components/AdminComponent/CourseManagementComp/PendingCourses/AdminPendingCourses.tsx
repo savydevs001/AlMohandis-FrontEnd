@@ -1,6 +1,7 @@
 // import React from 'react'
 
-import PendingCard from "../../../Teacher Component/Courses Component/PendingCard"
+
+import PendingCard from "../../../TeacherComponent/Courses Component/PendingCard"
 import ActiveCourseDropDown from "../ActiveCoursesComponent/ActiveCourseDropDown"
 
 function AdminPendingCourses() {

@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { IoIosLink } from 'react-icons/io';
-import DashBoardHeader from '../../../Teacher Component/DashboardComponent/DashBoardHeader';
+import DashBoardHeader from '../../../TeacherComponent/DashboardComponent/DashBoardHeader';
+
 
 const SubmitedAssignmentView: React.FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);

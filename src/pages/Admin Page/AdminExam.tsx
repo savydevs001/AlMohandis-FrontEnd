@@ -1,10 +1,11 @@
 // import React from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
-import ExamsCard from '../../components/Teacher Component/Exam Component/ExamsCard'
-import ExamsHeader from '../../components/Teacher Component/Exam Component/ExamsHeader'
-import View from '../../components/Teacher Component/Exam Component/View'
-import ViewAttemps from '../../components/Teacher Component/Exam Component/ViewAttemps'
+
 import AdminSidebar from '../../components/AdminComponent/AdminSidebar'
+import ExamsHeader from '../../components/TeacherComponent/Exam Component/ExamsHeader';
+import ExamsCard from '../../components/TeacherComponent/Exam Component/ExamsCard';
+import View from '../../components/TeacherComponent/Exam Component/View';
+import ViewAttemps from '../../components/TeacherComponent/Exam Component/ViewAttemps';
 
 function AdminExam() {
   const location = useLocation(); // Get the current route

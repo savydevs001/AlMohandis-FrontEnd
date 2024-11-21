@@ -10,16 +10,18 @@ import Subjects from '../pages/Teacher Page/Subjects';
 import Support from '../pages/Teacher Page/Support';
 import PromotionalContent from '../pages/Teacher Page/PromotionalContent';
 
-import Draft from '../components/Teacher Component/Courses Component/Draft';
-import PendingCourse from '../components/Teacher Component/Courses Component/PendingCourse';
-import CreateCourse from '../components/Teacher Component/Courses Component/CreateCourseComp/CreateCourse';
-import EditCourse from '../components/Teacher Component/Courses Component/Edit Course/EditCourse';
+
 import ProtectedRoute from '../components/ProtectedRoute'; // Import the ProtectedRoute
-import GradeNow from '../components/Teacher Component/Assignment Component/GradeNow/GradeNow';
-import MarkAttendence from '../components/Teacher Component/Attendence Component/MarkAttendence/MarkAttendence';
-import ViewAttendence from '../components/Teacher Component/Attendence Component/ViewAttendence/ViewAttendence';
+
 import Schdule from '../pages/Teacher Page/Schudle';
 import AudioEditor from '../components/AdminComponent/CourseManagementComp/CreateCourse/AdminCreateCourseSteps/RigthAudioModule/AudioEditor';
+import GradeNow from '../components/TeacherComponent/Assignment/GradeNow/GradeNow';
+import Draft from '../components/TeacherComponent/Courses Component/Draft';
+import PendingCourse from '../components/TeacherComponent/Courses Component/PendingCourse';
+import CreateCourse from '../components/TeacherComponent/Courses Component/CreateCourseComp/CreateCourse';
+import EditCourse from '../components/TeacherComponent/Courses Component/Edit Course/EditCourse';
+import MarkAttendence from '../components/TeacherComponent/Attendence Component/MarkAttendence/MarkAttendence';
+import ViewAttendence from '../components/TeacherComponent/Attendence Component/ViewAttendence/ViewAttendence';
 // import DashBoard from '../pages/Teacher Page/DashBoard';
 
 const TeacherRoutes: React.FC = () => {

@@ -3,12 +3,13 @@ import { GiGraduateCap } from "react-icons/gi";
 import { MdAssignment } from "react-icons/md";
 // import { FaEnvelope } from "react-icons/fa";
 import { NavLink } from 'react-router-dom';
-import DashBoardHeader from '../../Teacher Component/DashboardComponent/DashBoardHeader';
+
 import StudentCard from "./StudentCard";
 import CourseCard from "../StudentCourses/CourseCard";
 import img from '../../../assets/book.webp'
 import { FaCalendarCheck } from "react-icons/fa6"
 import { PiExamFill } from "react-icons/pi";
+import DashBoardHeader from "../../TeacherComponent/DashboardComponent/DashBoardHeader";
 function StudentCardContent() {
   return (
     <div className='w-full'>

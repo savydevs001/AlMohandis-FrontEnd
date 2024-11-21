@@ -1,6 +1,8 @@
 // import React from 'react'
-import CardContent from "../../components/Teacher Component/DashboardComponent/CardContent"
-import Sidebar from "../../components/Teacher Component/Sidebar"
+
+import CardContent from "../../components/TeacherComponent/DashboardComponent/CardContent"
+import Sidebar from "../../components/TeacherComponent/Sidebar"
+
 
 
 

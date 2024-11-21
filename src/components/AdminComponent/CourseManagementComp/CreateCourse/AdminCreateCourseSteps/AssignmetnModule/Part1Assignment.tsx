@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import FileUpload from '../../../../../Teacher Component/Courses Component/CreateCourseComp/FileUpload';
+import FileUpload from '../../../../../TeacherComponent/Courses Component/CreateCourseComp/FileUpload';
+
 // import Step6LeftSide from '../Step6LeftSide';
 
 

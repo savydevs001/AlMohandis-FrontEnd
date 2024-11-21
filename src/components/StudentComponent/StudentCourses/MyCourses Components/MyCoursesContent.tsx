@@ -1,4 +1,5 @@
-import DashBoardHeader from "../../../Teacher Component/DashboardComponent/DashBoardHeader"
+
+import DashBoardHeader from "../../../TeacherComponent/DashboardComponent/DashBoardHeader"
 import DisplayCourses from "./DisplayCourses"
 
 function MyCoursesContent() {

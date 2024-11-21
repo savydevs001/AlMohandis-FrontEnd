@@ -1,6 +1,8 @@
 // import React from 'react'
 
-import ClassesSchudle from "../../../../Teacher Component/Schudele Component/ClassesSchudle"
+import ClassesSchudle from "../../../../TeacherComponent/Schudele Component/ClassesSchudle"
+
+
 
 function StudentSchedule() {
   return (

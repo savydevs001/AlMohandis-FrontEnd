@@ -1,7 +1,9 @@
 // import React from 'react'
 
 import InstructorCard from "../../../LandingPageComponent/InstructorCard"
-import DashBoardHeader from "../../../Teacher Component/DashboardComponent/DashBoardHeader"
+import DashBoardHeader from "../../../TeacherComponent/DashboardComponent/DashBoardHeader"
+
+
 
 function BuyCoursePage() {
   return (
