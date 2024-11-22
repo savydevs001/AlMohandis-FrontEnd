@@ -30,7 +30,7 @@ interface Student {
 
 const GroupCreatePopup: React.FC<CreatePopupProps> = ({ show, onClose }) => {
   const { enqueueSnackbar } = useSnackbar();
-  
+
   const [subjects, setSubjects] = useState<Subject[]>([]);
   const [students, setStudents] = useState<Student[]>([]);
   const [formData, setFormData] = useState<FormData>({
@@ -49,8 +49,12 @@ const GroupCreatePopup: React.FC<CreatePopupProps> = ({ show, onClose }) => {
     if (show) {
       const token = Cookies.get("token");
       Promise.all([
-        axios.get("http://localhost:5000/api/open/getAllSubjects"),
-        axios.get("http://localhost:5000/api/open/getAllStudents"),
+        axios.get("http://localhost:5000/api/open/getAllSubjects", {
+          headers: { Authorization: `Bearer ${token}` },
+        }),
+        axios.get("http://localhost:5000/api/open/getAllStudents", {
+          headers: { Authorization: `Bearer ${token}` },
+        }),
       ])
         .then(([subjectRes, studentRes]) => {
           setSubjects(subjectRes.data || []);
@@ -63,24 +67,48 @@ const GroupCreatePopup: React.FC<CreatePopupProps> = ({ show, onClose }) => {
     }
   }, [show]);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Handle multi-select for students
+  // const handleDaySelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  //   const selectedDays = Array.from(e.target.selectedOptions, (option) => option.value);
+  //   setFormData((prev) => ({
+  //     ...prev,
+  //     days: selectedDays,
+  //   }));
+  // };
+
   const handleStudentSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedIds = Array.from(e.target.selectedOptions, (option) => option.value);
     setFormData((prev) => ({
       ...prev,
-      studentIds: Array.from(e.target.selectedOptions, (option) => option.value),
+      studentIds: [...new Set([...prev.studentIds, ...selectedIds])], // Prevent duplicates
     }));
   };
 
-  // Handle multi-select for days
-  const handleDaySelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleRemoveStudent = (id: string) => {
     setFormData((prev) => ({
       ...prev,
-      days: Array.from(e.target.selectedOptions, (option) => option.value),
+      studentIds: prev.studentIds.filter((studentId) => studentId !== id),
+    }));
+  };
+  const handleDayAdd = (day: string) => {
+    if (!formData.days.includes(day)) {
+      setFormData((prev) => ({
+        ...prev,
+        days: [...prev.days, day],
+      }));
+    }
+  };
+  
+  const handleRemoveDay = (day: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      days: prev.days.filter((d) => d !== day),
     }));
   };
 
@@ -93,7 +121,7 @@ const GroupCreatePopup: React.FC<CreatePopupProps> = ({ show, onClose }) => {
     axios
       .post(
         "http://localhost:5000/api/admin/groups/create",
-        { ...formData, duration: parseInt(formData.duration.toString()) },
+        { ...formData, duration: Number(formData.duration) },
         { headers: { Authorization: `Bearer ${token}` } }
       )
       .then(() => {
@@ -116,8 +144,8 @@ const GroupCreatePopup: React.FC<CreatePopupProps> = ({ show, onClose }) => {
       className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
       role="dialog"
     >
-      <div className="w-[90%] lg:w-[50%] max-w-lg p-6 bg-white rounded-lg shadow-xl overflow-hidden">
-        <h2 className="text-2xl font-semibold text-center mb-6">Create New Group</h2>
+      <div className="w-[90%] lg:w-[50%] max-w-lg max-h-[95vh] p-6 bg-white rounded-lg shadow-xl overflow-y-auto custom-scrollbar">
+        <h2 className="mb-6 text-2xl font-semibold text-center">Create New Group</h2>
         <form onSubmit={handleSubmit}>
           {/* Group Title */}
           <div className="mb-6">
@@ -154,15 +182,40 @@ const GroupCreatePopup: React.FC<CreatePopupProps> = ({ show, onClose }) => {
             </select>
           </div>
 
+          {/* Selected Students */}
+          <div className="mb-6">
+            <label className="block mb-2 text-sm font-medium text-gray-700">
+              Selected Students
+            </label>
+            <div className="flex flex-wrap gap-2">
+              {formData.studentIds.map((id) => {
+                const student = students.find((student) => student.id === id);
+                return (
+                  <span
+                    key={id}
+                    className="flex items-center px-3 py-1 text-xs text-blue-700 bg-blue-100 rounded-full"
+                  >
+                    {student?.fullName}
+                    <button
+                      type="button"
+                      className="ml-2 text-red-500"
+                      onClick={() => handleRemoveStudent(id)}
+                    >
+                      ×
+                    </button>
+                  </span>
+                );
+              })}
+            </div>
+          </div>
+
           {/* Students Selection */}
           <div className="mb-6">
             <label className="block mb-2 text-sm font-medium text-gray-700">Students</label>
             <select
               multiple
-              value={formData.studentIds}
               onChange={handleStudentSelect}
               className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-primary"
-              required
             >
               {students.map((student) => (
                 <option key={student.id} value={student.id}>
@@ -173,24 +226,55 @@ const GroupCreatePopup: React.FC<CreatePopupProps> = ({ show, onClose }) => {
           </div>
 
           {/* Days Selection */}
-          <div className="mb-6">
-            <label className="block mb-2 text-sm font-medium text-gray-700">Days</label>
-            <select
-              multiple
-              value={formData.days}
-              onChange={handleDaySelect}
-              className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-primary"
-              required
-            >
-              <option value="MONDAY">Monday</option>
-              <option value="TUESDAY">Tuesday</option>
-              <option value="WEDNESDAY">Wednesday</option>
-              <option value="THURSDAY">Thursday</option>
-              <option value="FRIDAY">Friday</option>
-              <option value="SATURDAY">Saturday</option>
-              <option value="SUNDAY">Sunday</option>
-            </select>
-          </div>
+          <div className="mb-3">
+  <label className="block mb-2 text-sm font-medium text-gray-700">
+    Selected Days
+  </label>
+  <div className="flex flex-wrap gap-2">
+    {formData.days.map((day) => (
+      <span
+        key={day}
+        className="flex items-center px-3 py-1 text-xs text-blue-700 bg-blue-100 rounded-full"
+      >
+        {day}
+        <button
+          type="button"
+          className="ml-2 text-red-500"
+          onClick={() => handleRemoveDay(day)}
+        >
+          ×
+        </button>
+      </span>
+    ))}
+  </div>
+</div>
+
+{/* Days Selection */}
+<div className="mb-6">
+  <label className="block mb-2 text-sm font-medium text-gray-700">
+    Add Day
+  </label>
+  <select
+    onChange={(e) => {
+      handleDayAdd(e.target.value);
+      
+      e.target.value = ""; // Reset the selection
+    }}
+    className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-primary"
+  >
+    <option value="" disabled>
+      Select a day to add
+    </option>
+    <option value="MONDAY">Monday</option>
+    <option value="TUESDAY">Tuesday</option>
+    <option value="WEDNESDAY">Wednesday</option>
+    <option value="THURSDAY">Thursday</option>
+    <option value="FRIDAY">Friday</option>
+    <option value="SATURDAY">Saturday</option>
+    <option value="SUNDAY">Sunday</option>
+  </select>
+</div>
+
 
           {/* Start Time */}
           <div className="mb-6">
@@ -220,7 +304,9 @@ const GroupCreatePopup: React.FC<CreatePopupProps> = ({ show, onClose }) => {
 
           {/* Duration */}
           <div className="mb-6">
-            <label className="block mb-2 text-sm font-medium text-gray-700">Duration (minutes)</label>
+            <label className="block mb-2 text-sm font-medium text-gray-700">
+              Duration (minutes)
+            </label>
             <input
               type="number"
               name="duration"
@@ -233,23 +319,25 @@ const GroupCreatePopup: React.FC<CreatePopupProps> = ({ show, onClose }) => {
           </div>
 
           {/* Error Message */}
-          {error && <p className="mb-4 text-sm text-red-600">{error}</p>}
+          {error && <p className="mb-4 text-red-500">{error}</p>}
 
-          {/* Buttons */}
-          <div className="flex justify-end space-x-4">
+          {/* Submit Button */}
+          <div className="flex justify-end gap-4">
             <button
               type="button"
-              className="px-6 py-2 text-sm font-medium border rounded-md border-gray-300 hover:bg-gray-100"
               onClick={onClose}
+              className="px-4 py-2 text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-6 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600"
               disabled={loading}
+              className={`px-4 py-2 text-white bg-primary rounded-md ${
+                loading ? "opacity-50" : "hover:bg-primary-dark"
+              }`}
             >
-              {loading ? "Creating..." : "Create"}
+              {loading ? "Creating..." : "Create Group"}
             </button>
           </div>
         </form>

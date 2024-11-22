@@ -2,12 +2,10 @@
 
 import NotificationComp from "../../components/GuardianComponents/GaurdianNotification/NotificationComp"
 import GuardianSidebar from "../../components/GuardianComponents/GuardianSidebar"
-
 function GuardianNotification() {
   return (
       <div className="flex flex-col min-h-screen lg:flex-row">
       <GuardianSidebar/>
-           
            <div className="flex-1 w-[90%] lg:p-6 lg:flex bg-gray-50 mt-3 lg:mt-0 mx-auto">
          <NotificationComp/>
            </div>
@@ -16,3 +14,6 @@ function GuardianNotification() {
 }
 
 export default GuardianNotification
+
+
+
