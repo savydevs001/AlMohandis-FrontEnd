@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { MdOutlineDashboard, MdAssignment } from "react-icons/md";
+import { GrSupport } from "react-icons/gr";
+import { FaRegCalendarCheck } from "react-icons/fa";
 
 import { FaHandHoldingUsd } from "react-icons/fa";
-import { AiTwotoneSchedule } from "react-icons/ai";
 import { FaRegUserCircle } from "react-icons/fa";
 import { RiLiveFill } from "react-icons/ri";
 // import { IoSendSharp } from "react-icons/io5";
-import { PiExam } from "react-icons/pi";
-
+import { FaUserGraduate } from "react-icons/fa";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import { IoMdLogOut } from "react-icons/io";
@@ -75,11 +75,12 @@ const GuardianSidebar: React.FC = () => {
           <ul className="px-4 py-4 space-y-1">
             <SidebarItem to="/GuardianNotification" icon={<MdOutlineDashboard />} label="Notifications" />
 
-            <SidebarItem to="/MyStudent" icon={<RiLiveFill />} label="My Student" />
+            <SidebarItem to="/MyStudent" icon={<FaUserGraduate />} label="My Student" />
+            <SidebarItem to="/GuardianAttendance" icon={<FaRegCalendarCheck />} label="Attendance" />
             <SidebarItem to="" icon={<RiLiveFill />} label="Live Lectures" />
 
             <SidebarItem to="" icon={<FaHandHoldingUsd />} label="Chats" />
-            <SidebarItem to="/AdminSchdules" icon={<AiTwotoneSchedule />} label="Schedule" />
+            <SidebarItem to="/GaurdianSchudle" icon={<GrSupport />} label="Schedule" />
             <SidebarItem
               icon={<FaRegUserCircle />}
               label="Support"
@@ -88,12 +89,12 @@ const GuardianSidebar: React.FC = () => {
               onToggle={() => toggleDropdown('Support')}
               dropdownItems={[
                 { to: "/", label: "Live Chat" },
-                { to: "", label: "Support Tickets" },
+                { to: "/SupportTicket", label: "Support Tickets" },
               ]}
             />
 
             <SidebarItem to="" icon={<MdAssignment />} label="Promotional Conetent" />
-            <SidebarItem to="/AdminExam" icon={<PiExam />} label="Exams" />
+           
 
             
             
