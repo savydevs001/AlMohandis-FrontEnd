@@ -19,7 +19,9 @@ function MyStudentCard() {
       <NavLink className='px-4 py-2 text-center text-white rounded-md bg-primary' to='StudentInformation'>
       <button >View</button>
       </NavLink>
-      <button className='px-4 py-2 text-white rounded-md bg-primary'>Attendance</button>
+      <NavLink className='px-4 py-2 text-white rounded-md bg-primary' to='/GuardianAttendance'>
+      <button >Attendance</button>
+      </NavLink>
     </div>
     </div>
   )

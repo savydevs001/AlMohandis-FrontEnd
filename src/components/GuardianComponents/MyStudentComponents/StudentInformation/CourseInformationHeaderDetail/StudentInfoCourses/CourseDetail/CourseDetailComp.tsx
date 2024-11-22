@@ -1,5 +1,6 @@
 // import React from 'react'
 
+import { NavLink } from "react-router-dom"
 import UserManagementHeader from "../../../../../../AdminComponent/UserManagementComponent/UserManagementHeader"
 import ShowProgress from "../../../../../../StudentComponent/StudentCourses/MyCourses Components/Course1 Component/ShowLessons/ShowProgress"
 import StudentDetail from "../../../StudentDetail"
@@ -14,7 +15,9 @@ function CourseDetailComp() {
 <div className="space-y-2">
       <StudentDetail/>
       <div className="flex justify-start ml-20">
-      <button className="px-4 py-2 text-center text-white rounded-md bg-primary">Attendance</button>
+        <NavLink className="px-4 py-2 text-center text-white rounded-md bg-primary" to='/GuardianAttendance'>
+      <button >Attendance</button>
+      </NavLink>
       </div>
 </div>
 <CoursesHeader/>

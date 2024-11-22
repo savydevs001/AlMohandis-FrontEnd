@@ -1,5 +1,6 @@
 // import React from 'react'
 
+import NotificationComp from "../../components/GuardianComponents/GaurdianNotification/NotificationComp"
 import GuardianSidebar from "../../components/GuardianComponents/GuardianSidebar"
 
 function GuardianNotification() {
@@ -8,7 +9,7 @@ function GuardianNotification() {
       <GuardianSidebar/>
            
            <div className="flex-1 w-[90%] lg:p-6 lg:flex bg-gray-50 mt-3 lg:mt-0 mx-auto">
-             Guardian Notification
+         <NotificationComp/>
            </div>
          </div>
   )

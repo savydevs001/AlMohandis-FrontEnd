@@ -78,9 +78,8 @@ const GuardianSidebar: React.FC = () => {
             <SidebarItem to="/MyStudent" icon={<FaUserGraduate />} label="My Student" />
             <SidebarItem to="/GuardianAttendance" icon={<FaRegCalendarCheck />} label="Attendance" />
             <SidebarItem to="" icon={<RiLiveFill />} label="Live Lectures" />
-
             <SidebarItem to="" icon={<FaHandHoldingUsd />} label="Chats" />
-            <SidebarItem to="/GaurdianSchudle" icon={<GrSupport />} label="Schedule" />
+            <SidebarItem to="" icon={<GrSupport />} label="Schedule" />
             <SidebarItem
               icon={<FaRegUserCircle />}
               label="Support"

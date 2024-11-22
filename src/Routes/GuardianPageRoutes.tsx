@@ -8,6 +8,7 @@ import CourseDetails from "../components/GuardianComponents/MyStudentComponents/
 import GuardAttendance from "../pages/Guardian Page/GuardAttendance"
 import SupportTicket from "../pages/Guardian Page/SupportTicket"
 import GaurdianSchudle from "../pages/Guardian Page/GaurdianSchudle"
+import PageNotFound from "../pages/PageNotFound"
 
 
 function GuardianPageRoutes() {
@@ -20,6 +21,7 @@ function GuardianPageRoutes() {
             <Route path="/GuardianAttendance" element={<GuardAttendance/>}/>
             <Route path="/SupportTicket" element={<SupportTicket/>}/>
             <Route path="/GaurdianSchudle" element={<GaurdianSchudle/>}/>
+            <Route path="/PageNotFound" element={<PageNotFound/>}/>
           
       </Routes>
     </div>
