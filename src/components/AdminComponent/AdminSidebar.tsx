@@ -154,7 +154,18 @@ const AdminSidebar: React.FC = () => {
               ]}
             />
 
-            <SidebarItem to="/AdminRegisterdSubject" icon={<FaBookReader />} label="Registered Subject" />
+            <SidebarItem
+              icon={<RiCalendarCheckFill />}
+              label="Registered Subject"
+              isDropdown={true}
+              isOpen={openDropdown === 'Registered Subject'}
+              onToggle={() => toggleDropdown('Registered Subject')}
+              dropdownItems={[
+                { to: "/AdminRegisterdSubject", label: "Subjects" },
+                { to: "/Groups", label: "Groups" },
+              ]}
+            />
+
             <SidebarItem to="/ManagementGroup" icon={<FaObjectGroup />} label="Management Group" />
             <SidebarItem to="/AdminSchdules" icon={<AiTwotoneSchedule />} label="Schedule" />
           </ul>

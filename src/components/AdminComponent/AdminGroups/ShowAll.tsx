@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import UserManagementHeader from "../UserManagementComponent/UserManagementHeader";
-import AdminRegisteredSubCard from "./RegisteredCard";
-import RegSubCreateNowPopUp from "./RegSubPopUp";
+import AdminRegisteredSubCard from "./GroupCard";
+import GroupCreatePopup from "./CreateGroupPop"; // import the popup component
 
 interface Subject {
   id: string;
@@ -12,10 +12,10 @@ interface Subject {
   teacherId: string;
   duration: number;
   groups: { id: string; title: string }[];
-  teacherName:string
+  teacherName: string;
 }
 
-function AdminRegSubShowAllComp() {
+function ShowAll() {
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const [subjects, setSubjects] = useState<Subject[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -75,9 +75,11 @@ function AdminRegSubShowAllComp() {
           ))
         )}
       </div>
-      {showPopup && <RegSubCreateNowPopUp show={showPopup} onClose={handleClosePopup} />}
+
+      {/* Render the popup when showPopup is true */}
+      <GroupCreatePopup show={showPopup} onClose={handleClosePopup} />
     </div>
   );
 }
 
-export default AdminRegSubShowAllComp;
+export default ShowAll;
