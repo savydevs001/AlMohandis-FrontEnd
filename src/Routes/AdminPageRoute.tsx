@@ -30,6 +30,7 @@ import LogsAudits from "../pages/Admin Page/LogsAudits"
 import ManagementGroup from "../pages/Admin Page/ManagementGroup"
 
 import AdminRegisterdSubject from "../pages/Admin Page/AdminRegisterdSubject"
+import Groups from "../pages/Admin Page/Groups";
 import AdminProfile from "../pages/Admin Page/AdminProfile"
 import AdminAttendance from "../pages/Admin Page/AdminAttendance"
 import AdminMarkAttendance from "../components/AdminComponent/Admin Attendance/MarkAttendance/MarkAttendacne"
@@ -68,6 +69,7 @@ function AdminPageRoute() {
  <Route path="/AdminRegisterdSubject/*" element = {<AdminRegisterdSubject/>} />
  <Route path="/AdminProfile" element = {<AdminProfile/>} />
  <Route path="/AdminViewAttendance" element = {<AdminAttendance/>} />
+ <Route path="/Groups/*" element = {<Groups/>} />
  <Route path="/AdminMarkAttendance" element = {<AdminMarkAttendance/>} />
 
 

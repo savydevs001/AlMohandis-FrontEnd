@@ -13,7 +13,7 @@ function AdminRegisterdSubject() {
       <div className="flex-1 w-[90%] lg:p-6 lg:flex bg-gray-50 mt-3 lg:mt-0 mx-auto">
        <Routes>
         <Route path="/" element={<AdminRegSubShowAllComp/>}/>
-        <Route path="ViewRegSubject" element={<ViewRegSubject/>}/>
+        <Route path="subject/:id" element={<ViewRegSubject/>}/>
        </Routes>
       </div>
 
