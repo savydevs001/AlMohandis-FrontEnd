@@ -5,6 +5,7 @@ import GuardianSidebar from "../../components/GuardianComponents/GuardianSidebar
 import MyStudentShowComp from "../../components/GuardianComponents/MyStudentComponents/MyStudentShowComp"
 import StudentInformationShowComp from "../../components/GuardianComponents/MyStudentComponents/StudentInformation/StudentInfoShowComp"
 
+
 function MyStudent() {
   return (
       <div className="flex flex-col min-h-screen lg:flex-row">
@@ -14,6 +15,7 @@ function MyStudent() {
           <Routes>
             <Route path="/" element={<MyStudentShowComp/>}/>
             <Route path="StudentInformation" element={<StudentInformationShowComp/>}/>
+      
             
           </Routes>
            </div>

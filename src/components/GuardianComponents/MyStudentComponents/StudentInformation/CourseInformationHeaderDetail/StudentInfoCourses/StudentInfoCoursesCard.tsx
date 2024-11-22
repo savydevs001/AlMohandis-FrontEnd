@@ -1,8 +1,10 @@
 // import React from 'react'
+import { NavLink } from 'react-router-dom'
 import img from '../../../../../../assets/book.webp'
 import ProgressBar from '../../../../../StudentComponent/StudentDashboard/ProgressBar'
 function StudentInfoCoursesCard() {
   return (
+<NavLink to='/CourseDetails'>
     <div className="flex flex-col w-full gap-4 p-4 bg-white rounded-lg shadow-sm lg:flex-row">
       <div className='lg:w-[25%] w-full lg:h-[25vh] rounded-lg'>
            <img className='w-[100%] h-[100%] rounded-lg object-cover' src={img} alt="" /> 
@@ -22,6 +24,7 @@ function StudentInfoCoursesCard() {
             </div>
       </div>
     </div>
+    </NavLink>
   )
 }
 

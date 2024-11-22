@@ -2,12 +2,13 @@
 import StudentImg from '../../../../assets/studentImg1.jpeg'
 function StudentDetail() {
   return (
-      <div className='flex lg:w-[60%] w-full gap-4'>
-      <div className='lg:w-[15%] w-[25%] lg:h-[15vh] h-[10vh]  bg-red-100 rounded-full md:h-[16vh]'>
+      <div className='flex lg:w-[60%] w-full gap-4 '>
+      <div className='w-20 h-16 bg-red-100 rounded-full lg:h-20 '>
             {/* <h1>Hello</h1> */}
-  <img src={StudentImg} alt="" className='w-[100%] rounded-full h-[100%] object-cover ' />
+            <img src={StudentImg} alt="" className='w-[100%] rounded-full h-[100%] object-cover' />
+  
       </div>
-      <div className='space-y-1 lg:w-[50%]'>
+      <div className='space-y-1 lg:w-[70%]'>
             <h1 className='text-xl font-semibold'>Student Name</h1>
             <p className=''>student@gmail.com</p>
             <p className=''>Reg No. 98893</p>

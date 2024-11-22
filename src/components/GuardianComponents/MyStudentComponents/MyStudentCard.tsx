@@ -5,7 +5,7 @@ function MyStudentCard() {
   return (
     <div className="flex flex-col items-center justify-between p-4 space-y-4 bg-white border shadow-sm lg:flex-row rounded-xl lg:space-y-0">
     <div className='flex lg:w-[50%] w-full gap-5 '>
-      <div className='lg:w-[18%] w-[30%] bg-red-100 rounded-full'>
+      <div className='w-20 h-20 bg-red-100 rounded-full'>
             {/* <h1>Hello</h1> */}
   <img src={StudentImg} alt="" className='w-[100%] rounded-full h-[100%] object-cover' />
       </div>
