@@ -10,7 +10,7 @@ function PromotionContent() {
     <Navbar/>
     <div className='px-4 py-4 lg:px-10'>
       <h1 className='text-3xl font-bold text-center'>Promotional Content</h1>
-      <div className='flex flex-wrap items-center mx-auto lg:gap-6'>
+      <div className='grid grid-cols-1 gap-4 mt-3 md:grid-cols-2 lg:grid-cols-4'>
       <PromotionalVideo/>
       <PromotionalVideo/>
       <PromotionalVideo/>
@@ -20,14 +20,14 @@ function PromotionContent() {
       <PromotionalVideo/>
       <PromotionalVideo/>
       </div>
-      <div className='flex flex-wrap w-full lg:gap-8 item-center'>
+      <div className='grid grid-cols-1 gap-4 p-2 mt-3 md:grid-cols-2 lg:grid-cols-5'>
         <PromotionalReels/>
         <PromotionalReels/>
         <PromotionalReels/>
         <PromotionalReels/>
         <PromotionalReels/>
       </div>
-      <div className='flex flex-wrap items-center w-full gap-6 mx-auto'>
+      <div className='grid grid-cols-1 gap-4 mt-3 md:grid-cols-2 lg:grid-cols-4'>
       <PromotionalVideo/>
       <PromotionalVideo/>
       <PromotionalVideo/>
