@@ -53,7 +53,7 @@ function AdminRegSubShowAllComp() {
   }, []);
 
   return (
-    <div className="flex-1 space-y-6">
+    <div className="flex-1  space-y-6">
       <UserManagementHeader title="Registered Subjects" />
       <div className="flex items-center justify-end">
         <button
@@ -63,7 +63,7 @@ function AdminRegSubShowAllComp() {
           Create Now +
         </button>
       </div>
-      <div className="space-y-4">
+      <div className="space-y-4 ">
         {loading ? (
         <Loading/>
         ) : error ? (
