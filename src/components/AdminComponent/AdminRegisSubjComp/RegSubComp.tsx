@@ -3,7 +3,8 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import UserManagementHeader from "../UserManagementComponent/UserManagementHeader";
 import AdminRegisteredSubCard from "./RegisteredCard";
-import RegSubCreateNowPopUp from "./RegSubPopUp";
+import GroupCard from "./RegSubPopUp";
+import Loading from "../../Loading";
 
 interface Subject {
   id: string;
@@ -64,7 +65,7 @@ function AdminRegSubShowAllComp() {
       </div>
       <div className="space-y-4">
         {loading ? (
-          <p>Loading subjects...</p>
+        <Loading/>
         ) : error ? (
           <p className="text-red-600">{error}</p>
         ) : subjects.length === 0 ? (
@@ -75,7 +76,7 @@ function AdminRegSubShowAllComp() {
           ))
         )}
       </div>
-      {showPopup && <RegSubCreateNowPopUp show={showPopup} onClose={handleClosePopup} />}
+      {showPopup && <GroupCard show={showPopup} onClose={handleClosePopup} />}
     </div>
   );
 }

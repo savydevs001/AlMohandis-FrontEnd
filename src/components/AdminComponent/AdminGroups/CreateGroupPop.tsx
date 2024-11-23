@@ -14,7 +14,6 @@ interface FormData {
   studentIds: string[];
   days: string[];
   startTime: string;
-  endTime: string;
   duration: number;
 }
 
@@ -39,7 +38,6 @@ const GroupCreatePopup: React.FC<CreatePopupProps> = ({ show, onClose }) => {
     studentIds: [],
     days: [],
     startTime: "",
-    endTime: "",
     duration: 0,
   });
   const [error, setError] = useState<string | null>(null);
@@ -74,13 +72,6 @@ const GroupCreatePopup: React.FC<CreatePopupProps> = ({ show, onClose }) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // const handleDaySelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-  //   const selectedDays = Array.from(e.target.selectedOptions, (option) => option.value);
-  //   setFormData((prev) => ({
-  //     ...prev,
-  //     days: selectedDays,
-  //   }));
-  // };
 
   const handleStudentSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedIds = Array.from(e.target.selectedOptions, (option) => option.value);
@@ -182,48 +173,54 @@ const GroupCreatePopup: React.FC<CreatePopupProps> = ({ show, onClose }) => {
             </select>
           </div>
 
-          {/* Selected Students */}
-          <div className="mb-6">
-            <label className="block mb-2 text-sm font-medium text-gray-700">
-              Selected Students
-            </label>
-            <div className="flex flex-wrap gap-2">
-              {formData.studentIds.map((id) => {
-                const student = students.find((student) => student.id === id);
-                return (
-                  <span
-                    key={id}
-                    className="flex items-center px-3 py-1 text-xs text-blue-700 bg-blue-100 rounded-full"
-                  >
-                    {student?.fullName}
-                    <button
-                      type="button"
-                      className="ml-2 text-red-500"
-                      onClick={() => handleRemoveStudent(id)}
-                    >
-                      ×
-                    </button>
-                  </span>
-                );
-              })}
-            </div>
-          </div>
+          <div className="mb-3">
+  <label className="block mb-2 text-sm font-medium text-gray-700">
+    Selected Students
+  </label>
+  <div className="flex flex-wrap gap-2">
+    {formData.studentIds.map((id) => {
+      const student = students.find((student) => student.id === id);
+      return (
+        <span
+          key={id}
+          className="flex items-center px-3 py-1 text-xs text-blue-700 bg-blue-100 rounded-full"
+        >
+          {student?.fullName}
+          <button
+            type="button"
+            className="ml-2 text-red-500"
+            onClick={() => handleRemoveStudent(id)}
+          >
+            ×
+          </button>
+        </span>
+      );
+    })}
+  </div>
+</div>
 
-          {/* Students Selection */}
-          <div className="mb-6">
-            <label className="block mb-2 text-sm font-medium text-gray-700">Students</label>
-            <select
-              multiple
-              onChange={handleStudentSelect}
-              className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-primary"
-            >
-              {students.map((student) => (
-                <option key={student.id} value={student.id}>
-                  {student.fullName}
-                </option>
-              ))}
-            </select>
-          </div>
+{/* Students Selection */}
+<div className="mb-6">
+  <label className="block mb-2 text-sm font-medium text-gray-700">Add Student</label>
+  <select
+    onChange={(e) => {
+      handleStudentSelect(e); // Update formData with selected student
+      e.target.value = ""; // Reset selection
+    }}
+    className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-primary"
+  >
+    <option value="" disabled>
+      Select a student to add
+    </option>
+    {students
+      .filter((student) => !formData.studentIds.includes(student.id)) // Exclude already selected students
+      .map((student) => (
+        <option key={student.id} value={student.id}>
+          {student.fullName}
+        </option>
+      ))}
+  </select>
+</div>
 
           {/* Days Selection */}
           <div className="mb-3">
@@ -289,18 +286,6 @@ const GroupCreatePopup: React.FC<CreatePopupProps> = ({ show, onClose }) => {
             />
           </div>
 
-          {/* End Time */}
-          <div className="mb-6">
-            <label className="block mb-2 text-sm font-medium text-gray-700">End Time</label>
-            <input
-              type="datetime-local"
-              name="endTime"
-              value={formData.endTime}
-              onChange={handleInputChange}
-              className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-primary"
-              required
-            />
-          </div>
 
           {/* Duration */}
           <div className="mb-6">

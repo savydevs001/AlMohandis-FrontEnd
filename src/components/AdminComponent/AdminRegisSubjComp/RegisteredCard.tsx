@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
 import img from "../../../../src/assets/book.webp";
 import EditSubjectModal from "./EditSubject"; // Import the modal component
 
