@@ -16,9 +16,12 @@ const RegSubCreateNowPopUp: React.FC<CreatePopupProps> = ({ show, onClose }) => 
     description: "",
     teacherId: "",
     duration: "",
+    days: [] as string[],
   });
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+
+  const allDays = ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"];
 
   // Fetch teachers from API
   useEffect(() => {
@@ -51,6 +54,24 @@ const RegSubCreateNowPopUp: React.FC<CreatePopupProps> = ({ show, onClose }) => 
   // Handle teacher selection
   const handleTeacherSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setFormData((prev) => ({ ...prev, teacherId: e.target.value }));
+  };
+
+  // Handle adding a day
+  const handleDayAdd = (day: string) => {
+    if (!formData.days.includes(day)) {
+      setFormData((prev) => ({
+        ...prev,
+        days: [...prev.days, day],
+      }));
+    }
+  };
+
+  // Handle removing a day
+  const handleRemoveDay = (day: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      days: prev.days.filter((d) => d !== day),
+    }));
   };
 
   // Handle form submission
@@ -147,6 +168,49 @@ const RegSubCreateNowPopUp: React.FC<CreatePopupProps> = ({ show, onClose }) => 
               placeholder="Enter duration"
               required
             />
+          </div>
+
+          <div className="mb-4">
+            <label className="block mb-2 font-medium text-md">Selected Days</label>
+            <div className="flex flex-wrap gap-2">
+              {formData.days.map((day) => (
+                <span
+                  key={day}
+                  className="flex items-center px-3 py-1 text-xs text-blue-700 bg-blue-100 rounded-full"
+                >
+                  {day}
+                  <button
+                    type="button"
+                    className="ml-2 text-red-500"
+                    onClick={() => handleRemoveDay(day)}
+                  >
+                    ×
+                  </button>
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="mb-4">
+            <label className="block mb-2 font-medium text-md">Add Day</label>
+            <select
+              onChange={(e) => {
+                handleDayAdd(e.target.value);
+                e.target.value = ""; // Reset selection
+              }}
+              className="w-full px-4 py-2 rounded-md border-slate-300"
+            >
+              <option value="" disabled>
+                Select a day
+              </option>
+              {allDays
+                .filter((day) => !formData.days.includes(day)) // Exclude already selected days
+                .map((day) => (
+                  <option key={day} value={day}>
+                    {day}
+                  </option>
+                ))}
+            </select>
           </div>
 
           {error && <p className="mb-4 text-sm text-red-600">{error}</p>}

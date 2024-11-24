@@ -3,7 +3,8 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import UserManagementHeader from "../UserManagementComponent/UserManagementHeader";
 import AdminRegisteredSubCard from "./RegisteredCard";
-import RegSubCreateNowPopUp from "./RegSubPopUp";
+import GroupCard from "./RegSubPopUp";
+import Loading from "../../Loading";
 
 interface Subject {
   id: string;
@@ -52,7 +53,7 @@ function AdminRegSubShowAllComp() {
   }, []);
 
   return (
-    <div className="flex-1 space-y-6">
+    <div className="flex-1  space-y-6">
       <UserManagementHeader title="Registered Subjects" />
       <div className="flex items-center justify-end">
         <button
@@ -62,9 +63,9 @@ function AdminRegSubShowAllComp() {
           Create Now +
         </button>
       </div>
-      <div className="space-y-4">
+      <div className="space-y-4 ">
         {loading ? (
-          <p>Loading subjects...</p>
+        <Loading/>
         ) : error ? (
           <p className="text-red-600">{error}</p>
         ) : subjects.length === 0 ? (
@@ -75,7 +76,7 @@ function AdminRegSubShowAllComp() {
           ))
         )}
       </div>
-      {showPopup && <RegSubCreateNowPopUp show={showPopup} onClose={handleClosePopup} />}
+      {showPopup && <GroupCard show={showPopup} onClose={handleClosePopup} />}
     </div>
   );
 }

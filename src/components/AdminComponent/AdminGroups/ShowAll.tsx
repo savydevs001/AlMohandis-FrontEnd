@@ -3,36 +3,30 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import UserManagementHeader from "../UserManagementComponent/UserManagementHeader";
 import AdminRegisteredSubCard from "./GroupCard";
-import GroupCreatePopup from "./CreateGroupPop";
+import GroupCreatePopup from "./CreateGroupPop"; // import the popup component
 
 interface Group {
-  id: string;
-  title: string;
-  duration: string; // Ensure this matches GroupCard
-  teacher: string;
-}
-
-interface Subject {
-  id: string;
+  groupId: string;
   title: string;
   description: string;
   teacherId: string;
   duration: number;
-  groups: Group[];
+  groups: { id: string; title: string }[];
   teacherName: string;
 }
 
-function ShowAll() {
-  const [showPopup, setShowPopup] = useState<boolean>(false);
-  const [subjects, setSubjects] = useState<Subject[]>([]);
+function AdminRegSubShowAllComp() {
+  const [groups, setGroups] = useState<Group[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [showCreatePopup, setShowCreatePopup] = useState<boolean>(false); // State for managing popup visibility
 
   const handleOpenPopup = () => setShowPopup(true);
   const handleClosePopup = () => setShowPopup(false);
 
+  // Fetch subjects from the API
   useEffect(() => {
-    const fetchSubjects = async () => {
+    const fetchGroups = async () => {
       setLoading(true);
       const token = Cookies.get("token");
       if (!token) {
@@ -42,60 +36,61 @@ function ShowAll() {
       }
 
       try {
-        const response = await axios.get("http://localhost:5000/api/admin/getAllsubjects", {
+        const response = await axios.get("http://localhost:5000/api/admin/getAllgroups", {
           headers: { Authorization: `Bearer ${token}` },
         });
-
-        // Validate and set subjects
-        setSubjects(Array.isArray(response.data) ? response.data : []);
+        setSubjects(response.data || []);
       } catch (err) {
         console.error(err);
-        setError("Failed to load subjects.");
+        setError("Failed to load groups.");
       } finally {
         setLoading(false);
       }
     };
 
-    fetchSubjects();
+    fetchGroups();
   }, []);
 
+  // Toggle the popup visibility
+  const handleAddGroupClick = () => {
+    setShowCreatePopup(true);
+  };
+
+  const handlePopupClose = () => {
+    setShowCreatePopup(false);
+  };
+
   return (
-    <div className="flex-1 space-y-6">
-      <UserManagementHeader title="Registered Subjects" />
-      <div className="flex items-center justify-end">
-        <button
-          className="px-4 py-2 text-white rounded-md bg-primary"
-          onClick={handleOpenPopup}
-        >
-          Create Now +
-        </button>
-      </div>
+    <div className="flex-1 space-y-6 ">
+      <UserManagementHeader title="Registered Groups" />
+      <div className="flex justify-end">
+          <button
+            onClick={handleAddGroupClick}
+            className="px-4 py-2 text-white rounded-md bg-primary hover:bg-primary"
+          >
+            Create {"+"}
+          </button>
+        </div>
       <div className="space-y-4">
         {loading ? (
-          <p>Loading subjects...</p>
+          <Loading />
         ) : error ? (
           <p className="text-red-600">{error}</p>
-        ) : subjects.length === 0 ? (
-          <p>No subjects available.</p>
+        ) : groups.length === 0 ? (
+          <p>No groups available.</p>
         ) : (
-          subjects.map((subject) =>
-            subject.groups.map((group) => (
-              <AdminRegisteredSubCard
-                key={group.id}
-                group={{
-                  ...group,
-                  duration: group.duration.toString(), // Ensure duration is a string
-                }}
-              />
-            ))
-          )
+          subjects.map((subject) => (
+            <AdminRegisteredSubCard key={subject.id} subject={subject} />
+          ))
         )}
+        {/* Button to trigger popup */}
+     
       </div>
 
-      {/* Render the popup when showPopup is true */}
-      <GroupCreatePopup show={showPopup} onClose={handleClosePopup} />
+      {/* Conditionally render the GroupCreatePopup */}
+      <GroupCreatePopup show={showCreatePopup} onClose={handlePopupClose} />
     </div>
   );
 }
 
-export default ShowAll;
+export default AdminRegSubShowAllComp;

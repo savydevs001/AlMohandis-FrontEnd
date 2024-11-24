@@ -73,7 +73,7 @@ const Step4AddInstructor: React.FC<{ handleNext: () => void }> = ({ handleNext }
       });
 
       const data = await response.json();
-      if (data.status == 200) {
+      if (response.status == 200) {
         alert('Course assigned successfully!');
         handleNext(); // Call the next step function
       } else {

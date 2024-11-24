@@ -2,7 +2,8 @@
 import book from '../../../../assets/book.webp'
 
 
-function AdminArchivedCards() {
+function AdminArchivedCards({name}:any) {
+  console.log(name)
   return (
       <div className='py-2'>
       <div className="p-5 mt-8 w-full  lg:w-[17.5vw] transition-shadow duration-200 bg-white rounded-lg shadow-md hover:shadow-lg">
