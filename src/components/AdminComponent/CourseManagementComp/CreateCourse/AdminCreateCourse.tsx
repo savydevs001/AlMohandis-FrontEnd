@@ -42,7 +42,7 @@ const AdminCreateCourse: React.FC = () => {
           />
           <Route
             path="step6"
-            element={<Step6CreatePart handleNext={() => handleNext('step7')} />}
+            element={<Step6CreatePart/>}
           />
           <Route
             path="step7"

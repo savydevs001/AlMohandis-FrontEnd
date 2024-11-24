@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { MediaSource, Clip, ChannelType } from "../../../../../../../types/course";
+import { MediaSource, Clip, ChannelType } from "../../../../../types/course";
 
 interface AudioLessonProps {
   lesson: any; // Define your lesson type properly
@@ -22,7 +22,7 @@ const AudioLesson: React.FC<AudioLessonProps> = ({ lesson }) => {
         id: `${Date.now()}`, // Unique ID for each media
         link: newAudioUrl,
         lessonId: lesson.id,
-        channel: ChannelType.PODCAST, // Assuming it's a podcast or audio source
+        channel: ChannelType.YOUTUBE, // Assuming it's a podcast or audio source
         isFree: false,
         isPromotional: false,
         clips: [],
