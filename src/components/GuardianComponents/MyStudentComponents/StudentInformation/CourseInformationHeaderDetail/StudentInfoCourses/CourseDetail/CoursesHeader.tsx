@@ -1,38 +1,57 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import AssignmentGrades from './AssignmentGrade/AssignmentGrades';
 import ViewAssignment from './AssignmentGrade/ViewAssignment';
 import ExamGrade from './ExamGrades/ExamGrade';
 import UpComingAssignment from './UpComingAssignment/UpComingAssignment';
+import ViewUpComingAssg from './UpComingAssignment/ViewUpComingAssg';
 import UpComingExam from './UpComingExam/UpComingExam';
 import ProgressTable from './ProgressTable';
-// import AssignmentCard from './AssignmentCard';
+import ExamGradeView from './ExamGrades/ExamGradeView';
 
 type Tab = 'information' | 'course' | 'lecturesAttended' | 'Professors' | 'Progress';
 
 function CoursesHeader() {
   const [activeTab, setActiveTab] = useState<Tab>('information');
-  const [showViewAssignment, setShowViewAssignment] = useState(false); // State to toggle ViewAssignment
+  const [showViewAssignment, setShowViewAssignment] = useState(false);
+  const [showViewExam, setShowViewExam] = useState(false);
+  const [showViewUpComingAssg, setShowViewUpComingAssg] = useState(false);
 
-  const handleViewButtonClick = () => {
-    setShowViewAssignment(true); // Show ViewAssignment component
+  const handleViewAssignmentClick = () => {
+    setShowViewAssignment(true);
+  };
+
+  const handleViewExamClick = () => {
+    setShowViewExam(true);
+  };
+
+  const handleViewUpComingAssgClick = () => {
+    setShowViewUpComingAssg(true);
   };
 
   const renderContent = () => {
     if (showViewAssignment) {
-      return <ViewAssignment />; // Show ViewAssignment when state is true
+      return <ViewAssignment />;
+    }
+
+    if (showViewExam) {
+      return <ExamGradeView />;
+    }
+
+    if (showViewUpComingAssg) {
+      return <ViewUpComingAssg />;
     }
 
     switch (activeTab) {
       case 'information':
-        return <AssignmentGrades onView={handleViewButtonClick} />; // Pass callback to AssignmentGrades
+        return <AssignmentGrades onView={handleViewAssignmentClick} />;
       case 'course':
-        return <ExamGrade/>
+        return <ExamGrade onView={handleViewExamClick} />;
       case 'lecturesAttended':
-        return <UpComingAssignment />
+        return <UpComingAssignment onView={handleViewUpComingAssgClick} />;
       case 'Professors':
-        return <UpComingExam/>;
+        return <UpComingExam />;
       case 'Progress':
-        return <ProgressTable/>
+        return <ProgressTable />;
       default:
         return null;
     }
@@ -41,7 +60,6 @@ function CoursesHeader() {
   return (
     <div className="">
       <div className="w-full space-y-3 ">
-        {/* Tabs Header */}
         <div className="flex flex-col justify-between space-y-6 lg:items-center lg:flex-row lg:space-y-0">
           <div className="flex flex-wrap space-x-4 lg:space-x-4">
             <button
@@ -50,7 +68,12 @@ function CoursesHeader() {
                   ? 'text-teal-600 border-b-2 border-teal-600'
                   : 'text-gray-600'
               }`}
-              onClick={() => setActiveTab('information')}
+              onClick={() => {
+                setActiveTab('information');
+                setShowViewAssignment(false);
+                setShowViewExam(false);
+                setShowViewUpComingAssg(false);
+              }}
             >
               Assignment Grades
             </button>
@@ -60,7 +83,12 @@ function CoursesHeader() {
                   ? 'text-teal-600 border-b-2 border-teal-600'
                   : 'text-gray-600'
               }`}
-              onClick={() => setActiveTab('course')}
+              onClick={() => {
+                setActiveTab('course');
+                setShowViewAssignment(false);
+                setShowViewExam(false);
+                setShowViewUpComingAssg(false);
+              }}
             >
               Exam Grades
             </button>
@@ -70,7 +98,12 @@ function CoursesHeader() {
                   ? 'text-teal-600 border-b-2 border-teal-600'
                   : 'text-gray-600'
               }`}
-              onClick={() => setActiveTab('lecturesAttended')}
+              onClick={() => {
+                setActiveTab('lecturesAttended');
+                setShowViewAssignment(false);
+                setShowViewExam(false);
+                setShowViewUpComingAssg(false);
+              }}
             >
               Upcoming Assignments
             </button>
@@ -80,7 +113,12 @@ function CoursesHeader() {
                   ? 'text-teal-600 border-b-2 border-teal-600'
                   : 'text-gray-600'
               }`}
-              onClick={() => setActiveTab('Professors')}
+              onClick={() => {
+                setActiveTab('Professors');
+                setShowViewAssignment(false);
+                setShowViewExam(false);
+                setShowViewUpComingAssg(false);
+              }}
             >
               Upcoming Exams
             </button>
@@ -90,7 +128,12 @@ function CoursesHeader() {
                   ? 'text-teal-600 border-b-2 border-teal-600'
                   : 'text-gray-600'
               }`}
-              onClick={() => setActiveTab('Progress')}
+              onClick={() => {
+                setActiveTab('Progress');
+                setShowViewAssignment(false);
+                setShowViewExam(false);
+                setShowViewUpComingAssg(false);
+              }}
             >
               Progress
             </button>

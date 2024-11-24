@@ -24,5 +24,3 @@ const ExamGradeCard: React.FC<Props> = ({ onView }) => {
 };
 
 export default ExamGradeCard;
-
-

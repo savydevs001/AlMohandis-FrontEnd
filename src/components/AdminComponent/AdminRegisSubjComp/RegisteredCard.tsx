@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+// import { NavLink } from "react-router-dom";
 import img from "../../../../src/assets/book.webp";
 import EditSubjectModal from "./EditSubject"; // Import the modal component
 
@@ -32,7 +32,7 @@ function AdminRegisteredSubCard({ subject }: any) {
         </div>
       </div>
       <div className="flex flex-col lg:w-[25%] w-[100%] items-start gap-2 lg:border-l-4 border-BgColor px-4">
-        <button className="w-full px-4 py-2 text-sm font-semibold text-white rounded-lg bg-red-500">
+        <button className="w-full px-4 py-2 text-sm font-semibold text-white bg-red-500 rounded-lg">
           Delete Subject
         </button>
       </div>

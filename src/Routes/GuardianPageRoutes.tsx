@@ -10,6 +10,7 @@ import SupportTicket from "../pages/Guardian Page/SupportTicket"
 import GaurdianSchudle from "../pages/Guardian Page/GaurdianSchudle"
 import LiveLecture from "../pages/Guardian Page/LiveLecture"
 import GaurdianPromContent from "../pages/Guardian Page/GaurdianPromContent"
+import GaurdianProfile from "../pages/Guardian Page/GaurdianProfile"
 
 
 function GuardianPageRoutes() {
@@ -25,6 +26,7 @@ function GuardianPageRoutes() {
             {/* <Route path="/PageNotFound" element={<PageNotFound/>}/> */}
             <Route path="/LiveLecture" element={<LiveLecture/>}/>
             <Route path="/GaurdianPromContent" element={<GaurdianPromContent/>}/>
+            <Route path="/GaurdianProfile" element={<GaurdianProfile/>}/>
           
       </Routes>
     </div>

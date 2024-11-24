@@ -4,7 +4,7 @@ import DashBoardHeader from "../DashboardComponent/DashBoardHeader"
 function ExamsHeader() {
   return (
       <div className="w-full">
-      <div className="flex items-center justify-between w-full gap-4 p-2">
+      <div className="flex items-center justify-between w-full gap-4 ">
              <h1 className="text-2xl font-bold">Exams</h1>
              <DashBoardHeader />
            </div>

@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { MdOutlineDashboard, MdAssignment } from "react-icons/md";
+import { MdOutlineDashboard } from "react-icons/md";
 import { GrSupport } from "react-icons/gr";
 import { FaRegCalendarCheck } from "react-icons/fa";
+import { FaCalendarAlt } from "react-icons/fa";
+import { FaBullhorn } from "react-icons/fa";
 
-import { FaHandHoldingUsd } from "react-icons/fa";
-import { FaRegUserCircle } from "react-icons/fa";
+// import { FaHandHoldingUsd } from "react-icons/fa";
+// import { FaRegUserCircle } from "react-icons/fa";
 import { RiLiveFill } from "react-icons/ri";
 // import { IoSendSharp } from "react-icons/io5";
 import { FaUserGraduate } from "react-icons/fa";
@@ -14,6 +16,7 @@ import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import { IoMdLogOut } from "react-icons/io";
 import { FcBusinessman } from "react-icons/fc";
 import logo from '../../assets/dashboardlogo.png';
+import { IoSendSharp } from 'react-icons/io5';
 
 
 const GuardianSidebar: React.FC = () => {
@@ -78,10 +81,10 @@ const GuardianSidebar: React.FC = () => {
             <SidebarItem to="/MyStudent" icon={<FaUserGraduate />} label="My Students" />
             <SidebarItem to="/GuardianAttendance" icon={<FaRegCalendarCheck />} label="Attendance" />
             <SidebarItem to="/LiveLecture" icon={<RiLiveFill />} label="Live Lectures" />
-            <SidebarItem to="" icon={<FaHandHoldingUsd />} label="Chats" />
-            <SidebarItem to="/GaurdianSchudle" icon={<GrSupport />} label="Schedule" />
+            <SidebarItem to="" icon={<IoSendSharp />} label="Chats" />
+            <SidebarItem to="/GaurdianSchudle" icon={< FaCalendarAlt/>} label="Schedule" />
             <SidebarItem
-              icon={<FaRegUserCircle />}
+              icon={<GrSupport />}
               label="Support"
               isDropdown={true}
               isOpen={openDropdown === 'Support'}
@@ -92,7 +95,7 @@ const GuardianSidebar: React.FC = () => {
               ]}
             />
 
-            <SidebarItem to="/GaurdianPromContent" icon={<MdAssignment />} label="Promotional Conetent" />
+            <SidebarItem to="/GaurdianPromContent" icon={<FaBullhorn />} label="Promotional Conetent" />
            
 
             
@@ -101,7 +104,7 @@ const GuardianSidebar: React.FC = () => {
         </div>
 
         <div className="p-4 space-y-3">
-          <NavLink to="/AdminProfile" className="flex items-center gap-3">
+          <NavLink to="/GaurdianProfile" className="flex items-center gap-3">
             <div className="flex items-center justify-center w-6 h-6 bg-white rounded-full">
               <FcBusinessman />
             </div>

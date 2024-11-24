@@ -7,7 +7,7 @@ import { FaHandHoldingUsd } from "react-icons/fa";
 import { IoIosSend } from "react-icons/io";
 import { AiOutlineAudit } from "react-icons/ai";
 import { AiTwotoneSchedule } from "react-icons/ai";
-import { FaRegUserCircle, FaBookReader } from "react-icons/fa";
+import { FaRegUserCircle } from "react-icons/fa";
 import { RiLiveFill, RiCalendarCheckFill } from "react-icons/ri";
 // import { IoSendSharp } from "react-icons/io5";
 import { PiExam } from "react-icons/pi";

@@ -1,11 +1,13 @@
-// import React from 'react'
-
 import ExamGradeCard from "./ExamGradeCard"
 
-function ExamGrade() {
+type Props = {
+  onView: () => void; // Add callback prop
+};
+
+const ExamGrade: React.FC<Props> = ({ onView }) => {
   return (
     <div className='grid grid-cols-1 gap-3 lg:grid-cols-2'>
-      <ExamGradeCard onView={() => {}}/>
+      <ExamGradeCard onView={onView} />
       <ExamGradeCard onView={() => {}}/>
       <ExamGradeCard onView={() => {}}/>
       <ExamGradeCard onView={() => {}}/>

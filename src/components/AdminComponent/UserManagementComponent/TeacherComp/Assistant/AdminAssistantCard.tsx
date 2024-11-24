@@ -6,7 +6,7 @@ function AdminAssistantCard() {
   return (
     <div className="w-[100%] border-2  p-4 rounded-lg space-y-1"> 
      <div className="flex items-center justify-between">
-      <h1>Assistant Name</h1>
+      <h1 className="text-lg font-semibold">Assistant Name</h1>
       <PiDotsThreeOutlineVerticalFill />
      </div>
      <p>hello@gmail.com</p>

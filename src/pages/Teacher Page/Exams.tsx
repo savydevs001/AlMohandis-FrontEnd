@@ -19,8 +19,8 @@ function Exams() {
         <Sidebar/>
       </div>
 
-      <div className="flex-col w-full mx-auto mt-3 lg:p-6 lg:flex bg-gray-50 lg:mt-0">
-        <div className="w-full p-2 mx-auto mt-3 lg:p-0 lg:flex bg-gray-50 lg:mt-0">
+      <div className="flex-col w-[90%] mx-auto mt-3 lg:p-6 lg:flex bg-gray-50 lg:mt-0">
+        <div className="w-full mx-auto mt-3 p- lg:p-0 lg:flex bg-gray-50 lg:mt-0">
         </div>
 
         {/* Conditionally render ExamsHeader and ExamsCard */}

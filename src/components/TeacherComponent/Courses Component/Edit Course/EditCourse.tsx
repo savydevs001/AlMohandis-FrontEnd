@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import DashBoardHeader from "../../DashboardComponent/DashBoardHeader";
-import Sidebar from "../../Sidebar";
 import EditCourseForm from "./EditCourseForm";
 import SeasonsTiles from "./SeasonsTiles";
 import AccessibilityPopup from './EditCoursePopUps/SettingpopUp';
 import EditCourseBtns from './EditCourseBtns';
+// import AdminSidebar from '../../../AdminComponent/AdminSidebar';
+import Sidebar from '../../Sidebar';
+// import AdminSidebar from '../../../AdminComponent/AdminSidebar';
 
 function EditCourse() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);

@@ -3,7 +3,14 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import UserManagementHeader from "../UserManagementComponent/UserManagementHeader";
 import AdminRegisteredSubCard from "./GroupCard";
-import GroupCreatePopup from "./CreateGroupPop"; // import the popup component
+import GroupCreatePopup from "./CreateGroupPop";
+
+interface Group {
+  id: string;
+  title: string;
+  duration: string; // Ensure this matches GroupCard
+  teacher: string;
+}
 
 interface Subject {
   id: string;
@@ -11,7 +18,7 @@ interface Subject {
   description: string;
   teacherId: string;
   duration: number;
-  groups: { id: string; title: string }[];
+  groups: Group[];
   teacherName: string;
 }
 
@@ -24,11 +31,10 @@ function ShowAll() {
   const handleOpenPopup = () => setShowPopup(true);
   const handleClosePopup = () => setShowPopup(false);
 
-  // Fetch subjects from the API
   useEffect(() => {
     const fetchSubjects = async () => {
       setLoading(true);
-      const token = Cookies.get("token"); // Get token from cookies
+      const token = Cookies.get("token");
       if (!token) {
         setError("Authentication token not found.");
         setLoading(false);
@@ -39,7 +45,9 @@ function ShowAll() {
         const response = await axios.get("http://localhost:5000/api/admin/getAllsubjects", {
           headers: { Authorization: `Bearer ${token}` },
         });
-        setSubjects(response.data || []);
+
+        // Validate and set subjects
+        setSubjects(Array.isArray(response.data) ? response.data : []);
       } catch (err) {
         console.error(err);
         setError("Failed to load subjects.");
@@ -70,9 +78,17 @@ function ShowAll() {
         ) : subjects.length === 0 ? (
           <p>No subjects available.</p>
         ) : (
-          subjects.map((subject) => (
-            <AdminRegisteredSubCard key={subject.id} subject={subject} />
-          ))
+          subjects.map((subject) =>
+            subject.groups.map((group) => (
+              <AdminRegisteredSubCard
+                key={group.id}
+                group={{
+                  ...group,
+                  duration: group.duration.toString(), // Ensure duration is a string
+                }}
+              />
+            ))
+          )
         )}
       </div>
 

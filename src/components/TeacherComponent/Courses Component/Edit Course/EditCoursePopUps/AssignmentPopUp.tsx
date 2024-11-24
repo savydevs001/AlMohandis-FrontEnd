@@ -62,7 +62,7 @@ export const AssignmentPopup: React.FC<{ onClose: () => void }> = ({ onClose }) 
               >
                 Remove
               </button>
-            </div>
+            </div>  
           ))}
           <button
             className='px-4 py-3 mt-2 w-[40%] text-white rounded bg-primary'

@@ -1,0 +1,26 @@
+// import React from 'react'
+import { PiDotsThreeOutlineVerticalFill } from "react-icons/pi";
+import { NavLink } from "react-router-dom";
+
+function AssistantCard() {
+  return (
+    <div className="w-[100%] border-2  p-4 rounded-lg space-y-1"> 
+     <div className="flex items-center justify-between">
+      <h1 className="text-lg font-semibold">Assistant Name</h1>
+      <PiDotsThreeOutlineVerticalFill />
+     </div>
+     <p>hello@gmail.com</p>
+  <div className="flex items-center gap-4">
+  <NavLink to='ManageAssistant'>
+     <button className="px-4 py-1 mt-3 text-lg font-semibold text-white rounded-md bg-primary">Manage</button>
+     </NavLink>
+     <button className="px-4 py-1 mt-3 text-lg font-semibold text-white rounded-md bg-primary">Chat</button>
+  </div>
+    </div>
+  )
+}
+
+export default AssistantCard
+
+
+

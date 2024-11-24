@@ -50,7 +50,7 @@ const CoursesPermissions: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center justify-center w-full gap-6 mx-auto lg:p-6 lg:flex-row">
-      <div className="p-5 space-y-4 lg:w-[40%] border w-full">
+      <div className="p-5 space-y-4 lg:w-[50%] border w-full">
         {options.map(option => (
           <div key={option.id} className="flex items-center justify-between w-[100%]">
             <span className="text-gray-700">{option.label}</span>
@@ -69,7 +69,7 @@ const CoursesPermissions: React.FC = () => {
           </div>
         ))}
       </div>
-      <div className="p-5 space-y-4 lg:w-[40%] border w-full">
+      <div className="p-5 space-y-4 lg:w-[50%] border w-full">
         {options2.map(option => (
           <div key={option.id} className="flex items-center justify-between w-[100%]">
             <span className="text-gray-700">{option.label}</span>

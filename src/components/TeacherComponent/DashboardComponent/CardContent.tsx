@@ -20,7 +20,7 @@ function CardContent() {
       {/* Cards Section */}
       <div className="grid grid-cols-1 gap-4 mt-6 mb-6 md:grid-cols-2 lg:grid-cols-4">
         <NavLink to={'/courses'}><Card icon={<GiGraduateCap />} title="Active Courses" description="7 Lessons Active" /></NavLink>
-        <NavLink to={'/pending'}><Card icon={<FcApproval />} title="Course Approval" description="3 Lesson Approvals pending" /></NavLink>
+        <NavLink to={''}><Card icon={<FcApproval />} title="Course Approval" description="3 Lesson Approvals pending" /></NavLink>
         <Card icon={<MdAssignment />} title="Ungraded Assignments" description="2 Assignments to grade" />
         <Card icon={<FaMessage />} title="Unread Messages" description="3 Unread Messages" />
       </div>

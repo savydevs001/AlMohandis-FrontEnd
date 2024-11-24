@@ -34,6 +34,8 @@ import Groups from "../pages/Admin Page/Groups";
 import AdminProfile from "../pages/Admin Page/AdminProfile"
 import AdminAttendance from "../pages/Admin Page/AdminAttendance"
 import AdminMarkAttendance from "../components/AdminComponent/Admin Attendance/MarkAttendance/MarkAttendacne"
+import EditCourses from "../components/AdminComponent/CourseManagementComp/ActiveCoursesComponent/EditCourses"
+// import EditCourse from "../components/TeacherComponent/Courses Component/Edit Course/EditCourse"
 
 function AdminPageRoute() {
   return (
@@ -47,6 +49,7 @@ function AdminPageRoute() {
  <Route path="/StudentViewCourse" element = {<StudentViewCourse/>} />
  <Route path="/TeacherInformation" element = {<TeacherInformation/>} />
  <Route path="/AssistantInformation" element = {<AssistantInformation/>} />
+ <Route path="/editCourses" element = {<EditCourses/>} />
  <Route path="/AdminGuardianPage" element = {<AdminGurardian/>} />
  <Route path="/GaurdianInformation" element = {<GaurdianInformation/>} />
  <Route path="/AdminManagement" element = {<AdminManageAdmin/>} />

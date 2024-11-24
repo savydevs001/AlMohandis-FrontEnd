@@ -27,16 +27,16 @@ import ViewAttendence from '../components/TeacherComponent/Attendence Component/
 const TeacherRoutes: React.FC = () => {
   return (
     <Routes>
-      <Route path="/liveLectures" element={<ProtectedRoute allowedRoles={['teacher']}><LiveLectures /></ProtectedRoute>} />
+      <Route path="/liveLectures/*" element={<ProtectedRoute allowedRoles={['teacher']}><LiveLectures /></ProtectedRoute>} />
       <Route path="/courses/*" element={<ProtectedRoute allowedRoles={['teacher']}><Courses /></ProtectedRoute>} />
       <Route path="/assignments/*" element={<ProtectedRoute allowedRoles={['teacher']}><Assignment /></ProtectedRoute>} />
       <Route path="/exams/*" element={<ProtectedRoute allowedRoles={['teacher']}><Exams /></ProtectedRoute>} />
       <Route path="/gradeNow" element={<ProtectedRoute allowedRoles={['teacher']}><GradeNow /></ProtectedRoute>} />
       <Route path="/attendence" element={<ProtectedRoute allowedRoles={['teacher']}><Attendence /></ProtectedRoute>} />
-      <Route path="/chat" element={<ProtectedRoute allowedRoles={['teacher']}><Chat /></ProtectedRoute>} />
-      <Route path="/assistant" element={<ProtectedRoute allowedRoles={['teacher']}><Assistants /></ProtectedRoute>} />
-      <Route path="/subjects" element={<ProtectedRoute allowedRoles={['teacher']}><Subjects /></ProtectedRoute>} />
-      <Route path="/support" element={<ProtectedRoute allowedRoles={['teacher']}><Support /></ProtectedRoute>} />
+      <Route path="/Chat" element={<ProtectedRoute allowedRoles={['teacher']}><Chat /></ProtectedRoute>} />
+      <Route path="/assistant/*" element={<ProtectedRoute allowedRoles={['teacher']}><Assistants /></ProtectedRoute>} />
+      <Route path="/Subjects" element={<ProtectedRoute allowedRoles={['teacher']}><Subjects /></ProtectedRoute>} />
+      <Route path="/Support" element={<ProtectedRoute allowedRoles={['teacher']}><Support /></ProtectedRoute>} />
       <Route path="/promotionalContent" element={<ProtectedRoute allowedRoles={['teacher']}><PromotionalContent /></ProtectedRoute>} />
       <Route path="/draft" element={<ProtectedRoute allowedRoles={['teacher']}><Draft /></ProtectedRoute>} />
       <Route path="/pending" element={<ProtectedRoute allowedRoles={['teacher']}><PendingCourse /></ProtectedRoute>} />
