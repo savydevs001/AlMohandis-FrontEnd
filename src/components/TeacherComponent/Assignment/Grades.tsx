@@ -1,37 +1,21 @@
-// import React from 'react'
+import GradesAssignmentCard from "./Grades Component/GradesCard";
 
-import GradesAssignmentCard from "./Grades Component/GradesCard"
-
-function Grades() {
-  return (
-    <div className="p-2 lg:p-0">
-      {/* <h1>Ungrades Assignment</h1> */}
-      <div className="space-y-3">
-        <h1 className="text-2xl font-semibold text-primary">My Courses  </h1>
-        <div className="space-y-6">
-        <GradesAssignmentCard/>
-        <GradesAssignmentCard/>
-        </div>
-       
-      </div>
-      <div className="mt-3 space-y-3">
-        {/* <h1 className="text-2xl font-semibold text-primary">My Teacher 1 Name </h1> */}
-        <div className="space-y-6">
-        {/* <GradesAssignmentCard/> */}
-        {/* <GradesAssignmentCard/> */}
-        </div>
-       
-      </div>
-      <div className="mt-3 space-y-3">
-        {/* <h1 className="text-2xl font-semibold text-primary">My Teacher 2 Name  </h1> */}
-        <div className="space-y-6">
-        {/* <GradesAssignmentCard/> */}
-        {/* <GradesAssignmentCard/> */}
-        </div>
-       
-      </div>
-    </div>
-  )
+interface GradesProps {
+  assignments: any[];
 }
 
-export default Grades
+function Grades({ assignments }: GradesProps) {
+  return (
+    <div className="p-2 lg:p-0">
+      <div className="space-y-3">
+        <div className="space-y-6">
+          {assignments.map((assignment) => (
+            <GradesAssignmentCard key={assignment.submissionId} assignment={assignment} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default Grades;

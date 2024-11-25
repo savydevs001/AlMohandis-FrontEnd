@@ -1,37 +1,35 @@
-// import React from 'react'
+import UngradedAssignmentCard from "./Ungrades Component/UngradedCard";
 
-import UngradedAssignmentCard from "./Ungrades Component/UngradedCard"
-
-function Ungraded() {
-  return (
-    <div className="p-2 lg:p-0">
-      {/* <h1>Ungrades Assignment</h1> */}
-      <div className="space-y-3">
-        <h1 className="text-2xl font-semibold text-primary">My Courses  </h1>
-        <div className="space-y-4">
-        <UngradedAssignmentCard/>
-        <UngradedAssignmentCard/>
-        </div>
-       
-      </div>
-      <div className="mt-3 space-y-3">
-        {/* <h1 className="text-2xl font-semibold text-primary">My Teacher 1 Name </h1> */}
-        <div className="space-y-4">
-        {/* <UngradedAssignmentCard/> */}
-        {/* <UngradedAssignmentCard/> */}
-        </div>
-       
-      </div>
-      <div className="mt-3 space-y-3">
-        {/* <h1 className="text-2xl font-semibold text-primary">My Teacher 2 Name  </h1> */}
-        <div className="space-y-4">
-        {/* <UngradedAssignmentCard/> */}
-        {/* <UngradedAssignmentCard/> */}
-        </div>
-       
-      </div>
-    </div>
-  )
+interface Assignment {
+  submissionId: string;
+  studentId: string;
+  assignmentId: string;
+  submissionDate: string;
+  grade: any;
+  isGraded: boolean;
+  submitted: boolean;
+  work: string;
+  comment: any;
+  assignmentTitle: string;
+  courseName: string;
 }
 
-export default Ungraded
+interface UngradedProps {
+  assignments: Assignment[];
+}
+
+function Ungraded({ assignments }: UngradedProps) {
+  return (
+    <div className="p-2 lg:p-0">
+      <div className="space-y-3">
+        <div className="space-y-4">
+          {assignments.map((assignment) => (
+            <UngradedAssignmentCard key={assignment.submissionId} assignment={assignment} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default Ungraded;

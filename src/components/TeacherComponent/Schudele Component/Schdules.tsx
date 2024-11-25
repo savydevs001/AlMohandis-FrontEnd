@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import DashBoardHeader from "../DashboardComponent/DashBoardHeader";
 import ClassesSchudle from "./ClassesSchudle";
+import Loading from "../../Loading";
 
 function Schdules() {
   const [weeklySchedules, setWeeklySchedules] = useState<any[]>([]);
@@ -42,7 +43,7 @@ function Schdules() {
     fetchSchedules();
   }, []);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loading/>;
   if (error) return <div>Error: {error}</div>;
 
   return (

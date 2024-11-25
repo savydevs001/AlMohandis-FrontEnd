@@ -78,8 +78,8 @@ export interface Clip {
 export interface MediaSource {
   id: string;
   link: string;
-  title?: string;
-  description?: string;
+  title: string;
+  description: string;
   lessonId: string;
   channel: ChannelType;
   isFree: boolean;
