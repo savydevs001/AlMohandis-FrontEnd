@@ -34,7 +34,7 @@
     "recharts": "^2.13.3",
     "slick-carousel": "^1.8.1",
     "swiper": "^11.1.14",
-    "wavesurfer.js": "^7.8.6"
+    "wavesurfer.js": "^7.8.9"
   },
   "devDependencies": {
     "@eslint/js": "^9.11.1",

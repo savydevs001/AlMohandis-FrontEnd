@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import LeftPanel from './LeftPanel';
-import { ModuleType, AnswerType, LessonType, ChannelType, Module, Assignment, Exam, Question, Part, MediaSource, Clip, Attachment, Chapter } from '../../../../../types/course';
+import { ModuleType, AnswerType, LessonType, ChannelType, Module, Part } from '../../../../../types/course';
 import AssignmentModule from './AssignmentModule';
 import ExamModule from './ExamModule';
 import ChapterModule from './ChapterModule';
@@ -106,7 +106,7 @@ const dummyParts: Part[] = [
           attachments: [], // Add attachments if any
           chapters: [
             {
-              id: "chapter-1",
+              id: "Learn Fundamentals",
               moduleId: "module-3",
               lessons: [
                 {
@@ -116,6 +116,8 @@ const dummyParts: Part[] = [
                   mediaSrc: [
                     {
                       id: "media-1",
+                      title: "Introduction to Advanced JavaScript",
+                      description: "Learn the basics of advanced JavaScript concepts",
                       link: "https://youtube.com/video1",
                       channel: ChannelType.YOUTUBE,
                       lessonId: "lesson-1",
@@ -149,7 +151,7 @@ const dummyParts: Part[] = [
           attachments: [], // Add attachments if any
           chapters: [
             {
-              id: "chapter-1",
+              id: "Learn Advanced ",
               moduleId: "module-3",
               lessons: [
                 {
@@ -160,7 +162,35 @@ const dummyParts: Part[] = [
                     {
                       id: "media-1",
                       link: "https://youtube.com/video1",
+                      title:"Learn",
+                      description:"Learn",
                       channel: ChannelType.YOUTUBE,
+                      lessonId: "lesson-1",
+                      isFree: true,
+                      isPromotional: false,
+                      clips: [
+                        {
+                          id: "clip-1",
+                          title: "Introduction to Advanced JavaScript",
+                          start: 0,
+                          end: 600,
+                          mediaSrcId: "media-1"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  id: "lesson-1",
+                  type: LessonType.AUDIO,
+                  chapterId: "chapter-1",
+                  mediaSrc: [
+                    {
+                      id: "media-1",
+                      link: "https://youtube.com/video1",
+                      channel: ChannelType.YOUTUBE,
+                      title:"Audio",
+                      description:"Audio",
                       lessonId: "lesson-1",
                       isFree: true,
                       isPromotional: false,

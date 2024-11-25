@@ -1,20 +1,22 @@
-import React, { useState } from "react";
-import {
-  Chapter,
-  Lesson,
-  MediaSource,
-  Clip,
-  LessonType,
-} from "../../../../../types/course";
-import VideoLesson from "./VideoLesson"; // Import the video lesson component
-import AudioLesson from "./AudioLesson"; // Import the audio lesson component
+import React, { useState, useEffect } from "react";
+import { Chapter, Lesson, LessonType, Clip, Module, MediaSource } from "../../../../../types/course";
+import VideoLesson from "./VideoLesson";
+import AudioLesson from "./AudioLesson";
+import { FaVideo, FaMicrophone } from 'react-icons/fa'; // Import icons for video and audio
 
 const ChapterModule: React.FC<{ chapter: Chapter }> = ({ chapter }) => {
-  const [lessons, setLessons] = useState<Lesson[]>(chapter.lessons);
+  const [lessons, setLessons] = useState<Lesson[]>(chapter.lessons); // Store lessons of the selected module
+  const [selectedLessonIndex, setSelectedLessonIndex] = useState<number>(0); // Track the selected lesson
   const [videoFile, setVideoFile] = useState<File | null>(null);
   const [startTime, setStartTime] = useState<number>(0);
   const [endTime, setEndTime] = useState<number>(0);
   const [clips, setClips] = useState<Clip[]>([]);
+
+  // Update the lessons when the chapter changes
+  useEffect(() => {
+    setLessons(chapter.lessons); // Set lessons to the current chapter lessons
+    setSelectedLessonIndex(0); // Reset to the first lesson by default
+  }, [chapter]);
 
   const handleAddLesson = (type: LessonType) => {
     const newLesson: Lesson = {
@@ -58,62 +60,99 @@ const ChapterModule: React.FC<{ chapter: Chapter }> = ({ chapter }) => {
     }
   };
 
+  const handleLessonChange = (index: number) => {
+    setSelectedLessonIndex(index); // Update the selected lesson
+  };
+
   return (
-    <div className="chapter-container">
-      <h2>Chapter: {chapter.id}</h2>
+    <div className="chapter-container max-w-4xl mx-auto py-6 px-4 bg-white shadow-lg rounded-lg">
+      <h2 className="text-xl font-semibold mb-6 ">Chapter: {chapter.id}</h2>
 
       {/* Buttons for adding lessons */}
-      <button onClick={() => handleAddLesson(LessonType.VIDEO)}>
-        Add Video Lesson
-      </button>
-      <button onClick={() => handleAddLesson(LessonType.AUDIO)}>
-        Add Audio Lesson
-      </button>
+      <div className="space-x-4 mb-6 flex justify-center">
+        <button
+          onClick={() => handleAddLesson(LessonType.VIDEO)}
+          className="btn bg-blue-600 text-white py-2 px-5 rounded-lg shadow-lg hover:bg-blue-700 transition duration-200 ease-in-out flex items-center"
+        >
+          <FaVideo className="mr-2 text-xl" />
+          Add Video Lesson
+        </button>
+        <button
+          onClick={() => handleAddLesson(LessonType.AUDIO)}
+          className="btn bg-green-600 text-white py-2 px-5 rounded-lg shadow-lg hover:bg-green-700 transition duration-200 ease-in-out flex items-center"
+        >
+          <FaMicrophone className="mr-2 text-xl" />
+          Add Audio Lesson
+        </button>
+      </div>
 
-      {/* Video upload input */}
-      {lessons.some((lesson) => lesson.type === LessonType.VIDEO) && (
-        <div>
-          <input type="file" accept="video/*" onChange={handleVideoUpload} />
-          {videoFile && <p>Video uploaded: {videoFile.name}</p>}
-        </div>
-      )}
 
       {/* Clip Cutting Section */}
       {videoFile && (
-        <div>
-          <h3>Clip Editor</h3>
-          <div>
-            <label>Start Time (seconds):</label>
+        <div className="mb-6">
+          <h3 className="text-xl font-medium mb-4 text-gray-700">Clip Editor</h3>
+          <div className="mb-4">
+            <label className="block text-gray-600">Start Time (seconds):</label>
             <input
               type="number"
               value={startTime}
               onChange={(e) => handleVideoTimeUpdate(e, "start")}
               min="0"
               max={endTime}
+              className="border-2 border-gray-300 px-4 py-2 w-full rounded-md"
             />
           </div>
-          <div>
-            <label>End Time (seconds):</label>
+          <div className="mb-4">
+            <label className="block text-gray-600">End Time (seconds):</label>
             <input
               type="number"
               value={endTime}
               onChange={(e) => handleVideoTimeUpdate(e, "end")}
               min={startTime}
               max={9999}
+              className="border-2 border-gray-300 px-4 py-2 w-full rounded-md"
             />
           </div>
-          <button onClick={handleCreateClip}>Create Clip</button>
+          <button
+            onClick={handleCreateClip}
+            className="bg-yellow-500 text-white py-2 px-6 rounded-lg shadow-lg hover:bg-yellow-600 transition duration-200 ease-in-out"
+          >
+            Create Clip
+          </button>
         </div>
       )}
 
-      {/* Display lessons based on their type */}
-      <div className="lesson-list">
-        {lessons.map((lesson) => (
-          <div key={lesson.id} className="lesson-container">
-            {lesson.type === LessonType.VIDEO && <VideoLesson lesson={lesson} />}
-            {lesson.type === LessonType.AUDIO && <AudioLesson lesson={lesson} />}
-          </div>
+      {/* Lesson Navigation */}
+      <div className="lesson-nav mb-6 flex justify-center space-x-4">
+        {lessons.map((lesson, index) => (
+          <button
+            key={lesson.id}
+            onClick={() => handleLessonChange(index)}
+            className={`py-2 px-4 rounded-lg font-medium text-white ${
+              selectedLessonIndex === index
+                ? "bg-blue-600 shadow-lg"
+                : "bg-gray-300 hover:bg-gray-400"
+            } flex items-center transition duration-200 ease-in-out`}
+          >
+            {lesson.type === LessonType.VIDEO && <FaVideo className="mr-2 text-lg" />}
+            {lesson.type === LessonType.AUDIO && <FaMicrophone className="mr-2 text-lg" />}
+            Lesson {index + 1}
+          </button>
         ))}
+      </div>
+
+      {/* Display selected lesson based on its type */}
+      <div className="lesson-container">
+        {lessons.length > 0 && (
+          <>
+            {lessons[selectedLessonIndex].type === LessonType.VIDEO && (
+              <VideoLesson lesson={lessons[selectedLessonIndex]} />
+            )}
+            {lessons[selectedLessonIndex].type === LessonType.AUDIO && (
+              <AudioLesson lesson={lessons[selectedLessonIndex]} />
+            )}
+          </>
+        )}
       </div>
     </div>
   );
