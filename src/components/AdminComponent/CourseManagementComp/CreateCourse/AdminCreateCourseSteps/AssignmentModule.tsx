@@ -34,14 +34,14 @@ const AssignmentModule: React.FC<AssignmentModuleProps> = ({ module }) => {
   return (
     <div className="p-4">
       <h2 className="text-lg font-bold">Assignment Module</h2>
-      {questions.map((question, index) => (
-        <div key={question.id} className="border-b pb-4 mb-4">
+      {questions.map((question, _) => (
+        <div key={question.id} className="pb-4 mb-4 border-b">
           <input
             type="text"
             value={question.questionText}
             onChange={e => handleQuestionChange(question.id, 'questionText', e.target.value)}
             placeholder="Enter question text"
-            className="border rounded p-2 w-full mb-2"
+            className="w-full p-2 mb-2 border rounded"
           />
           <div>
             {question.options.map((option, idx) => (
@@ -59,7 +59,7 @@ const AssignmentModule: React.FC<AssignmentModuleProps> = ({ module }) => {
                     )
                   }
                   placeholder={`Option ${idx + 1}`}
-                  className="border rounded p-2 w-1/2 mb-2 mr-2"
+                  className="w-1/2 p-2 mb-2 mr-2 border rounded"
                 />
                 <button
                   onClick={() =>
@@ -73,7 +73,7 @@ const AssignmentModule: React.FC<AssignmentModuleProps> = ({ module }) => {
             ))}
             <button
               onClick={() => handleQuestionChange(question.id, 'options', [...question.options, ''])}
-              className="bg-blue-500 text-white p-2 rounded mb-2"
+              className="p-2 mb-2 text-white bg-blue-500 rounded"
             >
               Add Option
             </button>
@@ -84,19 +84,19 @@ const AssignmentModule: React.FC<AssignmentModuleProps> = ({ module }) => {
                 value={question.correctAnswer || ''}
                 onChange={e => handleQuestionChange(question.id, 'correctAnswer', e.target.value)}
                 placeholder="Enter correct answer"
-                className="border rounded p-2 w-full mb-2"
+                className="w-full p-2 mb-2 border rounded"
               />
             </div>
           </div>
           <button
             onClick={() => handleRemoveQuestion(question.id)}
-            className="bg-red-500 text-white p-2 rounded"
+            className="p-2 text-white bg-red-500 rounded"
           >
             Remove Question
           </button>
         </div>
       ))}
-      <button onClick={handleAddQuestion} className="bg-green-500 text-white p-2 rounded">
+      <button onClick={handleAddQuestion} className="p-2 text-white bg-green-500 rounded">
         Add Question
       </button>
     </div>

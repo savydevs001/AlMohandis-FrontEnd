@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { Chapter, Lesson, MediaSource, Clip, LessonType } from "../../../../../types/course";
+import {
+  Chapter,
+  Lesson,
+  MediaSource,
+  Clip,
+  LessonType,
+} from "../../../../../types/course";
 import VideoLesson from "./VideoLesson"; // Import the video lesson component
 import AudioLesson from "./AudioLesson"; // Import the audio lesson component
 
@@ -15,7 +21,7 @@ const ChapterModule: React.FC<{ chapter: Chapter }> = ({ chapter }) => {
       id: `${Date.now()}`, // Unique lesson ID
       type: type,
       chapterId: chapter.id,
-      mediaSrc: [],
+      mediaSrc: [] as MediaSource[], // Use MediaSource here
     };
     setLessons([...lessons, newLesson]);
   };
@@ -40,9 +46,12 @@ const ChapterModule: React.FC<{ chapter: Chapter }> = ({ chapter }) => {
     }
   };
 
-  const handleVideoTimeUpdate = (event: React.ChangeEvent<HTMLInputElement>, time: 'start' | 'end') => {
+  const handleVideoTimeUpdate = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    time: "start" | "end"
+  ) => {
     const value = parseFloat(event.target.value);
-    if (time === 'start') {
+    if (time === "start") {
       setStartTime(value);
     } else {
       setEndTime(value);
@@ -54,11 +63,15 @@ const ChapterModule: React.FC<{ chapter: Chapter }> = ({ chapter }) => {
       <h2>Chapter: {chapter.id}</h2>
 
       {/* Buttons for adding lessons */}
-      <button onClick={() => handleAddLesson("VIDEO")}>Add Video Lesson</button>
-      <button onClick={() => handleAddLesson("AUDIO")}>Add Audio Lesson</button>
+      <button onClick={() => handleAddLesson(LessonType.VIDEO)}>
+        Add Video Lesson
+      </button>
+      <button onClick={() => handleAddLesson(LessonType.AUDIO)}>
+        Add Audio Lesson
+      </button>
 
       {/* Video upload input */}
-      {lessons.some((lesson) => lesson.type === "VIDEO") && (
+      {lessons.some((lesson) => lesson.type === LessonType.VIDEO) && (
         <div>
           <input type="file" accept="video/*" onChange={handleVideoUpload} />
           {videoFile && <p>Video uploaded: {videoFile.name}</p>}
@@ -86,7 +99,7 @@ const ChapterModule: React.FC<{ chapter: Chapter }> = ({ chapter }) => {
               value={endTime}
               onChange={(e) => handleVideoTimeUpdate(e, "end")}
               min={startTime}
-              max={videoFile?.duration || 9999}
+              max={9999}
             />
           </div>
           <button onClick={handleCreateClip}>Create Clip</button>
@@ -97,8 +110,8 @@ const ChapterModule: React.FC<{ chapter: Chapter }> = ({ chapter }) => {
       <div className="lesson-list">
         {lessons.map((lesson) => (
           <div key={lesson.id} className="lesson-container">
-            {lesson.type === "VIDEO" && <VideoLesson lesson={lesson} />}
-            {lesson.type === "AUDIO" && <AudioLesson lesson={lesson} />}
+            {lesson.type === LessonType.VIDEO && <VideoLesson lesson={lesson} />}
+            {lesson.type === LessonType.AUDIO && <AudioLesson lesson={lesson} />}
           </div>
         ))}
       </div>
