@@ -7,7 +7,7 @@ function Schdules() {
   return (
     <div className="lg:w-full w-[90%] mx-auto">
        <div className="flex items-center justify-between w-full gap-4 p-2">
-             <h1 className="text-2xl font-bold">Schdules</h1>
+             <h1 className="text-2xl font-bold">Schedules</h1>
              <DashBoardHeader />
            </div>
            <div>

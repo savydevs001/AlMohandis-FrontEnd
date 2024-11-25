@@ -4,6 +4,7 @@ import TeacherRoutes from "./Routes/TeacherRoutes"
 import StudentRoutes from "./Routes/StudentRoutes"
 import AdminPageRoute from "./Routes/AdminPageRoute"
 import GuardianPageRoutes from "./Routes/GuardianPageRoutes"
+import NotFound from "./Routes/NotFound"
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <StudentRoutes/>
         <AdminPageRoute/>
         <GuardianPageRoutes/>
+        <NotFound/>
       </BrowserRouter>
     </>
   )
