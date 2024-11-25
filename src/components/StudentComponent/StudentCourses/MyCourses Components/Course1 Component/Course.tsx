@@ -5,6 +5,7 @@ import ShowActivity from "./ShowLessons/ShowActivity";
 import ShowModuleDetail from "./ShowLessons/ShowModuleDetails";
 import StudentDashboardHeader from "./ShowLessons/StudentHeader";
 import CourseMaterial from './CourseMaterial';
+import Loading from '../../../../Loading';
 
 interface MediaSource {
   id: string;
@@ -122,7 +123,7 @@ function Course1() {
     fetchCourseData();
   }, [courseId, token]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loading/>;
   if (error) return <div>Error: {error}</div>;
 
   const handleMaterialSelect = (item: string | null) => {
