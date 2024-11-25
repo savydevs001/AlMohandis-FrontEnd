@@ -3,13 +3,14 @@ import Cookies from 'js-cookie';
 
 const ProtectedRoute = ({ children, allowedRoles }:any) => {
     const userType = Cookies.get('userType');
+    console.log(userType)
 
     if (!userType) {
         return <Navigate to="/login" />;
     }
 
     if (!allowedRoles.includes(userType)) {
-        return <Navigate to="/404" />;
+        return <Navigate to="/not-found" />;
     }
 
     return children;

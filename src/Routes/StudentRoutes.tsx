@@ -3,7 +3,7 @@ import StudentDashboard from "../pages/Student Page/StudentDashboard";
 import MyCourses from "../components/StudentComponent/StudentCourses/MyCourses Components/MyCourses";
 import BuyCourses from "../components/StudentComponent/StudentCourses/BuyCourses/BuyCourses";
 import VideoLesson from "../components/StudentComponent/StudentCourses/MyCourses Components/Course1 Component/ShowLessons/Lesson Vidoe Course/VideoLesson";
-import ProtectedRoute from '../components/ProtectedRoute'; // Import the ProtectedRoute
+import ProtectedRoute from '../components/ProtectedRoute'; 
 import ExamQuestionsPage from "../components/StudentComponent/StudentCourses/MyCourses Components/Course1 Component/ShowLessons/ShowContent/ShowExam/ShowExamQuestion/ExamQuestions";
 import CorrectOption from "../components/StudentComponent/StudentCourses/MyCourses Components/Course1 Component/ShowLessons/ShowContent/ShowGraded/CorrectOptions/CorrectOption";
 import Professors from "../pages/Student Page/Professors";

@@ -190,7 +190,7 @@ const Step6CreatePart: React.FC = () => {
   const [selectedModule, setSelectedModule] = useState<Module | null>(null);
 
   const handleModuleSelect = (module: Module) => {
-    setSelectedModule(module);
+      setSelectedModule(module);
   };
 
   const renderModuleContent = (module: Module) => {

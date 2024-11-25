@@ -13,10 +13,10 @@ function MyCourses() {
 
       <div className="flex-1 w-[90%] lg:p-6 lg:flex bg-gray-50 mt-3 lg:mt-0 mx-auto">
         <Routes>
-          <Route path="/" element={<MyCoursesContent />} /> {/* Default view for MyCourses */}
+          <Route path="/" element={<MyCoursesContent />} /> 
           <Route path="/:courseId" element={<CourseDetail />} /> 
           <Route path="/videoLesson/:lessonId" element = {<VideoLesson/>} />
-          <Route path="/audioLesson/:lessonId" element = {<AudioLesson/>} />
+          {/* <Route path="/audioLesson/:lessonId" element = {<AudioLesson/>} /> */}
         </Routes>
       </div>
     </div>
