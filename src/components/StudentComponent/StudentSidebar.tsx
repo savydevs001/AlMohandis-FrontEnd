@@ -78,8 +78,8 @@ const StudentSidebar: React.FC = () => {
               isOpen={isCoursesDropdownOpen}
               onToggle={() => setIsCoursesDropdownOpen(prev => !prev)}
               dropdownItems={[
-                { to: "/courses/myCourses", label: "My Courses" },
-                { to: "/courses/buyCourses", label: "Buy Courses" }
+                { to: "/myCourses", label: "My Courses" },
+                { to: "/buyCourses", label: "Buy Courses" }
               ]}
             />
             <SidebarItem to="/liveLectures" icon={<RiLiveFill />} label="Live Lectures" />

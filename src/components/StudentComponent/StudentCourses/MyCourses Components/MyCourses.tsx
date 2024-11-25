@@ -4,7 +4,7 @@ import StudentSidebar from "../../StudentSidebar";
 import MyCoursesContent from "./MyCoursesContent";
 import CourseDetail from "./Course1 Component/Course";
 import VideoLesson from "./Course1 Component/ShowLessons/Lesson Vidoe Course/VideoLesson";
-import AudioLesson from "./Course1 Component/ShowLessons/Lesson Vidoe Course/AudioLesson";
+// import AudioLesson from "./Course1 Component/ShowLessons/Lesson Vidoe Course/AudioLesson";
 
 function MyCourses() {
   return (
