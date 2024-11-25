@@ -1,6 +1,7 @@
 import  { useState } from 'react';
 import img from '../../../../src/assets/book.webp';
 import GradesPopup from './GradesPopup';
+import { NavLink } from 'react-router-dom';
 
 
 function RegisteredSubjectCard() {
@@ -32,12 +33,16 @@ function RegisteredSubjectCard() {
         >
           Graded
         </button>
-        <button className="w-full px-4 py-2 text-sm font-semibold text-white rounded-lg bg-primary">
+       <NavLink to='/StudentChat' className="w-full px-4 py-2 text-sm font-semibold text-white rounded-lg bg-primary">
+       <button className="w-full text-sm font-semibold text-white rounded-lg bg-primary">
           Chat Professor
         </button>
-        <button className="w-full px-4 py-2 text-sm font-semibold text-white rounded-lg bg-primary">
+       </NavLink>
+       <NavLink to='/StudentChat' className='w-full'>
+       <button className="w-full px-4 py-2 text-sm font-semibold text-white rounded-lg bg-primary">
           Group Chat
         </button>
+       </NavLink>
       </div>
 
       {showPopup && <GradesPopup onClose={handleClosePopup} />}

@@ -11,7 +11,7 @@ interface InstructorCardProps {
 const InstructorCard: React.FC<InstructorCardProps> = ({ buttonText, width = "w-full" }) => {
   return (
     <div className={`flex flex-wrap lg:max-w-[22vw] mx-auto mt-6 text-txtColor `}>
-      <div className={`${width} p-2 text-black shadow-xl rounded-xl bg-txtColor max-h-fit card `}>
+      <div className={`${width} p-2 text-black shadow-sm border rounded-xl bg-txtColor max-h-fit card `}>
         <figure className="px-4 pt-4">
           <img
             src="https://i0.wp.com/apeejay.news/wp-content/uploads/2023/10/281023-10-most-read-books-Blog.jpg?resize=740%2C524&ssl=1"

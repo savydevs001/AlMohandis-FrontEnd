@@ -62,7 +62,7 @@ const GuardianSidebar: React.FC = () => {
       </div>
 
       <div
-        className={`fixed lg:relative top-0 left-0 w-64 bg-primary z-50 sidebar transition-transform transform ${
+        className={`fixed lg:relative top-0 left-0 w-60 bg-primary z-50 sidebar transition-transform transform ${
           isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
         } lg:translate-x-0 min-h-screen flex flex-col justify-between`}
       >
@@ -155,7 +155,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ to, icon, label, isDropdown, 
           </NavLink>
         ) : (
           <div className="flex items-center w-full gap-4 cursor-pointer">
-            <div className="flex items-center gap-4 text-sm">
+            <div className="flex items-center gap-4 text-md">
               {icon} {label}
             </div>
             {isDropdown && (

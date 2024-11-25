@@ -9,7 +9,7 @@ interface EnrollStudentCardProps {
 
 const EnrollStudentCard: React.FC<EnrollStudentCardProps> = ({ Icon, title, subtitle }) => {
   return (
-    <div className="p-3 space-y-2 bg-white rounded-lg w-fit">
+    <div className="p-3 space-y-2 bg-white border rounded-sm w-fit">
       <Icon className="text-xl font-bold" /> {/* Render the icon component */}
       <h5 className="font-semibold">{title}</h5>
       <h6 className="text-lg font-semibold text-primary">{subtitle}</h6>

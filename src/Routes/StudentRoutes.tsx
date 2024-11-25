@@ -11,6 +11,12 @@ import StudentAssignments from "../pages/Student Page/StudentAssignments";
 import StudentAttendence from "../pages/Student Page/StudentAttendence";
 import RegisteredSubject from "../pages/Student Page/RegisteredSubject";
 import Schudle from "../pages/Student Page/Schudle";
+import StudentFavourites from "../pages/Student Page/StudentFavourites";
+import StudentChat from "../pages/Student Page/StudentChat";
+import StudentSupportTicket from "../pages/Student Page/StudentSupportTicket";
+import StudentLiveChat from "../pages/Student Page/StudentLiveChat";
+import StudentProfile from "../pages/Student Page/StudentProfile";
+import StudentLiveLectures from "../pages/Student Page/StudentLiveLectures";
 
 
 function StudentRoutes() {
@@ -27,6 +33,12 @@ function StudentRoutes() {
       <Route path="/StudentAttendance" element={<ProtectedRoute allowedRoles={['student']}><StudentAttendence /></ProtectedRoute>} />
       <Route path="/RegisteredSubject" element={<ProtectedRoute allowedRoles={['student']}><RegisteredSubject /></ProtectedRoute>} />
       <Route path="/StudentSchedule" element={<ProtectedRoute allowedRoles={['student']}><Schudle /></ProtectedRoute>} />
+      <Route path="/StudentFavourites" element={<ProtectedRoute allowedRoles={['student']}><StudentFavourites /></ProtectedRoute>} />
+      <Route path="/StudentChat" element={<ProtectedRoute allowedRoles={['student']}><StudentChat /></ProtectedRoute>} />
+      <Route path="/StudentSupportTicket" element={<ProtectedRoute allowedRoles={['student']}><StudentSupportTicket /></ProtectedRoute>} />
+      <Route path="/StudentLiveChat" element={<ProtectedRoute allowedRoles={['student']}><StudentLiveChat /></ProtectedRoute>} />
+      <Route path="/StudentProfile" element={<ProtectedRoute allowedRoles={['student']}><StudentProfile /></ProtectedRoute>} />
+      <Route path="/StudentLiveLectures" element={<ProtectedRoute allowedRoles={['student']}><StudentLiveLectures /></ProtectedRoute>} />
     </Routes>
   );
 }

@@ -11,7 +11,7 @@ interface CardProps {
 
 const StudentCard: React.FC<CardProps> = ({ icon, title, description, progress, showProgress }) => {
   return (
-    <div className="p-4 space-y-2 transition-shadow duration-200 bg-white rounded-lg shadow-md hover:shadow-lg">
+    <div className="p-4 space-y-2 transition-shadow duration-200 bg-white border rounded-lg shadow-sm hover:shadow-md">
       {/* Icon Section */}
       <div className="p-2 text-xl bg-teal-100 rounded-full text-primary w-fit">
         {icon}

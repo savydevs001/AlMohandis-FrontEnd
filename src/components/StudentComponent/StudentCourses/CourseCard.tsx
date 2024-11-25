@@ -14,7 +14,7 @@ interface CourseCardProps {
 
 const CourseCard: React.FC<CourseCardProps> = ({ img, courseTitle, instructorName, progress,courseId }) => {
   return (
-    <div className="flex flex-wrap p-3 bg-white shadow-lg rounded-xl lg:justify-between">
+    <div className="flex flex-wrap p-3 bg-white border shadow-sm rounded-xl lg:justify-between">
       <div className='lg:w-[12%] w-[25%]'>
         <img className='rounded-lg' src={img} alt={`${courseTitle} Thumbnail`} />
       </div>

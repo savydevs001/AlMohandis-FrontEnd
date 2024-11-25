@@ -56,7 +56,7 @@ const StudentSidebar: React.FC = () => {
       </div>
 
       {/* Sidebar - Visible on large screens, togglable on small screens */}
-      <div className={`fixed lg:relative top-0 left-0 w-64 bg-primary z-50 sidebar transition-transform transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 min-h-screen flex flex-col justify-between`}>
+      <div className={`fixed lg:relative top-0 left-0 w-60 bg-primary z-50 sidebar transition-transform transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 min-h-screen flex flex-col justify-between`}>
         
         {/* Sidebar top section (Logo and Nav Links) */}
         <div>
@@ -82,12 +82,12 @@ const StudentSidebar: React.FC = () => {
                 { to: "/buyCourses", label: "Buy Courses" }
               ]}
             />
-            <SidebarItem to="/liveLectures" icon={<RiLiveFill />} label="Live Lectures" />
+            <SidebarItem to="/StudentLiveLectures" icon={<RiLiveFill />} label="Live Lectures" />
             <SidebarItem to="/myassignments" icon={<MdAssignment />} label="Assignments" />
             <SidebarItem to="/Professors" icon={<RiCalendarCheckFill />} label="Professors" />
-            <SidebarItem to="/favorites" icon={<FaBookmark />} label="Favorites" />
+            <SidebarItem to="/StudentFavourites" icon={<FaBookmark />} label="Favorites" />
             <SidebarItem to="/StudentAttendance" icon={<BsCalendar2CheckFill />} label="Attendance" />
-            <SidebarItem to="" icon={<IoSendSharp />} label="Chat" />
+            <SidebarItem to="/StudentChat" icon={<IoSendSharp />} label="Chat" />
             <SidebarItem to="/StudentSchedule" icon={<AiTwotoneSchedule />} label="Schedule" />
             <SidebarItem to="/RegisteredSubject" icon={<FaBookReader />} label="Registered Subject" />
             <SidebarItem 
@@ -97,8 +97,8 @@ const StudentSidebar: React.FC = () => {
               isOpen={isSupportDropdownOpen}
               onToggle={() => setIsSupportDropdownOpen(prev => !prev)}
               dropdownItems={[
-                { to: "/support/faq", label: "FAQ" },
-                { to: "/support/contact", label: "Contact Support" }
+                { to: "/StudentLiveChat", label: "Live Chat" },
+                { to: "/StudentSupportTicket", label: " Support Tickets" }
               ]}
             />
             <SidebarItem to="/assistant" icon={<FaBullhorn />} label="Promotion Content" />
@@ -107,12 +107,14 @@ const StudentSidebar: React.FC = () => {
 
         {/* Sidebar bottom section (Profile and Logout) */}
         <div className='p-4 space-y-3'>
+          <NavLink to='/StudentProfile'>
           <div className='flex items-center gap-3'>
             <div className='flex items-center justify-center w-6 h-6 bg-white rounded-full '>
               <FcBusinessman />
             </div>
             <p className='text-white'>Student 1</p>
           </div>
+            </NavLink>
           <button className='flex items-center gap-3 px-4 py-1 bg-white rounded-xl text-primary'>
             <IoMdLogOut />
             Logout

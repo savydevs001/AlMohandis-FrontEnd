@@ -217,7 +217,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ to, icon, label, isDropdown, 
       >
         {to ? (
           <NavLink to={to} className="flex items-center w-full gap-4">
-            <div className="flex items-center gap-4 text-sm">
+            <div className="flex items-center gap-4 text-md">
               {icon} {label}
             </div>
           </NavLink>

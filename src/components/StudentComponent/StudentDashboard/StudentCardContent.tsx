@@ -20,7 +20,7 @@ function StudentCardContent() {
       
       {/* Cards Section */}
       <div className="grid grid-cols-1 gap-4 mt-6 mb-6 md:grid-cols-2 lg:grid-cols-4">
-        <NavLink to={'/courses'}>
+        <NavLink to='/myCourses'>
           <StudentCard 
             icon={<GiGraduateCap />} 
             title="Courses Progress" 
@@ -29,7 +29,7 @@ function StudentCardContent() {
             showProgress={true} // Show progress
           />
         </NavLink>
-        <NavLink to={'/pending'}>
+        <NavLink to='/StudentAttendance'>
           <StudentCard 
             icon={<FaCalendarCheck />} 
             title="Attendance" 
@@ -38,6 +38,7 @@ function StudentCardContent() {
             showProgress={true} // Show progress
           />
         </NavLink>
+        <NavLink to='/myassignments'>
         <StudentCard 
           icon={<MdAssignment />} 
           title="Assignment Due" 
@@ -45,6 +46,7 @@ function StudentCardContent() {
           progress={30}
           showProgress={true} // Show progress
         />
+        </NavLink>
         <StudentCard 
           icon={<PiExamFill />} 
           title="Upcoming Exams" 
