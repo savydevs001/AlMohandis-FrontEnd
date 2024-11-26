@@ -9,7 +9,7 @@ import { SnackbarProvider } from 'notistack';
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Provider store={store}>
-    <SnackbarProvider maxSnack={3}>
+    <SnackbarProvider maxSnack={3} >
       <App />
     </SnackbarProvider>
     </Provider>
