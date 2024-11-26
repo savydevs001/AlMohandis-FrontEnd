@@ -34,7 +34,7 @@ const AssignmentModule: React.FC<AssignmentModuleProps> = ({ module }) => {
   return (
     <div className="p-4">
       <h2 className="text-lg font-bold">Assignment Module</h2>
-      {questions.map((question, _) => (
+      { questions.length > 0 && questions.map((question, _) => (
         <div key={question.id} className="pb-4 mb-4 border-b">
           <input
             type="text"

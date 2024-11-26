@@ -6,8 +6,17 @@ interface VideoLessonProps {
 }
 
 const VideoLesson: React.FC<VideoLessonProps> = ({ lesson }) => {
+  console.log(lesson);
   const [mediaSrc, setMediaSrc] = useState<MediaSource[]>(lesson.mediaSrc || []);
   const [newVideoFile, setNewVideoFile] = useState<File | null>(null);
+  const [newMediaSource, setNewMediaSource] = useState<Partial<MediaSource>>({
+    title: "",
+    description: "",
+    isFree: false,
+    isPromotional: false,
+    channel: ChannelType.YOUTUBE,
+  });
+
   const [newClip, setNewClip] = useState<Clip>({
     id: "",
     title: "",
@@ -19,19 +28,33 @@ const VideoLesson: React.FC<VideoLessonProps> = ({ lesson }) => {
   const handleAddVideo = () => {
     if (newVideoFile) {
       const videoUrl = URL.createObjectURL(newVideoFile); // Create local URL for the video file
-      const newMediaSource: MediaSource = {
+      const newMedia: MediaSource = {
+        ...newMediaSource,
         id: `${Date.now()}`,
         link: videoUrl,
-        title: newVideoFile.name,
         lessonId: lesson.id,
-        channel: ChannelType.VDOCIPHER, // Indicate it's a local upload
+        clips: [],
+        title: newMediaSource.title || newVideoFile.name,
+      } as MediaSource;
+
+      setMediaSrc([...mediaSrc, newMedia]);
+      setNewVideoFile(null); // Clear the file input
+      setNewMediaSource({
+        title: "",
+        description: "",
         isFree: false,
         isPromotional: false,
-        clips: [],
-      };
-      setMediaSrc([...mediaSrc, newMediaSource]);
-      setNewVideoFile(null); // Clear the file input
+        channel: ChannelType.YOUTUBE,
+      });
     }
+  };
+
+  const handleUpdateMediaSource = (id: string, field: string, value: any) => {
+    setMediaSrc((prev) =>
+      prev.map((media) =>
+        media.id === id ? { ...media, [field]: value } : media
+      )
+    );
   };
 
   const handleAddClip = (mediaSrcId: string) => {
@@ -61,6 +84,45 @@ const VideoLesson: React.FC<VideoLessonProps> = ({ lesson }) => {
           onChange={(e) => setNewVideoFile(e.target.files?.[0] || null)}
           className="block w-full text-gray-700 border border-gray-300 rounded-md p-2 mb-4"
         />
+        <input
+          type="text"
+          placeholder="Title"
+          value={newMediaSource.title}
+          onChange={(e) => setNewMediaSource({ ...newMediaSource, title: e.target.value })}
+          className="block w-full text-gray-700 border border-gray-300 rounded-md p-2 mb-4"
+        />
+        <textarea
+          placeholder="Description"
+          value={newMediaSource.description}
+          onChange={(e) =>
+            setNewMediaSource({ ...newMediaSource, description: e.target.value })
+          }
+          className="block w-full text-gray-700 border border-gray-300 rounded-md p-2 mb-4"
+        />
+        <div className="flex items-center space-x-4 mb-4">
+          <label className="flex items-center">
+            <input
+              type="checkbox"
+              checked={newMediaSource.isFree}
+              onChange={(e) =>
+                setNewMediaSource({ ...newMediaSource, isFree: e.target.checked })
+              }
+              className="mr-2"
+            />
+            Free
+          </label>
+          <label className="flex items-center">
+            <input
+              type="checkbox"
+              checked={newMediaSource.isPromotional}
+              onChange={(e) =>
+                setNewMediaSource({ ...newMediaSource, isPromotional: e.target.checked })
+              }
+              className="mr-2"
+            />
+            Promotional
+          </label>
+        </div>
         <button
           onClick={handleAddVideo}
           disabled={!newVideoFile}
@@ -80,8 +142,45 @@ const VideoLesson: React.FC<VideoLessonProps> = ({ lesson }) => {
           <h3 className="text-lg font-semibold mb-4 text-gray-700">
             Video {index + 1}: {media.title}
           </h3>
-
-          {/* Video Player */}
+          <input
+            type="text"
+            value={media.title}
+            onChange={(e) => handleUpdateMediaSource(media.id, "title", e.target.value)}
+            className="block w-full border border-gray-300 rounded-md p-2 mb-2"
+            placeholder="Edit Title"
+          />
+          <textarea
+            value={media.description}
+            onChange={(e) =>
+              handleUpdateMediaSource(media.id, "description", e.target.value)
+            }
+            className="block w-full border border-gray-300 rounded-md p-2 mb-2"
+            placeholder="Edit Description"
+          />
+          <div className="flex items-center space-x-4 mb-4">
+            <label className="flex items-center">
+              <input
+                type="checkbox"
+                checked={media.isFree}
+                onChange={(e) =>
+                  handleUpdateMediaSource(media.id, "isFree", e.target.checked)
+                }
+                className="mr-2"
+              />
+              Free
+            </label>
+            <label className="flex items-center">
+              <input
+                type="checkbox"
+                checked={media.isPromotional}
+                onChange={(e) =>
+                  handleUpdateMediaSource(media.id, "isPromotional", e.target.checked)
+                }
+                className="mr-2"
+              />
+              Promotional
+            </label>
+          </div>
           <video
             controls
             className="w-full h-auto rounded-md border border-gray-300 mb-4"
@@ -122,24 +221,6 @@ const VideoLesson: React.FC<VideoLessonProps> = ({ lesson }) => {
                 Add Clip
               </button>
             </div>
-          </div>
-
-          {/* Display Clips */}
-          <div className="clips-list mt-4">
-            {media.clips.length > 0 ? (
-              media.clips.map((clip, clipIndex) => (
-                <div key={clip.id} className="clip-item mb-2 p-2 bg-gray-100 rounded-md">
-                  <h5 className="font-medium text-gray-800">
-                    Clip {clipIndex + 1}: {clip.title}
-                  </h5>
-                  <p className="text-sm text-gray-600">
-                    Start: {clip.start}s, End: {clip.end}s
-                  </p>
-                </div>
-              ))
-            ) : (
-              <p className="text-gray-500">No clips added yet.</p>
-            )}
           </div>
         </div>
       ))}

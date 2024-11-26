@@ -9,6 +9,11 @@ interface AudioLessonProps {
 const AudioLesson: React.FC<AudioLessonProps> = ({ lesson }) => {
   const [mediaSrc, setMediaSrc] = useState<MediaSource[]>(lesson.mediaSrc || []); // Store media sources
   const [newAudioFile, setNewAudioFile] = useState<File | null>(null); // Store the uploaded audio file
+  const [newMediaSource, setNewMediaSource] = useState<Partial<MediaSource>>({
+    isFree: false,
+    isPromotional: false,
+    channel: ChannelType.BUNNY,
+  });
   const [newClip, setNewClip] = useState<Clip>({
     id: "",
     title: "",
@@ -31,18 +36,29 @@ const AudioLesson: React.FC<AudioLessonProps> = ({ lesson }) => {
   const handleAddAudio = () => {
     if (newAudioFile) {
       const audioUrl = URL.createObjectURL(newAudioFile); // Create a URL for the audio file
-      const newMediaSource: MediaSource = {
+      const newMediaSourceData: MediaSource = {
+        ...newMediaSource,
         id: `${Date.now()}`, // Unique ID for the new audio
         link: audioUrl,
         lessonId: lesson.id,
-        channel: ChannelType.PODCAST, // You can adjust the channel type as needed
+        clips: [],
+      } as MediaSource;
+
+      setMediaSrc([...mediaSrc, newMediaSourceData]); // Add the new media source
+      setNewAudioFile(null); // Clear the file input field
+      setNewMediaSource({
         isFree: false,
         isPromotional: false,
-        clips: [],
-      };
-      setMediaSrc([...mediaSrc, newMediaSource]); // Add the new media source
-      setNewAudioFile(null); // Clear the file input field
+        channel: ChannelType.BUNNY,
+      });
     }
+  };
+
+  // Function to update media source fields
+  const handleUpdateMediaSource = (id: string, field: string, value: any) => {
+    setMediaSrc((prev) =>
+      prev.map((media) => (media.id === id ? { ...media, [field]: value } : media))
+    );
   };
 
   // Function to add a clip to an audio source
@@ -64,20 +80,39 @@ const AudioLesson: React.FC<AudioLessonProps> = ({ lesson }) => {
   // Initialize Wavesurfer instance for each audio when it's added
   useEffect(() => {
     mediaSrc.forEach((media) => {
-      if (waveformRefs.current[media.id]) {
-        // Only initialize the waveform if it hasn't been created yet
+      // If Wavesurfer is not initialized for this media, initialize it
+      if (!waveformRefs.current[media.id]) {
         const wavesurfer = Wavesurfer.create({
           container: `#waveform-${media.id}`,
           waveColor: "#a0aec0",
           progressColor: "#4CAF50",
           height: 100,
           barWidth: 2,
+          backend: "MediaElement", // Use MediaElement backend to sync with <audio>
         });
 
-        // Load the audio file into Wavesurfer
-        wavesurfer.load(media.link);
+        // Ensure the audio element is available
+        const audioElement = document.querySelector(`#audio-${media.id}`) as HTMLAudioElement;
+        if (audioElement) {
+          wavesurfer.load(audioElement); // Load the audio element into Wavesurfer
+
+          waveformRefs.current[media.id] = wavesurfer;
+
+          // Synchronize Wavesurfer with the audio element
+          audioElement.addEventListener("play", () => wavesurfer.play());
+          audioElement.addEventListener("pause", () => wavesurfer.pause());
+          audioElement.addEventListener("seeked", () => {
+            const time = audioElement.currentTime;
+            wavesurfer.seekTo(time / audioElement.duration); // Sync seek position
+          });
+        }
       }
     });
+
+    // Cleanup Wavesurfer instances on component unmount
+    return () => {
+      Object.values(waveformRefs.current).forEach((wavesurfer) => wavesurfer.destroy());
+    };
   }, [mediaSrc]);
 
   return (
@@ -85,31 +120,82 @@ const AudioLesson: React.FC<AudioLessonProps> = ({ lesson }) => {
       <h2 className="text-2xl font-bold text-gray-800 mb-6">Audio Lessons</h2>
 
       {/* Audio File Upload Section */}
-      <div className="mb-4 flex items-center space-x-4">
+      <div className="mb-4">
         <input
           type="file"
           accept="audio/*"
-          className="border border-gray-300 rounded p-2 w-full"
+          className="border border-gray-300 rounded p-2 w-full mb-2"
           onChange={handleAudioUpload}
         />
+        <div className="flex items-center space-x-4 mb-4">
+          <label className="flex items-center">
+            <input
+              type="checkbox"
+              checked={newMediaSource.isFree}
+              onChange={(e) =>
+                setNewMediaSource({ ...newMediaSource, isFree: e.target.checked })
+              }
+              className="mr-2"
+            />
+            Free
+          </label>
+          <label className="flex items-center">
+            <input
+              type="checkbox"
+              checked={newMediaSource.isPromotional}
+              onChange={(e) =>
+                setNewMediaSource({ ...newMediaSource, isPromotional: e.target.checked })
+              }
+              className="mr-2"
+            />
+            Promotional
+          </label>
+        </div>
         <button
           className="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600"
           onClick={handleAddAudio}
+          disabled={!newAudioFile}
         >
           Add Audio
         </button>
       </div>
 
       {/* Display Uploaded Audio Sources */}
-      {mediaSrc.length > 0 && mediaSrc.map((media, index) => (
+      {mediaSrc.map((media, index) => (
         <div key={media.id} className="mb-6 p-4 border border-gray-200 rounded-lg">
-          <h3 className="font-semibold text-gray-800">Audio {index + 1}: {media.link}</h3>
+          <h3 className="font-semibold text-gray-800 mb-2">
+            Audio {index + 1}: {media.link}
+          </h3>
+          <div className="flex items-center space-x-4 mb-4">
+            <label className="flex items-center">
+              <input
+                type="checkbox"
+                checked={media.isFree}
+                onChange={(e) =>
+                  handleUpdateMediaSource(media.id, "isFree", e.target.checked)
+                }
+                className="mr-2"
+              />
+              Free
+            </label>
+            <label className="flex items-center">
+              <input
+                type="checkbox"
+                checked={media.isPromotional}
+                onChange={(e) =>
+                  handleUpdateMediaSource(media.id, "isPromotional", e.target.checked)
+                }
+                className="mr-2"
+              />
+              Promotional
+            </label>
+          </div>
 
           {/* Waveform */}
           <div id={`waveform-${media.id}`} className="w-full mt-4"></div>
 
           {/* Audio Player */}
-          <audio controls className="w-full mt-4">
+          <audio controls id={`audio-${media.id}`} className="w-full mt-4">
             <source src={media.link} type="audio/mpeg" />
             Your browser does not support the audio element.
           </audio>
@@ -122,21 +208,31 @@ const AudioLesson: React.FC<AudioLessonProps> = ({ lesson }) => {
                 className="border border-gray-300 rounded p-2 w-1/3"
                 placeholder="Clip title"
                 value={newClip.title}
-                onChange={(e) => setNewClip({ ...newClip, title: e.target.value, mediaSrcId: media.id })}
+                onChange={(e) =>
+                  setNewClip({
+                    ...newClip,
+                    title: e.target.value,
+                    mediaSrcId: media.id,
+                  })
+                }
               />
               <input
                 type="number"
                 className="border border-gray-300 rounded p-2 w-1/4"
                 placeholder="Start time (s)"
                 value={newClip.start}
-                onChange={(e) => setNewClip({ ...newClip, start: Number(e.target.value) })}
+                onChange={(e) =>
+                  setNewClip({ ...newClip, start: Number(e.target.value) })
+                }
               />
               <input
                 type="number"
                 className="border border-gray-300 rounded p-2 w-1/4"
                 placeholder="End time (s)"
                 value={newClip.end}
-                onChange={(e) => setNewClip({ ...newClip, end: Number(e.target.value) })}
+                onChange={(e) =>
+                  setNewClip({ ...newClip, end: Number(e.target.value) })
+                }
               />
             </div>
             <button
@@ -150,15 +246,17 @@ const AudioLesson: React.FC<AudioLessonProps> = ({ lesson }) => {
           {/* Displaying Clips */}
           {media.clips.length > 0 && (
             <div className="mt-4">
-              <h4 className="font-semibold text-gray-700">Clips:</h4>
-              {media.clips.map((clip, clipIndex) => (
-                <div key={clip.id} className="mt-2">
-                  <p className="text-gray-600">
-                    <strong>Clip {clipIndex + 1}: </strong>{clip.title}
-                  </p>
-                  <p className="text-gray-500">Start: {clip.start}s, End: {clip.end}s</p>
-                </div>
-              ))}
+              <h4 className="font-semibold text-gray-700">Clips</h4>
+              <ul className="space-y-2">
+                {media.clips.map((clip) => (
+                  <li key={clip.id} className="flex justify-between items-center">
+                    <span>{clip.title}</span>
+                    <span>
+                      {clip.start}s - {clip.end}s
+                    </span>
+                  </li>
+                ))}
+              </ul>
             </div>
           )}
         </div>

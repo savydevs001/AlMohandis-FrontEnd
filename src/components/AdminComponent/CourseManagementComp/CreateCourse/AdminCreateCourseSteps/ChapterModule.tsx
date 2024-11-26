@@ -12,10 +12,9 @@ const ChapterModule: React.FC<{ chapter: Chapter }> = ({ chapter }) => {
   const [endTime, setEndTime] = useState<number>(0);
   const [clips, setClips] = useState<Clip[]>([]);
 
-  // Update the lessons when the chapter changes
   useEffect(() => {
-    setLessons(chapter.lessons); // Set lessons to the current chapter lessons
-    setSelectedLessonIndex(0); // Reset to the first lesson by default
+    setLessons(chapter.lessons); 
+    setSelectedLessonIndex(0); 
   }, [chapter]);
 
   const handleAddLesson = (type: LessonType) => {
