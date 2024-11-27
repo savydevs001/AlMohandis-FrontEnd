@@ -58,7 +58,7 @@ function Assignment() {
 
       {/* Nested Routes */}
       <Routes>
-        <Route path="/" element={<Ungraded />} />
+        <Route path="/"  element={<Ungraded />} />
         <Route path="grades" element={<Grades />} />
       </Routes>
 </div>

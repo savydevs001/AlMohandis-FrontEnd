@@ -115,7 +115,7 @@ const Sidebar: React.FC = () => {
               isOpen={openDropdown === 'Support'}
               onToggle={() => toggleDropdown('Support')}
               dropdownItems={[
-                { to: "/support/faq", label: " Live Chat" },
+                { to: "/TeacherLiveChat", label: " Live Chat" },
                 { to: "/Support", label: "Support Tickets" }
               ]}
             />
@@ -125,11 +125,11 @@ const Sidebar: React.FC = () => {
         </div>
 
         <div className="p-4 space-y-3">
-          <NavLink to="/AdminProfile" className="flex items-center gap-3">
+          <NavLink to="/TeacherProfile" className="flex items-center gap-3">
             <div className="flex items-center justify-center w-6 h-6 bg-white rounded-full">
               <FcBusinessman />
             </div>
-            <p className="text-white">Admin 1</p>
+            <p className="text-white">Teacher 1</p>
           </NavLink>
           <button className="flex items-center gap-3 px-4 py-1 bg-white rounded-xl text-primary">
             <IoMdLogOut />

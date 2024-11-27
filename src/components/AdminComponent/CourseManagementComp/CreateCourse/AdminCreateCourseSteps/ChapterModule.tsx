@@ -3,6 +3,7 @@ import { Chapter, Lesson, LessonType, Clip, MediaSource } from "../../../../../t
 import VideoLesson from "./VideoLesson";
 import AudioLesson from "./AudioLesson";
 import { FaVideo, FaMicrophone } from 'react-icons/fa'; 
+import { IoIosCloseCircleOutline } from "react-icons/io";
 
 const ChapterModule: React.FC<{ chapter: Chapter }> = ({ chapter }) => {
   console.log(chapter)
@@ -51,19 +52,19 @@ const ChapterModule: React.FC<{ chapter: Chapter }> = ({ chapter }) => {
   };
 
   return (
-    <div className="chapter-container max-w-4xl mx-auto py-6 px-4 bg-white shadow-lg rounded-lg">
+    <div className="mx-auto chapter-container">
       {/* Buttons for adding lessons */}
-      <div className="space-x-4 mb-6 flex justify-center">
+      <div className="flex justify-center mb-6 space-x-4">
         <button
           onClick={() => handleAddLesson(LessonType.VIDEO)}
-          className="btn bg-blue-600 text-white py-2 px-5 rounded-lg shadow-lg hover:bg-blue-700 transition duration-200 ease-in-out flex items-center"
+          className="flex items-center px-5 py-2 text-white transition duration-200 ease-in-out rounded-md font-semibold btn bg-primary hover:bg-[#36857e] text-sm lg:text-md"
         >
           <FaVideo className="mr-2 text-xl" />
           Add Video Lesson
         </button>
         <button
           onClick={() => handleAddLesson(LessonType.AUDIO)}
-          className="btn bg-green-600 text-white py-2 px-5 rounded-lg shadow-lg hover:bg-green-700 transition duration-200 ease-in-out flex items-center"
+          className="flex items-center px-5 py-2 text-sm font-semibold transition duration-200 ease-in-out border rounded-lg border-primary btn text-primary lg:text-md"
         >
           <FaMicrophone className="mr-2 text-xl" />
           Add Audio Lesson
@@ -71,14 +72,14 @@ const ChapterModule: React.FC<{ chapter: Chapter }> = ({ chapter }) => {
       </div>
 
       {/* Lesson Navigation */}
-      <div className="lesson-nav mb-6 flex justify-center space-x-4">
+      <div className="flex flex-wrap justify-center gap-2 mb-6 space-x-4 lesson-nav">
         {lessons.map((lesson, index) => (
           <button
             key={lesson.id}
             onClick={() => handleLessonChange(index)}
             className={`py-2 px-4 rounded-lg font-medium text-white ${
               selectedLessonIndex === index
-                ? "bg-blue-600 shadow-lg"
+                ? "bg-primary shadow-md"
                 : "bg-gray-300 hover:bg-gray-400"
             } flex items-center transition duration-200 ease-in-out`}
           >
@@ -87,6 +88,7 @@ const ChapterModule: React.FC<{ chapter: Chapter }> = ({ chapter }) => {
             Lesson {index + 1}
           </button>
         ))}
+        {/* <IoIosCloseCircleOutline className="ml-2 text-red-500" /> */}
       </div>
 
       {/* Display selected lesson based on its type */}

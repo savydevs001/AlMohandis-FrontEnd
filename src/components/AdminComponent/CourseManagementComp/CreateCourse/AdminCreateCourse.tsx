@@ -17,7 +17,7 @@ const AdminCreateCourse: React.FC = () => {
 
   return (
     <div className="flex flex-col flex-1 min-h-screen lg:flex-row">
-      <div className="flex-1 w-full p-2 mx-auto lg:w-full lg:p-6">
+      <div className="flex-1 w-full p-2 mx-auto space-y-12 lg:w-full ">
         <UserManagementHeader title="New Course" />
         <Routes>
           <Route

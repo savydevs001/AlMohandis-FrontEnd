@@ -88,7 +88,7 @@ const Step6CreatePart: React.FC = () => {
   };
 
   return (
-    <div className="flex p-4 space-x-4">
+    <div className="flex flex-col space-y-4 bg-white rounded-lg lg:space-x-4 lg:flex-row lg:space-y-0">
       {/* Left Panel */}
       <LeftPanel
         parts={parts}
@@ -100,8 +100,8 @@ const Step6CreatePart: React.FC = () => {
       />
 
       {/* Right Panel: Module Content */}
-      <div className="w-2/3">
-        <h1 className="text-xl font-bold mb-4">Module Details</h1>
+      <div className="p-4 bg-white border shadow-sm lg:w-2/3">
+        <h1 className="mb-4 text-xl font-semibold">Module Details</h1>
         {loading ? (
           <Loading />
         ) : selectedModule ? (

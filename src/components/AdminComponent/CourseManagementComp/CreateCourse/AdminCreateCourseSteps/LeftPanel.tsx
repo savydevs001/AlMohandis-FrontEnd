@@ -142,12 +142,12 @@ const LeftPanel: React.FC<LeftPanelProps> = ({
   };
 
   return (
-    <div className="w-1/3 border-r pr-4">
-      <h1 className="text-xl font-bold mb-4">Parts and Modules</h1>
+    <div className="p-4 pr-4 bg-white border border-r lg:w-1/3">
+      <h1 className="mb-4 text-xl font-semibold">Parts and Modules</h1>
       {/* List Parts and Modules */}
       { parts && parts.map((part) => (
         <div key={part.id} className="mb-4">
-          <h2 className="font-semibold text-lg">{part.title}</h2>
+          <h2 className="text-lg font-semibold">{part.title}</h2>
           <ul className="space-y-2">
             { part.modules && part.modules.map((module: Module,index) => {
               let moduleTitle = "";
@@ -198,7 +198,7 @@ const LeftPanel: React.FC<LeftPanelProps> = ({
       {/* Add Part and Module Buttons */}
       <div className="flex gap-3 mb-4">
         <button
-          className="bg-blue-500 text-white p-2 rounded"
+          className="p-2 text-white rounded bg-primary"
           onClick={() => setShowAddPartModal(true)}
         >
           Add Part
@@ -206,8 +206,8 @@ const LeftPanel: React.FC<LeftPanelProps> = ({
         <button
           className={`p-2 rounded ${
             loading
-              ? "bg-gray-400 cursor-not-allowed"
-              : "bg-green-500 text-white hover:bg-green-600"
+              ? "bg-primary text white cursor-not-allowed"
+              : "border border-primary text-primary font-semibold"
           }`}
           onClick={() => setShowAddModuleModal(true)}
           disabled={loading}
@@ -218,56 +218,58 @@ const LeftPanel: React.FC<LeftPanelProps> = ({
 
       {/* Add Part Modal */}
       {showAddPartModal && (
-        <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white p-6 rounded-md shadow-md w-1/3">
-            <h3 className="text-xl font-bold mb-4">Add Part</h3>
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50">
+          <div className="w-1/3 p-6 bg-white rounded-md shadow-md">
+            <h3 className="mb-4 text-xl font-bold">Add Part</h3>
             <form onSubmit={handleAddPartSubmit}>
               <div>
-                <label className="block mb-2">Title</label>
+                <label className="block mb-2 font-semibold">Title</label>
                 <input
                   type="text"
+                  placeholder="Enter Title..."
                   value={newPart.title}
                   onChange={(e) => setNewPart({ ...newPart, title: e.target.value })}
                   required
-                  className="border p-2 w-full mb-4"
+                  className="w-full p-2 mb-4 rounded-md border-slate-300"
                 />
               </div>
               <div>
-                <label className="block mb-2">Price</label>
+                <label className="block mb-2 font-semibold">Price</label>
                 <input
                   type="number"
                   value={newPart.price}
+                  placeholder="Enter Price..."
                   onChange={(e) => setNewPart({ ...newPart, price: Number(e.target.value) })}
                   required
-                  className="border p-2 w-full mb-4"
+                  className="w-full p-2 mb-4 rounded-md border-slate-300"
                 />
               </div>
               <div>
-                <label className="block mb-2">Completion Time (hours)</label>
+                <label className="block mb-2 font-semibold">Completion Time (hours)</label>
                 <input
                   type="number"
                   value={newPart.completionTime}
                   onChange={(e) => setNewPart({ ...newPart, completionTime: Number(e.target.value ) })}
                   required
-                  className="border p-2 w-full mb-4"
+                  className="w-full p-2 mb-4 rounded-md border-slate-300"
                 />
               </div>
               <div>
-                <label className="block mb-2">Opening Date</label>
+                <label className="block mb-2 font-semibold">Opening Date</label>
                 <input
                   type="date"
                   value={newPart.openingDate}
                   onChange={(e) => setNewPart({ ...newPart, openingDate: e.target.value })}
                   required
-                  className="border p-2 w-full mb-4"
+                  className="w-full p-2 mb-4 rounded-md border-slate-300"
                 />
               </div>
               <button
                 type="submit"
                 className={`w-full p-2 rounded ${
                   loading
-                    ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-green-500 text-white hover:bg-green-600"
+                    ? "bg-primary cursor-not-allowed"
+                    : "bg-primary  text-white "
                 }`}
                 disabled={loading}
               >
@@ -280,18 +282,18 @@ const LeftPanel: React.FC<LeftPanelProps> = ({
 
       {/* Add Module Modal */}
       {showAddModuleModal && (
-        <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white p-6 rounded-md shadow-md w-1/3">
-            <h3 className="text-xl font-bold mb-4">Add Module</h3>
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50">
+          <div className="w-1/3 p-6 bg-white rounded-md shadow-md">
+            <h3 className="mb-4 text-xl font-semibold">Add Module</h3>
             <form onSubmit={handleAddModuleSubmit}>
               <div>
-                <label className="block mb-2">Select Part</label>
+                <label className="block mb-2 font-semibold">Select Part</label>
                 <select
                   name="partId"
                   value={selectedPartId}
                   onChange={handlePartSelection}
                   required
-                  className="border p-2 w-full mb-4"
+                  className="w-full p-2 mb-4 rounded-md border-slate-300"
                 >
                   <option value="">Select a Part</option>
                   {parts.map((part) => (
@@ -302,8 +304,8 @@ const LeftPanel: React.FC<LeftPanelProps> = ({
                 </select>
               </div>
               <div>
-                <label className="block mb-2">Module Type</label>
-                <select name="moduleType" required className="border p-2 w-full mb-4">
+                <label className="block mb-2 font-semibold">Module Type</label>
+                <select name="moduleType" required className="w-full p-2 mb-4 rounded-md border-slate-300">
                   <option value={ModuleType.ASSIGNMENT}>Assignment</option>
                   <option value={ModuleType.EXAM}>Exam</option>
                   <option value={ModuleType.CHAPTER}>Chapter</option>
@@ -314,8 +316,8 @@ const LeftPanel: React.FC<LeftPanelProps> = ({
                 type="submit"
                 className={`w-full p-2 rounded ${
                   loading
-                    ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-green-500 text-white hover:bg-green-600"
+                    ? "bg-primary text-white cursor-not-allowed"
+                    : "bg-primary text-white "
                 }`}
                 disabled={loading}
               >

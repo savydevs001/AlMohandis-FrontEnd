@@ -22,6 +22,8 @@ import CreateCourse from '../components/TeacherComponent/Courses Component/Creat
 import EditCourse from '../components/TeacherComponent/Courses Component/Edit Course/EditCourse';
 import MarkAttendence from '../components/TeacherComponent/Attendence Component/MarkAttendence/MarkAttendence';
 import ViewAttendence from '../components/TeacherComponent/Attendence Component/ViewAttendence/ViewAttendence';
+import TeacherLiveChat from '../pages/Teacher Page/TeacherLiveChat';
+import TeacherProfile from '../pages/Teacher Page/TeacherProfile';
 // import DashBoard from '../pages/Teacher Page/DashBoard';
 
 const TeacherRoutes: React.FC = () => {
@@ -46,6 +48,8 @@ const TeacherRoutes: React.FC = () => {
       <Route path="/viewAttendence" element={<ProtectedRoute allowedRoles={['teacher']}><ViewAttendence /></ProtectedRoute>} />
       <Route path="/schedule" element={<ProtectedRoute allowedRoles={['teacher']}><Schdule /></ProtectedRoute>} />
       <Route path="/AudioEditor" element={<ProtectedRoute allowedRoles={['teacher']}><AudioEditor /></ProtectedRoute>} />
+      <Route path="/TeacherLiveChat" element={<ProtectedRoute allowedRoles={['teacher']}><TeacherLiveChat /></ProtectedRoute>} />
+      <Route path="/TeacherProfile" element={<ProtectedRoute allowedRoles={['teacher']}><TeacherProfile /></ProtectedRoute>} />
 
     </Routes>
   );

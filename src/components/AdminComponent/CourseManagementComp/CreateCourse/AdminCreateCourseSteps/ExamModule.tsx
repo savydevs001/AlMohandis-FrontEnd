@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Exam, Question, AnswerType } from '../../../../../types/course';
 import { useSnackbar } from 'notistack';  // Import the useSnackbar hook from notistack
+import { IoIosCloseCircleOutline } from "react-icons/io";
 
 interface ExamModuleProps {
   module: Exam;
@@ -69,28 +70,29 @@ const ExamModule: React.FC<ExamModuleProps> = ({ module, onSave }) => {
   };
 
   return (
-    <div className="p-4">
-      <h2 className="text-lg font-bold">Exam Module</h2>
-      <div className="mb-4">
+    <div className="p-2">
+      <h2 className="text-lg font-semibold">Exam Module</h2>
+      <div className="mt-4 mb-4 space-y-1">
         <label className="block">Exam Title:</label>
         <input
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="w-full p-2 mb-2 border rounded"
+          className="w-full p-2 mb-2 rounded border-slate-300"
         />
       </div>
 
       {questions.map((question, index) => (
-        <div key={question.id} className="border-b pb-4 mb-4">
+        <div key={question.id} className="pb-4 mb-4 border-b">
           <input
             type="text"
             value={question.questionText}
             onChange={(e) => handleQuestionChange(question.id, 'questionText', e.target.value)}
             placeholder="Enter question text"
-            className="border rounded p-2 w-full mb-2"
+            className="w-full p-2 mb-2 rounded border-slate-300"
           />
           <div>
+            <div className='flex flex-wrap items-center w-full gap-4'>
             {question.options.map((option, idx) => (
               <div key={idx} className="flex items-center">
                 <input
@@ -106,7 +108,7 @@ const ExamModule: React.FC<ExamModuleProps> = ({ module, onSave }) => {
                     )
                   }
                   placeholder={`Option ${idx + 1}`}
-                  className="border rounded p-2 w-1/2 mb-2 mr-2"
+                  className="w-full p-2 mb-2 mr-2 rounded border-slate-300"
                 />
                 <button
                   onClick={() =>
@@ -114,46 +116,50 @@ const ExamModule: React.FC<ExamModuleProps> = ({ module, onSave }) => {
                   }
                   className="text-red-500"
                 >
-                  Remove
+                  <IoIosCloseCircleOutline />
+
                 </button>
               </div>
             ))}
+            </div>
             <button
               onClick={() => handleQuestionChange(question.id, 'options', [...question.options, ''])}
-              className="bg-blue-500 text-white p-2 rounded mb-2"
+              className="p-2 mb-2 text-white rounded bg-primary"
             >
               Add Option
             </button>
-            <div>
+            <div className='space-y-1'>
               <label className="block">Correct Answer:</label>
               <input
                 type="text"
                 value={question.correctAnswer || ''}
                 onChange={(e) => handleQuestionChange(question.id, 'correctAnswer', e.target.value)}
                 placeholder="Enter correct answer"
-                className="border rounded p-2 w-full mb-2"
+                className="p-2 mb-2 rounded w-fit border-slate-300"
               />
             </div>
           </div>
           <button
             onClick={() => handleRemoveQuestion(question.id)}
-            className="bg-red-500 text-white p-2 rounded"
+            className="p-2 mt-2 font-semibold border rounded border-primary text-primary"
           >
             Remove Question
           </button>
         </div>
       ))}
-      <button onClick={handleAddQuestion} className="bg-green-500 text-white p-2 rounded">
+      <div className='space-x-4'>
+      <button onClick={handleAddQuestion} className="p-2 text-white rounded bg-primary">
         Add Question
       </button>
 
       <button
         onClick={handleSave}
-        className={`bg-blue-500 text-white p-2 rounded mt-4 ${isSaving ? 'bg-gray-500' : ''}`}
+        className={`border border-primary text-primary font-semibold p-2 rounded mt-4 ${isSaving ? 'bg-gray-500 text-white' : ''}`}
         disabled={isSaving}
       >
         {isSaving ? 'Saving...' : 'Save Exam'}
       </button>
+      </div>
     </div>
   );
 };

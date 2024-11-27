@@ -65,18 +65,18 @@ const AudioEditor: React.FC<AudioEditorProps> = ({ mediaFile }) => {
   };
 
   return (
-    <div className="flex flex-col" style={{ padding: '10px', maxWidth: '800px', margin: '0 auto' }}>
+    <div className="flex flex-col w-full" style={{ padding: '10px',  margin: '0 auto' }}>
       {mediaFile ? (
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col w-full gap-1">
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }}>
             <button
               onClick={handlePlayPause}
               style={{
-                padding: '10px',
+                padding: '0px',
                 color: '#000',
                 borderRadius: '50%',
                 border: 'none',
-                marginRight: '10px',
+                marginRight: '0px',
                 fontSize: '24px',
                 cursor: 'pointer',
                 display: 'flex',
@@ -86,11 +86,12 @@ const AudioEditor: React.FC<AudioEditorProps> = ({ mediaFile }) => {
             >
               {isPlaying ? <FaPause /> : <FaPlay />}
             </button>
-            <div ref={waveformRef} style={{ width: '100%', height: '70px', background: '#f3f3f3' }}></div>
-          </div>
-          <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+            <div className='text-xs w-[15%]' style={{ textAlign: 'center', marginBottom: '0px' }}>
             <p>{formatTime(currentTime)} / {formatTime(duration)}</p>
           </div>
+            <div className='mt-4' ref={waveformRef} style={{ width: '100%', height: '60px', background: '' }}></div>
+          </div>
+          
         </div>
       ) : (
         <p style={{ textAlign: 'center', color: '#555' }}>Please select an audio or video file to begin editing.</p>

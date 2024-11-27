@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
 import { Assignment, Question, AnswerType } from '../../../../../types/course';
+import { IoIosCloseCircleOutline } from "react-icons/io";
+
 
 interface AssignmentModuleProps {
   moduleId: string;
@@ -112,28 +114,40 @@ const AssignmentModule: React.FC<AssignmentModuleProps> = ({ moduleId, partId, m
   };
 
   return (
-    <div className="p-4">
-      <h2 className="text-lg font-bold">Assignment Module</h2>
+    <div className="p-2">
+      <h2 className="text-lg font-semibold">Assignment Module</h2>
       
       {/* Editable Title */}
-      <div className="mb-4">
+      <div className="mt-4 mb-4">
+          <div className='flex flex-col gap-3 lg:flex-row'>
+          <div className="flex flex-col items-center justify-center order-2 gap-4 p-3 border border-dashed border-primary lg:w-[45%] w-full">
+        <input
+          type="file"
+          id="file-input"
+          onChange={handleSupportingMaterialChange}
+          className="hidden p-2 mb-2 border rounded"
+        />
+        <p className="text-sm text-center">Browse and chose the files you want to upload from your computer</p>
+        {/* Custom "+" Button */}
+        <label
+          htmlFor="file-input"
+          className="px-2 text-3xl text-white rounded-lg cursor-pointer bg-primary "
+        >
+          + {/* This "+" icon will trigger the file input */}
+        </label>
+        </div>
+        <div className=' lg:w-[55%] w-full'>
         <label className="block font-semibold">Title:</label>
         <input
           type="text"
           value={title}
           onChange={handleTitleChange} // Update title state on change
-          className="w-full p-2 mb-2 border rounded"
+          className="w-full p-2 mb-2 rounded border-slate-300"
         />
-      </div>
-
+      
       {/* Supporting Material */}
       <div className="mb-4">
         <label className="block font-semibold">Supporting Material:</label>
-        <input
-          type="file"
-          onChange={handleSupportingMaterialChange}
-          className="p-2 mb-2 border rounded"
-        />
         {supportingMaterial && (
           <div className="mt-2 text-sm">
             <strong>Selected file: </strong> {supportingMaterial.name}
@@ -142,15 +156,18 @@ const AssignmentModule: React.FC<AssignmentModuleProps> = ({ moduleId, partId, m
       </div>
 
       {/* Is Free Toggle */}
-      <div className="mb-4 flex items-center">
-        <label className="block font-semibold mr-2">Is Free:</label>
+      <div className="flex items-center mb-4">
+        <label className="block mr-2 font-semibold">Is Free:</label>
         <input
           type="checkbox"
           checked={isFree}
           onChange={handleIsFreeChange} // Handle isFree toggle
-          className="p-2"
+          className="p-2 text-primary"
         />
       </div>
+      </div>
+          </div>
+        </div>
 
       {/* Questions */}
       {questions.length > 0 &&
@@ -163,9 +180,10 @@ const AssignmentModule: React.FC<AssignmentModuleProps> = ({ moduleId, partId, m
                 handleQuestionChange(question.id, 'questionText', e.target.value)
               }
               placeholder="Enter question text"
-              className="w-full p-2 mb-2 border rounded"
+              className="w-full py-2 mb-2 rounded border-slate-300"
             />
-            <div>
+            <div className=''>
+              <div className='flex flex-wrap items-center w-full lg:gap-4'>
               {question.options.map((option, idx) => (
                 <div key={idx} className="flex items-center">
                   <input
@@ -181,7 +199,7 @@ const AssignmentModule: React.FC<AssignmentModuleProps> = ({ moduleId, partId, m
                       )
                     }
                     placeholder={`Option ${idx + 1}`}
-                    className="w-1/2 p-2 mb-2 mr-2 border rounded"
+                    className="px-4 py-2 mb-2 mr-2 rounded border-slate-300 "
                   />
                   <button
                     onClick={() =>
@@ -193,10 +211,11 @@ const AssignmentModule: React.FC<AssignmentModuleProps> = ({ moduleId, partId, m
                     }
                     className="text-red-500"
                   >
-                    Remove
+                    <IoIosCloseCircleOutline />
                   </button>
-                </div>
+              </div>
               ))}
+              </div>
               <button
                 onClick={() =>
                   handleQuestionChange(question.id, 'options', [
@@ -204,11 +223,11 @@ const AssignmentModule: React.FC<AssignmentModuleProps> = ({ moduleId, partId, m
                     '',
                   ])
                 }
-                className="p-2 mb-2 text-white bg-blue-500 rounded"
+                className="px-4 py-2 mb-2 text-white rounded bg-primary"
               >
                 Add Option
               </button>
-              <div>
+              <div className='space-y-1'>
                 <label className="block">Correct Answer:</label>
                 <input
                   type="text"
@@ -221,22 +240,23 @@ const AssignmentModule: React.FC<AssignmentModuleProps> = ({ moduleId, partId, m
                     )
                   }
                   placeholder="Enter correct answer"
-                  className="w-full p-2 mb-2 border rounded"
+                  className="p-2 mb-2 rounded border-slate-300 "
                 />
               </div>
             </div>
             <button
               onClick={() => handleRemoveQuestion(question.id)}
-              className="p-2 text-white bg-red-500 rounded"
+              className="p-2 mt-4 font-semibold border rounded text-primary border-primary"
             >
               Remove Question
             </button>
           </div>
         ))}
-      
-      <button
+<div className='space-x-4'>
+        
+<button
         onClick={handleAddQuestion}
-        className="p-2 text-white bg-green-500 rounded"
+        className="p-2 text-white rounded bg-primary"
       >
         Add Question
       </button>
@@ -244,11 +264,12 @@ const AssignmentModule: React.FC<AssignmentModuleProps> = ({ moduleId, partId, m
       {/* Save Button */}
       <button
         onClick={handleSave}
-        className={`p-2 mt-4 text-white rounded ${isSaving ? 'bg-gray-400' : 'bg-blue-500'}`}
+        className={`p-2 mt-4 text-primary rounded ${isSaving ? 'bg-gray-400 text-primary' : 'border border-primary text-black font-semibold'}`}
         disabled={isSaving}
       >
         {isSaving ? 'Saving...' : 'Save'}
       </button>
+</div>
     </div>
   );
 };
