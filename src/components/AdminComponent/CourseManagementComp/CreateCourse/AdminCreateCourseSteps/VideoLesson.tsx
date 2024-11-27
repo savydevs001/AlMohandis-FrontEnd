@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { MediaSource, Clip, ChannelType } from "../../../../../types/course";
+import axios from "axios";
 
 interface VideoLessonProps {
   lesson: any; // Define your lesson type properly
@@ -72,6 +73,32 @@ const VideoLesson: React.FC<VideoLessonProps> = ({ lesson }) => {
     setNewClip({ id: "", title: "", start: 0, end: 0, mediaSrcId: "" });
   };
 
+  const handleSave = async () => {
+    try {
+      const response = await axios.patch(
+        `http://localhost:5000/api/courses/lesson/${lesson.id}`,
+        {
+          mediaSources: mediaSrc.map((media) => ({
+            link: media.link,
+            title: media.title,
+            description: media.description,
+            channel: media.channel,
+            isFree: media.isFree,
+            isPromotional: media.isPromotional,
+            clips: media.clips.map((clip) => ({
+              title: clip.title,
+              start: clip.start,
+              end: clip.end,
+            })),
+          })),
+        }
+      );
+      console.log("Lesson updated:", response.data);
+    } catch (error) {
+      console.error("Error updating lesson:", error);
+    }
+  };
+
   return (
     <div className="video-lesson-container p-4">
       <h2 className="text-2xl font-bold mb-6 text-gray-800">Video Lessons</h2>
@@ -88,7 +115,9 @@ const VideoLesson: React.FC<VideoLessonProps> = ({ lesson }) => {
           type="text"
           placeholder="Title"
           value={newMediaSource.title}
-          onChange={(e) => setNewMediaSource({ ...newMediaSource, title: e.target.value })}
+          onChange={(e) =>
+            setNewMediaSource({ ...newMediaSource, title: e.target.value })
+          }
           className="block w-full text-gray-700 border border-gray-300 rounded-md p-2 mb-4"
         />
         <textarea
@@ -116,7 +145,10 @@ const VideoLesson: React.FC<VideoLessonProps> = ({ lesson }) => {
               type="checkbox"
               checked={newMediaSource.isPromotional}
               onChange={(e) =>
-                setNewMediaSource({ ...newMediaSource, isPromotional: e.target.checked })
+                setNewMediaSource({
+                  ...newMediaSource,
+                  isPromotional: e.target.checked,
+                })
               }
               className="mr-2"
             />
@@ -224,6 +256,16 @@ const VideoLesson: React.FC<VideoLessonProps> = ({ lesson }) => {
           </div>
         </div>
       ))}
+
+      {/* Save Button */}
+      <div className="save-button-container mt-6">
+        <button
+          onClick={handleSave}
+          className="p-2 w-full text-white rounded-md bg-blue-500 hover:bg-blue-600"
+        >
+          Save
+        </button>
+      </div>
     </div>
   );
 };

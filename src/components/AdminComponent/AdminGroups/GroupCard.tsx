@@ -9,6 +9,7 @@ interface Group {
 }
 
 const GroupCard = ({ group }: { group: Group }) => {
+  console.log(group)
   return (
     <div className="flex flex-col items-start justify-between p-3 space-y-6 bg-white border shadow-sm lg:items-center rounded-xl lg:flex-row lg:space-y-0">
       <div className="flex flex-col items-center gap-4 lg:flex-row">

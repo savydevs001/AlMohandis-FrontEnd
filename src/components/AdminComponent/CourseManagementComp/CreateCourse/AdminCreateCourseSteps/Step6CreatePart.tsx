@@ -57,10 +57,16 @@ const Step6CreatePart: React.FC = () => {
   const handleAddModule = (partId: string, newModule: Module) => {
     setParts((prevParts) =>
       prevParts.map((part) =>
-        part.id === partId ? { ...part, modules: [...part.modules, newModule] } : part
+        part.id === partId
+          ? { 
+              ...part, 
+              modules: part.modules ? [...part.modules, newModule] : [newModule] 
+            }
+          : part
       )
     );
   };
+  
 
   const handleSaveModule = () => {
     setRefetch(!refetch); // Trigger refetch after saving the assignment

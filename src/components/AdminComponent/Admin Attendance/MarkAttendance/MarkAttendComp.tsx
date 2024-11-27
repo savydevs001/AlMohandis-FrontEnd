@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import AttendenceHeader from "../../../TeacherComponent/Attendence Component/AttendenceHeader";
 import AttendanceSheet from "../../../TeacherComponent/Attendence Component/MarkAttendence/AttendenceSheet";
 
@@ -21,20 +21,44 @@ const AdminMarkAttendanceShowComp: React.FC<AdminMarkAttendanceShowCompProps> = 
   setSelectedGroup,
   students,
 }) => {
+  const [selectedDate, setSelectedDate] = useState<string>(
+    new Date().toISOString().split("T")[0]
+  ); // Default to today's date
+  const [availableSchedules, setAvailableSchedules] = useState<any[]>([]);
+  const [selectedSchedule, setSelectedSchedule] = useState<string | null>(null);
+
+  // Update schedules when the selected group changes
+  useEffect(() => {
+    if (selectedGroup) {
+      const group = groups.find((g) => g.id === selectedGroup);
+      setAvailableSchedules(group?.schedules || []);
+      setSelectedSchedule(null); // Reset selected schedule when group changes
+    } else {
+      setAvailableSchedules([]);
+    }
+  }, [selectedGroup]);
+
+  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedDate(e.target.value);
+  };
+
   return (
     <div className="flex-1 p-6 space-y-6">
       <AttendenceHeader />
 
-      {/* Subject and Group Dropdowns in a row */}
+      {/* Subject, Group, and Schedule Dropdowns in a row */}
       <div className="flex gap-4 mb-6">
         {/* Subject Dropdown */}
-        <div className="w-1/2">
-          <label htmlFor="subject" className="block text-lg font-semibold text-gray-800 mb-2">
+        <div className="w-1/3">
+          <label
+            htmlFor="subject"
+            className="block text-lg font-semibold text-gray-800 mb-2"
+          >
             Select Subject
           </label>
           <select
             id="subject"
-            value={selectedSubject || ''}
+            value={selectedSubject || ""}
             onChange={(e) => setSelectedSubject(e.target.value)}
             className="w-full p-3 border-2 rounded-md shadow-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
@@ -53,13 +77,16 @@ const AdminMarkAttendanceShowComp: React.FC<AdminMarkAttendanceShowCompProps> = 
 
         {/* Group Dropdown */}
         {selectedSubject && (
-          <div className="w-1/2">
-            <label htmlFor="group" className="block text-lg font-semibold text-gray-800 mb-2">
+          <div className="w-1/3">
+            <label
+              htmlFor="group"
+              className="block text-lg font-semibold text-gray-800 mb-2"
+            >
               Select Group
             </label>
             <select
               id="group"
-              value={selectedGroup || ''}
+              value={selectedGroup || ""}
               onChange={(e) => setSelectedGroup(e.target.value)}
               className="w-full p-3 border-2 rounded-md shadow-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
@@ -76,18 +103,58 @@ const AdminMarkAttendanceShowComp: React.FC<AdminMarkAttendanceShowCompProps> = 
             </select>
           </div>
         )}
+
+        {/* Schedule Dropdown */}
+        {selectedGroup && (
+          <div className="w-1/3">
+            <label
+              htmlFor="schedule"
+              className="block text-lg font-semibold text-gray-800 mb-2"
+            >
+              Select Schedule
+            </label>
+            <select
+              id="schedule"
+              value={selectedSchedule || ""}
+              onChange={(e) => setSelectedSchedule(e.target.value)}
+              className="w-full p-3 border-2 rounded-md shadow-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="">Select a Schedule</option>
+              {availableSchedules.length === 0 ? (
+                <option value="">No schedules available</option>
+              ) : (
+                availableSchedules.map((schedule, index) => (
+                  <option key={index} value={schedule.startTime}>
+                    {`Days: ${schedule.days.join(", ")} | Start: ${new Date(
+                      schedule.startTime
+                    ).toLocaleTimeString()}`}
+                  </option>
+                ))
+              )}
+            </select>
+          </div>
+        )}
       </div>
 
       {/* Students List */}
-      {selectedGroup && students.length > 0 ? (
+      {selectedSchedule && students.length > 0 ? (
         <div className="space-y-4">
           {students.map((student) => (
-            <AttendanceSheet key={student.id} student={student} groupId={selectedGroup} />
+            <AttendanceSheet
+              key={student.id}
+              student={student}
+              groupId={selectedGroup!}
+              date={selectedDate}
+            />
           ))}
         </div>
       ) : (
         <div className="text-center text-gray-600">
-          <p>No students available for this group</p>
+          {selectedGroup ? (
+            <p>Select a schedule to proceed</p>
+          ) : (
+            <p>No students available for this group</p>
+          )}
         </div>
       )}
     </div>

@@ -51,7 +51,7 @@ const AdminCreateCourse: React.FC = () => {
                 handleNextModule={() => handleNext('step7')}
                 isLastModule={true}
                 handleFinish={handleFinish}
-              />
+              /> // add a send for review screen 
             }
           />
         </Routes>

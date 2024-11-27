@@ -1,61 +1,48 @@
-import React, { useState, useEffect } from "react";
-import { Chapter, Lesson, LessonType, Clip, Module, MediaSource } from "../../../../../types/course";
+import React, { useState, useEffect } from "react"; 
+import { Chapter, Lesson, LessonType, Clip, MediaSource } from "../../../../../types/course";
 import VideoLesson from "./VideoLesson";
 import AudioLesson from "./AudioLesson";
-import { FaVideo, FaMicrophone } from 'react-icons/fa'; // Import icons for video and audio
+import { FaVideo, FaMicrophone } from 'react-icons/fa'; 
 
 const ChapterModule: React.FC<{ chapter: Chapter }> = ({ chapter }) => {
-  const [lessons, setLessons] = useState<Lesson[]>(chapter.lessons); // Store lessons of the selected module
-  const [selectedLessonIndex, setSelectedLessonIndex] = useState<number>(0); // Track the selected lesson
-  const [videoFile, setVideoFile] = useState<File | null>(null);
-  const [startTime, setStartTime] = useState<number>(0);
-  const [endTime, setEndTime] = useState<number>(0);
-  const [clips, setClips] = useState<Clip[]>([]);
+  console.log(chapter)
+  const [lessons, setLessons] = useState<Lesson[]>(chapter.lessons);
+  const [selectedLessonIndex, setSelectedLessonIndex] = useState<number>(0); 
 
   useEffect(() => {
     setLessons(chapter.lessons); 
     setSelectedLessonIndex(0); 
   }, [chapter]);
 
-  const handleAddLesson = (type: LessonType) => {
+  const handleAddLesson = async (type: LessonType) => {
     const newLesson: Lesson = {
       id: `${Date.now()}`, // Unique lesson ID
       type: type,
       chapterId: chapter.id,
       mediaSrc: [] as MediaSource[], // Use MediaSource here
     };
-    setLessons([...lessons, newLesson]);
-  };
 
-  const handleVideoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      setVideoFile(file);
-    }
-  };
+    // API URL
+    const url = `http://localhost:5000/api/courses/cm3wz37wt00052mwi62qjxcow/chapter/${chapter.id}/initialize-lesson`;
 
-  const handleCreateClip = () => {
-    if (videoFile) {
-      const newClip: Clip = {
-        id: `${Date.now()}`,
-        title: `Clip from ${startTime} to ${endTime}`,
-        start: startTime,
-        end: endTime,
-        mediaSrcId: `${Date.now()}`, // Unique clip ID
-      };
-      setClips([...clips, newClip]);
-    }
-  };
+    // Send POST request to the API to add the lesson
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ type: type }), // Send the lesson type as JSON
+      });
 
-  const handleVideoTimeUpdate = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    time: "start" | "end"
-  ) => {
-    const value = parseFloat(event.target.value);
-    if (time === "start") {
-      setStartTime(value);
-    } else {
-      setEndTime(value);
+      if (response.ok) {
+        // If API call is successful, add the new lesson to the state
+        setLessons([...lessons, newLesson]);
+      } else {
+        console.error("Failed to add lesson");
+      }
+    } catch (error) {
+      console.error("Error while adding lesson:", error);
     }
   };
 
@@ -65,8 +52,6 @@ const ChapterModule: React.FC<{ chapter: Chapter }> = ({ chapter }) => {
 
   return (
     <div className="chapter-container max-w-4xl mx-auto py-6 px-4 bg-white shadow-lg rounded-lg">
-      <h2 className="text-xl font-semibold mb-6 ">Chapter: {chapter.id}</h2>
-
       {/* Buttons for adding lessons */}
       <div className="space-x-4 mb-6 flex justify-center">
         <button
@@ -84,42 +69,6 @@ const ChapterModule: React.FC<{ chapter: Chapter }> = ({ chapter }) => {
           Add Audio Lesson
         </button>
       </div>
-
-
-      {/* Clip Cutting Section */}
-      {videoFile && (
-        <div className="mb-6">
-          <h3 className="text-xl font-medium mb-4 text-gray-700">Clip Editor</h3>
-          <div className="mb-4">
-            <label className="block text-gray-600">Start Time (seconds):</label>
-            <input
-              type="number"
-              value={startTime}
-              onChange={(e) => handleVideoTimeUpdate(e, "start")}
-              min="0"
-              max={endTime}
-              className="border-2 border-gray-300 px-4 py-2 w-full rounded-md"
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-600">End Time (seconds):</label>
-            <input
-              type="number"
-              value={endTime}
-              onChange={(e) => handleVideoTimeUpdate(e, "end")}
-              min={startTime}
-              max={9999}
-              className="border-2 border-gray-300 px-4 py-2 w-full rounded-md"
-            />
-          </div>
-          <button
-            onClick={handleCreateClip}
-            className="bg-yellow-500 text-white py-2 px-6 rounded-lg shadow-lg hover:bg-yellow-600 transition duration-200 ease-in-out"
-          >
-            Create Clip
-          </button>
-        </div>
-      )}
 
       {/* Lesson Navigation */}
       <div className="lesson-nav mb-6 flex justify-center space-x-4">

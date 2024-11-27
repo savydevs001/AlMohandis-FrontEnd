@@ -8,8 +8,9 @@ import GroupCreatePopup from "./CreateGroupPop";
 interface Group {
   id: string;
   title: string;
-  duration: string; // Ensure this matches GroupCard
+  duration: string;  // Ensure this matches GroupCard
   teacher: string;
+  schedules?: { duration: number }[]; 
 }
 
 interface Subject {
@@ -48,6 +49,7 @@ function ShowAll() {
 
         // Validate and set subjects
         setSubjects(Array.isArray(response.data) ? response.data : []);
+        console.log(subjects);
       } catch (err) {
         console.error(err);
         setError("Failed to load subjects.");
@@ -84,9 +86,13 @@ function ShowAll() {
                 key={group.id}
                 group={{
                   ...group,
-                  duration: group.duration.toString(), // Ensure duration is a string
+                  duration: group?.schedules?.length
+                    ? group.schedules[0].duration.toString() 
+                    : "120", 
+                  teacher: subject.teacherName,
                 }}
               />
+
             ))
           )
         )}
