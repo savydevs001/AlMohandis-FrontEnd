@@ -48,10 +48,10 @@ function CourseManagementShowHeader() {
   }, []);
 
   // Categorize courses based on the provided model
-  const activeCourses = courses.filter(course => course.isActive && !course.isDraft);
-  const pendingCourses = courses.filter(course => course.waitingForReview && !course.isDraft);
-  const draftCourses = courses.filter(course => course.isDraft);
-  const archivedCourses = courses.filter(course => !course.isActive);
+  const activeCourses = courses.filter(course => course.isActive == true);
+  const pendingCourses = courses.filter(course => course.waitingForReview == true && course.isDraft == false);
+  const draftCourses = courses.filter(course => course.isDraft == true);
+  const archivedCourses = courses.filter(course => course.isActive == false && course.isDraft == false && course.waitingForReview == false);
 
   // Normalize data for ActiveCourseShowComp
   const normalizedActiveCourses = activeCourses.map(course => ({

@@ -1,11 +1,17 @@
-import React from 'react';
-import ActiveCourseDropDown from '../ActiveCoursesComponent/ActiveCourseDropDown';
 import CoursesByMeCard from '../../../TeacherComponent/Courses Component/CoursesByMeCard';
 
-function AdminDraftCourses({ courses }) {
+interface Course {
+  id: string;
+  title: string;
+}
+
+interface AdminDraftCoursesProps {
+  courses: Course[];
+}
+
+function AdminDraftCourses({ courses }: AdminDraftCoursesProps) {
   return (
     <div>
-      <ActiveCourseDropDown />
       <div className="flex flex-wrap items-center gap-4">
         {courses.length > 0 ? (
           courses.map(course => (

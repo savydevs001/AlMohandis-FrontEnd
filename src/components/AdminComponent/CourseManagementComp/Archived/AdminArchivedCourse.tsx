@@ -1,10 +1,10 @@
-import ActiveCourseDropDown from '../ActiveCoursesComponent/ActiveCourseDropDown';
 import AdminArchivedCards from './AdminArchivedCards';
 
 interface Course {
   id: string;
   title: string;
   description: string;
+  updatedAt:string
 }
 
 interface AdminArchivedCourseProps {
@@ -14,14 +14,13 @@ interface AdminArchivedCourseProps {
 function AdminArchivedCourse({ courses }: AdminArchivedCourseProps) {
   return (
     <div>
-      <ActiveCourseDropDown />
       <div className="grid grid-cols-1 lg:grid-cols-4 sm:grid-cols-2">
         {courses.length > 0 ? (
           courses.map(course => (
             <AdminArchivedCards 
               key={course.id}
               name={course.title}
-              madeOn={`Made on: ${course.description}`} // Modify as needed
+              madeOn={course.updatedAt} // Modify as needed
             />
           ))
         ) : (
