@@ -7,7 +7,7 @@ import Step3ObjecjectivesGoals from './AdminCreateCourseSteps/Step3Objecjectives
 import Step4AddInstructor from './AdminCreateCourseSteps/Step4AddInstructor';
 import Step5CreatePart from './AdminCreateCourseSteps/Step5CreatePart';
 import Step6CreatePart from './AdminCreateCourseSteps/Step6CreatePart';
-import Part1ExamModule from './AdminCreateCourseSteps/ExamModule/Part1ExamModule';
+import SendForReview from './AdminCreateCourseSteps/SendForReview';
 
 const AdminCreateCourse: React.FC = () => {
   const navigate = useNavigate();
@@ -42,16 +42,12 @@ const AdminCreateCourse: React.FC = () => {
           />
           <Route
             path="step6"
-            element={<Step6CreatePart/>}
+            element={<Step6CreatePart handleNext={()=>handleNext('step7')}/>}
           />
           <Route
             path="step7"
             element={
-              <Part1ExamModule
-                handleNextModule={() => handleNext('step7')}
-                isLastModule={true}
-                handleFinish={handleFinish}
-              /> // add a send for review screen 
+            <SendForReview/>
             }
           />
         </Routes>

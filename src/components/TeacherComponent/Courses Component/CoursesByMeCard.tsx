@@ -3,10 +3,12 @@ import book from '../../../assets/book.webp';
 import { GrEdit } from "react-icons/gr";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { NavLink } from 'react-router-dom';
-import DeleteConfirmationPopup from '../Courses Component/DeletePopUp'; // Import the new popup component
+import DeleteConfirmationPopup from '../Courses Component/DeletePopUp';
+import axios from 'axios';
 
 // Define the props type
 interface CoursesByMeCardProps {
+  courseId: string; // Add courseId prop
   name: string;
   published?: string;
   students?: string;
@@ -14,17 +16,24 @@ interface CoursesByMeCardProps {
   showButton: boolean; // Make sure this is a boolean
 }
 
-const CoursesByMeCard: React.FC<CoursesByMeCardProps> = ({ name, published, students, button, showButton }) => {
+const CoursesByMeCard: React.FC<CoursesByMeCardProps> = ({ courseId, name, published, students, button, showButton }) => {
   const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false); // State to control the popup visibility
 
   const handleDeleteClick = () => {
     setIsDeletePopupOpen(true); // Show the popup when delete is clicked
   };
 
-  const handleConfirmDelete = () => {
-    // Perform the delete operation here
-    console.log('Item deleted');
-    setIsDeletePopupOpen(false); // Close the popup after deletion
+  const handleConfirmDelete = async () => {
+    try {
+      // Perform the delete operation here
+      await axios.delete(`http://localhost:5000/api/admin/course/${courseId}/delete`);
+      console.log('Course deleted successfully');
+      // Optionally, you can refresh the course list or update the state to remove the deleted course
+    } catch (error) {
+      console.error('Error deleting course:', error);
+    } finally {
+      setIsDeletePopupOpen(false); // Close the popup after deletion
+    }
   };
 
   const handleCancelDelete = () => {
@@ -33,7 +42,7 @@ const CoursesByMeCard: React.FC<CoursesByMeCardProps> = ({ name, published, stud
 
   return (
     <div className='py-2'>
-      <div className="p-5 mt-8 w-full  lg:w-[17.5vw] transition-shadow duration-200 bg-white rounded-lg shadow-md hover:shadow-lg">
+      <div className="p-5 mt-8 w-full lg:w-[17.5vw] transition-shadow duration-200 bg-white rounded-lg shadow-md hover:shadow-lg">
         <img className="rounded-lg" src={book} alt="" />
         <h1 className="mt-2 mb-1 text-2xl font-semibold">{name}</h1>
         

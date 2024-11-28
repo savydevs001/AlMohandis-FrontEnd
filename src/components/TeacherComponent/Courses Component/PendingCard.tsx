@@ -1,23 +1,34 @@
-// import React from 'react'
+import React from 'react';
 import book from '../../../assets/book.webp';
-function PendingCard() {
-  return (
-    <div className='flex flex-col items-center w-full p-5 mt-8 bg-white rounded-lg shadow-md lg:w-56 hover:shadow-lg'>
-       <img className="rounded-md" src={book} alt="" />
-      <h1 className="mt-2 mb-1 text-2xl font-semibold">Course Name</h1>
-      <p className="text-sm text-[#666]">
-            Created On
-            <span className="px-2 font-semibold text-black text-md">20-4-2024</span>
-          </p>
-      <p className="lg:text-[.9vw] text-[3.5vw] text-[#666]">
-            Request Publish On
-            <span className="px-2 lg:text-[1vw] text-[3.5vw] font-semibold text-black ">20-4-2024</span>
-          </p>
-          <button className="px-8 py-2 mt-3 text-sm text-white rounded-md bg-primary">
-              Back to Draft
-            </button>
-    </div>
-  )
+
+interface PendingCardProps {
+  name: string; // Course name
+  createdOn: string; // Course creation date
+  onApprove: () => void; // Callback function for approve action
 }
 
-export default PendingCard
+const PendingCard: React.FC<PendingCardProps> = ({ name, createdOn, onApprove }) => {
+  
+  return (
+    <div className='flex flex-col items-center w-full p-5 mt-8 bg-white rounded-lg shadow-md lg:w-56 hover:shadow-lg'>
+      <img className="rounded-md" src={book} alt={name} />
+      <h1 className="mt-2 mb-1 text-2xl font-semibold">{name}</h1>
+      <p className="text-sm text-[#666]">
+        Created On
+        <span className="px-2 font-semibold text-black text-md">{createdOn}</span>
+      </p>
+      <p className="lg:text-[.9vw] text-[3.5vw] text-[#666]">
+        Request Publish On
+        <span className="px-2 lg:text-[1vw] text-[3.5vw] font-semibold text-black">20-4-2024</span>
+      </p>
+      <button 
+        className="px-8 py-2 mt-3 text-sm text-white rounded-md bg-green-500 hover:bg-green-600" 
+        onClick={onApprove}
+      >
+        Approve
+      </button>
+    </div>
+  );
+}
+
+export default PendingCard;

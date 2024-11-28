@@ -1,6 +1,6 @@
-import React, { useState, useRef, useEffect } from "react";
-import Wavesurfer from "wavesurfer.js";
+import React, { useState } from "react";
 import { MediaSource, Clip, ChannelType, Lesson } from "../../../../../types/course";
+import axios from "axios";
 import AudioEditor from "./RigthAudioModule/AudioEditor";
 
 interface AudioLessonProps {
@@ -11,6 +11,8 @@ const AudioLesson: React.FC<AudioLessonProps> = ({ lesson }) => {
   const [mediaSrc, setMediaSrc] = useState<MediaSource[]>(lesson.mediaSrc || []);
   const [newAudioFile, setNewAudioFile] = useState<File | null>(null);
   const [newMediaSource, setNewMediaSource] = useState<Partial<MediaSource>>({
+    title: "",
+    description: "",
     isFree: false,
     isPromotional: false,
     channel: ChannelType.BUNNY,
@@ -46,10 +48,39 @@ const AudioLesson: React.FC<AudioLessonProps> = ({ lesson }) => {
       setMediaSrc([...mediaSrc, newMediaSourceData]); // Update media sources
       setNewAudioFile(null); // Clear the file input
       setNewMediaSource({
+        title: "",
+        description: "",
         isFree: false,
         isPromotional: false,
         channel: ChannelType.BUNNY,
       });
+    }
+  };
+
+  // Function to save all changes
+  const handleSave = async () => {
+    try {
+      const response = await axios.patch(
+        `http://localhost:5000/api/courses/lesson/${lesson.id}`,
+        {
+          mediaSources: mediaSrc.map((media) => ({
+            link: media.link,
+            title: media.title || "", // Ensure title is included
+            description: media.description || "", // Ensure description is included
+            channel: media.channel || ChannelType.BUNNY, // Default channel if not set
+            isFree: media.isFree || false, // Default to false if not set
+            isPromotional: media.isPromotional || false, // Default to false if not set
+            clips: media.clips.map((clip) => ({
+              title: clip.title,
+              start: clip.start,
+              end: clip.end,
+            })),
+          })),
+        }
+      );
+      console.log("Lesson updated:", response.data);
+    } catch (error) {
+      console.error("Error updating lesson:", error);
     }
   };
 
@@ -59,75 +90,74 @@ const AudioLesson: React.FC<AudioLessonProps> = ({ lesson }) => {
 
       {/* Audio File Upload Section */}
       <div className="mb-4">
-     <div className="flex flex-col gap-4 lg:flex-row">
-     <div className=" videoTitle lg:w-[60%] w-full">
-        <input
-          type="text"
-          placeholder="Title"
-          value={newMediaSource.title}
-          onChange={(e) =>
-            setNewMediaSource({ ...newMediaSource, title: e.target.value })
-          }
-          className="block w-full p-2 mb-4 text-gray-700 border border-gray-300 rounded-md"
-        />
-        <textarea
-          placeholder="Description"
-          value={newMediaSource.description}
-          onChange={(e) =>
-            setNewMediaSource({ ...newMediaSource, description: e.target.value })
-          }
-          className="block w-full p-2 mb-4 text-gray-700 border border-gray-300 rounded-md"
-        />
-          <div className="flex items-center mb-4 space-x-4">
-          <label className="flex items-center">
+        <div className="flex flex-col gap-4 lg:flex-row">
+          <div className="videoTitle lg:w-[60%] w-full">
             <input
-              type="checkbox"
-              checked={newMediaSource.isFree}
+              type="text"
+              placeholder="Title"
+              value={newMediaSource.title}
               onChange={(e) =>
-                setNewMediaSource({ ...newMediaSource, isFree: e.target.checked })
+                setNewMediaSource({ ...newMediaSource, title: e.target.value })
               }
-              className="mr-2"
+              className="block w-full p-2 mb-4 text-gray-700 border border-gray-300 rounded-md"
             />
-            Free
-          </label>
-          <label className="flex items-center">
+            <textarea
+              placeholder="Description"
+              value={newMediaSource.description}
+              onChange={(e) =>
+                setNewMediaSource({ ...newMediaSource, description: e.target.value })
+              }
+              className="block w-full p-2 mb-4 text-gray-700 border border-gray-300 rounded-md"
+            />
+            <div className="flex items-center mb-4 space-x-4">
+              <label className="flex items-center">
+                <input
+                  type="checkbox"
+                  checked={newMediaSource.isFree}
+                  onChange={(e) =>
+                    setNewMediaSource({ ...newMediaSource, isFree: e.target.checked })
+                  }
+                  className="mr-2"
+                />
+                Free
+              </label>
+              <label className="flex items-center">
+                <input
+                  type="checkbox"
+                  checked={newMediaSource.isPromotional}
+                  onChange={(e) =>
+                    setNewMediaSource({ ...newMediaSource, isPromotional: e.target.checked })
+                  }
+                  className="mr-2"
+                />
+                Promotional
+              </label>
+            </div>
+          </div>
+          <div className="flex flex-col items-center justify-center order-2 gap-4 p-3 border border-dashed border-primary lg:w-[40%] w-full">
             <input
-              type="checkbox"
-              checked={newMediaSource.isPromotional}
-              onChange={(e) =>
-                setNewMediaSource({ ...newMediaSource, isPromotional: e.target.checked })
-              }
-              className="mr-2"
+              type="file"
+              accept="audio/*"
+              id="file-input"
+              className="hidden w-full p-2 mb-2 border border-gray-300 rounded"
+              onChange={handleAudioUpload}
             />
-            Promotional
-          </label>
+            <p className="text-sm text-center">Browse and choose the files you want to upload from your computer</p>
+            <label
+              htmlFor="file-input"
+              className="px-2 text-3xl text-white rounded-lg cursor-pointer bg-primary"
+            >
+              + {/* This "+" icon will trigger the file input */}
+            </label>
+          </div>
         </div>
-    </div>
-      <div className="flex flex-col items-center justify-center order-2 gap-4 p-3 border border-dashed border-primary lg:w-[40%] w-full">
-      <input
-          type="file"
-          accept="audio/*"
-          id="file-input"
-          className="hidden w-full p-2 mb-2 border border-gray-300 rounded"
-          onChange={handleAudioUpload}
-        />
-        <p className="text-sm text-center">Browse and chose the files you want to upload from your computer</p>
-        {/* Custom "+" Button */}
-        <label
-          htmlFor="file-input"
-          className="px-2 text-3xl text-white rounded-lg cursor-pointer bg-primary "
-        >
-          + {/* This "+" icon will trigger the file input */}
-        </label>
-        </div>
-     </div>
-       
+
         {newAudioFile && (
           <AudioEditor mediaFile={newAudioFile} />
         )}
-      
+
         <button
-          className="px-6 py-2 text-white rounded bg-primary "
+          className="px-6 py-2 text-white rounded bg-primary"
           onClick={handleAddAudio}
           disabled={!newAudioFile}
         >
@@ -149,7 +179,12 @@ const AudioLesson: React.FC<AudioLessonProps> = ({ lesson }) => {
           </audio>
         </div>
       ))}
-      <button className="px-4 py-2 text-white rounded-md bg-primary ">Save All Changes</button>
+      <button
+        className="px-4 py-2 text-white rounded-md bg-primary"
+        onClick={handleSave}
+      >
+        Save All Changes
+      </button>
     </div>
   );
 };

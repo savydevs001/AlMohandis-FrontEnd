@@ -30,7 +30,7 @@ export interface Module {
   isPromoted: boolean;
   isPromotional: boolean;
   attachments: Attachment[];
-  chapters: Chapter[];
+  chapters: Chapter[];               
   assignments: Assignment[];
   exams: Exam[];
 }
@@ -92,7 +92,7 @@ export interface Chapter {
   moduleId: string;
   lessons: Lesson[];
 }
-
+// start 
 export interface Part {
   id: string;
   title: string;

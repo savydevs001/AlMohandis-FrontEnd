@@ -11,6 +11,7 @@ function AdminDraftCourses({ courses }) {
           courses.map(course => (
             <CoursesByMeCard 
               key={course.id}
+              courseId={course.id} // Pass the courseId here
               name={course.title}
               published={`Drafted On: 12/3/2024`} 
               students="Students" // You may want to replace this with actual student count if available

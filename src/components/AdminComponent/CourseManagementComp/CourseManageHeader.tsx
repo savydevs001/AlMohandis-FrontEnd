@@ -13,8 +13,15 @@ interface Course {
   id: string;
   title: string;
   description: string;
+  imageSrc: string;
+  isFree: boolean;
   isActive: boolean;
   isDraft: boolean;
+  waitingForReview: boolean;
+  objectives?: string;
+  whatYouWillLearn?: string;
+  instructorId?: string; 
+  adminId?: string;
 }
 
 function CourseManagementShowHeader() {
@@ -30,6 +37,7 @@ function CourseManagementShowHeader() {
           headers: { Authorization: `Bearer ${token}` },
         });
         setCourses(response.data);
+        console.log(response.data);
       } catch (error) {
         console.error("Error fetching courses:", error);
         setError("Failed to fetch courses. Please try again later.");
@@ -39,19 +47,25 @@ function CourseManagementShowHeader() {
     fetchCourses();
   }, []);
 
-  // Categorize courses
+  // Categorize courses based on the provided model
   const activeCourses = courses.filter(course => course.isActive && !course.isDraft);
-  const pendingCourses = courses.filter(course => !course.isActive && !course.isDraft);
+  const pendingCourses = courses.filter(course => course.waitingForReview && !course.isDraft);
   const draftCourses = courses.filter(course => course.isDraft);
-  const archivedCourses = courses.filter(course => !course.isActive && course.isDraft);
+  const archivedCourses = courses.filter(course => !course.isActive);
 
   // Normalize data for ActiveCourseShowComp
   const normalizedActiveCourses = activeCourses.map(course => ({
     id: course.id,
-    name: course.title, // Map 'title' to 'name'
-    instructorId: "Unknown", // Default value (replace if actual data exists)
-    publishedDate: "Unknown", // Default value (replace if actual data exists)
-    studentCount: 0, // Default value (replace if actual data exists)
+    name: course.title,
+    description: course.description,
+    imageSrc: course.imageSrc,
+    objectives: course.objectives || "Not specified",
+    whatYouWillLearn: course.whatYouWillLearn || "Not specified",
+    instructorId: course.instructorId || "Unknown",
+    adminId: course.adminId || "Unknown",
+    isFree: course.isFree,
+    publishedDate: "Unknown", 
+    studentCount: 0,
   }));
 
   const renderContent = () => {
@@ -93,7 +107,7 @@ function CourseManagementShowHeader() {
               Pending
             </button>
             <button
-              className={`px-2 py-2 text-md ${
+              className={`px-2 py-2 text -md ${
                 activeTab === "archived" ? "text-teal-600 border-b-2 border-teal-600" : "text-gray-600"
               }`}
               onClick={() => setActiveTab("archived")}

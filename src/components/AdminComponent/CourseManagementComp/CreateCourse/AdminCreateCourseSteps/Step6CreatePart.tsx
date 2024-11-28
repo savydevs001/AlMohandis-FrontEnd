@@ -6,12 +6,20 @@ import ExamModule from './ExamModule';
 import ChapterModule from './ChapterModule';
 import AttachmentModule from './AttachmentModule';
 import Loading from '../../../../Loading';
+import {useNavigate } from 'react-router-dom';
 
-const Step6CreatePart: React.FC = () => {
+interface Step6CreatePartProps {
+  handleNext: () => void;
+}
+const Step6CreatePart: React.FC<Step6CreatePartProps> = ({ handleNext }) => {
   const [selectedModule, setSelectedModule] = useState<Module | null>(null);
   const [parts, setParts] = useState<Part[]>([]);
   const [loading, setLoading] = useState(true);
   const [refetch, setRefetch] = useState<boolean>(false); // State to trigger refetch
+  const navigate = useNavigate();
+  const handleFinish = ()=>{
+    handleNext();
+  }
 
   const courseId = localStorage.getItem('courseId');
 
@@ -88,6 +96,7 @@ const Step6CreatePart: React.FC = () => {
   };
 
   return (
+    <>
     <div className="flex flex-col space-y-4 bg-white rounded-lg lg:space-x-4 lg:flex-row lg:space-y-0">
       {/* Left Panel */}
       <LeftPanel
@@ -110,7 +119,12 @@ const Step6CreatePart: React.FC = () => {
           <p className="text-gray-500">Select a module to view details.</p>
         )}
       </div>
+     
     </div>
+     <div className=' flex justify-end'>
+      <button onClick={handleFinish} className='px-4 py-2 font-semibold text-white rounded-md bg-primary'>Finish</button>
+     </div>
+     </>
   );
 };
 

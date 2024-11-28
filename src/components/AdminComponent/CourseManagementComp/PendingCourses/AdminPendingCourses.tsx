@@ -2,7 +2,20 @@ import React from 'react';
 import ActiveCourseDropDown from '../ActiveCoursesComponent/ActiveCourseDropDown';
 import PendingCard from '../../../TeacherComponent/Courses Component/PendingCard';
 
-function AdminPendingCourses({ courses }) {
+interface AdminPendingCoursesProps {
+  courses: {
+    id: string;
+    title: string;
+    description: string;
+    // Add other course properties as needed
+  }[];
+}
+
+const AdminPendingCourses: React.FC<AdminPendingCoursesProps> = ({ courses }) => {
+  const handleApprove = (courseId: string) => {
+    console.log(`Course with ID ${courseId} approved.`);
+  };
+
   return (
     <div>
       <ActiveCourseDropDown />
@@ -13,6 +26,7 @@ function AdminPendingCourses({ courses }) {
               key={course.id}
               name={course.title}
               createdOn={`Created On: ${course.description}`} // Modify as needed
+              onApprove={() => handleApprove(course.id)} // Pass course ID to handleApprove
             />
           ))
         ) : (
