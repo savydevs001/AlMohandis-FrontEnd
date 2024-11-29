@@ -1,4 +1,5 @@
 import React from 'react';
+import { format } from 'date-fns'; // Import date-fns for date formatting
 import book from '../../../assets/book.webp';
 
 interface PendingCardProps {
@@ -8,25 +9,28 @@ interface PendingCardProps {
 }
 
 const PendingCard: React.FC<PendingCardProps> = ({ name, createdOn, onApprove }) => {
-  
+  // Format the date using date-fns
+  const formattedDate = format(new Date(createdOn), 'MMM dd, yyyy');
+
   return (
-    <div className='flex flex-col items-center w-full p-5 mt-8 bg-white rounded-lg shadow-md lg:w-56 hover:shadow-lg'>
-      <img className="rounded-md" src={book} alt={name} />
-      <h1 className="mt-2 mb-1 text-2xl font-semibold">{name}</h1>
-      <p className="text-sm text-[#666]">
-        Created On
-        <span className="px-2 font-semibold text-black text-md">{createdOn}</span>
-      </p>
-      <p className="lg:text-[.9vw] text-[3.5vw] text-[#666]">
-        Request Publish On
-        <span className="px-2 lg:text-[1vw] text-[3.5vw] font-semibold text-black">20-4-2024</span>
-      </p>
-      <button 
-        className="px-8 py-2 mt-3 text-sm text-white rounded-md bg-green-500 hover:bg-green-600" 
-        onClick={onApprove}
-      >
-        Approve
-      </button>
+    <div className='py-2'>
+      <div className="p-5 mt-8 w-full lg:w-[17.5vw] transition-shadow duration-200 bg-white rounded-lg shadow-md hover:shadow-lg">
+        <img className="rounded-lg" src={book} alt={name} />
+        <h1 className="mt-2 mb-1 text-2xl font-semibold text-center whitespace-nowrap overflow-hidden text-ellipsis">{name}</h1>
+        <p className="text-sm text-[#666]">
+          Created on
+          <span className="px-2 font-semibold text-black">{formattedDate}</span>
+        </p>
+
+        <div className="flex items-center gap-2 mt-2">
+          <button 
+            className="px-6 py-2 text-sm text-white rounded-md bg-green-500 hover:bg-green-600 transition-colors duration-300"
+            onClick={onApprove}
+          >
+            Approve
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

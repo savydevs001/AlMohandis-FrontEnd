@@ -6,38 +6,36 @@ import { NavLink } from 'react-router-dom';
 import DeleteConfirmationPopup from '../Courses Component/DeletePopUp';
 import axios from 'axios';
 
-// Define the props type
 interface CoursesByMeCardProps {
-  courseId: string; // Add courseId prop
+  courseId: string;
   name: string;
   published?: string;
   students?: string;
   button?: string;
-  showButton: boolean; // Make sure this is a boolean
+  showButton: boolean;
 }
 
 const CoursesByMeCard: React.FC<CoursesByMeCardProps> = ({ courseId, name, published, students, button, showButton }) => {
-  const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false); // State to control the popup visibility
+  const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
 
   const handleDeleteClick = () => {
-    setIsDeletePopupOpen(true); // Show the popup when delete is clicked
+    setIsDeletePopupOpen(true); 
   };
 
   const handleConfirmDelete = async () => {
     try {
-      // Perform the delete operation here
       await axios.delete(`http://localhost:5000/api/admin/course/${courseId}/delete`);
       console.log('Course deleted successfully');
-      // Optionally, you can refresh the course list or update the state to remove the deleted course
+      window.location.reload();
     } catch (error) {
       console.error('Error deleting course:', error);
     } finally {
-      setIsDeletePopupOpen(false); // Close the popup after deletion
+      setIsDeletePopupOpen(false); 
     }
   };
 
   const handleCancelDelete = () => {
-    setIsDeletePopupOpen(false); // Close the popup if the user cancels
+    setIsDeletePopupOpen(false); 
   };
 
   return (
@@ -45,14 +43,14 @@ const CoursesByMeCard: React.FC<CoursesByMeCardProps> = ({ courseId, name, publi
       <div className="p-5 mt-8 w-full lg:w-[17.5vw] transition-shadow duration-200 bg-white rounded-lg shadow-md hover:shadow-lg">
         <img className="rounded-lg" src={book} alt="" />
         <h1 className="mt-2 mb-1 text-2xl font-semibold">{name}</h1>
-        
-        { published && (
+
+        {published && (
           <p className="text-sm text-[#666]">
             {published}
             <span className="px-2 font-semibold text-black text-md">20-4-2024</span>
           </p>
         )}
-        
+
         {students && (
           <p className="text-sm text-[#666]">
             {students}
@@ -72,13 +70,12 @@ const CoursesByMeCard: React.FC<CoursesByMeCardProps> = ({ courseId, name, publi
           </NavLink>
 
           <RiDeleteBin6Line 
-            onClick={handleDeleteClick} // Show the popup on delete icon click
+            onClick={handleDeleteClick} 
             className="p-1 text-2xl text-red-600 border border-red-600 rounded-md cursor-pointer" 
           />
         </div>
       </div>
 
-      {/* Conditionally render the DeleteConfirmationPopup */}
       {isDeletePopupOpen && (
         <DeleteConfirmationPopup 
           onConfirm={handleConfirmDelete} 
