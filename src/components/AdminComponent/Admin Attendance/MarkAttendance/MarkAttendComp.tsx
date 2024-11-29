@@ -21,7 +21,7 @@ const AdminMarkAttendanceShowComp: React.FC<AdminMarkAttendanceShowCompProps> = 
   setSelectedGroup,
   students,
 }) => {
-  const [selectedDate, setSelectedDate] = useState<string>(
+  const [selectedDate] = useState<string>(
     new Date().toISOString().split("T")[0]
   ); // Default to today's date
   const [availableSchedules, setAvailableSchedules] = useState<any[]>([]);
@@ -38,9 +38,6 @@ const AdminMarkAttendanceShowComp: React.FC<AdminMarkAttendanceShowCompProps> = 
     }
   }, [selectedGroup]);
 
-  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedDate(e.target.value);
-  };
 
   return (
     <div className="flex-1 p-6 space-y-6">

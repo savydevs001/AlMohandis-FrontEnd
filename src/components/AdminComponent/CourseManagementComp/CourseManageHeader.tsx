@@ -22,6 +22,7 @@ interface Course {
   whatYouWillLearn?: string;
   instructorId?: string; 
   adminId?: string;
+  updatedAt: string; 
 }
 
 function CourseManagementShowHeader() {

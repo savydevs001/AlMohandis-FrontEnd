@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react"; 
-import { Chapter, Lesson, LessonType, Clip, MediaSource } from "../../../../../types/course";
+import { Chapter, Lesson, LessonType, MediaSource } from "../../../../../types/course";
 import VideoLesson from "./VideoLesson";
 import AudioLesson from "./AudioLesson";
 import { FaVideo, FaMicrophone } from 'react-icons/fa'; 
-import { IoIosCloseCircleOutline } from "react-icons/io";
 
 const ChapterModule: React.FC<{ chapter: Chapter }> = ({ chapter }) => {
   console.log(chapter)

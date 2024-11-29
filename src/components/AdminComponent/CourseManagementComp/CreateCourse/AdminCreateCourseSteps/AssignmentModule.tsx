@@ -12,7 +12,7 @@ interface AssignmentModuleProps {
   onSave: () => void; // New onSave prop to trigger re-fetch in parent
 }
 
-const AssignmentModule: React.FC<AssignmentModuleProps> = ({ moduleId, partId, module, onSave }) => {
+const AssignmentModule: React.FC<AssignmentModuleProps> = ({ module, onSave }) => {
   const [questions, setQuestions] = useState<Question[]>(module.questions);
   const [supportingMaterial, setSupportingMaterial] = useState<File | null>(null);
   const [title, setTitle] = useState<string>(module.title);

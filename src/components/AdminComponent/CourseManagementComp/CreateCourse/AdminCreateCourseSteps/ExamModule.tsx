@@ -82,7 +82,7 @@ const ExamModule: React.FC<ExamModuleProps> = ({ module, onSave }) => {
         />
       </div>
 
-      {questions.map((question, index) => (
+      {questions.map((question) => (
         <div key={question.id} className="pb-4 mb-4 border-b">
           <input
             type="text"

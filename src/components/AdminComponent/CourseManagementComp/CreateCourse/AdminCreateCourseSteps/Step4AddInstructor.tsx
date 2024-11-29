@@ -79,6 +79,7 @@ const Step4AddInstructor: React.FC<{ handleNext: () => void }> = ({ handleNext }
       } else {
         alert('Failed to assign course: ');
       }
+      console.log(data)
     } catch (error) {
       console.error('Error assigning course:', error);
       alert('Error assigning course.');
