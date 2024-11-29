@@ -1,10 +1,11 @@
 import React, { useState,useEffect } from "react";
 import { MediaSource, Clip, ChannelType } from "../../../../../types/course";
 import axios from "axios";
+import ReactPlayer from 'react-player';
 import { Range } from "react-range";
 
 interface VideoLessonProps {
-  lesson: any; // Define your lesson type properly
+  lesson: any; 
 }
 
 const VideoLesson: React.FC<VideoLessonProps> = ({ lesson }) => {
@@ -268,11 +269,20 @@ const VideoLesson: React.FC<VideoLessonProps> = ({ lesson }) => {
       {mediaSrc.map((media) => (
         <div key={media.id} className="p-4 mb-6 border rounded-md shadow-sm video-section">
           <h3 className="mb-4 text-lg font-semibold text-gray-700">{media.title}</h3>
+          {!youtubeLink
+          &&
           <video
             controls
             className="w-full lg:h-[35vh] mb-4 border border-slate-300 rounded-md"
             src={media.link}
-          ></video>
+            ></video>
+          }
+          { youtubeLink&&
+            <div className="video-container">
+           <ReactPlayer url={youtubeLink} />
+    </div>
+
+          }
 
           {/* Clip Section */}
           <div className="clip-section">
