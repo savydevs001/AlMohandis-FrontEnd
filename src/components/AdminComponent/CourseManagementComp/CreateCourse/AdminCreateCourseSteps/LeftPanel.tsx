@@ -66,7 +66,7 @@ const LeftPanel: React.FC<LeftPanelProps> = ({
   
     try {
       const apiUrl = `http://localhost:5000/api/courses/modules/${moduleId}/CHAPTER`;
-      const response =  await axios.delete(apiUrl);
+      await axios.delete(apiUrl);
 
     } catch (error) {
       console.error("Error deleting part:", error);
@@ -81,7 +81,7 @@ const LeftPanel: React.FC<LeftPanelProps> = ({
   
     try {
       const apiUrl = `http://localhost:5000/api/courses/${localStorage.getItem('courseId')}/parts/${partId}`;
-      const response =  await axios.delete(apiUrl);
+      await axios.delete(apiUrl);
       
     } catch (error) {
       console.error("Error deleting part:", error);

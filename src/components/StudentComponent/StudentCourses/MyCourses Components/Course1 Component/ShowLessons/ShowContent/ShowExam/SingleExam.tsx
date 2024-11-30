@@ -55,7 +55,7 @@ const SingleExam: React.FC<SingleExamProps> = ({ exam, currentPart }) => {
         <p>Total Questions: <span className='font-bold'>{exam.questions.length}</span></p>
       </div>
       
-      <NavLink to={`/exams/${exam.id}/attempt`}>
+      <NavLink to={`/attempt-exam/${exam.id}`}>
         <button className="px-4 py-2 mt-3 font-semibold text-white rounded-md bg-primary">Start Exam</button>
       </NavLink>
     </div>

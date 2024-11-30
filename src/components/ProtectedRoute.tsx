@@ -10,6 +10,7 @@ const ProtectedRoute = ({ children, allowedRoles }:any) => {
     }
 
     if (!allowedRoles.includes(userType)) {
+        console.log('adas')
         return <Navigate to="/not-found" />;
     }
 
