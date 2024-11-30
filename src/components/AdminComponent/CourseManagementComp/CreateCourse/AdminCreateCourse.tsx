@@ -13,7 +13,6 @@ const AdminCreateCourse: React.FC = () => {
   const navigate = useNavigate();
 
   const handleNext = (nextStep: string) => navigate(nextStep);
-  const handleFinish = () => alert('Course creation finished!');
 
   return (
     <div className="flex flex-col flex-1 min-h-screen lg:flex-row">

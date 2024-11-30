@@ -7,7 +7,16 @@ interface AdminPendingCoursesProps {
     id: string;
     title: string;
     description: string;
-    updatedAt: string;
+    imageSrc: string;
+    isFree: boolean;
+    isActive: boolean;
+    isDraft: boolean;
+    waitingForReview: boolean;
+    objectives?: string;
+    whatYouWillLearn?: string;
+    instructorId?: string; 
+    adminId?: string;
+    updatedAt: string; 
   }[];
 }
 

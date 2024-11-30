@@ -4,7 +4,7 @@ import VideoLesson from "./VideoLesson";
 import axios from "axios";
 import AudioLesson from "./AudioLesson";
 import { FaVideo, FaMicrophone } from 'react-icons/fa'; 
-// import { IoIosCloseCircleOutline } from "react-icons/io";
+import { IoIosCloseCircleOutline } from "react-icons/io";
 
 const ChapterModule: React.FC<{ chapter: Chapter }> = ({ chapter }) => {
   console.log(chapter)

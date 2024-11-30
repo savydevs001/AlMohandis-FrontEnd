@@ -17,13 +17,14 @@ const AudioLesson: React.FC<AudioLessonProps> = ({ lesson }) => {
     isPromotional: false,
     channel: ChannelType.BUNNY,
   });
-  const [newClip, setNewClip] = useState<Clip>({
+  const [newClip] = useState<Clip>({
     id: "",
     title: "",
     start: 0,
     end: 0,
     mediaSrcId: "",
   });
+  console.log(newClip);
 
   // Handle file input change (audio upload)
   const handleAudioUpload = (event: React.ChangeEvent<HTMLInputElement>) => {

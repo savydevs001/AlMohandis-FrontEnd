@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Part, Module, ModuleType } from "../../../../../types/course"; // Import the necessary types
 import axios from "axios";
-import Loading from "../../../../Loading";
 
 interface LeftPanelProps {
   parts: Part[];
@@ -103,7 +102,7 @@ const LeftPanel: React.FC<LeftPanelProps> = ({
     try {
       const newModule: Module = {
         id: Date.now().toString(),
-        type: e.target.moduleType.value,
+        type: (e.target as HTMLFormElement).moduleType.value,
         partId: selectedPartId,
         courseId: "1", // Handle course ID dynamically as needed
         isPromoted: false,
