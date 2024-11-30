@@ -105,7 +105,7 @@ const VideoLesson: React.FC<VideoLessonProps> = ({ lesson }) => {
       } as MediaSource;
 
       setMediaSrc([...mediaSrc, newMedia]);
-      setYoutubeLink("");
+      // setYoutubeLink("");
       setModalOpen(false);
     }
   };

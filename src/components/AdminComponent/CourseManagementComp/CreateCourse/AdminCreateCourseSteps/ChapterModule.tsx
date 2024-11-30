@@ -1,20 +1,41 @@
 import React, { useState, useEffect } from "react"; 
-import { Chapter, Lesson, LessonType, Clip, MediaSource } from "../../../../../types/course";
+import { Chapter, Lesson, LessonType, MediaSource } from "../../../../../types/course";
 import VideoLesson from "./VideoLesson";
+import axios from "axios";
 import AudioLesson from "./AudioLesson";
 import { FaVideo, FaMicrophone } from 'react-icons/fa'; 
-import { IoIosCloseCircleOutline } from "react-icons/io";
+// import { IoIosCloseCircleOutline } from "react-icons/io";
 
 const ChapterModule: React.FC<{ chapter: Chapter }> = ({ chapter }) => {
   console.log(chapter)
   const [lessons, setLessons] = useState<Lesson[]>(chapter.lessons);
   const [selectedLessonIndex, setSelectedLessonIndex] = useState<number>(0); 
 
+
+
+  const handleDeletePart =async (
+    lessonId:string
+  )=>{
+    const confirmed = window.confirm("Are you sure you want to delete this part?");
+    if (!confirmed) return;
+  
+    try {
+      const apiUrl = `http://localhost:5000/api/courses/lessons/${lessonId}`;
+      await axios.delete(apiUrl);
+      
+    } catch (error) {
+      console.error("Error deleting part:", error);
+      alert("Failed to delete the part. Please try again.");
+    }
+
+  }
+
   useEffect(() => {
     setLessons(chapter.lessons); 
     setSelectedLessonIndex(0); 
   }, [chapter]);
-
+  
+ 
   const handleAddLesson = async (type: LessonType) => {
     const newLesson: Lesson = {
       id: `${Date.now()}`, // Unique lesson ID
@@ -74,6 +95,7 @@ const ChapterModule: React.FC<{ chapter: Chapter }> = ({ chapter }) => {
       {/* Lesson Navigation */}
       <div className="flex flex-wrap justify-center gap-2 mb-6 space-x-4 lesson-nav">
         {lessons.map((lesson, index) => (
+          <>
           <button
             key={lesson.id}
             onClick={() => handleLessonChange(index)}
@@ -87,7 +109,21 @@ const ChapterModule: React.FC<{ chapter: Chapter }> = ({ chapter }) => {
             {lesson.type === LessonType.AUDIO && <FaMicrophone className="mr-2 text-lg" />}
             Lesson {index + 1}
           </button>
+          
+
+
+          <button
+          className="text-red-500 hover:text-red-700 border border-red-500 rounded px-3 py-1"
+          onClick={() =>{handleDeletePart(lesson.id)        
+    }}
+        >
+          Delete
+        </button>
+
+            </>
+
         ))}
+        
         {/* <IoIosCloseCircleOutline className="ml-2 text-red-500" /> */}
       </div>
 
@@ -98,11 +134,13 @@ const ChapterModule: React.FC<{ chapter: Chapter }> = ({ chapter }) => {
             {lessons[selectedLessonIndex].type === LessonType.VIDEO && (
               <VideoLesson lesson={lessons[selectedLessonIndex]} />
             )}
+           
             {lessons[selectedLessonIndex].type === LessonType.AUDIO && (
               <AudioLesson lesson={lessons[selectedLessonIndex]} />
             )}
           </>
-        )}
+        )
+      }
       </div>
     </div>
   );

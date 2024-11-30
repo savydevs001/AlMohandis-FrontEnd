@@ -58,6 +58,38 @@ const LeftPanel: React.FC<LeftPanelProps> = ({
     }
   };
 
+  const handleDeleteModule = async(
+    moduleId:string
+  )=>{
+    const confirmed = window.confirm("Are you sure you want to delete this part?");
+    if (!confirmed) return;
+  
+    try {
+      const apiUrl = `http://localhost:5000/api/courses/modules/${moduleId}/CHAPTER`;
+      const response =  await axios.delete(apiUrl);
+
+    } catch (error) {
+      console.error("Error deleting part:", error);
+      alert("Failed to delete the part. Please try again.");
+    }
+  }
+  const handleDeletePart = async (
+    partId: string
+  ) => {
+    const confirmed = window.confirm("Are you sure you want to delete this part?");
+    if (!confirmed) return;
+  
+    try {
+      const apiUrl = `http://localhost:5000/api/courses/${localStorage.getItem('courseId')}/parts/${partId}`;
+      const response =  await axios.delete(apiUrl);
+      
+    } catch (error) {
+      console.error("Error deleting part:", error);
+      alert("Failed to delete the part. Please try again.");
+    }
+  };
+  
+
   const handleAddModuleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -145,55 +177,81 @@ const LeftPanel: React.FC<LeftPanelProps> = ({
     <div className="p-4 pr-4 bg-white border border-r lg:w-1/3">
       <h1 className="mb-4 text-xl font-semibold">Parts and Modules</h1>
       {/* List Parts and Modules */}
-      { parts && parts.map((part) => (
-        <div key={part.id} className="mb-4">
-          <h2 className="text-lg font-semibold">{part.title}</h2>
-          <ul className="space-y-2">
-            { part.modules && part.modules.map((module: Module,index) => {
-              let moduleTitle = "";
+      {parts &&
+  parts.map((part) => (
+    <div key={part.id} className="mb-4">
+      <div className="flex justify-between items-center mb-2">
+        <h2 className="text-lg font-semibold">{part.title}</h2>
+        <button
+          className="text-red-500 hover:text-red-700 border border-red-500 rounded px-3 py-1"
+          onClick={() =>{handleDeletePart(part.id)        
+    }}
+        >
+          Delete
+        </button>
+      </div>
 
-              // Check the module type and get the title of the first item in the respective array
-              if (
-                module.type === ModuleType.ASSIGNMENT &&
-                module.assignments.length > 0
-              ) {
-                moduleTitle = module.assignments[0].title;
-              } else if (
-                module.type === ModuleType.EXAM &&
-                module.exams.length > 0
-              ) {
-                moduleTitle = module.exams[0].title;
-              } else if (
-                module.type === ModuleType.CHAPTER &&
-                module.chapters.length > 0
-              ) {
-                moduleTitle = ` Chapter ${index+1}`;
-              } else if (
-                module.type === ModuleType.ATTACHMENT &&
-                module.attachments.length > 0
-              ) {
-                moduleTitle = "Attachment Module";
-              }
+      <ul className="space-y-2">
+        {part.modules &&
+          part.modules.map((module: Module, index) => {
+            let moduleTitle = "";
 
-              const isSelected = selectedModule?.id === module.id;
+            // Check the module type and get the title of the first item in the respective array
+            if (
+              module.type === ModuleType.ASSIGNMENT &&
+              module.assignments.length > 0
+            ) {
+              moduleTitle = module.assignments[0].title;
+            } else if (
+              module.type === ModuleType.EXAM &&
+              module.exams.length > 0
+            ) {
+              moduleTitle = module.exams[0].title;
+            } else if (
+              module.type === ModuleType.CHAPTER &&
+              module.chapters.length > 0
+            ) {
+              moduleTitle = ` Chapter ${index + 1}`;
+            } else if (
+              module.type === ModuleType.ATTACHMENT &&
+              module.attachments.length > 0
+            ) {
+              moduleTitle = "Attachment Module";
+            }
 
-              return (
-                <li
-                  key={module.id}
-                  className={`cursor-pointer p-2 border rounded-md ${
-                    isSelected
-                      ? "bg-blue-100 border-blue-500 font-semibold"
-                      : "hover:bg-gray-100"
-                  }`}
-                  onClick={() => onModuleSelect(module)}
-                >
-                  <span>{moduleTitle}</span>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      ))}
+            const isSelected = selectedModule?.id === module.id;
+
+            return (
+              <>
+              <li
+                key={module.id}
+                className={`cursor-pointer p-2 border rounded-md ${
+                  isSelected
+                    ? "bg-blue-100 border-blue-500 font-semibold"
+                    : "hover:bg-gray-100"
+                }`}
+                onClick={() => onModuleSelect(module)}
+              >
+                <span>{moduleTitle}</span>
+              </li>
+              <button
+          className="text-red-500 hover:text-red-700 border border-red-500 rounded px-3 py-1"
+          onClick={() =>{handleDeleteModule(module.id)        
+    }}
+        >
+          Delete
+        </button>
+
+
+              
+              
+              </>
+            );
+          })}
+      </ul>
+    </div>
+  ))}
+
 
       {/* Add Part and Module Buttons */}
       <div className="flex gap-3 mb-4">
