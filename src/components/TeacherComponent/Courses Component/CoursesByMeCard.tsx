@@ -65,7 +65,7 @@ const CoursesByMeCard: React.FC<CoursesByMeCardProps> = ({ courseId, name, publi
             </button>
           )}
 
-          <NavLink to={'/editCourse'}>
+          <NavLink to={`/course/edit/${courseId}`}>
             <GrEdit className="p-1 text-2xl text-green-800 border border-green-800 rounded-md" />
           </NavLink>
 

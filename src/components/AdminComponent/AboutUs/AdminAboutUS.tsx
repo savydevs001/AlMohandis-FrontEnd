@@ -18,7 +18,7 @@ function AdminAboutUS() {
   
   const [mainHeading, setMainHeading] = useState<string>(""); // Main heading state
   const [headings, setHeadings] = useState<Heading[]>([]); // Array of headings
-  const authToken = Cookies.get("token"); 
+  // const authToken = Cookies.get("token"); 
   const apiBaseURL = "http://localhost:5000/api/admin"; 
   const { enqueueSnackbar } = useSnackbar();
 
@@ -26,13 +26,10 @@ function AdminAboutUS() {
   useEffect(() => {
     const fetchAboutUsData = async () => {
       try {
-        const response = await axios.get(`${apiBaseURL}/getAboutUs/26ae5bea-230b-4dfc-8c5d-8cba30cdef37`, {
-          headers: {
-            Authorization: `Bearer ${authToken}`,
-          },
-        });
+        const response = await axios.get(`http://localhost:5000/api/admin/getAboutUs/26ae5bea-230b-4dfc-8c5d-8cba30cdef37`);
         setMainHeading(response.data.mainHeading || "");
         setHeadings(response.data.headings || []);
+        console.log(response.data)
       } catch (error) {
         console.error("Error fetching About Us data:", error);
       }
@@ -62,21 +59,21 @@ function AdminAboutUS() {
 
   // Save data to the server
   const handleSave = async () => {
-    try {
-      await axios.patch(
-        `${apiBaseURL}/updateAboutUs/26ae5bea-230b-4dfc-8c5d-8cba30cdef37`,
-        { mainHeading, headings },
-        {
-          headers: {
-            Authorization: `Bearer ${authToken}`,
-          },
-        }
-      );
-      enqueueSnackbar("About Us updated successfully!", { variant: "success" });
-    } catch (error) {
-      console.error("Error updating About Us data:", error);
-      enqueueSnackbar("About Us updated successfully!", { variant: "error" });
-    }
+    // try {
+    //   await axios.patch(
+    //     `${apiBaseURL}/updateAboutUs/26ae5bea-230b-4dfc-8c5d-8cba30cdef37`,
+    //     { mainHeading, headings },
+    //     {
+    //       headers: {
+    //         Authorization: `Bearer ${authToken}`,
+    //       },
+    //     }
+    //   );
+    //   enqueueSnackbar("About Us updated successfully!", { variant: "success" });
+    // } catch (error) {
+    //   console.error("Error updating About Us data:", error);
+    //   enqueueSnackbar("About Us updated successfully!", { variant: "error" });
+    // }
   };
 
   return (

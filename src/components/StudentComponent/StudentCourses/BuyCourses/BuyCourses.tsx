@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import StudentSidebar from "../../StudentSidebar";
 import BuyCoursePage from "./BuyCoursePage";
 import EnrollCourse from "./EnrollCourse/EnrollCourse";
-import {QrReader} from "react-qr-reader"; 
+// import {QrReader} from "react-qr-reader"; 
 import Cookies from "js-cookie";
 
 function BuyCourses() {

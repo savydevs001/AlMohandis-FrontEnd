@@ -1,11 +1,35 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { AssignmentPopup } from './EditCoursePopUps/AssignmentPopUp';
 import { ExamPopup } from './EditCoursePopUps/ExamPopUp';
 import { AttachmentPopup } from './EditCoursePopUps/AttachmentPopUp';
+import axios from 'axios';
 
 function AssignementsFields() {
   const [activePopup, setActivePopup] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Define the async function
+    const fetchModule = async () => {
+      try {
+        const courseId = localStorage.getItem('courseId');
+        if (!courseId) {
+          console.error("Course ID not found in localStorage");
+          return;
+        }
+
+        const response = await axios.get(`http://localhost:5000/api/courses/${courseId}/getCourseParts`);
+
+        // Handle the response
+        const data = response.data;
+        console.log(data);
+      } catch (error) {
+        console.error("Error fetching module:", error);
+      }
+    };
+
+    fetchModule();
+  }, []); 
 
   const closePopup = () => {
     setActivePopup(null);

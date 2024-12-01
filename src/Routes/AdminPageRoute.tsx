@@ -49,7 +49,8 @@ function AdminPageRoute() {
  <Route path="/StudentViewCourse" element = {<StudentViewCourse/>} />
  <Route path="/TeacherInformation" element = {<TeacherInformation/>} />
  <Route path="/AssistantInformation" element = {<AssistantInformation/>} />
- <Route path="/editCourses" element = {<EditCourses/>} />
+ <Route path="/editCourse" element = {<EditCourses/>} />
+ <Route path="/course/edit/:courseId" element = {<EditCourses/>} />
  <Route path="/AdminGuardianPage" element = {<AdminGurardian/>} />
  <Route path="/GaurdianInformation" element = {<GaurdianInformation/>} />
  <Route path="/AdminManagement" element = {<AdminManageAdmin/>} />

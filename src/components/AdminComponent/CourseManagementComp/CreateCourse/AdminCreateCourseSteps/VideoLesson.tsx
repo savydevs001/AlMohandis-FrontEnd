@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from "react";
 import { MediaSource, Clip, ChannelType } from "../../../../../types/course";
 import axios from "axios";
-import ReactPlayer from 'react-player';
+// import ReactPlayer from 'react-player';
 import { Range } from "react-range";
 
 interface VideoLessonProps {

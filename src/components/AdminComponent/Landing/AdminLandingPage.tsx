@@ -68,41 +68,45 @@ function AdminLandingPage() {
     fetchLandingPage();
   }, []);
 
- 
+  const handleInputChange = (field: string, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
 
-const handleInputChange = (field: string, value: string) => {
-  setFormData((prev) => ({ ...prev, [field]: value }));
-};
+  const handleFeatureChange = (index: number, field: string, value: string) => {
+    const updatedFeatures = [...formData.features];
+    updatedFeatures[index][field] = value;
+    setFormData((prev) => ({ ...prev, features: updatedFeatures }));
+  };
 
-const handleFeatureChange = (index: number, field: string, value: string) => {
-  const updatedFeatures : any = [...formData.features];
-  updatedFeatures[index][field] = value;
-  setFormData((prev) => ({ ...prev, features: updatedFeatures }));
-};
-
-const handleSubmit = async () => {
-  const token = Cookies.get('token'); // Get the token from cookies
-
-  try {
-    const response = await fetch('http://localhost:5000/api/admin/landingPage', {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`, // Include the Bearer token
-      },
-      body: JSON.stringify(formData),
-    });
-
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
+  const handleSubmit = async () => {
+    const token = Cookies.get("token");
+    if (!token) {
+      console.error("No token found. Please log in.");
+      return;
     }
 
-    const result = await response.json();
-    console.log('Success:', result);
-  } catch (error) {
-    console.error('Error:', error);
-  }
-};
+    try {
+      const response = await axios.patch(
+        "http://localhost:5000/api/admin/landingPage",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        console.log("Success:", response.data);
+        alert("Landing page updated successfully!");
+      }
+    } catch (error) {
+      console.error("Error updating landing page:", error);
+      alert("Error updating landing page. Check the console for details.");
+    }
+  };
+
   return (
     <div className="flex-1 space-y-8">
       <UserManagementHeader title="Landing Page" />
@@ -114,12 +118,12 @@ const handleSubmit = async () => {
           <div className="space-y-1">
             <AdminInputField
               label="Main Heading"
-              placeholder={formData.mainHeading}
+              value={formData.mainHeading}
               onChange={(value) => handleInputChange("mainHeading", value)}
             />
             <AdminInputField
               label="Sub Heading"
-              placeholder={formData.subHeading}
+              value={formData.subHeading}
               onChange={(value) => handleInputChange("subHeading", value)}
             />
             <AdminFileInput
@@ -134,7 +138,7 @@ const handleSubmit = async () => {
           <h1 className="text-xl font-semibold text-center text-primary">How are we different</h1>
           <AdminInputField
             label="Description"
-            placeholder={formData.description}
+            value={formData.description}
             onChange={(value) => handleInputChange("description", value)}
           />
 
@@ -146,7 +150,7 @@ const handleSubmit = async () => {
                 <div className="flex items-center w-full gap-3">
                   <AdminInputField
                     label="Title"
-                    placeholder={feature.title}
+                    value={feature.title}
                     onChange={(value) => handleFeatureChange(index, "title", value)}
                   />
                   <AdminFileInput
@@ -166,7 +170,7 @@ const handleSubmit = async () => {
           <div>
             <AdminInputField
               label="Main Heading"
-              placeholder={formData.keyFeature.mainHeading}
+              value={formData.keyFeature.mainHeading}
               onChange={(value) => handleInputChange("keyFeature.mainHeading", value)}
             />
             <RichTextEditor
@@ -187,21 +191,21 @@ const handleSubmit = async () => {
             <div className="space-y-2" key={index}>
               <AdminInputField
                 label="Full Name"
-                placeholder={review.fullName}
+                value={review.fullName}
                 onChange={(value) =>
                   handleInputChange(`reviews[${index}].fullName`, value)
                 }
               />
               <AdminInputField
                 label="Rating"
-                placeholder={review.rating.toString()}
+                value={review.rating.toString()}
                 onChange={(value) =>
                   handleInputChange(`reviews[${index}].rating`, value)
                 }
               />
               <AdminInputField
                 label="Description"
-                placeholder={review.description}
+                value={review.description}
                 onChange={(value) =>
                   handleInputChange(`reviews[${index}].description`, value)
                 }
@@ -215,17 +219,3 @@ const handleSubmit = async () => {
 }
 
 export default AdminLandingPage;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
