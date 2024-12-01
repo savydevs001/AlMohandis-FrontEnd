@@ -1,15 +1,22 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import AdminSidebar from '../../AdminSidebar';
 import DashBoardHeader from '../../../TeacherComponent/DashboardComponent/DashBoardHeader';
 import EditCourseForm from '../../../TeacherComponent/Courses Component/Edit Course/EditCourseForm';
 import SeasonsTiles from '../../../TeacherComponent/Courses Component/Edit Course/SeasonsTiles';
 import EditCourseBtns from '../../../TeacherComponent/Courses Component/Edit Course/EditCourseBtns';
 import AccessibilityPopup from '../../../TeacherComponent/Courses Component/Edit Course/EditCoursePopUps/SettingpopUp';
-
+import { useParams } from 'react-router-dom';
 // import AdminSidebar from '../../../AdminComponent/AdminSidebar';
 
 function EditCourses() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+  const params =useParams()
+  const [paramsId,setparamsId]=useState<string>()
+  useEffect(()=>{
+    setparamsId(params.courseId)
+    console.log(params.courseId)
+  },[params])
 
   const handlePopupOpen = () => {
     setIsPopupOpen(true);
@@ -29,7 +36,7 @@ function EditCourses() {
         </div>
         <EditCourseForm />
         <div className="grid w-full grid-cols-1 gap-4 lg:grid-cols-2">
-          <SeasonsTiles />
+          <SeasonsTiles courseId = {paramsId} />
         </div>
         <div className="mt-4 w-fit">
           <p

@@ -7,7 +7,7 @@ import AssignementsFields from './AssignementsFields';
 import { AudioLessonPopup } from './EditCoursePopUps/AudioEditpopUp';
 import { VideoLessonPopup } from './EditCoursePopUps/VideoLessonPopUp';
 
-function SeasonsTiles() {
+function SeasonsTiles({courseId}) {
   const [activePopup, setActivePopup] = useState<string | null>(null);
 
   const handleEditClick = (type: string) => {
@@ -63,7 +63,7 @@ function SeasonsTiles() {
         </div>
       </div>
 
-      <AssignementsFields />
+      <AssignementsFields courseId={courseId}/>
 
       {/* Conditionally render popups */}
       {activePopup === 'audio' && <AudioLessonPopup  onClose={handleClosePopup} />}

@@ -78,7 +78,7 @@ function CourseManagementShowHeader() {
       case "archived":
         return <AdminArchivedCourse courses={archivedCourses} />;
       case "draft":
-        return <AdminDraftCourses courses={draftCourses} />;
+        return <AdminDraftCourses courses={archivedCourses} />;
       default:
         return null;
     }

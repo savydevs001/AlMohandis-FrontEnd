@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import DashBoardHeader from "../../DashboardComponent/DashBoardHeader";
 import EditCourseForm from "./EditCourseForm";
 import SeasonsTiles from "./SeasonsTiles";
@@ -10,6 +10,9 @@ import Sidebar from '../../Sidebar';
 
 function EditCourse() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+ 
+
 
   const handlePopupOpen = () => {
     setIsPopupOpen(true);
