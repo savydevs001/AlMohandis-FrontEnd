@@ -34,16 +34,12 @@ const ExamsHeader: React.FC<ExamsHeaderProps> = ({ onExamSelect }) => {
   const handleExamChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedId = event.target.value;
 
-    if (selectedId === "all") {
-      setSelectedExam(selectedId);
-      onExamSelect(null, "All"); // Send "All" to the parent
-    } else {
       const selectedExam = exams.find((exam) => exam.examId === selectedId);
       if (selectedExam) {
         setSelectedExam(selectedId);
         onExamSelect(selectedExam.examId, selectedExam.examTitle); // Send selected exam to the parent
       }
-    }
+    
   };
 
   return (
@@ -61,7 +57,6 @@ const ExamsHeader: React.FC<ExamsHeaderProps> = ({ onExamSelect }) => {
           onChange={handleExamChange}
         >
           <option value="">Select an Exam</option>
-          <option value="all">All</option> {/* Add "All" option */}
           {exams.map((exam) => (
             <option key={exam.examId} value={exam.examId}>
               {exam.examTitle}

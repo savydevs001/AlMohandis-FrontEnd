@@ -59,21 +59,21 @@ function AdminAboutUS() {
 
   // Save data to the server
   const handleSave = async () => {
-    // try {
-    //   await axios.patch(
-    //     `${apiBaseURL}/updateAboutUs/26ae5bea-230b-4dfc-8c5d-8cba30cdef37`,
-    //     { mainHeading, headings },
-    //     {
-    //       headers: {
-    //         Authorization: `Bearer ${authToken}`,
-    //       },
-    //     }
-    //   );
-    //   enqueueSnackbar("About Us updated successfully!", { variant: "success" });
-    // } catch (error) {
-    //   console.error("Error updating About Us data:", error);
-    //   enqueueSnackbar("About Us updated successfully!", { variant: "error" });
-    // }
+    try {
+      await axios.patch(
+        `${apiBaseURL}/updateAboutUs/26ae5bea-230b-4dfc-8c5d-8cba30cdef37`,
+        { mainHeading, headings },
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+      enqueueSnackbar("About Us updated successfully!", { variant: "success" });
+    } catch (error) {
+      console.error("Error updating About Us data:", error);
+      enqueueSnackbar("About Us updated successfully!", { variant: "error" });
+    }
   };
 
   return (

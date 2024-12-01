@@ -27,18 +27,8 @@ function AdminExam() {
   const handleExamSelect = async (examId: string | null, examTitle: string) => {
     setSelectedExamId(examId);
     setSelectedExamTitle(examTitle);
-   if(examId==null){
-    try {
-      const apiUrl = `http://localhost:5000/api/admin/exams/getAll`;
-      const response = await axios.get(apiUrl); 
-      setExamDetails(response.data);
-      
-     } catch (error) {
-       console.error("Error fetching exam details:", error);
-     }
-
-  }
-  else{
+  
+ 
       try {
         const apiUrl = `http://localhost:5000/api/admin/exams/${examId}`;
         const response = await axios.get(apiUrl); // Fetch exam details by ID
@@ -47,7 +37,7 @@ function AdminExam() {
          console.error("Error fetching exam details:", error);
        }
 
-    }
+    
   };
 
   return (
