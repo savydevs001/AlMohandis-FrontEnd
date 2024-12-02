@@ -9,13 +9,12 @@ import axios from "axios";
 
 function AdminLandingPage() {
   const [formData, setFormData] = useState({
+    id: "",
     mainHeading: "",
     subHeading: "",
     heroImg: "",
     description: "",
     features: [
-      { title: "", icon: "" },
-      { title: "", icon: "" },
       { title: "", icon: "" },
       { title: "", icon: "" },
     ],
@@ -30,23 +29,22 @@ function AdminLandingPage() {
     ],
   });
 
+  // Fetch landing page data from API
   useEffect(() => {
     const fetchLandingPage = async () => {
       try {
         const response = await axios.get(
           "http://localhost:5000/api/admin/getLandingPage"
         );
-
         const apiData = response.data;
 
         setFormData({
+          id: apiData.id || "",
           mainHeading: apiData.mainHeading || "",
           subHeading: apiData.subHeading || "",
           heroImg: apiData.heroImg || "",
           description: apiData.description || "",
           features: apiData.features || [
-            { title: "", icon: "" },
-            { title: "", icon: "" },
             { title: "", icon: "" },
             { title: "", icon: "" },
           ],
@@ -68,16 +66,52 @@ function AdminLandingPage() {
     fetchLandingPage();
   }, []);
 
+  // Handle simple input changes
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
+  // Handle nested input changes for `features`
   const handleFeatureChange = (index: number, field: string, value: string) => {
     const updatedFeatures = [...formData.features];
     updatedFeatures[index][field] = value;
     setFormData((prev) => ({ ...prev, features: updatedFeatures }));
   };
 
+  // Handle nested input changes for `keyFeature`
+  const handleKeyFeatureChange = (field: string, value: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      keyFeature: { ...prev.keyFeature, [field]: value },
+    }));
+  };
+
+  // Handle nested input changes for `reviews`
+  const handleReviewChange = (index: number, field: string, value: string) => {
+    const updatedReviews = [...formData.reviews];
+    updatedReviews[index][field] = value;
+    setFormData((prev) => ({ ...prev, reviews: updatedReviews }));
+  };
+
+  // Clean the payload before sending
+  const cleanPayload = () => {
+    return {
+      id: formData.id,
+      mainHeading: formData.mainHeading,
+      subHeading: formData.subHeading,
+      heroImg: formData.heroImg,
+      description: formData.description,
+      features: formData.features.map(({ title, icon }) => ({ title, icon })),
+      keyFeature: formData.keyFeature,
+      reviews: formData.reviews.map(({ rating, fullName, description }) => ({
+        rating,
+        fullName,
+        description,
+      })),
+    };
+  };
+
+  // Handle form submission
   const handleSubmit = async () => {
     const token = Cookies.get("token");
     if (!token) {
@@ -85,10 +119,13 @@ function AdminLandingPage() {
       return;
     }
 
+    const payload = cleanPayload();
+
     try {
+      console.log("Payload being sent:", payload);
       const response = await axios.patch(
         "http://localhost:5000/api/admin/landingPage",
-        formData,
+        payload,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -101,8 +138,8 @@ function AdminLandingPage() {
         console.log("Success:", response.data);
         alert("Landing page updated successfully!");
       }
-    } catch (error) {
-      console.error("Error updating landing page:", error);
+    } catch (error:any) {
+      console.error("Error updating landing page:", error.response?.data || error);
       alert("Error updating landing page. Check the console for details.");
     }
   };
@@ -114,7 +151,9 @@ function AdminLandingPage() {
       <div>
         {/* Hero Section */}
         <div>
-          <h1 className="text-xl font-semibold text-center text-primary">Hero Section</h1>
+          <h1 className="text-xl font-semibold text-center text-primary">
+            Hero Section
+          </h1>
           <div className="space-y-1">
             <AdminInputField
               label="Main Heading"
@@ -135,7 +174,9 @@ function AdminLandingPage() {
 
         {/* Description */}
         <div className="mt-6">
-          <h1 className="text-xl font-semibold text-center text-primary">How are we different</h1>
+          <h1 className="text-xl font-semibold text-center text-primary">
+            How are we different
+          </h1>
           <AdminInputField
             label="Description"
             value={formData.description}
@@ -151,12 +192,16 @@ function AdminLandingPage() {
                   <AdminInputField
                     label="Title"
                     value={feature.title}
-                    onChange={(value) => handleFeatureChange(index, "title", value)}
+                    onChange={(value) =>
+                      handleFeatureChange(index, "title", value)
+                    }
                   />
                   <AdminFileInput
                     width="w-[50%]"
                     label="Icon"
-                    onChange={(value) => handleFeatureChange(index, "icon", value)}
+                    onChange={(value) =>
+                      handleFeatureChange(index, "icon", value)
+                    }
                   />
                 </div>
               </div>
@@ -166,48 +211,54 @@ function AdminLandingPage() {
 
         {/* Key Feature */}
         <div className="mt-4">
-          <h1 className="text-xl font-semibold text-center text-primary">Key Features</h1>
+          <h1 className="text-xl font-semibold text-center text-primary">
+            Key Features
+          </h1>
           <div>
             <AdminInputField
               label="Main Heading"
               value={formData.keyFeature.mainHeading}
-              onChange={(value) => handleInputChange("keyFeature.mainHeading", value)}
+              onChange={(value) =>
+                handleKeyFeatureChange("mainHeading", value)
+              }
             />
             <RichTextEditor
               label="Content"
-              onChange={(value) => handleInputChange("keyFeature.content", value)}
+              onChange={(value) => handleKeyFeatureChange("content", value)}
             />
             <AdminFileInput
               label="Image"
-              onChange={(value) => handleInputChange("keyFeature.img", value)}
+              onChange={(value) => handleKeyFeatureChange("img", value)}
             />
           </div>
         </div>
 
         {/* Reviews */}
         <div className="mt-4 mb-4">
-          <h1 className="text-xl font-semibold text-center text-primary">Reviews</h1>
+          <h1 className="text-xl font-semibold text-center text-primary">
+            Reviews
+          </h1>
           {formData.reviews.map((review, index) => (
             <div className="space-y-2" key={index}>
               <AdminInputField
                 label="Full Name"
                 value={review.fullName}
                 onChange={(value) =>
-                  handleInputChange(`reviews[${index}].fullName`, value)
+                  handleReviewChange(index, "fullName", value)
                 }
               />
               <AdminInputField
                 label="Rating"
                 value={review.rating.toString()}
                 onChange={(value) =>
-                  handleInputChange(`reviews[${index}].rating`, value)
+                  handleReviewChange(index, "rating", parseFloat(value))
                 }
               />
               <AdminInputField
                 label="Description"
                 value={review.description}
                 onChange={(value) =>
-                  handleInputChange(`reviews[${index}].description`, value)
+                  handleReviewChange(index, "description", value)
                 }
               />
             </div>

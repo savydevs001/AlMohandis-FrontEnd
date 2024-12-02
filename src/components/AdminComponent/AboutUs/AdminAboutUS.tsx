@@ -26,7 +26,7 @@ function AdminAboutUS() {
   useEffect(() => {
     const fetchAboutUsData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/admin/getAboutUs/26ae5bea-230b-4dfc-8c5d-8cba30cdef37`);
+        const response = await axios.get(`http://localhost:5000/api/admin/getAboutUs/726b0885-d8d3-4bea-a933-d90b49147ad0`);
         setMainHeading(response.data.mainHeading || "");
         setHeadings(response.data.headings || []);
         console.log(response.data)
@@ -59,20 +59,26 @@ function AdminAboutUS() {
 
   // Save data to the server
   const handleSave = async () => {
+
+    const token = Cookies.get('token');
+    if (!token) {
+      alert('Authentication failed. Token missing');
+      return;
+    }
     try {
       await axios.patch(
-        `${apiBaseURL}/updateAboutUs/26ae5bea-230b-4dfc-8c5d-8cba30cdef37`,
+        `${apiBaseURL}/updateAboutUs/726b0885-d8d3-4bea-a933-d90b49147ad0`,
         { mainHeading, headings },
         {
           headers: {
-            Authorization: `Bearer ${authToken}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
       enqueueSnackbar("About Us updated successfully!", { variant: "success" });
     } catch (error) {
       console.error("Error updating About Us data:", error);
-      enqueueSnackbar("About Us updated successfully!", { variant: "error" });
+      enqueueSnackbar("About Us updated Unsuccessfully!", { variant: "error" });
     }
   };
 
@@ -84,7 +90,7 @@ function AdminAboutUS() {
       <div className="space-y-5">
         <AdminInputField
           label="Main Heading"
-          placeholder="Enter Main Heading data....."
+          value={mainHeading}
           onChange={handleMainHeadingChange}
         />
         {headings.map((heading, index) => (
@@ -93,6 +99,7 @@ function AdminAboutUS() {
             headingText={`Heading ${index + 1}`}
             title={heading.title}
             description={heading.description}
+            value={heading.description}
             onTitleChange={(value) => handleHeadingChange(index, "title", value)}
             onDescriptionChange={(value) =>
               handleHeadingChange(index, "description", value)

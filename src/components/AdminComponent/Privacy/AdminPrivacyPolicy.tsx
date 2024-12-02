@@ -3,8 +3,10 @@ import axios from 'axios';
 import Cookies from "js-cookie";
 import AdminInputField from "../Landing/AdminInputField";
 import UserManagementHeader from "../UserManagementComponent/UserManagementHeader";
+import { useSnackbar } from 'notistack';
 
 function AdminPrivacyPolicy() {
+  const { enqueueSnackbar } = useSnackbar();
   const [privacyData, setPrivacyData] = useState({
     mainPara: "",
     headings: [
@@ -47,7 +49,7 @@ function AdminPrivacyPolicy() {
 
     try {
       const response = await axios.patch(
-        "http://localhost:5000/api/admin/privacyPolicy/caee06eb-c35e-417e-a597-81fb33493389",
+        "http://localhost:5000/api/admin/privacyPolicy/6c6cccf1-0808-4a9d-b1a1-7c99cb9bd91d",
         privacyData,
         {
           headers: {
@@ -56,6 +58,7 @@ function AdminPrivacyPolicy() {
         }
       );
       console.log("Privacy policy updated successfully:", response.data);
+      enqueueSnackbar("About Us updated successfully!", { variant: "success" });
     } catch (error) {
       console.error("Error updating privacy policy data:", error);
     }

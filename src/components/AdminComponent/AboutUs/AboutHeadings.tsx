@@ -4,6 +4,7 @@ interface AdminAboutHeadingsProps {
   headingText: string;
   title: string;
   description: string;
+  value:string;
   onTitleChange: (value: string) => void;
   onDescriptionChange: (value: string) => void;
 }
