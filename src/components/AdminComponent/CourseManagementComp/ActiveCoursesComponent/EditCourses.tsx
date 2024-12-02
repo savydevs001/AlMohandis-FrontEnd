@@ -16,7 +16,9 @@ function EditCourses() {
   useEffect(()=>{
     setparamsId(params.courseId)
     console.log(params.courseId)
-  },[params])
+  },[params,paramsId])
+
+ 
 
   const handlePopupOpen = () => {
     setIsPopupOpen(true);
@@ -36,7 +38,7 @@ function EditCourses() {
         </div>
         <EditCourseForm />
         <div className="grid w-full grid-cols-1 gap-4 lg:grid-cols-2">
-          <SeasonsTiles courseId = {paramsId} />
+           <SeasonsTiles courseId={paramsId || params.courseId||"courseID"} />
         </div>
         <div className="mt-4 w-fit">
           <p

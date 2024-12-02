@@ -7,7 +7,7 @@ import AssignementsFields from './AssignementsFields';
 import { AudioLessonPopup } from './EditCoursePopUps/AudioEditpopUp';
 import { VideoLessonPopup } from './EditCoursePopUps/VideoLessonPopUp';
 
-function SeasonsTiles({courseId}) {
+function SeasonsTiles({ courseId }: { courseId: string }) {
   const [activePopup, setActivePopup] = useState<string | null>(null);
 
   const handleEditClick = (type: string) => {
