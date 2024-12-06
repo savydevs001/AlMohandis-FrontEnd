@@ -66,7 +66,7 @@ const SubmitedAssignmentView: React.FC = () => {
           onClick={handleFileClick}
           className="w-full py-1 border rounded-lg border-pTag hover:bg-gray-300"
         >
-          Choose File
+          Choose Filea
         </button>
       </div>
       <div className="space-y-2">

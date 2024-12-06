@@ -115,13 +115,17 @@ const SingleAssignment: React.FC<SingleAssignmentProps> = ({ assignment, current
           disabled={assignment.isSubmitted} // Disable if assignment is submitted
         />
         {/* Custom button */}
-        <button
-          onClick={handleFileClick}
-          className="w-full py-1 border rounded-lg border-pTag hover:bg-gray-300"
-          disabled={assignment.isSubmitted} // Disable if assignment is submitted
-        >
-          Choose File
-        </button>
+        <div>
+      <img
+        src="https://images.unsplash.com/photo-1496449903678-68ddcb189a24?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        alt="Random from Unsplash"
+        style={{
+          width: "300px",
+          height: "300px",
+          borderRadius: "8px",
+        }}
+      />
+    </div>
       </div>
 
       <div className="space-y-2">

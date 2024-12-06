@@ -91,20 +91,23 @@ function AdminAssignment() {
             <div className="flex flex-col py-6 space-y-1">
               <label className="font-semibold" htmlFor="course-select">Select Course</label>
               {loading ? (
-                <div className="text-center">Loading...</div> 
-              ) : (
-                <select 
-                  id="course-select" 
-                  className="w-full lg:w-[30%] rounded-md"
-                  value={selectedCourse}
-                  onChange={handleCourseChange}
-                >
-                  <option value="">All</option>
-                  {courseNames.map((course, index) => (
-                    <option key={index} value={course}>{course}</option>
-                  ))}
-                </select>
-              )}
+  <div className="text-center">Loading...</div>
+) : courseNames.length === 0 ? (
+  <div className="text-center">No ASSIGNMENT FOUND</div>
+) : (
+  <select
+    id="course-select"
+    className="w-full lg:w-[30%] rounded-md"
+    value={selectedCourse}
+    onChange={handleCourseChange}
+  >
+    <option value="">All</option>
+    {courseNames.map((course, index) => (
+      <option key={index} value={course}>{course}</option>
+    ))}
+  </select>
+)}
+
             </div>
           </div>
         </div>

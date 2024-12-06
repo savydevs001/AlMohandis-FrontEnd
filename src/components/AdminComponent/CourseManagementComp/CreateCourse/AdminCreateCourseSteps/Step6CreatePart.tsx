@@ -4,7 +4,7 @@ import { ModuleType, Module, Part } from '../../../../../types/course';
 import AssignmentModule from './AssignmentModule';
 import ExamModule from './ExamModule';
 import ChapterModule from './ChapterModule';
-// import AttachmentModule from './AttachmentModule';
+import AttachmentModule from './AttachmentModule';
 import Loading from '../../../../Loading';
 
 interface Step6CreatePartProps {
@@ -86,8 +86,8 @@ const Step6CreatePart: React.FC<Step6CreatePartProps> = ({ handleNext }) => {
         return <ExamModule module={module.exams[0]} onSave={handleSaveModule} />;
       case ModuleType.CHAPTER:
         return <ChapterModule chapter={module.chapters[0]} />;
-      // case ModuleType.ATTACHMENT:
-      //   return <AttachmentModule module={module.attachments[0]} />;
+      case ModuleType.ATTACHMENT:
+        return <AttachmentModule module={module} partId={module.partId} />;
       default:
         return <p>Select a valid module to view details.</p>;
     }

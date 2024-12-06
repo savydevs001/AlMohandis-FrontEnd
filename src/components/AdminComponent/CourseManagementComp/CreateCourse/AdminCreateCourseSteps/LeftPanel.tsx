@@ -152,7 +152,21 @@ const LeftPanel: React.FC<LeftPanelProps> = ({
         const response = await axios.post(
           `http://localhost:5000/api/courses/${localStorage.getItem(
             "courseId"
-          )}/parts/${selectedPartId }/modules/chapter`
+          )}/parts/${selectedPartId }/modules/chapter`,{}
+        );
+
+        if (response.status === 201) {
+          onAddModule(selectedPartId, newModule); // Update the UI after adding the module
+          onSaveModule(); // Trigger refetch in parent to update data
+          setShowAddModuleModal(false); // Close the modal
+          onClose();
+        }
+      }
+
+      if (newModule.type === ModuleType.ATTACHMENT) {
+        const response = await axios.post(
+          `http://localhost:5000/api/courses/${localStorage.getItem('courseId')}/parts/${selectedPartId}/initialize-attachment`,
+          {}
         );
 
         if (response.status === 201) {

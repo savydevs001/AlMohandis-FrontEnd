@@ -2,6 +2,8 @@
 import { AssignmentPopup } from '../../Courses Component/Edit Course/EditCoursePopUps/AssignmentPopUp';
 import { useState } from "react";
 
+import { useNavigate } from 'react-router-dom';
+
 interface UngradedAssignmentCardProps {
   assignment: {
     submissionId: string;
@@ -15,6 +17,13 @@ interface UngradedAssignmentCardProps {
 function UngradedAssignmentCard({ assignment }: UngradedAssignmentCardProps) {
   const [activePopup, setActivePopup] = useState<string | null>(null);
   const currentDate = new Date(assignment.submissionDate).toLocaleDateString();
+  const navigate = useNavigate();
+  const handleGradeNowClick = () => {
+    navigate('/gradenow');
+  };
+
+
+
 
   const closePopup = () => {
     setActivePopup(null);
@@ -29,9 +38,10 @@ function UngradedAssignmentCard({ assignment }: UngradedAssignmentCardProps) {
             Posted on <span className="font-medium text-black">{currentDate}</span>
           </p>
           <p className="font-medium">{assignment.courseName}</p>
-          <button className="px-3 py-2 font-medium text-white rounded-md bg-primary">
+          <button className="px-3 py-2 font-medium text-white rounded-md bg-primary"
+          onClick={handleGradeNowClick}>
             Grade Now
-          </button>
+          </button  >
         </div>
         {/* <div>
           <FaRegPenToSquare

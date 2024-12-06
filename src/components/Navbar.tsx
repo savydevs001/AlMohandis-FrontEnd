@@ -17,6 +17,7 @@ function CustomNavbar() {
         Cookies.remove('userType');
         // Optionally navigate to home or login page
         navigate('/');
+        window.location.reload();
     };
 
     const isLoggedIn = !!Cookies.get('token'); // Check if user is logged in
