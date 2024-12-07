@@ -6,6 +6,7 @@ import Ungraded from "../../components/TeacherComponent/Assignment/Ungraded";
 import Grades from "../../components/TeacherComponent/Assignment/Grades";
 import axios from 'axios';
 import Cookies from 'js-cookie'; 
+// import GradeNow from "../../components/TeacherComponent/Assignment/GradeNow/GradeNow";
 
 function AdminAssignment() {
   const [assignments, setAssignments] = useState<any[]>([]);
@@ -26,6 +27,7 @@ function AdminAssignment() {
       })
       .then(response => {
         const data = response.data;
+        console.log(response.data)
         setAssignments(data);
 
         // Extract unique course names from the assignments
@@ -113,8 +115,10 @@ function AdminAssignment() {
         </div>
 
         <Routes>
-          <Route path="/" element={<Ungraded assignments={ungradedAssignments} />} />
+          <Route path="/" element={<Ungraded  assignments={ungradedAssignments} />} />
           <Route path="grades" element={<Grades assignments={gradedAssignments} />} />
+          {/* <Route path="/gradeNo/" element={<GradeNow  />} /> */}
+          
         </Routes>
       </div>
     </div>

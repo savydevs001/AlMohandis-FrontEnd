@@ -1,7 +1,7 @@
 // import { FaRegPenToSquare } from "react-icons/fa6";
 import { AssignmentPopup } from '../../Courses Component/Edit Course/EditCoursePopUps/AssignmentPopUp';
 import { useState } from "react";
-
+import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 interface UngradedAssignmentCardProps {
@@ -11,6 +11,8 @@ interface UngradedAssignmentCardProps {
     courseName: string;
     submissionDate: string;
     work: string;
+    assignmentId:string
+
   };
 }
 
@@ -18,9 +20,7 @@ function UngradedAssignmentCard({ assignment }: UngradedAssignmentCardProps) {
   const [activePopup, setActivePopup] = useState<string | null>(null);
   const currentDate = new Date(assignment.submissionDate).toLocaleDateString();
   const navigate = useNavigate();
-  const handleGradeNowClick = () => {
-    navigate('/gradenow');
-  };
+  
 
 
 
@@ -38,10 +38,12 @@ function UngradedAssignmentCard({ assignment }: UngradedAssignmentCardProps) {
             Posted on <span className="font-medium text-black">{currentDate}</span>
           </p>
           <p className="font-medium">{assignment.courseName}</p>
-          <button className="px-3 py-2 font-medium text-white rounded-md bg-primary"
-          onClick={handleGradeNowClick}>
+         <NavLink to={`/gradeNow/${assignment.assignmentId}`}>
+         <button className="px-3 py-2 font-medium text-white rounded-md bg-primary"
+          >
             Grade Now
           </button  >
+         </NavLink>
         </div>
         {/* <div>
           <FaRegPenToSquare

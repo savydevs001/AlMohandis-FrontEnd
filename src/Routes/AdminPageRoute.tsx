@@ -35,6 +35,7 @@ import AdminProfile from "../pages/Admin Page/AdminProfile"
 import AdminAttendance from "../pages/Admin Page/AdminAttendance"
 import AdminMarkAttendance from "../components/AdminComponent/Admin Attendance/MarkAttendance/MarkAttendacne"
 import EditCourses from "../components/AdminComponent/CourseManagementComp/ActiveCoursesComponent/EditCourses"
+import GradeNow from "../components/TeacherComponent/Assignment/GradeNow/GradeNow"
 // import EditCourse from "../components/TeacherComponent/Courses Component/Edit Course/EditCourse"
 
 function AdminPageRoute() {
@@ -53,6 +54,7 @@ function AdminPageRoute() {
  <Route path="/course/edit/:courseId" element = {<EditCourses/>} />
  <Route path="/AdminGuardianPage" element = {<AdminGurardian/>} />
  <Route path="/GaurdianInformation" element = {<GaurdianInformation/>} />
+ <Route path="/gradeNow/:subId" element={<GradeNow />} />
  <Route path="/AdminManagement" element = {<AdminManageAdmin/>} />
  <Route path="/AdminInformation" element = {<AdminInformation/>} />
  <Route path="/ContentManagement/*" element = {<ContentManageMent/>} />

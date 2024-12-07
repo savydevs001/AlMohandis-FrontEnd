@@ -9,12 +9,11 @@ import { VideoLessonPopup } from './EditCoursePopUps/VideoLessonPopUp';
 import { Part } from '../../../../types/course';
 import axios from 'axios';
 
-
-
 function SeasonsTiles({ courseId }: { courseId: string }) {
   const [parts, setParts] = useState<Part[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [activePopup, setActivePopup] = useState<string | null>(null);
+  const [selectedLessonId, setSelectedLessonId] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchCourseParts = async () => {
@@ -27,7 +26,6 @@ function SeasonsTiles({ courseId }: { courseId: string }) {
         const response = await axios.get(
           `http://localhost:5000/api/courses/${courseId}/getCourseParts`
         );
-        // console.log(response.data);
 
         setParts(response.data);
         setLoading(false);
@@ -40,12 +38,14 @@ function SeasonsTiles({ courseId }: { courseId: string }) {
     fetchCourseParts();
   }, [courseId]);
 
-  const handleEditClick = (type: string) => {
+  const handleEditClick = (type: string, lessonId: string) => {
     setActivePopup(type);
+    setSelectedLessonId(lessonId);
   };
 
   const handleClosePopup = () => {
     setActivePopup(null);
+    setSelectedLessonId(null);
   };
 
   return (
@@ -56,59 +56,63 @@ function SeasonsTiles({ courseId }: { courseId: string }) {
       </div>
 
       {parts.map((part) =>
-  part.modules
-    .filter((module) => module.type === 'CHAPTER') // Filter only CHAPTER modules
-    .map((module) =>
-      module.chapters.map((chapter, chapterIndex) => (
-        <div key={chapter.id} className="space-y-2">
-          <div className="flex items-center justify-between px-4 py-2 text-white rounded-md bg-primary">
-            <h4>Chapter {chapterIndex + 1}</h4>
-            <h4>Total Lessons: {chapter.lessons.length}</h4>
-            <RiDeleteBin6Line className="p-1 text-2xl text-red-600 border border-red-600 rounded-md" />
-          </div>
+        part.modules
+          .filter((module) => module.type === 'CHAPTER') // Filter only CHAPTER modules
+          .map((module) =>
+            module.chapters.map((chapter, chapterIndex) => (
+              <div key={chapter.id} className="space-y-2">
+                <div className="flex items-center justify-between px-4 py-2 text-white rounded-md bg-primary">
+                  <h4>Chapter {chapterIndex + 1}</h4>
+                  <h4>Total Lessons: {chapter.lessons.length}</h4>
+                  {/* <RiDeleteBin6Line className="p-1 text-2xl text-red-600 border border-red-600 rounded-md" /> */}
+                </div>
 
-          {chapter.lessons.map((lesson, lessonIndex) => (
-            <div key={lesson.id} className="space-y-2">
-              <div className="flex items-center justify-between px-6">
-                <div className="flex items-center gap-2 text-sm">
-                  {lesson?.type === 'AUDIO' ? (
-                    <MdAudiotrack />
-                  ) : (
-                    <IoVideocam />
-                  )}
-                  <p className="text-sm">
-                    {lesson?.type === 'AUDIO'
-                      ? `Audio Lesson ${lesson.mediaSrc[0]?.title ||""}`
-                      : `Video Lesson ${lesson.mediaSrc[0]?.title ||""}`}
-                  </p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <p
-                    className="text-sm bg-[#FF47AC4F] text-[#FF008C] py-1 px-2 rounded-lg cursor-pointer"
-                    onClick={() =>
-                      handleEditClick(
-                        lesson.mediaSrc[0]?.type === 'AUDIO' ? 'audio' : 'video'
-                      )
-                    }
-                  >
-                    Edit
-                  </p>
-                  <IoIosCloseCircleOutline className="text-red-500" />
-                </div>
+                {chapter.lessons.map((lesson, lessonIndex) => (
+                  <div key={lesson.id} className="space-y-2">
+                    <div className="flex items-center justify-between px-6">
+                      <div className="flex items-center gap-2 text-sm">
+                        {lesson?.type === 'AUDIO' ? (
+                          <MdAudiotrack />
+                        ) : (
+                          <IoVideocam />
+                        )}
+                        <p className="text-sm">
+                          {lesson?.type === 'AUDIO'
+                            ? `Audio Lesson ${lesson.mediaSrc[0]?.title || ''}`
+                            : `Video Lesson ${lesson.mediaSrc[0]?.title || ''}`}
+                        </p>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <p
+                          className="text-sm bg-[#FF47AC4F] text-[#FF008C] py-1 px-2 rounded-lg cursor-pointer"
+                          onClick={() =>
+                            handleEditClick(
+                              lesson?.type === 'AUDIO' ? 'audio' : 'video',
+                              lesson.id
+                            )
+                          }
+                        >
+                          Edit
+                        </p>
+                        {/* <IoIosCloseCircleOutline className="text-red-500" /> */}
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
-            </div>
-          ))}
-        </div>
-      ))
-    )
-)}
-
+            ))
+          )
+      )}
 
       <AssignementsFields courseId={courseId} />
 
       {/* Conditionally render popups */}
-      {activePopup === 'audio' && <AudioLessonPopup onClose={handleClosePopup} />}
-      {activePopup === 'video' && <VideoLessonPopup onClose={handleClosePopup} />}
+      {activePopup === 'audio' && selectedLessonId && (
+        <AudioLessonPopup lessonId={selectedLessonId} onClose={handleClosePopup} />
+      )}
+      {activePopup === 'video' && selectedLessonId && (
+        <VideoLessonPopup lessonId={selectedLessonId} onClose={handleClosePopup} />
+      )}
     </div>
   );
 }

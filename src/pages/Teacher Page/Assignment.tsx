@@ -5,6 +5,7 @@ import DashBoardHeader from "../../components/TeacherComponent/DashboardComponen
 import Sidebar from "../../components/TeacherComponent/Sidebar"
 import Ungraded from "../../components/TeacherComponent/Assignment/Ungraded"
 import Grades from "../../components/TeacherComponent/Assignment/Grades"
+// import GradeNow from "../../components/TeacherComponent/Assignment/GradeNow/GradeNow"
 
 
 
@@ -60,6 +61,7 @@ function Assignment() {
       <Routes>
         <Route path="/"  element={<Ungraded />} />
         <Route path="grades" element={<Grades />} />
+        {/* <Route path="gradeNow" element={<GradeNow />} /> */}
       </Routes>
 </div>
     

@@ -52,7 +52,7 @@ function EditCourses() {
         <EditCourseBtns/>
       </div>
 
-      {isPopupOpen && <AccessibilityPopup onClose={handlePopupClose} />}
+      {isPopupOpen && <AccessibilityPopup courseId={paramsId||params.courseID} onClose={handlePopupClose} />}
     </div>
   );
 }

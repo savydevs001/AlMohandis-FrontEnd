@@ -33,7 +33,7 @@ const TeacherRoutes: React.FC = () => {
       <Route path="/courses/*" element={<ProtectedRoute allowedRoles={['teacher']}><Courses /></ProtectedRoute>} />
       <Route path="/assignments/*" element={<ProtectedRoute allowedRoles={['teacher']}><Assignment /></ProtectedRoute>} />
       <Route path="/exams/*" element={<ProtectedRoute allowedRoles={['teacher']}><Exams /></ProtectedRoute>} />
-      <Route path="/gradeNow" element={<ProtectedRoute allowedRoles={['teacher']}><GradeNow /></ProtectedRoute>} />
+      {/* <Route path="/gradeNow" element={<ProtectedRoute allowedRoles={['teacher']}><GradeNow /></ProtectedRoute>} /> */}
       <Route path="/attendence" element={<ProtectedRoute allowedRoles={['teacher']}><Attendence /></ProtectedRoute>} />
       <Route path="/Chat" element={<ProtectedRoute allowedRoles={['teacher']}><Chat /></ProtectedRoute>} />
       <Route path="/assistant/*" element={<ProtectedRoute allowedRoles={['teacher']}><Assistants /></ProtectedRoute>} />
